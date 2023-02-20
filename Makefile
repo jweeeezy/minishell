@@ -6,14 +6,14 @@
 #    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 14:14:13 by kvebers           #+#    #+#              #
-#    Updated: 2023/02/20 15:45:57 by kvebers          ###   ########.fr        #
+#    Updated: 2023/02/20 17:12:52 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= minishell
 CFLAGS	= -Wall -Wextra -Werror
 CC		= cc
-SRC	=	src/test.c src/free.c
+SRC	=	src/test.c src/free.c src/parse.c src/protection.c
 RM = 	rm -f
 SRC_O	= $(SRC:%.c=%.o)
 

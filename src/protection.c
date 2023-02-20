@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   protection.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/20 17:09:58 by kvebers          ###   ########.fr       */
+/*   Created: 2023/02/20 17:11:31 by kvebers           #+#    #+#             */
+/*   Updated: 2023/02/20 17:11:48 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	free_after_break(t_data *data)
+int	argument_protection(t_data *data, int argc, char **argv, char **envp)
 {
-	free(data->promt);
-	free(data);
-}
-
-void	free_loop(t_data *data)
-{
-	int	cnt;
-
-	free(data->line);
-	cnt = 0;
-	while (data->args[cnt] != NULL)
-	{
-		free(data->args[cnt]);
-		cnt++;
-	}
-	free(data->args);
+	if (argc > 1)
+		return (1);
+	data->envp = envp;
+	data->argv = argv;
+	return (0);
 }

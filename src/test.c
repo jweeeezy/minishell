@@ -6,21 +6,11 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/20 16:48:40 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/20 17:50:29 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	argument_protection(t_data *data, int argc, char **argv, char **envp)
-{
-	if (argc > 1)
-		return (1);
-	data->envp = envp;	
-	data->argv = argv;
-	return (0);
-}
-
 
 int	init_data(t_data *data)
 {
@@ -38,8 +28,9 @@ int	history(t_data *data)
 	else if (data->line)
 	{
 		add_history(data->line);
+		if (parsing(data) == 1)
+			return (free(data->line), 1);
 	}
-	free(data->line);
 	return (0);
 }
 
@@ -57,7 +48,8 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (history(data) == 1)
 			break ;
+		free_loop(data);
 	}
-	free_memory(data);
+	free_after_break(data);
 	return (0);
 }
