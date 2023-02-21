@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/20 17:11:59 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/21 13:49:42 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,15 @@
 # include <stdio.h>
 # include "libft/libft.h"
 
+typedef struct Line
+{
+	char		*data;
+	struct Line	*next;
+}	t_line;
+
 typedef struct data
 {
-	char	**args;
+	t_line	*lines;
 	char	*line;
 	char	*promt;
 	char	**envp;
