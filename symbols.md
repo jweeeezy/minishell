@@ -1,0 +1,11 @@
+-->				symbols to interpret
+
+
+'
+''
+' '
+
+"
+""
+" "
+
