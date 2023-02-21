@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:39:45 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/21 18:26:06 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/21 18:34:18 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*create_sub_string(t_data *data, int pos_1, int pos_2)
 	token = malloc(sizeof(char) * (pos_2 - pos_1 + 1));
 	if (token == NULL)
 		return (NULL);
-	while (pos_1 + c./min	nt < pos_2 && data->line[pos_1 + cnt] != '\0')
+	while (pos_1 + cnt < pos_2 && data->line[pos_1 + cnt] != '\0')
 	{
 		token[cnt] = data->line[pos_1 + cnt];
 		cnt++;
@@ -93,7 +93,7 @@ char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char)
 	char	**tokens;
 
 	data->tokens = count_tokens(data->line, "<>=$|");
-	tokens = malloc(sizeof(char) * (data->tokens + 1));
+	tokens = malloc(sizeof(char *) * (data->tokens + 1));
 	if (tokens == NULL)
 		return (NULL);
 	while (cnt < data->tokens)
