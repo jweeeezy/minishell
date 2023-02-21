@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/20 17:11:59 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/21 18:11:37 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,17 @@
 # include <stdio.h>
 # include "libft/libft.h"
 
+typedef struct Line
+{
+	char		*data;
+	struct Line	*next;
+}	t_line;
+
 typedef struct data
 {
 	char	**args;
+	int		tokens;
+	t_line	*lines;
 	char	*line;
 	char	*promt;
 	char	**envp;
@@ -32,5 +40,8 @@ void	free_after_break(t_data *data);
 void	free_loop(t_data *data);
 int		parsing(t_data *data);
 int		argument_protection(t_data *data, int argc, char **argv, char **envp);
+//parser
+//tokenizer.c
+char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char);
 
 #endif
