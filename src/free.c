@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/21 13:50:17 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/21 18:07:48 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@ void	free_lines(t_data *data)
 
 void	free_loop(t_data *data)
 {
+	int cnt;
+
+	cnt = 0;
 	free_lines(data);
+	while (data->args[cnt] != NULL)
+	{
+		free(data->args[cnt]);
+		cnt++;
+	}
+	free(data->args);
 }
-	
