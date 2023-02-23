@@ -11,3 +11,7 @@ getcwd
 
 
 ----	possible edge cases
+cd echo
+cd ../../..
+cd "doesntexist"
+cd "$PWD/file_tests"
