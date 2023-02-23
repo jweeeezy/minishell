@@ -6,7 +6,7 @@
 #    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 14:14:13 by kvebers           #+#    #+#              #
-#    Updated: 2023/02/23 14:51:27 by kvebers          ###   ########.fr        #
+#    Updated: 2023/02/23 17:54:52 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRC		=	src/main.c\
 			src/free.c\
 			src/parse.c\
 			src/protection.c\
+			src/env_to_list.c\
 			02_parser/tokenizer.c
 RM 		= 	rm -f
 SRC_O	= $(SRC:%.c=%.o)
