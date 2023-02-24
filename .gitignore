@@ -3,3 +3,5 @@
 *.a
 *.dSYM
 minishell
+main_test.c
+*.out

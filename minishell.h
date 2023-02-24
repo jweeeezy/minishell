@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/23 18:18:30 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/24 19:38:00 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ typedef struct data
 	int			tokens;
 	t_line		*lines;
 	char		*line;
-	char		*promt;
+	char		*promt;							// @todo typo
 	char		**envp;
 	char		**argv;
 	t_expander	*expander;
 }	t_data;
+
+//	@todo Research enums and add Macros/enums for Error codes
 
 //free.c
 void	free_after_break(t_data *data);
