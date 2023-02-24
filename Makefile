@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 14:14:13 by kvebers           #+#    #+#              #
-#    Updated: 2023/02/23 17:54:52 by kvebers          ###   ########.fr        #
+#    Updated: 2023/02/24 15:47:12 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -g
 CC		=	cc
 SRC		=	src/main.c\
 			src/free.c\

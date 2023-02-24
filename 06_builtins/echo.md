@@ -1,5 +1,8 @@
 --------------------------------------> echo
 
+Display strings/text
+
+
 echo -n = no newline after print/write
 
 
@@ -10,3 +13,4 @@ eCho
 eChO
 eCHO
 ECHO
+""'/bin/'echo test1
