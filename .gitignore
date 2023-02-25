@@ -5,3 +5,4 @@
 minishell
 main_test.c
 *.out
+lldb_minishell.sh
