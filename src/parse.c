@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/25 13:08:12 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/25 14:31:15 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,14 @@
 
 int	command_line(t_data *data)
 {
-	int			cnt;
-	t_execute	*new_node;
+	int	cnt;
 
-	new_node = malloc(sizeof(t_execute));
-	if (new_node == NULL)
+	if (data->execute == NULL)
 		return (1);
 	cnt = 0;
 	while (data->args[cnt] != NULL)
 	{
-		printf("%s\n", data->args[cnt]);
+		data->expander
 		cnt++;
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/25 14:29:33 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/02/25 15:32:50 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,24 @@
 # include <stdio.h>
 # include "libft/libft.h"
 
-typedef struct Execute
+typedef struct execute
 {
 	char			*order_str;
 	int				order_numb;
+	typedef	struct	*next;
 }	t_execute;
 
-typedef struct Expander
+typedef struct expander
 {
 	char			*str;
-	struct Expander	*next;
+	struct expander	*next;
 }	t_expander;
 
 typedef struct data
 {
 	char			**args;
 	int				tokens;
-	t_expander		*execute;
+	t_execute		*execute;
 	char			*line;
 	char			*promt;			//	@todo typo --> prompt?
 	char			**envp;
