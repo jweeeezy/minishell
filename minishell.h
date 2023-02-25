@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/25 13:03:32 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/25 14:29:33 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct data
 	int				tokens;
 	t_expander		*execute;
 	char			*line;
-	char			*promt;
+	char			*promt;			//	@todo typo --> prompt?
 	char			**envp;
 	char			**argv;
 	t_expander		*expander;
