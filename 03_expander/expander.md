@@ -2,6 +2,10 @@
 
 Basic idea:
 
+Expand & print evironment vars.
+
+
+
 expands all saved variables to its value...
 
 $>: ARG=test

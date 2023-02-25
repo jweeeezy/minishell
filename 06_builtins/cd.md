@@ -1,6 +1,8 @@
 
 ----------------------cd (change directory)
 
+-on each cd pwd is updated
+
 -- useful functions:
 
 chdir

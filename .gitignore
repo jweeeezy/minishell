@@ -2,5 +2,7 @@
 .vscode
 *.a
 *.dSYM
+minishell
+main_test.c
 *.out
-*main_test.c
+lldb_minishell.sh
