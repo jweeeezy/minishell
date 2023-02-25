@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/25 15:32:50 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/25 15:36:07 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct execute
 {
 	char			*order_str;
 	int				order_numb;
-	typedef	struct	*next;
+	struct	execute	*next;
 }	t_execute;
 
 typedef struct expander
@@ -37,7 +37,7 @@ typedef struct data
 	int				tokens;
 	t_execute		*execute;
 	char			*line;
-	char			*promt;			//	@todo typo --> prompt?
+	char			*prompt;			//	@todo typo --> prompt?
 	char			**envp;
 	char			**argv;
 	t_expander		*expander;

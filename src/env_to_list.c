@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_to_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:47:50 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/25 15:34:15 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/02/25 15:36:45 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_expander	*create_new_expander_node(char *str)
 
 static int	t_expander_add_back(t_expander **lst_to_expand, t_expander *node_to_add)
 {
-	t_expander *lst_index;
+	t_expander	*lst_index;
 
 	lst_index = (*lst_to_expand);
 
@@ -51,7 +51,8 @@ int	put_to_linked_list_expander(t_data *data, char **envp)
 			data->expander = create_new_expander_node(ft_strdup(envp[index]));
 		else
 		{
-			if (t_expander_add_back(&data->expander, create_new_expander_node(ft_strdup(envp[index]))) == -1)
+			if (t_expander_add_back(&data->expander,
+				create_new_expander_node(ft_strdup(envp[index]))) == -1)
 				return (-1);
 		}
 		index++;

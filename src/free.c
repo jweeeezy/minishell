@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/25 13:03:53 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/25 15:36:22 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_after_break(t_data *data)
 {
-	free(data->promt);
+	free(data->prompt);
 }
 
 void	free_loop(t_data *data)

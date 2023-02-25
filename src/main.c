@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/25 13:56:08 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/25 15:35:16 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 int	init_data(t_data *data)
 {
-	data->promt = ft_strdup("Terminal Troublemakers: ");
-	if (data->promt == NULL)
+	data->prompt = ft_strdup("Terminal Troublemakers: ");
+	if (data->prompt == NULL)
 		return (1);
 	return (0);
 }
 
 int	history(t_data *data)
 {
-	data->line = readline(data->promt);
+	data->line = readline(data->prompt);
 	if (data->line == NULL)
 		return (1);
 	else if (data->line)
