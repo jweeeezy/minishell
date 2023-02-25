@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:47:50 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/25 12:40:06 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/25 12:42:18 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ int	create_new_expander_node(char *str, t_expander *current_node, t_data *data)
 	if (new_node == NULL)
 		return (1);
 	new_node->str = str;
-	new_node->next = NULL;
+    new_node->next = NULL;
 	if (data->expander == NULL)
 	{
 		data->expander = new_node;
-		*current_node = data->expander;
+		current_node = data->expander;
 	}
 	else
 	{
-		(*current_node)->next = new_node;
-		*current_node = (*current_node)->next;
+		current_node->next = new_node;
+		current_node = current_node->next;
 	}
 	return (0);
 }

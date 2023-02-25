@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/25 12:40:17 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/25 12:40:44 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,24 @@
 // 	return (0);
 // }
 
-// int	command_line(t_data *data)
-// {
-// 	int			cnt;
-// 	t_execute	*current_node;
-// 	t_execute	*new_node;
 
-// 	current_node = NULL;
-// 	cnt = 0;
-// 	while (data->args[cnt] != NULL)
-// 	{
+
+
+int	command_line(t_data *data)
+{
+	int			cnt;
+	t_execute	*current_node;
+	t_execute	*new_node;
+
+	current_node = NULL;
+	cnt = 0;
+	while (data->args[cnt] != NULL)
+	{
 			
-// 		data->arg[cnt];
-// 		cnt++;
-// 	}
-// }
-
-
-
+		data->arg[cnt];
+		cnt++;
+	}
+}
 
 int	parsing(t_data *data)
 {
