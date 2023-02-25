@@ -6,13 +6,13 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:47:50 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/25 12:21:34 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/25 12:40:06 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	create_new_expander_node(char *str, t_expander **current_node, t_data *data)
+int	create_new_expander_node(char *str, t_expander *current_node, t_data *data)
 {
 	t_expander	*new_node;
 
@@ -44,7 +44,7 @@ int	put_to_linked_list_expander(t_data *data, char **envp)
 	while (envp[i] != NULL)
 	{
 		if (create_new_expander_node(ft_strdup(envp[i]),
-				&current_node, data) == -1)
+				current_node, data) == -1)
 			return (1);
 		i++;
 	}
