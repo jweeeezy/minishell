@@ -2,3 +2,5 @@
 .vscode
 *.a
 *.dSYM
+*.out
+*main_test.c
