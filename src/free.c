@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/23 17:41:53 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/25 12:29:45 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,6 @@
 void	free_after_break(t_data *data)
 {
 	free(data->promt);
-	free(data);
-}
-
-void	free_lines(t_data *data)
-{
-	t_line	*current_node;
-	t_line	*next_node;
-
-	current_node = data->lines;
-	while (current_node != NULL)
-	{
-		next_node = current_node->next;
-		free(current_node->str);
-		free(current_node);
-		current_node = next_node;
-	}
-	data->lines = NULL;
 }
 
 void	free_loop(t_data *data)
@@ -39,6 +22,10 @@ void	free_loop(t_data *data)
 	int	cnt;
 
 	cnt = 0;
-	free_lines(data);
+	while (data->args[cnt] != NULL)
+	{
+		free(data->args[cnt]);
+		cnt++;
+	}
 	free(data->args);
 }

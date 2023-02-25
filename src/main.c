@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/24 19:35:41 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/02/25 12:28:18 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,19 @@ int	history(t_data *data)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_data	*data;
+	t_data	data;
 
-	data = malloc(sizeof(t_data));					//	@note we can prob put it on the stack instead of mallocing and pass the address, because child-processes cant share the same memory anyway
 	using_history();
-	if (argument_protection(data, argc, argv, envp) == 1)
+	if (argument_protection(&data, argc, argv, envp) == 1)
 		return (1);
-	if (init_data(data) == 1)
+	if (init_data(&data) == 1)
 		return (1);
 	while (1)
 	{
-		if (history(data) == 1)
+		if (history(&data) == 1)
 			break ;
-		free_loop(data);
+		free_loop(&data);
 	}
-	free_after_break(data);
+	free_after_break(&data);
 	return (0);
 }
