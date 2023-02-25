@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/25 11:42:05 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/25 13:03:32 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,7 @@ typedef struct Execute
 {
 	char			*order_str;
 	int				order_numb;
-	struct Execute	*execute;
 }	t_execute;
-
-typedef struct Line
-{
-	char		*str;
-	struct Line	*next;
-}	t_line;
 
 typedef struct Expander
 {
@@ -39,14 +32,14 @@ typedef struct Expander
 
 typedef struct data
 {
-	char		**args;
-	int			tokens;
-	t_line		*lines;
-	char		*line;
-	char		*promt;
-	char		**envp;
-	char		**argv;
-	t_expander	*expander;
+	char			**args;
+	int				tokens;
+	t_expander		*execute;
+	char			*line;
+	char			*promt;
+	char			**envp;
+	char			**argv;
+	t_expander		*expander;
 }	t_data;
 
 //	@todo Research enums and add Macros/enums for Error codes
