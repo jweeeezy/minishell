@@ -4,6 +4,9 @@ good source for redirecting, here-doc...:
 https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_03
 
 
+https://csnotes.medium.com/pipex-tutorial-42-project-4469f5dd5901
+
+
 basic idea:
 Perform redirection, remove redirection operators and operands from parameter list
 
