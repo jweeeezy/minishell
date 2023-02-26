@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/26 10:40:01 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/26 11:24:44 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,17 @@
 
 enum e_outputs
 {
-	Error = -1,
-	Executed = 0,
-	Apostrophe = 3,
-	Quotation_mark = 4,
-	Pipe = 5,
-	Dolla = 6,
-	Shell_redirection = 17,
-	Here_doc = 18,
-	Command_to_file = 7,
-	File_to_command = 8
+	ERROR = -1,
+	EXECUTED = 0,
+	APOSTROPHE = 3,
+	QUOTATION_MARK = 4,
+	PIPE = 5,
+	DOLLA = 6,
+	SHELL_REDIRECTION = 17,
+	HERE_DOC = 18,
+	COMMAND_TO_FILE = 7,
+	FILE_TO_COMMAND = 8,
+	EQUALS = 9
 };
 
 typedef struct execute

@@ -6,55 +6,61 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/26 10:45:17 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/26 11:34:40 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	calculate_command(t_data *data, int cnt)
+int	calculate_command(t_data *data, int cnt, int previous)
 {
 	if (*(data->args[cnt]) == 39)
-		return (Apostrophe);
+		return (APOSTROPHE);
 	if (*(data->args[cnt]) == 34)
-		return (Quotation_mark);
+		return (QUOTATION_MARK);
 	if (*(data->args[cnt]) == '|')
-		return (Pipe);
+		return (PIPE);
 	if (*data->args[cnt] == '$')
-		return (Dolla);
+		return (DOLLA);
 	if (data->args[cnt + 1] != NULL && *data->args[cnt] == '>'
 		&& *(data->args[cnt + 1]) == '>')
-		return (Shell_redirection);
+		return (SHELL_REDIRECTION);
 	if (data->args[cnt + 1] != NULL && *data->args[cnt] == '<'
 		&& *(data->args[cnt + 1]) == '<' && data->args[cnt + 1] != NULL)
-		return (Here_doc);
+		return (HERE_DOC);
 	if (*data->args[cnt] == '>')
-		return (Command_to_file);
+		return (COMMAND_TO_FILE + previous);
 	if (*data->args[cnt] == '<')
-		return (File_to_command);
+		return (FILE_TO_COMMAND + previous);
 	if (*data->args[cnt] == '=')
-		return (8);
+		return (EQUALS);
 	if (*data->args[cnt] == '\0')
-		return (Executed);
-	return (Executed);
+		return (EXECUTED);
+	return (EXECUTED);
 }
 
 int	command_line(t_data *data)
 {
 	int			cnt;
+	int			previous;
 	t_execute	*command;
 
 	command = malloc(sizeof(t_execute));
 	if (command == NULL)
-		return (Error);
+		return (ERROR);
 	cnt = 0;
+	previous = 0;
 	while (data->args[cnt] != NULL)
 	{
-		command->order_numb = calculate_command(data, cnt);
+		command->order_numb = calculate_command(data, cnt, previous);
+		if (command->order_numb == 18 || command->order_numb == 17)
+			previous = command->order_numb;
+		else
+			previous = 0;
 		printf("%i\n", command->order_numb);
 		cnt++;
 	}
-	return (Executed);
+	return (EXECUTED);
 }
 
 int	parsing(t_data *data)
@@ -64,5 +70,5 @@ int	parsing(t_data *data)
 	cnt = 0;
 	data->args = tokenizer(data, 0, 0, 0);
 	command_line(data);
-	return (Executed);
+	return (EXECUTED);
 }

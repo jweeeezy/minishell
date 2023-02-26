@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/26 10:26:17 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/26 11:26:02 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@ int	init_data(t_data *data)
 {
 	data->prompt = ft_strdup("Terminal Troublemakers: ");
 	if (data->prompt == NULL)
-		return (Error);
-	return (Executed);
+		return (ERROR);
+	return (EXECUTED);
 }
 
 int	history(t_data *data)
 {
 	data->line = readline(data->prompt);
 	if (data->line == NULL)
-		return (Error);
+		return (ERROR);
 	else if (data->line)
 	{
 		add_history(data->line);
 		if (parsing(data) == 1)
-			return (free(data->line), 1);
+			return (free(data->line), ERROR);
 	}
-	return (Executed);
+	return (EXECUTED);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -40,9 +40,9 @@ int	main(int argc, char **argv, char **envp)
 
 	using_history();
 	if (argument_protection(&data, argc, argv, envp) == 1)
-		return (Error);
+		return (ERROR);
 	if (init_data(&data) == 1)
-		return (Error);
+		return (ERROR);
 	while (1)
 	{
 		if (history(&data) == 1)
@@ -50,5 +50,5 @@ int	main(int argc, char **argv, char **envp)
 		free_loop(&data);
 	}
 	free_after_break(&data);
-	return (Executed);
+	return (EXECUTED);
 }
