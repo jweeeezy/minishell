@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/26 11:26:02 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/26 15:51:23 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	history(t_data *data)
 	else if (data->line)
 	{
 		add_history(data->line);
-		if (parsing(data) == 1)
+		if (lexer(data) == 1)
 			return (free(data->line), ERROR);
 	}
 	return (EXECUTED);
