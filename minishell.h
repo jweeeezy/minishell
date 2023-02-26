@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/25 15:36:07 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/26 10:40:01 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,25 @@
 # include <stdio.h>
 # include "libft/libft.h"
 
+enum e_outputs
+{
+	Error = -1,
+	Executed = 0,
+	Apostrophe = 3,
+	Quotation_mark = 4,
+	Pipe = 5,
+	Dolla = 6,
+	Shell_redirection = 17,
+	Here_doc = 18,
+	Command_to_file = 7,
+	File_to_command = 8
+};
+
 typedef struct execute
 {
 	char			*order_str;
 	int				order_numb;
-	struct	execute	*next;
+	struct execute	*next;
 }	t_execute;
 
 typedef struct expander
@@ -37,13 +51,11 @@ typedef struct data
 	int				tokens;
 	t_execute		*execute;
 	char			*line;
-	char			*prompt;			//	@todo typo --> prompt?
+	char			*prompt;
 	char			**envp;
 	char			**argv;
 	t_expander		*expander;
 }	t_data;
-
-//	@todo Research enums and add Macros/enums for Error codes
 
 //free.c
 void	free_after_break(t_data *data);
