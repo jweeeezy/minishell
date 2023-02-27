@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/26 15:51:23 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/27 15:08:22 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 
 	using_history();
-	if (argument_protection(&data, argc, argv, envp) == 1)
+	if (argument_protection(&data, argc, argv, envp) == ERROR)
 		return (ERROR);
 	if (init_data(&data) == 1)
 		return (ERROR);

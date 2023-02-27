@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/26 15:51:11 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/27 14:23:29 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ enum e_outputs
 	EQUALS = 9,
 	ECHO = 21,
 	CD = 24,
-	LS = 27
+	LS = 27,
+	PWD = 31
 };
 
 typedef struct execute
@@ -77,4 +78,6 @@ int		put_to_linked_list_expander(t_data *data, char **envp);
 int		ft_strnstr2(const char *haystack, const char *needle, size_t t);
 int		utils_is_command_helper(t_data *data, int cnt1, int cnt);
 int		utils_is_command_helper1(t_data *data, int cnt1, int cnt, char *needle);
+int		is_command(t_data *data, int cnt, char *needle);
+int		is_command1(t_data *data, int cnt, char *needle);
 #endif

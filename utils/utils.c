@@ -6,11 +6,53 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 14:30:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/26 15:49:11 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/27 14:01:18 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	is_command1(t_data *data, int cnt, char *needle)
+{
+	int		cnt1;
+
+	cnt1 = ft_strnstr2(data->args[cnt], needle, ft_strlen(data->args[cnt]));
+	if (cnt1 >= 0)
+	{
+		if (utils_is_command_helper(data, cnt1, cnt) > 1)
+			return (EXECUTED);
+		else if (utils_is_command_helper(data, cnt1, cnt) < 1
+			&& utils_is_command_helper1(data, cnt1, cnt, needle) == 1)
+			return (1);
+	}
+	return (EXECUTED);
+}
+
+int	is_command(t_data *data, int cnt, char *needle)
+{
+	char	*upper_to_lower;
+	int		cnt1;
+
+	cnt1 = 0;
+	upper_to_lower = ft_strdup(data->args[cnt]);
+	if (upper_to_lower == NULL)
+		return (ERROR);
+	while (upper_to_lower[cnt1] != '\0')
+	{
+		upper_to_lower[cnt1] = ft_tolower(upper_to_lower[cnt1]);
+		cnt1++;
+	}
+	cnt1 = ft_strnstr2(upper_to_lower, needle, ft_strlen(data->args[cnt]));
+	if (cnt1 >= 0)
+	{
+		if (utils_is_command_helper(data, cnt1, cnt) > 1)
+			return (free(upper_to_lower), EXECUTED);
+		else if (utils_is_command_helper(data, cnt1, cnt) < 1
+			&& utils_is_command_helper1(data, cnt1, cnt, needle) == 1)
+			return (free(upper_to_lower), 1);
+	}
+	return (free(upper_to_lower), EXECUTED);
+}
 
 int	utils_is_command_helper1(t_data *data, int cnt2, int cnt, char *needle)
 {
@@ -26,7 +68,6 @@ int	utils_is_command_helper1(t_data *data, int cnt2, int cnt, char *needle)
 		return (ADD);
 	return (EXECUTED);
 }
-
 
 int	utils_is_command_helper(t_data *data, int cnt1, int cnt)
 {

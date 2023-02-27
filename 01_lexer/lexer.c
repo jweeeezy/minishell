@@ -6,37 +6,11 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/26 15:51:00 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/27 14:23:16 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	is_command(t_data *data, int cnt, char *needle)
-{
-	char	*upper_to_lower;
-	int		cnt1;
-
-	cnt1 = 0;
-	upper_to_lower = ft_strdup(data->args[cnt]);
-	if (upper_to_lower == NULL)
-		return (ERROR);
-	while (upper_to_lower[cnt1] != '\0')
-	{
-		upper_to_lower[cnt1] = ft_tolower(upper_to_lower[cnt1]);
-		cnt1++;
-	}
-	cnt1 = ft_strnstr2(upper_to_lower, needle, ft_strlen(data->args[cnt]));
-	if (cnt1 >= 0)
-	{
-		if (utils_is_command_helper(data, cnt1, cnt) > 1)
-			return (free(upper_to_lower), EXECUTED);
-		else if (utils_is_command_helper(data, cnt1, cnt) < 1
-			&& utils_is_command_helper1(data, cnt1, cnt, needle) == 1)
-			return (free(upper_to_lower), 1);
-	}
-	return (free(upper_to_lower), EXECUTED);
-}
 
 int	calculate_command_2(t_data *data, int cnt)
 {
@@ -46,8 +20,10 @@ int	calculate_command_2(t_data *data, int cnt)
 		return (ECHO + is_command(data, cnt, "echo") - 1);
 	else if (is_command(data, cnt, "ls") > 0)
 		return (LS + is_command(data, cnt, "ls") - 1);
-	else if (is_command(data, cnt, "cd") > 0)
-		return (CD + is_command(data, cnt, "cd") - 1);
+	else if (is_command1(data, cnt, "cd") > 0)
+		return (CD + is_command1(data, cnt, "cd") - 1);
+	else if (is_command(data, cnt, "pwd") > 0)
+		return (PWD + is_command(data, cnt, "pwd") - 1);
 	else if (*data->args[cnt] == '\0')
 		return (EXECUTED);
 	return (EXECUTED);
@@ -85,18 +61,19 @@ int	command_line(t_data *data)
 {
 	int			cnt;
 	int			previous;
-	t_execute	*command;
 
-	command = malloc(sizeof(t_execute));
-	if (command == NULL)
+	data->execute = malloc(sizeof(t_execute) * data->tokens + 1);
+	if (data->execute == NULL)
 		return (ERROR);
 	cnt = 0;
 	previous = 0;
 	while (data->args[cnt] != NULL)
 	{
-		command->order_numb = calculate_command_1(data, cnt, previous);
-		previous = command->order_numb;
-		printf("%i\n", command->order_numb);
+		data->execute[cnt].order_numb
+			= calculate_command_1(data, cnt, previous);
+		data->execute[cnt].order_str = ft_strdup(data->args[cnt]);
+		previous = data->execute[cnt].order_numb;
+		printf("%i\n", data->execute[cnt].order_numb);
 		cnt++;
 	}
 	return (EXECUTED);
