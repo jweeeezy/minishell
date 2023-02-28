@@ -6,7 +6,7 @@
 #    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 14:14:13 by kvebers           #+#    #+#              #
-#    Updated: 2023/02/26 15:52:05 by kvebers          ###   ########.fr        #
+#    Updated: 2023/02/28 13:46:44 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,9 @@ SRC		=	src/main.c\
 			03_expander/env_to_list.c\
 			01_lexer/lexer.c \
 			01_lexer/tokenizer.c \
-			utils/utils.c
+			utils/utils.c \
+			02_parser/parser.c \
+			06_builtins/echo.c
 RM 		= 	rm -f
 SRC_O	= $(SRC:%.c=%.o)
 

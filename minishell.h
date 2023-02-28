@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/27 14:23:29 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/28 20:14:42 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,20 @@ enum e_outputs
 	PWD = 31
 };
 
+typedef struct echo
+{
+	int	double_quotes;
+	int	single_quotes;
+	int	redirections;
+}	t_echo;
+
 typedef struct execute
 {
-	char			*order_str;
-	int				order_numb;
-	struct execute	*next;
+	char	*order_str;
+	int		order_numb;
 }	t_execute;
 
-typedef struct expander
+typedef	struct	expander
 {
 	char			*str;
 	struct expander	*next;
@@ -70,6 +76,7 @@ void	free_loop(t_data *data);
 int		lexer(t_data *data);
 int		argument_protection(t_data *data, int argc, char **argv, char **envp);
 //parser
+int		parser(t_data *data);
 //tokenizer.c
 char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char);
 //env_to_list.c
@@ -80,4 +87,9 @@ int		utils_is_command_helper(t_data *data, int cnt1, int cnt);
 int		utils_is_command_helper1(t_data *data, int cnt1, int cnt, char *needle);
 int		is_command(t_data *data, int cnt, char *needle);
 int		is_command1(t_data *data, int cnt, char *needle);
+//utils1.c
+int		utils_check_for_chars(t_data *data, int segment);
+//builtins
+//echo.c
+int		echo(t_data *data, int segment);
 #endif

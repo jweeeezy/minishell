@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/27 15:08:22 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/02/28 13:54:32 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	history(t_data *data)
 	else if (data->line)
 	{
 		add_history(data->line);
-		if (lexer(data) == 1)
+		if (lexer(data) == ERROR)
 			return (free(data->line), ERROR);
 	}
 	return (EXECUTED);
@@ -41,11 +41,13 @@ int	main(int argc, char **argv, char **envp)
 	using_history();
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
 		return (ERROR);
-	if (init_data(&data) == 1)
+	if (init_data(&data) == ERROR)
 		return (ERROR);
 	while (1)
 	{
-		if (history(&data) == 1)
+		if (history(&data) == ERROR)
+			break ;
+		if (parser(&data) == ERROR)
 			break ;
 		free_loop(&data);
 	}
