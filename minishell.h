@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/01 12:35:32 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/01 13:28:22 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct execute
 	int		order_numb;
 }	t_execute;
 
-typedef	struct	expander
+typedef struct expander
 {
 	char			*str;
 	struct expander	*next;
@@ -92,6 +92,5 @@ int		is_command1(t_data *data, int cnt, char *needle);
 int		utils_check_for_chars(t_data *data, int segment);
 int		is_white_space(char c);
 //builtins
-//echo.c
-int		echo(t_data *data, int segment);
+
 #endif
