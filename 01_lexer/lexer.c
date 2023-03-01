@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/28 13:25:35 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/01 10:35:20 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	command_line(t_data *data)
 			= calculate_command_1(data, cnt, previous);
 		data->execute[cnt].order_str = ft_strdup(data->args[cnt]);
 		previous = data->execute[cnt].order_numb;
+		ft_printf("%s %i\n", data->execute[cnt].order_str, data->execute[cnt].order_numb);
 		cnt++;
 	}
 	return (EXECUTED);

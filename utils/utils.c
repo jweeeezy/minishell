@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 14:30:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/27 14:01:18 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/01 10:39:54 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	is_command1(t_data *data, int cnt, char *needle)
 		if (utils_is_command_helper(data, cnt1, cnt) > 1)
 			return (EXECUTED);
 		else if (utils_is_command_helper(data, cnt1, cnt) < 1
-			&& utils_is_command_helper1(data, cnt1, cnt, needle) == 1)
-			return (1);
+			&& utils_is_command_helper1(data, cnt1, cnt, needle) == ADD)
+			return (ADD);
 	}
 	return (EXECUTED);
 }
@@ -49,7 +49,7 @@ int	is_command(t_data *data, int cnt, char *needle)
 			return (free(upper_to_lower), EXECUTED);
 		else if (utils_is_command_helper(data, cnt1, cnt) < 1
 			&& utils_is_command_helper1(data, cnt1, cnt, needle) == 1)
-			return (free(upper_to_lower), 1);
+			return (free(upper_to_lower), ADD);
 	}
 	return (free(upper_to_lower), EXECUTED);
 }
