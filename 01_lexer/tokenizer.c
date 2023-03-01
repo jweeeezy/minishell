@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:39:45 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/01 10:21:53 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/01 12:32:31 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	count_tokens(char *line, char *tokens)
 	{
 		if (ft_strchr(tokens, line[cnt])
 			|| line[cnt] == 39
-			|| line[cnt] == 34)
+			|| line[cnt] == 34
+			|| is_white_space(line[cnt]) == 1)
 		{
 			count_tokens++;
 			string = 0;
@@ -64,7 +65,12 @@ int	count_chars(int char_counter, char *line)
 		&& line[char_counter] != '<'
 		&& line[char_counter] != '>'
 		&& line[char_counter] != '='
-		&& line[char_counter] != 32)
+		&& line[char_counter] != 32
+		&& line[char_counter] != '\t'
+		&& line[char_counter] != '\v'
+		&& line[char_counter] != '\n'
+		&& line[char_counter] != '\r'
+		&& line[char_counter] != '\f')
 	{
 		char_counter++;
 	}
@@ -93,7 +99,7 @@ char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char)
 {
 	char	**tokens;
 
-	data->tokens = count_tokens(data->line, "<>=$| ");
+	data->tokens = count_tokens(data->line, "<>=$|");
 	tokens = malloc(sizeof(char *) * (data->tokens + 1));
 	if (tokens == NULL)
 		return (NULL);

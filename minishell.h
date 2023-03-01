@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/28 20:14:42 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/01 12:35:32 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,18 @@
 enum e_outputs
 {
 	ERROR = -1,
-	ADD = 1,
 	EXECUTED = 0,
+	ADD = 1,
+	WHITE = 2,
 	APOSTROPHE = 3,
 	QUOTATION_MARK = 4,
 	PIPE = 5,
 	DOLLA = 6,
-	SHELL_REDIRECTION = 17,
-	HERE_DOC = 18,
 	COMMAND_TO_FILE = 7,
 	FILE_TO_COMMAND = 8,
 	EQUALS = 9,
+	SHELL_REDIRECTION = 17,
+	HERE_DOC = 18,
 	ECHO = 21,
 	CD = 24,
 	LS = 27,
@@ -89,6 +90,7 @@ int		is_command(t_data *data, int cnt, char *needle);
 int		is_command1(t_data *data, int cnt, char *needle);
 //utils1.c
 int		utils_check_for_chars(t_data *data, int segment);
+int		is_white_space(char c);
 //builtins
 //echo.c
 int		echo(t_data *data, int segment);

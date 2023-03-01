@@ -6,7 +6,7 @@
 #    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 14:14:13 by kvebers           #+#    #+#              #
-#    Updated: 2023/02/28 13:46:44 by kvebers          ###   ########.fr        #
+#    Updated: 2023/03/01 11:05:01 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC		=	src/main.c\
 			01_lexer/lexer.c \
 			01_lexer/tokenizer.c \
 			utils/utils.c \
+			utils/utils1.c \
 			02_parser/parser.c \
 			06_builtins/echo.c
 RM 		= 	rm -f

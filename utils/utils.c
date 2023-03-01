@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 14:30:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/01 10:39:54 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/01 11:06:31 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,7 @@ int	is_command(t_data *data, int cnt, char *needle)
 int	utils_is_command_helper1(t_data *data, int cnt2, int cnt, char *needle)
 {
 	cnt2 = cnt2 + ft_strlen(needle);
-	if (*(data->args[cnt] + cnt2) == ' '
-		|| *(data->args[cnt] + cnt2) == '\t'
-		|| *(data->args[cnt] + cnt2) == '\t'
-		|| *(data->args[cnt] + cnt2) == '\n'
-		|| *(data->args[cnt] + cnt2) == '\r'
-		|| *(data->args[cnt] + cnt2) == '\v'
-		|| *(data->args[cnt] + cnt2) == '\f'
+	if (is_white_space(*(data->args[cnt] + cnt2))
 		|| *(data->args[cnt] + cnt2) == '\0')
 		return (ADD);
 	return (EXECUTED);
@@ -78,13 +72,7 @@ int	utils_is_command_helper(t_data *data, int cnt1, int cnt)
 	sum = 0;
 	while (cnt2 < cnt1)
 	{
-		if (*(data->args[cnt] + cnt2) == ' '
-			|| *(data->args[cnt] + cnt2) == '\t'
-			|| *(data->args[cnt] + cnt2) == '\t'
-			|| *(data->args[cnt] + cnt2) == '\n'
-			|| *(data->args[cnt] + cnt2) == '\r'
-			|| *(data->args[cnt] + cnt2) == '\v'
-			|| *(data->args[cnt] + cnt2) == '\f')
+		if (is_white_space(*(data->args[cnt] + cnt2)))
 		{
 		}
 		else
