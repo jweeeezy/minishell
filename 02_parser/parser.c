@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/01 15:06:55 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/01 17:59:27 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,18 @@
 int	parser(t_data *data)
 {
 	int	cnt;
+	int	wait_for_pipes;
 
 	cnt = 0;
-	while (data->execute[0].order_numb < 1 && data->execute[0] != NULL)
+	wait_for_pipes = 0;
+	while (cnt < data->tokens)
 	{
-		data->execute[0].order_numb;
-
+		if (data->execute[cnt].order_numb > 1)
+		{
+			wait_for_pipes = 1;
+//			execute_command(data, cnt);
+		}
+		cnt++;
 	}
-	if (cnt == 21)
-		echo(data, 0);
 	return (EXECUTED);
 }

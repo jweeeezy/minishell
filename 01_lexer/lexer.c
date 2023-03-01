@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/01 12:37:09 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/01 17:46:13 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int	calculate_command_2(t_data *data, int cnt)
 		return (CD + is_command1(data, cnt, "cd") - 1);
 	else if (is_command(data, cnt, "pwd") > 0)
 		return (PWD + is_command(data, cnt, "pwd") - 1);
+	else if (is_white_space(*data->args[cnt]) == ADD)
+		return (WHITE);
 	else if (*data->args[cnt] == '\0')
 		return (EXECUTED);
-	else if (is_white_space(*data->args[cnt] == ADD))
-		return (WHITE);
 	return (EXECUTED);
 }
 
@@ -85,6 +85,7 @@ int	lexer(t_data *data)
 	int	cnt;
 
 	cnt = 0;
+	data->tokens = 0;
 	data->args = tokenizer(data, 0, 0, 0);
 	command_line(data);
 	return (EXECUTED);
