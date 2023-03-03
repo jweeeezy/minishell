@@ -3,43 +3,87 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/02/20 14:14:13 by kvebers           #+#    #+#              #
-#    Updated: 2023/03/01 11:05:01 by kvebers          ###   ########.fr        #
+#    Created: 2023/03/03 12:52:07 by jwillert          #+#    #+#              #
+#    Updated: 2023/03/03 16:08:20 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	minishell
-CFLAGS	=	-Wall -Wextra -Werror -g
-CC		=	cc
-SRC		=	src/main.c\
-			free/free.c\
-			protection/protection.c\
-			03_expander/env_to_list.c\
-			01_lexer/lexer.c \
-			01_lexer/tokenizer.c \
-			utils/utils.c \
-			utils/utils1.c \
-			02_parser/parser.c \
-			06_builtins/echo.c
-RM 		= 	rm -f
-SRC_O	= $(SRC:%.c=%.o)
+#	Programm Name
+NAME								=	minishell
 
-all:  $(NAME)
+#	Directories
+HEADER_DIR							=	./00_includes/
+LIBALLME_DIR						=	./01_liballme/
+LIBFT_DIR							=	$(LIBALLME_DIR)/libft/
+LIBME_DIR							=	$(LIBALLME_DIR)/libme/
+LEXER_DIR							=	./02_lexer/
+PARSER_DIR							=	./03_parser/
+EXPANDER_DIR						=	./04_expander/
+REDIRECTOR							=	./05_redirector/
+EXECUTOR							=	./06_executor/
+BUILTINS_DIR						=	./07_builtins/
+SIGNALS_DIR							=	./08_signals/
+CORE_DIR							=	./09_core/
 
-$(NAME): $(SRC_O)
-	make -C ./libft
-	$(CC) $(CFLAGS) $(SRC_O) libft/libft.a -o $(NAME) -lreadline
+#	Libraries
+LIBME								=	$(LIBME_DIR)libme.a
+LEXER								=	$(LEXER_DIR)lexer.a
+PARSER								=	$(PARSER_DIR)parser.a
+EXPANDER							=	$(EXPANDER_DIR)expander.a
+REDIRECTOR							=	$(REDIRECTOR_DIR)redirector.a
+EXECUTOR							=	$(EXECUTOR_DIR)executor.a
+BUILTINS							=	$(BUILTINS_DIR)builtins.a
+SIGNALS								=	$(SIGNALS_DIR)signals.a
+CORE								=	$(CORE_DIR)core.a
 
+LIBS_DIR_ALL						=	$(LIBALLME_DIR)\
+										$(LEXER_DIR)\
+										$(PARSER_DIR)\
+										$(EXPANDER_DIR)\
+										$(REDIRECTOR_DIR)\
+										$(EXECUTOR_DIR)\
+										$(BUILTINS_DIR)\
+										$(SIGNALS_DIR)
+
+LIBS_ALL							=	$(LIBME)\
+										$(LEXER)\
+										$(PARSER)\
+										$(EXPANDER)\
+										$(REDIRECTOR)\
+										$(EXECUTOR)\
+										$(BUILTINS)\
+										$(SIGNALS)
+
+#	General Rules
+CC									=	cc
+DEBUG								=	$(shell $$DEBUG_FLAG)
+CFLAGS								=	-Wall -Wextra -Werror $(DEBUG)
+REMOVE								=	rm -f
+
+#	Deletes targets on error
+.DELETE_ON_ERROR:
+
+#	General targets
+.PHONY:									all clean fclean re
+
+all:									$(NAME)
+
+$(NAME):								$(LIBS_ALL)
+											$(CC) $(CFLAGS) $(LIBS_ALL)
+$(LIBS_ALL):
+											for dir in $(LIBS_DIR_ALL); do\
+												$(MAKE) -C $$dir; \
+											done
 clean:
-	@make clean -C libft/
-	- @$(RM) $(SRC_O)
-
-fclean: clean
-	@make fclean -C libft/
-	- @$(RM) ${NAME}
-
-re: fclean all
-
-.PHONY: clean fclean all re
+											for dir in $(LIBS_DIR_ALL); do\
+												$(MAKE) clean -C $$dir; \
+											done
+fclean:									clean
+											for dir in $(LIBS_DIR_ALL); do\
+												$(MAKE) fclean -C $$dir; \
+											done
+											$(REMOVE) $(NAME)
+re:										fclean
+											$(MAKE)
