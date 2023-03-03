@@ -17,3 +17,6 @@ cd echo
 cd ../../..
 cd "doesntexist"
 cd "$PWD/file_tests"
+
+
+update env variables

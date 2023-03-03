@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 13:39:42 by jwillert          #+#    #+#              #
-#    Updated: 2023/02/25 15:12:17 by jwillert         ###   ########.fr        #
+#    Updated: 2023/03/02 09:06:36 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,6 @@
 #	before continuing the process
 
 lldb -s <(echo "process attach -name minishell --waitfor") \
--o "b put_to_linked_list_expander" \
+-o "b main" \
 -o "process continue"
 

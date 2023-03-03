@@ -1,0 +1,3 @@
+[submodule "00_liballme"]
+	path = 00_liballme
+	url = https://github.com/jweeeezy/liballme.git

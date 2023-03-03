@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/01 13:28:22 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/02 10:29:41 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,28 @@ enum e_outputs
 	PWD = 31
 };
 
-typedef struct echo
+//	@note All structs need to begin with s_ I believe (norm)
+
+typedef struct s_echo
 {
 	int	double_quotes;
 	int	single_quotes;
 	int	redirections;
 }	t_echo;
 
-typedef struct execute
+typedef struct s_execute
 {
 	char	*order_str;
 	int		order_numb;
 }	t_execute;
 
-typedef struct expander
+typedef struct s_expander
 {
-	char			*str;
-	struct expander	*next;
+	char				*str;
+	struct s_expander	*next;
 }	t_expander;
 
-typedef struct data
+typedef struct s_data
 {
 	char			**args;
 	int				tokens;
@@ -92,5 +94,8 @@ int		is_command1(t_data *data, int cnt, char *needle);
 int		utils_check_for_chars(t_data *data, int segment);
 int		is_white_space(char c);
 //builtins
+
+//executor
+
 
 #endif
