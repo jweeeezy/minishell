@@ -26,8 +26,7 @@ EXECUTOR							=	./06_executor/
 BUILTINS_DIR						=	./07_builtins/
 SIGNALS_DIR							=	./08_signals/
 CORE_DIR							=	./09_core/
-LIBS_DIR_ALL						=	$(LIBALLME_DIR)\
-										$(LEXER_DIR)\
+MODULES_DIR_ALL						=	$(LEXER_DIR)\
 										$(PARSER_DIR)\
 										$(BUILTINS_DIR)\
 										$(CORE_DIR)\
@@ -45,7 +44,7 @@ EXECUTOR							=	$(EXECUTOR_DIR)executor.a
 BUILTINS							=	$(BUILTINS_DIR)builtins.a
 SIGNALS								=	$(SIGNALS_DIR)signals.a
 CORE								=	$(CORE_DIR)core.a
-LIBS_ALL							=	$(LIBME)\
+MODULES_ALL							=	$(LIBME)\
 										$(LEXER)\
 										$(PARSER)\
 										$(BUILTINS)\
@@ -68,19 +67,22 @@ REMOVE								=	rm -f
 #	General targets
 .PHONY:									all clean fclean re
 all:									$(NAME)
-$(NAME):								$(LIBS_ALL)
-											$(CC) $(CFLAGS) $(LIBS_ALL) \
+$(NAME):								$(MODULES_ALL)
+											$(CC) $(CFLAGS) $(MODULES_ALL) \
 												-o $(NAME)
-$(LIBS_ALL):
-											for dir in $(LIBS_DIR_ALL); do\
+$(MODULES_ALL):
+											$(MAKE) libme -C $(LIBALLME_DIR)
+											for dir in $(MODULES_DIR_ALL); do\
 												$(MAKE) -C $$dir; \
 											done
 clean:
-											for dir in $(LIBS_DIR_ALL); do\
+											$(MAKE) clean -C $(LIBALLME_DIR)
+											for dir in $(MODULES_DIR_ALL); do\
 												$(MAKE) clean -C $$dir; \
 											done
 fclean:									clean
-											for dir in $(LIBS_DIR_ALL); do\
+											$(MAKE) fclean -C $(LIBALLME_DIR)
+											for dir in $(MODULES_DIR_ALL); do\
 												$(MAKE) fclean -C $$dir; \
 											done
 											$(REMOVE) $(NAME)
