@@ -14,16 +14,15 @@
 NAME							=	signals.a
 
 #	Directories
-INCLUDE_DIR						=	../00_includes/
+INCLUDE_DIR						=	../01_includes/
 SRC_DIR							=	./src/
 OBJ_DIR							=	./obj/
 
 #	Libraries
-LIBALLME_DIR					=	../01_liballme/
+LIBALLME_DIR					=	../00_liballme/
 LIBFT_DIR						=	$(LIBALLME_DIR)libft/
 LIBME_DIR						=	$(LIBALLME_DIR)libme/
 VPATH							=	$(SRC_DIR):$(OBJ_DIR)
-
 LIBFT							=	$(LIBFT_DIR)libft.a
 LIBME							=	$(LIBME_DIR)libme.a
 
@@ -37,8 +36,10 @@ OBJ								=	$(addprefix $(OBJ_DIR),$(OBJ_FILES))
 CC								=	cc
 DEBUG							=	$(shell echo $$DEBUG_FLAG)
 CFLAGS							=	-Wall -Wextra -Werror $(DEBUG)
-INCLUDE							=	-I $(INCLUDE_DIR) -I $(LIBFT_DIR)include -I $(LIBME_DIR)include
-CC_OBJ							=	$(CC) $(INCLUDE) $(CFLAGS) -c $^ -o $(OBJ_DIR)$@
+INCLUDE							=	-I $(INCLUDE_DIR) -I $(LIBFT_DIR)include \
+									-I $(LIBME_DIR)include
+CC_OBJ							=	$(CC) $(INCLUDE) $(CFLAGS) -c $^ -o \
+									$(OBJ_DIR)$@
 REMOVE							=	rm -f
 LIB_CREATE						=	ar -crs $(NAME)
 

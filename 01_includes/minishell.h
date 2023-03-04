@@ -13,10 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-// # include <readline/history.h>
 # include <stdlib.h>
-// # include <stdio.h>
-// # include "libft.h"
 
 enum e_outputs
 {
@@ -38,8 +35,6 @@ enum e_outputs
 	LS = 27,
 	PWD = 31
 };
-
-//	@note All structs need to begin with s_ I believe (norm)
 
 typedef struct s_echo
 {
@@ -96,6 +91,5 @@ int		is_white_space(char c);
 //builtins
 
 //executor
-
 
 #endif

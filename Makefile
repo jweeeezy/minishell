@@ -14,10 +14,10 @@
 NAME								=	minishell
 
 #	Directories
-HEADER_DIR							=	./00_includes/
-LIBALLME_DIR						=	./01_liballme/
+LIBALLME_DIR						=	./00_liballme/
 LIBFT_DIR							=	$(LIBALLME_DIR)/libft/
 LIBME_DIR							=	$(LIBALLME_DIR)/libme/
+HEADER_DIR							=	./01_includes/
 LEXER_DIR							=	./02_lexer/
 PARSER_DIR							=	./03_parser/
 EXPANDER_DIR						=	./04_expander/
@@ -26,7 +26,15 @@ EXECUTOR							=	./06_executor/
 BUILTINS_DIR						=	./07_builtins/
 SIGNALS_DIR							=	./08_signals/
 CORE_DIR							=	./09_core/
-
+LIBS_DIR_ALL						=	$(LIBALLME_DIR)\
+										$(LEXER_DIR)\
+										$(PARSER_DIR)\
+										$(BUILTINS_DIR)\
+										$(CORE_DIR)\
+										$(EXPANDER_DIR)
+										#$(REDIRECTOR_DIR)\#
+										#$(EXECUTOR_DIR)\#
+										#$(SIGNALS_DIR)#
 #	Libraries
 LIBME								=	$(LIBME_DIR)libme.a
 LEXER								=	$(LEXER_DIR)lexer.a
@@ -37,29 +45,21 @@ EXECUTOR							=	$(EXECUTOR_DIR)executor.a
 BUILTINS							=	$(BUILTINS_DIR)builtins.a
 SIGNALS								=	$(SIGNALS_DIR)signals.a
 CORE								=	$(CORE_DIR)core.a
-
-LIBS_DIR_ALL						=	$(LIBALLME_DIR)\
-										$(LEXER_DIR)\
-										$(PARSER_DIR)\
-										$(EXPANDER_DIR)\
-										$(REDIRECTOR_DIR)\
-										$(EXECUTOR_DIR)\
-										$(BUILTINS_DIR)\
-										$(SIGNALS_DIR)
-
 LIBS_ALL							=	$(LIBME)\
 										$(LEXER)\
 										$(PARSER)\
-										$(EXPANDER)\
-										$(REDIRECTOR)\
-										$(EXECUTOR)\
 										$(BUILTINS)\
-										$(SIGNALS)
+										$(CORE)\
+										$(EXPANDER)
+										#$(REDIRECTOR)\#
+										#$(EXECUTOR)\#
+										#$(SIGNALS)#
 
 #	General Rules
 CC									=	cc
 DEBUG								=	$(shell $$DEBUG_FLAG)
-CFLAGS								=	-Wall -Wextra -Werror $(DEBUG)
+CFLAGS								=	-Wall -Wextra -Werror $(DEBUG) \
+										-lreadline
 REMOVE								=	rm -f
 
 #	Deletes targets on error
@@ -67,11 +67,10 @@ REMOVE								=	rm -f
 
 #	General targets
 .PHONY:									all clean fclean re
-
 all:									$(NAME)
-
 $(NAME):								$(LIBS_ALL)
-											$(CC) $(CFLAGS) $(LIBS_ALL)
+											$(CC) $(CFLAGS) $(LIBS_ALL) \
+												-o $(NAME)
 $(LIBS_ALL):
 											for dir in $(LIBS_DIR_ALL); do\
 												$(MAKE) -C $$dir; \

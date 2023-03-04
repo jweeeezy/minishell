@@ -13,6 +13,7 @@
 #include "minishell.h"
 #include "libme.h"
 #include <readline/history.h>
+#include <readline/readline.h>
 
 int	init_data(t_data *data)
 {
