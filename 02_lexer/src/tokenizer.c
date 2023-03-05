@@ -6,14 +6,14 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:39:45 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/03 14:34:57 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/05 14:01:37 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libme.h"
 
-char	**free_tokens(char **tokens)
+static char	**free_tokens(char **tokens)
 {
 	int	cnt;
 
@@ -27,7 +27,7 @@ char	**free_tokens(char **tokens)
 	return (NULL);
 }
 
-int	count_tokens(char *line, char *tokens)
+static int	count_tokens(char *line, char *tokens)
 {
 	int	cnt;
 	int	count_tokens;
@@ -56,7 +56,7 @@ int	count_tokens(char *line, char *tokens)
 	return (count_tokens);
 }
 
-int	count_chars(int char_counter, char *line)
+static int	count_chars(int char_counter, char *line)
 {
 	while (line[char_counter] != '\0'
 		&& line[char_counter] != 39
@@ -78,7 +78,7 @@ int	count_chars(int char_counter, char *line)
 	return (char_counter);
 }
 
-char	*create_sub_string(t_data *data, int pos_1, int pos_2)
+static char	*create_sub_string(t_data *data, int pos_1, int pos_2)
 {
 	char	*token;
 	int		cnt;
@@ -98,6 +98,7 @@ char	*create_sub_string(t_data *data, int pos_1, int pos_2)
 
 char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char)
 {
+	//	@note same name as int data->tokens, which is an int
 	char	**tokens;
 
 	data->tokens = count_tokens(data->line, "<>=$|");

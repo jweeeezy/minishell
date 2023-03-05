@@ -5,13 +5,13 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/03/03 14:11:35 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/03 15:16:29 by jwillert         ###   ########.fr        #
+#    Created: 2023/03/03 15:18:22 by jwillert          #+#    #+#              #
+#    Updated: 2023/03/03 15:18:23 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #	Library Name
-NAME							=	lexer.a
+NAME							=	debug.a
 
 #	Directories
 INCLUDE_DIR						=	../01_includes/
@@ -27,16 +27,15 @@ LIBFT							=	$(LIBFT_DIR)libft.a
 LIBME							=	$(LIBME_DIR)libme.a
 
 #	Files
-SRC_FILES						=	lexer.c\
-									tokenizer.c
+SRC_FILES						=	debug.c
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR),$(SRC_FILES))
 OBJ								=	$(addprefix $(OBJ_DIR),$(OBJ_FILES))
 
 #	General rules
 CC								=	cc
-CC_DEBUG						=	$(shell echo $$DEBUG_FLAG)
-CFLAGS							=	-Wall -Wextra -Werror $(CC_DEBUG)
+DEBUG							=	$(shell echo $$DEBUG_FLAG)
+CFLAGS							=	-Wall -Wextra -Werror $(DEBUG) 
 INCLUDE							=	-I $(INCLUDE_DIR) -I $(LIBFT_DIR)include \
 									-I $(LIBME_DIR)include
 CC_OBJ							=	$(CC) $(INCLUDE) $(CFLAGS) -c $^ -o \

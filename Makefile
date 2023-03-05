@@ -26,14 +26,17 @@ EXECUTOR							=	./06_executor/
 BUILTINS_DIR						=	./07_builtins/
 SIGNALS_DIR							=	./08_signals/
 CORE_DIR							=	./09_core/
+DEBUG_DIR							=	./10_debug/
 MODULES_DIR_ALL						=	$(LEXER_DIR)\
 										$(PARSER_DIR)\
 										$(BUILTINS_DIR)\
 										$(CORE_DIR)\
-										$(EXPANDER_DIR)
+										$(EXPANDER_DIR)\
+										$(DEBUG_DIR)
 										#$(REDIRECTOR_DIR)\#
 										#$(EXECUTOR_DIR)\#
 										#$(SIGNALS_DIR)#
+
 #	Libraries
 LIBME								=	$(LIBME_DIR)libme.a
 LEXER								=	$(LEXER_DIR)lexer.a
@@ -44,20 +47,22 @@ EXECUTOR							=	$(EXECUTOR_DIR)executor.a
 BUILTINS							=	$(BUILTINS_DIR)builtins.a
 SIGNALS								=	$(SIGNALS_DIR)signals.a
 CORE								=	$(CORE_DIR)core.a
+DEBUG								=	$(DEBUG_DIR)debug.a
 MODULES_ALL							=	$(LIBME)\
 										$(LEXER)\
 										$(PARSER)\
 										$(BUILTINS)\
 										$(CORE)\
-										$(EXPANDER)
+										$(EXPANDER)\
+										$(DEBUG)
 										#$(REDIRECTOR)\#
 										#$(EXECUTOR)\#
 										#$(SIGNALS)#
 
 #	General Rules
 CC									=	cc
-DEBUG								=	$(shell $$DEBUG_FLAG)
-CFLAGS								=	-Wall -Wextra -Werror $(DEBUG) \
+CC_DEBUG							=	$(shell $$DEBUG_FLAG)
+CFLAGS								=	-Wall -Wextra -Werror $(CC_DEBUG) \
 										-lreadline
 REMOVE								=	rm -f
 

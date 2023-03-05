@@ -6,14 +6,14 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/03 14:34:49 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/05 14:06:28 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libme.h"
 
-int	calculate_command_2(t_data *data, int cnt)
+static int	calculate_command_2(t_data *data, int cnt)
 {
 	if (*data->args[cnt] == '=')
 		return (EQUALS);
@@ -32,7 +32,7 @@ int	calculate_command_2(t_data *data, int cnt)
 	return (EXECUTED);
 }
 
-int	calculate_command_1(t_data *data, int cnt, int previous)
+static int	calculate_command_1(t_data *data, int cnt, int previous)
 {
 	if (*(data->args[cnt]) == 39)
 		return (APOSTROPHE);
@@ -60,10 +60,10 @@ int	calculate_command_1(t_data *data, int cnt, int previous)
 		return (calculate_command_2(data, cnt));
 }
 
-int	command_line(t_data *data)
+static int	command_line(t_data *data)
 {
-	int			cnt;
-	int			previous;
+	int	cnt;
+	int	previous;
 
 	data->execute = malloc(sizeof(t_execute) * data->tokens + 1);
 	if (data->execute == NULL)
@@ -83,11 +83,14 @@ int	command_line(t_data *data)
 
 int	lexer(t_data *data)
 {
+	//	@note unused variable
 	int	cnt;
 
 	cnt = 0;
 	data->tokens = 0;
 	data->args = tokenizer(data, 0, 0, 0);
+    if (DEBUG)
+        debug_print_tokens(data->args);
 	command_line(data);
 	return (EXECUTED);
 }

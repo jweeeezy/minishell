@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/28 13:54:32 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/05 13:33:10 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <readline/history.h>
 #include <readline/readline.h>
 
+//	@note mb better sth like prompt_set or set_prompt and put in .h not in main
+//	or we can do it on the stack so malloc is not needed.
 int	init_data(t_data *data)
 {
 	data->prompt = ft_strdup("Terminal Troublemakers: ");
@@ -23,6 +25,8 @@ int	init_data(t_data *data)
 	return (EXECUTED);
 }
 
+//	@note also prob better to put it in header if we want to use it again,
+//	otherwise --> static
 int	history(t_data *data)
 {
 	data->line = readline(data->prompt);
