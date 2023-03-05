@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libme.h"
+#include "libft.h"
 
 int	is_command1(t_data *data, int cnt, char *needle)
 {

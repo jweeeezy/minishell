@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "libme.h"
+#include "minishell.h"  //  needed for t_data, ENUMS
+#include "libft.h"      //  needed for ft_strdup()
 
 static int	calculate_command_2(t_data *data, int cnt)
 {

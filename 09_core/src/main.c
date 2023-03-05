@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libme.h"
 #include <readline/history.h>
 #include <readline/readline.h>
+#include "libft.h"
 
 //	@note mb better sth like prompt_set or set_prompt and put in .h not in main
 //	or we can do it on the stack so malloc is not needed.

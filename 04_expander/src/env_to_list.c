@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "libme.h"
+#include "minishell.h"  // needed for t_data, functions()
+#include "libft.h"      // needed for ft_strdup()
 
 t_expander	*create_new_expander_node(char *str)
 {

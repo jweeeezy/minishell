@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "minishell.h"
-#include "libme.h"
+#include "minishell.h"  // needed for t_data, function()
+#include "libft.h"      // needed for ft_strjoin()
 
 int	executor_main(t_data *data)
 {
