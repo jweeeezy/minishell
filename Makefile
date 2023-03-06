@@ -36,6 +36,7 @@ MODULES_DIR_ALL						=	$(LEXER_DIR)\
 										#$(REDIRECTOR_DIR)\#
 										#$(EXECUTOR_DIR)\#
 										#$(SIGNALS_DIR)#
+SUBMODULE							=	submodule_initialised
 
 #	Libraries
 LIBME								=	$(LIBME_DIR)libme.a
@@ -70,8 +71,8 @@ REMOVE								=	rm -f
 .DELETE_ON_ERROR:
 
 #	General targets
-.PHONY:									all clean fclean re
-all:									$(NAME)
+.PHONY:									all clean fclean re submodule update
+all:									$(SUBMODULE) $(NAME) 
 $(NAME):								$(MODULES_ALL)
 											$(CC) $(CFLAGS) $(MODULES_ALL) \
 												-o $(NAME)
@@ -93,3 +94,10 @@ fclean:									clean
 											$(REMOVE) $(NAME)
 re:										fclean
 											$(MAKE)
+$(SUBMODULE):								
+											git submodule update --init \
+											--recursive --remote
+											touch $(SUBMODULE)
+update:									
+											git submodule foreach git pull \
+											origin master
