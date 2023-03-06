@@ -96,8 +96,8 @@ re:										fclean
 											$(MAKE)
 $(SUBMODULE):								
 											git submodule update --init \
-											--recursive --remote
+												--recursive --remote
 											touch $(SUBMODULE)
-update:									
+update:									$(SUBMODULE)
 											git submodule foreach git pull \
-											origin master
+												origin master
