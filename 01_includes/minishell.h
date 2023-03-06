@@ -15,9 +15,6 @@
 
 # include <stdlib.h>
 
-
-
-
 enum e_outputs
 {
 	ERROR = -1,
@@ -109,12 +106,14 @@ int		is_white_space(char c);
 
 //executor
 
+
 //	DEBUG
 
 #ifndef DEBUG
 # define DEBUG 0
-#endif //   DEBUG
-void    debug_print_tokens(char **args);
+#endif // DEBUG
+void    debug_print_char_array(char **args);
+void    debug_print_t_execute(t_execute *execute);
 
 #endif
 

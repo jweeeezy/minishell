@@ -32,6 +32,8 @@ static int	calculate_command_2(t_data *data, int cnt)
 	return (EXECUTED);
 }
 
+//  @note we can prob pass the string[cnt] instead of the whole data struct,
+//  so the code will be cleaner
 static int	calculate_command_1(t_data *data, int cnt, int previous)
 {
 	if (*(data->args[cnt]) == 39)
@@ -75,6 +77,7 @@ static int	command_line(t_data *data)
 		data->execute[cnt].order_numb
 			= calculate_command_1(data, cnt, previous);
 		data->execute[cnt].order_str = ft_strdup(data->args[cnt]);
+        // @note no NULL/malloc protection
 		previous = data->execute[cnt].order_numb;
 		cnt++;
 	}
@@ -89,8 +92,12 @@ int	lexer(t_data *data)
 	cnt = 0;
 	data->tokens = 0;
 	data->args = tokenizer(data, 0, 0, 0);
-    if (DEBUG)
-        debug_print_tokens(data->args);
 	command_line(data);
+    //  @note error handling
+    if (DEBUG)
+    {
+        debug_print_char_array(data->args);
+        debug_print_t_execute(data->execute);
+    }
 	return (EXECUTED);
 }
