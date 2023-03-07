@@ -12,7 +12,6 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
 # include <stdlib.h>
 
 enum e_outputs
@@ -73,7 +72,7 @@ typedef struct s_data
 int		history(t_data *data);
 int		init_data(t_data *data);
 //char	**free_tokens(char **tokens);
-void    free_loop(t_data *data);
+void	free_loop(t_data *data);
 int		argument_protection(t_data *data, int argc, char **argv, char **envp);
 int		ft_strnstr2(const char *haystack, const char *needle, size_t t);
 int		utils_is_command_helper(t_data *data, int cnt1, int cnt);
@@ -100,9 +99,9 @@ int		put_to_linked_list_expander(t_data *data, char **envp);
 //                                    DEBUG
 /* ************************************************************************** */
 # ifndef DEBUG
-# define DEBUG 0
+#  define DEBUG 0
 # endif  // DEBUG
-void    debug_print_char_array(char **args);
-void    debug_print_t_execute(t_execute *execute);
+void	debug_print_char_array(char **args);
+void	debug_print_t_execute(t_execute *execute);
 
 #endif  // MINISHELL_H
