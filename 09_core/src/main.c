@@ -24,6 +24,8 @@ static int	history(t_data *data)
 		add_history(data->line);
 		if (lexer(data) == ERROR)
 			return (free(data->line), ERROR);
+//		if (executor_main(data) == ERROR)
+//			return (free(data->line), ERROR);
 	}
 	return (EXECUTED);
 }
@@ -35,6 +37,8 @@ int	main(int argc, char **argv, char **envp)
 	using_history();
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
 		return (ERROR);
+	if (DEBUG)
+		debug_print_t_expander(data.expander);
 	while (1)
 	{
 		if (history(&data) == ERROR)

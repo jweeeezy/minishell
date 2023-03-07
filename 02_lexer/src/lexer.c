@@ -84,6 +84,7 @@ static int	command_line(t_data *data)
 			= calculate_command_1(data, cnt, previous);
 		data->execute[cnt].order_str = ft_strdup(data->args[cnt]);
         // @note no NULL/malloc protection
+		data->execute[cnt].full_path = NULL;
 		previous = data->execute[cnt].order_numb;
 		cnt++;
 	}

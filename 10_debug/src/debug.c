@@ -18,14 +18,13 @@ void	debug_print_char_array(char **args)
 	printf("Tokens:");
 	while (args != NULL && *args != NULL)
 	{
-		printf(" {%s} ", *args);
+		printf(" [%s] ", *args);
 		args += 1;
 	}
 	printf("\n");
 }
 
-void	debug_print_t_execute(t_data *data,
-			t_execute *execute)
+void	debug_print_t_execute(t_data *data,	t_execute *execute)
 {
 	int counter;
 
@@ -33,9 +32,19 @@ void	debug_print_t_execute(t_data *data,
 	while (counter < data->tokens)
 	{
 		printf("t_execute: ");
-		printf("order_str: [%s] order_numb: [%d]\n", \
-			execute[counter].order_str,
-				execute[counter].order_numb);
+		printf("order_str: [%s] ", execute[counter].order_str);
+		printf("order_numb: [%d] ", execute[counter].order_numb);
+		printf("full_path: [%s]\n", execute[counter].full_path);
 		counter += 1;
+	}
+}
+
+void	debug_print_t_expander(t_expander *expander)
+{
+	printf("t_expander:\n");
+	while (expander != NULL)
+	{
+		printf("[%s]\n", expander->str);
+		expander = expander->next;
 	}
 }

@@ -57,8 +57,10 @@ typedef struct s_execute
 {
 	char	*order_str;
 	int		order_numb;
+	char	*full_path;		// @note I need this for execution. On init = NULL
 }	t_execute;
 
+//	@note This is actually the list for the copied envp, right?
 typedef struct s_expander
 {
 	char				*str;
@@ -104,6 +106,11 @@ int		parser(t_data *data);
 int		put_to_linked_list_expander(t_data *data, char **envp);
 
 /* ************************************************************************** */
+//                                    EXECUTOR
+/* ************************************************************************** */
+int		executor_main(t_data *data);
+
+/* ************************************************************************** */
 //                                    DEBUG
 /* ************************************************************************** */
 # ifndef DEBUG
@@ -112,5 +119,6 @@ int		put_to_linked_list_expander(t_data *data, char **envp);
 void	debug_print_char_array(char **args);
 void	debug_print_t_execute(t_data *data,
 			t_execute *execute);
+void	debug_print_t_expander(t_expander *expander);
 
 #endif  // MINISHELL_H
