@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/05 14:10:02 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:03:53 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 enum e_outputs
 {
 	ERROR = -1,
+	COMMAND_NOT_FOUND = -2,
+	SYNTAX_ERROR = -3,
+	PERMISSION_ERROR = -4,
+	LOGIC_ERROR = -5,
+	ENVIROMENTAL_ERROR = -6,
+	PIPE_ERRORS = -7,
+	VARIABLE_ERRORS = -8,
 	EXECUTED = 0,
 	ADD = 1,
 	WHITE = 2,
@@ -29,10 +36,14 @@ enum e_outputs
 	EQUALS = 9,
 	SHELL_REDIRECTION = 17,
 	HERE_DOC = 18,
-	ECHO = 21,
-	CD = 24,
-	LS = 27,
-	PWD = 31
+	ECHO = 20,
+	CD = 21,
+	LS = 22,
+	PWD = 23,
+	EXPORT = 24,
+	UNSET = 25,
+	ENV = 26,
+	EXIT = 27
 };
 
 typedef struct s_echo
@@ -60,7 +71,6 @@ typedef struct s_data
 	int				tokens;
 	t_execute		*execute;
 	char			*line;
-	char			*prompt;
 	char			**envp;
 	char			**argv;
 	t_expander		*expander;
@@ -69,7 +79,6 @@ typedef struct s_data
 /* ************************************************************************** */
 //                                     CORE
 /* ************************************************************************** */
-int		history(t_data *data);
 int		init_data(t_data *data);
 //char	**free_tokens(char **tokens);
 void	free_loop(t_data *data);
@@ -81,7 +90,6 @@ int		is_command(t_data *data, int cnt, char *needle);
 int		is_command1(t_data *data, int cnt, char *needle);
 //int   utils_check_for_chars(t_data *data, int segment);
 int		is_white_space(char c);
-void	free_after_break(t_data *data);
 
 /* ************************************************************************** */
 //                                    LEXER
@@ -102,6 +110,7 @@ int		put_to_linked_list_expander(t_data *data, char **envp);
 #  define DEBUG 0
 # endif  // DEBUG
 void	debug_print_char_array(char **args);
-void	debug_print_t_execute(t_execute *execute);
+void	debug_print_t_execute(t_data *data,
+			t_execute *execute);
 
 #endif  // MINISHELL_H

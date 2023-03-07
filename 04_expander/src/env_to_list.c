@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:47:50 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/26 11:26:30 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/07 16:58:55 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static int	t_exp_add_b(t_expander **lst_to_expand, t_expander *node_to_add)
 	t_expander	*lst_index;
 
 	lst_index = (*lst_to_expand);
-
 	if (lst_to_expand == NULL || node_to_add == NULL)
 		return (ERROR);
 	while (lst_index->next != NULL)
@@ -49,11 +48,15 @@ int	put_to_linked_list_expander(t_data *data, char **envp)
 	while (envp[index] != NULL)
 	{
 		if (data->expander == NULL)
+		{
 			data->expander = create_new_expander_node(ft_strdup(envp[index]));
+			if (data->expander == NULL)
+				return (ERROR);
+		}	
 		else
 		{
 			if (t_exp_add_b(&data->expander,
-					create_new_expander_node(ft_strdup(envp[index]))) == -1)
+					create_new_expander_node(ft_strdup(envp[index]))) == ERROR)
 				return (ERROR);
 		}
 		index++;

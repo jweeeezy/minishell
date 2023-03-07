@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/05 14:06:28 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/07 14:47:17 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@ static int	calculate_command_2(t_data *data, int cnt)
 		return (CD + is_command1(data, cnt, "cd") - 1);
 	else if (is_command(data, cnt, "pwd") > 0)
 		return (PWD + is_command(data, cnt, "pwd") - 1);
+	else if (is_command1(data, cnt, "unset") > 0)
+		return (UNSET + is_command1(data, cnt, "unset") - 1);
+	else if (is_command1(data, cnt, "export") > 0)
+		return (EXPORT + is_command1(data, cnt, "export") - 1);
+	else if (is_command1(data, cnt, "env") > 0)
+		return (ENV + is_command1(data, cnt, "env") - 1);
+	else if (is_command1(data, cnt, "exit") > 0)
+		return (EXIT + is_command1(data, cnt, "exit") - 1);
 	else if (is_white_space(*data->args[cnt]) == ADD)
 		return (WHITE);
 	else if (*data->args[cnt] == '\0')
@@ -32,8 +40,6 @@ static int	calculate_command_2(t_data *data, int cnt)
 	return (EXECUTED);
 }
 
-//  @note we can prob pass the string[cnt] instead of the whole data struct,
-//  so the code will be cleaner
 static int	calculate_command_1(t_data *data, int cnt, int previous)
 {
 	if (*(data->args[cnt]) == 39)
@@ -86,10 +92,6 @@ static int	command_line(t_data *data)
 
 int	lexer(t_data *data)
 {
-	//	@note unused variable
-	int	cnt;
-
-	cnt = 0;
 	data->tokens = 0;
 	data->args = tokenizer(data, 0, 0, 0);
 	command_line(data);
@@ -97,7 +99,7 @@ int	lexer(t_data *data)
     if (DEBUG)
     {
         debug_print_char_array(data->args);
-        debug_print_t_execute(data->execute);
+        debug_print_t_execute(data, data->execute);
     }
 	return (EXECUTED);
 }

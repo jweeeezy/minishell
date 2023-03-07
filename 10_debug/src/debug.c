@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:16:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/07 10:16:25 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/07 10:58:40 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,18 @@ void	debug_print_char_array(char **args)
 	printf("\n");
 }
 
-void	debug_print_t_execute(t_execute *execute)
+void	debug_print_t_execute(t_data *data,
+			t_execute *execute)
 {
-	printf("t_execute:");
-	printf("order_str: [%s] order_numb: [%d]\n", \
-			execute->order_str, execute->order_numb);
+	int counter;
+
+	counter = 0;
+	while (counter < data->tokens)
+	{
+		printf("t_execute: ");
+		printf("order_str: [%s] order_numb: [%d]\n", \
+			execute[counter].order_str,
+				execute[counter].order_numb);
+		counter += 1;
+	}
 }
