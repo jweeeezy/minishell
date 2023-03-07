@@ -67,53 +67,42 @@ typedef struct s_data
 	t_expander		*expander;
 }	t_data;
 
-//	Core
-//		Reads a line and tokenizes its content
+/* ************************************************************************** */
+//                                     CORE
+/* ************************************************************************** */
 int		history(t_data *data);
-//		Sets the prompt (with malloc!)
 int		init_data(t_data *data);
-
-
-//	Lexer
-//
-int		lexer(t_data *data);
-//		Counts tokens in the read line, allocates an array of strings
-char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char);
-
-
-//free.c
-void	free_after_break(t_data *data);
 //char	**free_tokens(char **tokens);
-void	free_loop(t_data *data);
+void    free_loop(t_data *data);
 int		argument_protection(t_data *data, int argc, char **argv, char **envp);
-//parser
-int		parser(t_data *data);
-//tokenizer.c
-
-//env_to_list.c
-int		put_to_linked_list_expander(t_data *data, char **envp);
-//utils.c
 int		ft_strnstr2(const char *haystack, const char *needle, size_t t);
 int		utils_is_command_helper(t_data *data, int cnt1, int cnt);
 int		utils_is_command_helper1(t_data *data, int cnt1, int cnt, char *needle);
 int		is_command(t_data *data, int cnt, char *needle);
 int		is_command1(t_data *data, int cnt, char *needle);
-//utils1.c
-//int		utils_check_for_chars(t_data *data, int segment);
+//int   utils_check_for_chars(t_data *data, int segment);
 int		is_white_space(char c);
+void	free_after_break(t_data *data);
 
-//builtins
+/* ************************************************************************** */
+//                                    LEXER
+/* ************************************************************************** */
+int		lexer(t_data *data);
+char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char);
 
-//executor
+/* ************************************************************************** */
+//                                    PARSER
+/* ************************************************************************** */
+int		parser(t_data *data);
+int		put_to_linked_list_expander(t_data *data, char **envp);
 
-
-//	DEBUG
-
-#ifndef DEBUG
+/* ************************************************************************** */
+//                                    DEBUG
+/* ************************************************************************** */
+# ifndef DEBUG
 # define DEBUG 0
-#endif // DEBUG
+# endif  // DEBUG
 void    debug_print_char_array(char **args);
 void    debug_print_t_execute(t_execute *execute);
 
-#endif
-
+#endif  // MINISHELL_H

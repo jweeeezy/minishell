@@ -11,8 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"          // needed for t_data, functions()
-#include <readline/history.h>   // needed for add_history()
-#include <readline/readline.h>
+#include <readline/history.h>   // needed for readline(), add_history()
 #include "libft.h"              // needed for ft_strdup()
 
 //	@note mb better sth like prompt_set or set_prompt and put in .h not in main
