@@ -62,7 +62,7 @@ MODULES_ALL							=	$(LIBME)\
 
 #	General Rules
 CC									=	cc
-CC_DEBUG							=	$(shell $$DEBUG_FLAG)
+CC_DEBUG							=	$(shell echo $$DEBUG_FLAG)
 CFLAGS								=	-Wall -Wextra -Werror $(CC_DEBUG) \
 										-lreadline
 REMOVE								=	rm -f
@@ -71,7 +71,7 @@ REMOVE								=	rm -f
 .DELETE_ON_ERROR:
 
 #	General targets
-.PHONY:									all clean fclean re req update
+.PHONY:									all clean fclean re ref update
 all:									$(SUBMODULE) $(NAME) 
 $(NAME):								$(MODULES_ALL)
 											$(CC) $(CFLAGS) $(MODULES_ALL) \
@@ -94,7 +94,7 @@ fclean:									clean
 											$(REMOVE) $(NAME)
 re:										fclean
 											$(MAKE)
-req:									
+ref:									
 											for dir in $(MODULES_DIR_ALL); do\
 												$(MAKE) fclean -C $$dir; \
 												done

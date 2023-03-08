@@ -98,7 +98,6 @@ static int	executor_try_execve(t_data *data, t_execute *offset)
 	}
 	if (id == 0)
 	{
-		printf("reached\n)");
 		execve(offset->full_path, NULL, data->envp);
 	}
 	else
@@ -116,12 +115,11 @@ int	executor_main(t_data *data)
 
 	return_value = 0;
 	offset = executor_loop_whitespaces(data->execute);
-	if (offset->order_numb == 10)
+	if (offset->order_numb == 0)
 	{
 			return_value = executor_check_valid_command(data, offset);
 			if (return_value == 1)
 			{
-				printf("reached first\n");
 				executor_try_execve(data, offset);
 			}
 			else if (return_value == ERROR)
