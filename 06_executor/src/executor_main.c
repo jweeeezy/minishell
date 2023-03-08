@@ -14,7 +14,7 @@
 #include "minishell.h"  // needed for t_data, function()
 #include "libft.h"      // needed for ft_strjoin()
 #include "libme.h"		// needed for ft_str_check_needle(), 
-						// ft_str_join_delimiter()
+						// ft_str_join_delimiter(), t_vector_str
 
 static char	**executor_get_path_array(char **envp)
 {
@@ -55,6 +55,8 @@ static t_execute	*executor_loop_whitespaces(t_execute *execute)
 	int	index;
 
 	index = 0;
+	if (execute == NULL)
+		return (NULL);
 	while (execute[index].order_numb == 1 || execute[index].order_numb == 2)
 	{
 		index += 1;
@@ -108,6 +110,27 @@ static int	executor_try_execve(t_data *data, t_execute *offset)
 	return (0);
 }
 
+static int executor_get_command_arguments(t_data *data, t_execute *offset)
+{
+	t_vector_str *vector_args;
+
+	vector_args = data->vector_args;
+	while (offset != NULL && offset->order_numb != 5)
+	{
+		vector_args = ft_vector_str_join(vector_args, offset->order_str, 0);
+		if (vector_args == NULL)
+		{
+			return (ERROR);
+		}
+		offset += 1;
+	}
+	if (DEBUG)
+	{
+		debug_print_t_vector_str(data->vector_args);
+	}
+	return (0);
+}
+
 int	executor_main(t_data *data)
 {
 	t_execute	*offset;
@@ -115,11 +138,20 @@ int	executor_main(t_data *data)
 
 	return_value = 0;
 	offset = executor_loop_whitespaces(data->execute);
-	if (offset->order_numb == 0)
+	if (offset == NULL)
+		return (ERROR);
+	if (offset->order_numb == 10)
 	{
 		return_value = executor_check_valid_command(data, offset);
 		if (return_value == 1)
 		{
+			if ((offset + 1)->order_str != NULL)
+			{
+				if (executor_get_command_arguments(data, offset + 1) == ERROR)
+				{
+					return (ERROR);
+				}
+			}
 			executor_try_execve(data, offset);
 		}
 		else if (return_value == ERROR)

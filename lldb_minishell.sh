@@ -17,6 +17,6 @@
 #	before continuing the process
 
 lldb -s <(echo "process attach -name minishell --waitfor") \
--o "b tokenizer" \
+-o "b executor_main" \
 -o "process continue"
 

@@ -29,7 +29,7 @@ void	debug_print_t_execute(t_data *data,	t_execute *execute)
 	int	counter;
 
 	counter = 0;
-	while (counter < data->tokens)
+	while (counter < data->tokens + 1 && execute[counter].order_str != NULL)
 	{
 		printf("t_execute: ");
 		printf("order_str: [%s] ", execute[counter].order_str);
@@ -48,3 +48,11 @@ void	debug_print_t_expander(t_expander *expander)
 		expander = expander->next;
 	}
 }
+
+void	debug_print_t_vector_str(t_vector_str *vector_to_print)
+{
+	printf("t_vector:\n");
+	printf("str [%s]\n", vector_to_print->str);
+	printf("size_used [%zu]\n", vector_to_print->size_used);
+	printf("size_allocated [%zu]\n", vector_to_print->size_allocated);
+}	

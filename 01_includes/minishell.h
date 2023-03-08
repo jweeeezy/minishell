@@ -13,6 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <stdlib.h>
+# include "libme.h"	// needed for t_vector_str
 
 enum e_outputs
 {
@@ -58,10 +59,9 @@ typedef struct s_execute
 {
 	char	*order_str;
 	int		order_numb;
-	char	*full_path;	// @note I need this for execution. On init = NULL
+	char	*full_path;
 }	t_execute;
 
-//	@note This is actually the list for the copied envp, right?
 typedef struct s_expander
 {
 	char				*str;
@@ -78,6 +78,7 @@ typedef struct s_data
 	char			**argv;
 	t_expander		*expander;
 	char			*string;
+	t_vector_str	*vector_args;
 }	t_data;
 
 /* ************************************************************************** */
@@ -127,6 +128,6 @@ void	debug_print_char_array(char **args);
 void	debug_print_t_execute(t_data *data,
 			t_execute *execute);
 void	debug_print_t_expander(t_expander *expander);
-
+void	debug_print_t_vector_str(t_vector_str *vector_to_print);
 
 #endif  // MINISHELL_H

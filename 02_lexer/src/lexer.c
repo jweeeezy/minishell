@@ -88,6 +88,9 @@ static int	command_line(t_data *data)
 		previous = data->execute[cnt].order_numb;
 		cnt++;
 	}
+	// @note I need some kind of NULL protection at the end or some kind of 
+	// counter (i guess data->tokens mb?) so I have an if condition to look
+	// for additional command arguments. see --> line 144
 	return (EXECUTED);
 }
 
@@ -100,7 +103,8 @@ int	lexer(t_data *data)
     if (DEBUG)
     {
         debug_print_char_array(data->args);
-        debug_print_t_execute(data, data->execute);
+        debug_print_t_execute(data, data->execute); // @todo solve segfault
+													// happening
     }
 	return (EXECUTED);
 }
