@@ -15,18 +15,20 @@
 #include "libft.h"      // needed for ft_strjoin()
 #include "libme.h"		// needed for ft_str_check_needle()
 
+#include <stdio.h>
+
 // for each viable command...
 // get envp path variable
-// split the evnp path variable?
+// split the envp path variable?
 // search for each split directory if a programm is found
 // if yes return found combination (mb in a char * inside the struct)
 
-static char	*executor_get_path_array(char **envp)
+static char	**executor_get_path_array(char **envp)
 {
 	char **path_array;
 
 	path_array = NULL;
-	while (envp != NULL && *evnp != NULL)
+	while (envp != NULL && *envp != NULL)
 	{
 		if (ft_str_check_needle(*envp, "Path=", ft_strlen(*envp)) == 1)
 		{
@@ -38,7 +40,7 @@ static char	*executor_get_path_array(char **envp)
 	return (path_array);
 }
 
-static int	*executor_try_access(t_execute *execute, 
+static int	executor_try_access(t_execute *execute, 
 		char *path, char *command)
 {
 	execute->full_path = ft_strjoin(path, command);
@@ -60,7 +62,7 @@ static t_execute	*executor_loop_whitespaces(t_execute *execute)
 	{
 		index += 1;
 	}
-	return (execute[index]);
+	return (&execute[index]);
 }
 
 static int	executor_check_valid_command(t_data *data, t_execute *offset)
@@ -89,13 +91,14 @@ static int	executor_try_execve(t_data *data, t_execute *offset)
 {
 	int	id;
 
-	id = fork()
+	id = fork();
 	if (id == -1)
 	{
 		return (ERROR);
 	}
 	if (id == 0)
 	{
+		printf("reached\n)");
 		execve(offset->full_path, NULL, data->envp);
 	}
 	else
@@ -118,6 +121,7 @@ int	executor_main(t_data *data)
 			return_value = executor_check_valid_command(data, offset);
 			if (return_value == 1)
 			{
+				printf("reached first\n");
 				executor_try_execve(data, offset);
 			}
 			else if (return_value == ERROR)
