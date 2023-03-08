@@ -22,7 +22,7 @@ LEXER_DIR							=	./02_lexer/
 PARSER_DIR							=	./03_parser/
 EXPANDER_DIR						=	./04_expander/
 REDIRECTOR							=	./05_redirector/
-EXECUTOR							=	./06_executor/
+EXECUTOR_DIR						=	./06_executor/
 BUILTINS_DIR						=	./07_builtins/
 SIGNALS_DIR							=	./08_signals/
 CORE_DIR							=	./09_core/
@@ -32,9 +32,9 @@ MODULES_DIR_ALL						=	$(LEXER_DIR)\
 										$(BUILTINS_DIR)\
 										$(CORE_DIR)\
 										$(EXPANDER_DIR)\
-										$(DEBUG_DIR)
+										$(DEBUG_DIR)\
+										$(EXECUTOR_DIR)
 										#$(REDIRECTOR_DIR)\#
-										#$(EXECUTOR_DIR)\#
 										#$(SIGNALS_DIR)#
 SUBMODULE							=	submodule_initialised
 
@@ -55,14 +55,14 @@ MODULES_ALL							=	$(LIBME)\
 										$(BUILTINS)\
 										$(CORE)\
 										$(EXPANDER)\
-										$(DEBUG)
+										$(DEBUG)\
+										$(EXECUTOR)
 										#$(REDIRECTOR)\#
-										#$(EXECUTOR)\#
 										#$(SIGNALS)#
 
 #	General Rules
 CC									=	cc
-CC_DEBUG							=	$(shell $$DEBUG_FLAG)
+CC_DEBUG							=	$(shell echo $$DEBUG_FLAG)
 CFLAGS								=	-Wall -Wextra -Werror $(CC_DEBUG) \
 										-lreadline
 REMOVE								=	rm -f
@@ -71,7 +71,7 @@ REMOVE								=	rm -f
 .DELETE_ON_ERROR:
 
 #	General targets
-.PHONY:									all clean fclean re submodule update
+.PHONY:									all clean fclean re ref update
 all:									$(SUBMODULE) $(NAME) 
 $(NAME):								$(MODULES_ALL)
 											$(CC) $(CFLAGS) $(MODULES_ALL) \
@@ -80,19 +80,25 @@ $(MODULES_ALL):
 											$(MAKE) libme -C $(LIBALLME_DIR)
 											for dir in $(MODULES_DIR_ALL); do\
 												$(MAKE) -C $$dir; \
-											done
+												done
 clean:
 											$(MAKE) clean -C $(LIBALLME_DIR)
 											for dir in $(MODULES_DIR_ALL); do\
 												$(MAKE) clean -C $$dir; \
-											done
+												done
 fclean:									clean
 											$(MAKE) fclean -C $(LIBALLME_DIR)
 											for dir in $(MODULES_DIR_ALL); do\
 												$(MAKE) fclean -C $$dir; \
-											done
+												done
 											$(REMOVE) $(NAME)
 re:										fclean
+											$(MAKE)
+ref:									
+											for dir in $(MODULES_DIR_ALL); do\
+												$(MAKE) fclean -C $$dir; \
+												done
+											$(REMOVE) $(NAME)
 											$(MAKE)
 $(SUBMODULE):								
 											git submodule update --init \

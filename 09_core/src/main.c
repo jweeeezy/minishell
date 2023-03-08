@@ -24,8 +24,8 @@ static int	history(t_data *data)
 		add_history(data->line);
 		if (lexer(data) == ERROR)
 			return (free(data->line), ERROR);
-//		if (executor_main(data) == ERROR)
-//			return (free(data->line), ERROR);
+		if (executor_main(data) == ERROR)
+			return (free(data->line), ERROR);
 	}
 	return (EXECUTED);
 }

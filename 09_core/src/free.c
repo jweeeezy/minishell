@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
 void	free_loop(t_data *data)
 {
@@ -25,4 +26,19 @@ void	free_loop(t_data *data)
 	}
 	free(data->execute);
 	free(data->args);
+}
+
+void	free_char_array(char **array_to_free)
+{
+	int	index;
+
+	index = 0;
+	while (array_to_free != NULL && array_to_free[index] != NULL)
+	{
+		if (DEBUG)
+			printf("Freeing... [%s]\n", array_to_free[index]);
+		free (array_to_free[index]);
+		index += 1;
+	}
+	free (array_to_free);
 }

@@ -18,5 +18,6 @@ int	argument_protection(t_data *data, int argc, char **argv, char **envp)
 		return (ERROR);
 	put_to_linked_list_expander(data, envp);
 	data->argv = argv;
+	data->envp = envp;
 	return (EXECUTED);
 }
