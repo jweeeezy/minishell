@@ -92,6 +92,7 @@ int		is_command(t_data *data, int cnt, char *needle);
 int		is_command1(t_data *data, int cnt, char *needle);
 //int   utils_check_for_chars(t_data *data, int segment);
 int		is_white_space(char c);
+void	free_char_array(char **array_to_free);
 
 /* ************************************************************************** */
 //                                    LEXER
