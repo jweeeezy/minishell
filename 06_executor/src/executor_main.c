@@ -13,26 +13,19 @@
 #include <unistd.h>		// needed for fork(), access(), NULL
 #include "minishell.h"  // needed for t_data, function()
 #include "libft.h"      // needed for ft_strjoin()
-#include "libme.h"		// needed for ft_str_check_needle()
-
-#include <stdio.h>
-
-// for each viable command...
-// get envp path variable
-// split the envp path variable?
-// search for each split directory if a programm is found
-// if yes return found combination (mb in a char * inside the struct)
+#include "libme.h"		// needed for ft_str_check_needle(), 
+						// ft_str_join_delimiter()
 
 static char	**executor_get_path_array(char **envp)
 {
-	char **path_array;
+	char	**path_array;
 
 	path_array = NULL;
 	while (envp != NULL && *envp != NULL)
 	{
-		if (ft_str_check_needle(*envp, "Path=", ft_strlen(*envp)) == 1)
+		if (ft_str_check_needle(*envp, "PATH=", ft_strlen(*envp)) == 1)
 		{
-			path_array = ft_split(*envp, ':');
+			path_array = ft_split(*envp + 5, ':');
 			break ;
 		}
 		envp += 1;
@@ -40,14 +33,18 @@ static char	**executor_get_path_array(char **envp)
 	return (path_array);
 }
 
-static int	executor_try_access(t_execute *execute, 
-		char *path, char *command)
+static int	executor_try_access(t_execute *execute,
+				char *path, char *command)
 {
-	execute->full_path = ft_strjoin(path, command);
+	execute->full_path = ft_str_join_delimiter(path, "/", command);
 	if (execute->full_path == NULL)
+	{
 		return (ERROR);
+	}
 	if (access(execute->full_path, F_OK) != -1)
+	{
 		return (1);
+	}
 	free(execute->full_path);
 	execute->full_path = NULL;
 	return (0);
@@ -69,19 +66,22 @@ static int	executor_check_valid_command(t_data *data, t_execute *offset)
 {
 	char	**paths;
 	int		return_value;
+	int		index;
 
+	index = 0;
 	paths = executor_get_path_array(data->envp);
 	if (paths == NULL)
 		return (ERROR);
-	while (paths != NULL && *paths != NULL)
+	while (paths[index] != NULL)
 	{
-		return_value = executor_try_access(offset, *paths, offset->order_str);
+		return_value = executor_try_access(offset, paths[index],
+				offset->order_str);
 		if (return_value != 0)
 		{
 			free_char_array(paths);
 			return (return_value);
 		}
-		paths += 1;
+		index += 1;
 	}
 	free_char_array(paths);
 	return (0);
@@ -117,15 +117,15 @@ int	executor_main(t_data *data)
 	offset = executor_loop_whitespaces(data->execute);
 	if (offset->order_numb == 0)
 	{
-			return_value = executor_check_valid_command(data, offset);
-			if (return_value == 1)
-			{
-				executor_try_execve(data, offset);
-			}
-			else if (return_value == ERROR)
-			{
-				return (ERROR);
-			}
+		return_value = executor_check_valid_command(data, offset);
+		if (return_value == 1)
+		{
+			executor_try_execve(data, offset);
+		}
+		else if (return_value == ERROR)
+		{
+			return (ERROR);
+		}
 	}
 	return (0);
 }

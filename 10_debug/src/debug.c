@@ -15,7 +15,7 @@
 
 void	debug_print_char_array(char **args)
 {
-	printf("Tokens:");
+	printf("Content char array:");
 	while (args != NULL && *args != NULL)
 	{
 		printf(" [%s] ", *args);
@@ -26,7 +26,7 @@ void	debug_print_char_array(char **args)
 
 void	debug_print_t_execute(t_data *data,	t_execute *execute)
 {
-	int counter;
+	int	counter;
 
 	counter = 0;
 	while (counter < data->tokens)
