@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>		// needed for access(), NULL
+#include <unistd.h>		// needed for fork(), access(), NULL
 #include "minishell.h"  // needed for t_data, function()
 #include "libft.h"      // needed for ft_strjoin()
 #include "libme.h"		// needed for ft_str_check_needle()
@@ -51,7 +51,7 @@ static int	*executor_try_access(t_execute *execute,
 	return (0);
 }
 
-static t_executor	*executor_loop_whitespaces(t_execute *execute)
+static t_execute	*executor_loop_whitespaces(t_execute *execute)
 {
 	int	index;
 
@@ -85,15 +85,45 @@ static int	executor_check_valid_command(t_data *data, t_execute *offset)
 	return (0);
 }
 
+static int	executor_try_execve(t_data *data, t_execute *offset)
+{
+	int	id;
+
+	id = fork()
+	if (id == -1)
+	{
+		return (ERROR);
+	}
+	if (id == 0)
+	{
+		execve(offset->full_path, NULL, data->envp);
+	}
+	else
+	{
+		if (wait(NULL) == -1)
+			return (ERROR);
+	}
+	return (0);
+}
+
 int	executor_main(t_data *data)
 {
 	t_execute	*offset;
+	int			return_value;
 
+	return_value = 0;
 	offset = executor_loop_whitespaces(data->execute);
 	if (offset->order_numb == 10)
 	{
-		if (executor_try_execve(data, offset) == ERROR)
-			return (ERROR);
+			return_value = executor_check_valid_command(data, offset);
+			if (return_value == 1)
+			{
+				executor_try_execve(data, offset);
+			}
+			else if (return_value == ERROR)
+			{
+				return (ERROR);
+			}
 	}
 	return (0);
 }
