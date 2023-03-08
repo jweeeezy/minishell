@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/07 14:47:17 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/08 10:49:14 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	calculate_command_2(t_data *data, int cnt)
 		return (WHITE);
 	else if (*data->args[cnt] == '\0')
 		return (EXECUTED);
-	return (EXECUTED);
+	return (STRING);
 }
 
 static int	calculate_command_1(t_data *data, int cnt, int previous)

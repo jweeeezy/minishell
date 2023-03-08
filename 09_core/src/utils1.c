@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:01:08 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/01 16:39:24 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/08 14:43:08 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@ int	is_white_space(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\n'
 		|| c == '\r' || c == '\v' || c == '\f')
+		return (ADD);
+	return (EXECUTED);
+}
+
+int	is_pipe(int c)
+{
+	if (c == PIPE || c == SHELL_REDIRECTION || c == HERE_DOC
+		|| c == FILE_TO_COMMAND || c == COMMAND_TO_FILE)
 		return (ADD);
 	return (EXECUTED);
 }

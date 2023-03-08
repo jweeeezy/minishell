@@ -6,39 +6,58 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/07 16:57:59 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/08 14:43:41 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
-// static int	is_pipe(int c)
-// {
-// 	if (c == PIPE || c == SHELL_REDIRECTION || c == HERE_DOC
-// 		|| c == FILE_TO_COMMAND || c == COMMAND_TO_FILE)
-// 		return (ADD);
-// 	return (EXECUTED);
-// }
+void	execute_command(t_data *data, int cnt, int is_piped)
+{
+	if (is_piped != ERROR)
+	{
+		if (data->execute[cnt].order_numb == ECHO)
+			echo(data, cnt);
+	}
+}
+
+int	pipe_error_handler(t_data *data, int cnt)
+{
+	if (is_pipe(data->execute[cnt].order_numb) == ADD)
+			cnt++;
+	if (is_pipe(data->execute[cnt].order_numb) == ADD)
+			cnt++;
+	if (is_pipe(data->execute[cnt].order_numb) == ADD)
+	{
+			data->execute[cnt].order_numb = ERROR;
+			data->execute[cnt - 1].order_numb = ERROR;
+			data->execute[cnt - 2].order_numb = ERROR;
+			cnt++;
+	}
+	return (cnt);
+}
 
 int	parser(t_data *data)
 {
 	int	cnt;
-	// // int	main_command;
+	int	is_piped;
 
+	is_piped = 0;
 	cnt = 0;
-	// // main_command = 100;
-	 while (cnt < data->tokens)
+	while (cnt < data->tokens)
 	{
-	// // 	if (is_pipe(data->execute[cnt].order_numb))
-	// // 	{
-	// // 		main_command = 100;
-	// // 		cnt++;
-	// // 		continue ;
-	// // 	}
-	// // 	else if (data->execute[cnt].order_numb != 2 && main_command == 100)
-	// // 		main_command = data->execute[cnt].order_numb;
-	// // 	data->ex
-		cnt++;
+		while (data->execute[cnt].order_numb == WHITE && cnt < data->tokens)
+			cnt++;
+		if (cnt < data->tokens)
+			execute_command(data, cnt, is_piped);
+		while (is_pipe(data->execute[cnt].order_numb) == EXECUTED
+			&& cnt < data->tokens)
+			cnt++;
+		cnt = pipe_error_handler(data, cnt);
+		if (cnt != data->tokens)
+			is_piped = data->execute[cnt - 1].order_numb;
 	}
+	printf("%s", data->string);
 	return (EXECUTED);
 }

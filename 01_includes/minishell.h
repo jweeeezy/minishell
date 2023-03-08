@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/07 15:03:53 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/08 14:43:30 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ enum e_outputs
 	COMMAND_TO_FILE = 7,
 	FILE_TO_COMMAND = 8,
 	EQUALS = 9,
+	STRING = 10,
 	SHELL_REDIRECTION = 17,
 	HERE_DOC = 18,
 	ECHO = 20,
@@ -57,7 +58,7 @@ typedef struct s_execute
 {
 	char	*order_str;
 	int		order_numb;
-	char	*full_path;		// @note I need this for execution. On init = NULL
+	char	*full_path;	// @note I need this for execution. On init = NULL
 }	t_execute;
 
 //	@note This is actually the list for the copied envp, right?
@@ -76,6 +77,7 @@ typedef struct s_data
 	char			**envp;
 	char			**argv;
 	t_expander		*expander;
+	char			*string;
 }	t_data;
 
 /* ************************************************************************** */
@@ -92,6 +94,7 @@ int		is_command(t_data *data, int cnt, char *needle);
 int		is_command1(t_data *data, int cnt, char *needle);
 //int   utils_check_for_chars(t_data *data, int segment);
 int		is_white_space(char c);
+int		is_pipe(int c);
 
 /* ************************************************************************** */
 //                                    LEXER
@@ -109,7 +112,10 @@ int		put_to_linked_list_expander(t_data *data, char **envp);
 //                                    EXECUTOR
 /* ************************************************************************** */
 int		executor_main(t_data *data);
-
+/* ************************************************************************** */
+//                                    BUILTINS
+/* ************************************************************************** */
+void	echo(t_data *data, int cnt);
 /* ************************************************************************** */
 //                                    DEBUG
 /* ************************************************************************** */
@@ -120,5 +126,6 @@ void	debug_print_char_array(char **args);
 void	debug_print_t_execute(t_data *data,
 			t_execute *execute);
 void	debug_print_t_expander(t_expander *expander);
+
 
 #endif  // MINISHELL_H
