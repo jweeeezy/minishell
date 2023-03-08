@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/08 14:43:41 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/08 16:34:18 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	parser(t_data *data)
 		if (cnt != data->tokens)
 			is_piped = data->execute[cnt - 1].order_numb;
 	}
-	printf("%s", data->string);
+	if (data->string != NULL)
+		printf("%s", data->string);
 	return (EXECUTED);
 }

@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 12:57:12 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/08 14:48:53 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/08 16:26:36 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,15 @@ void	echo(t_data *data, int cnt)
 	}
 	if (data->execute[cnt].order_str == NULL
 		|| is_pipe(data->execute[cnt].order_numb) == 1)
+	{
 		data->string = ft_strdup("\n");
+		return ;
+	}
 	while (data->execute[cnt].order_numb == WHITE && cnt < data->tokens
 		&& is_pipe(data->execute[cnt].order_numb) != ADD)
+	cnt++;
+	if (ft_strncmp(data->execute[cnt].order_str, "-n", 2) == 0
+		&& ft_strlen(data->execute[cnt].order_str) == 2)
+		new_line = 1;
 	cnt++;
 }
