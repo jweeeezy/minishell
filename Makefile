@@ -71,7 +71,7 @@ REMOVE								=	rm -f
 .DELETE_ON_ERROR:
 
 #	General targets
-.PHONY:									all clean fclean re submodule update
+.PHONY:									all clean fclean re req update
 all:									$(SUBMODULE) $(NAME) 
 $(NAME):								$(MODULES_ALL)
 											$(CC) $(CFLAGS) $(MODULES_ALL) \
@@ -80,19 +80,25 @@ $(MODULES_ALL):
 											$(MAKE) libme -C $(LIBALLME_DIR)
 											for dir in $(MODULES_DIR_ALL); do\
 												$(MAKE) -C $$dir; \
-											done
+												done
 clean:
 											$(MAKE) clean -C $(LIBALLME_DIR)
 											for dir in $(MODULES_DIR_ALL); do\
 												$(MAKE) clean -C $$dir; \
-											done
+												done
 fclean:									clean
 											$(MAKE) fclean -C $(LIBALLME_DIR)
 											for dir in $(MODULES_DIR_ALL); do\
 												$(MAKE) fclean -C $$dir; \
-											done
+												done
 											$(REMOVE) $(NAME)
 re:										fclean
+											$(MAKE)
+req:									
+											for dir in $(MODULES_DIR_ALL); do\
+												$(MAKE) fclean -C $$dir; \
+												done
+											$(REMOVE) $(NAME)
 											$(MAKE)
 $(SUBMODULE):								
 											git submodule update --init \
