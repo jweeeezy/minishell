@@ -15,6 +15,7 @@
 #include "libft.h"      // needed for ft_strjoin()
 #include "libme.h"		// needed for ft_str_check_needle(),
 						// ft_str_join_delimiter(), t_vector_str
+#include <stdio.h>
 
 static char	**executor_get_path_array(char **envp)
 {
@@ -91,8 +92,19 @@ static int	executor_check_valid_command(t_data *data, t_execute *offset)
 
 static int	executor_try_execve(t_data *data, t_execute *offset)
 {
-	int	id;
+	char **arg_array;	
+	int	 id;
 
+	if (data->vector_args != NULL)
+	{
+		arg_array = ft_split(data->vector_args->str, ' ');
+		if (arg_array == NULL)
+			return (ERROR);
+	}
+	else
+	{
+		arg_array = NULL;
+	}
 	id = fork();
 	if (id == -1)
 	{
@@ -100,7 +112,12 @@ static int	executor_try_execve(t_data *data, t_execute *offset)
 	}
 	if (id == 0)
 	{
-		execve(offset->full_path, NULL, data->envp);
+		if (execve(offset->full_path, arg_array,
+				   	NULL) == -1)
+			if (DEBUG)
+			{
+				perror("execve");
+			}
 	}
 	else
 	{
@@ -115,7 +132,7 @@ static int	executor_get_command_arguments(t_data *data, t_execute *offset)
 	t_vector_str	*vector_args;
 
 	vector_args = data->vector_args;
-	while (offset != NULL && offset->order_numb != 5)
+	while (offset->order_str != NULL && offset->order_numb != 5)
 	{
 		vector_args = ft_vector_str_join(vector_args, offset->order_str, 0);
 		if (vector_args == NULL)
@@ -124,6 +141,7 @@ static int	executor_get_command_arguments(t_data *data, t_execute *offset)
 		}
 		offset += 1;
 	}
+	data->vector_args = vector_args;
 	if (DEBUG)
 	{
 		debug_print_t_vector_str(data->vector_args);
@@ -151,6 +169,10 @@ int	executor_main(t_data *data)
 				{
 					return (ERROR);
 				}
+			}
+			else
+			{
+				data->vector_args = NULL;
 			}
 			executor_try_execve(data, offset);
 		}
