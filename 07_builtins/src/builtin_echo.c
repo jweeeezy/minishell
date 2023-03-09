@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 12:57:12 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/09 16:47:05 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/09 17:56:20 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,11 @@ static int	check_string_state(t_data *data, int cnt)
 	if (data->string != NULL)
 		free(data->string);
 	data->string = NULL;
-	if (data->tokens >= cnt + 2
-		&& ft_strncmp(data->execute[cnt + 2].order_str, "-ne", 3) == 0
-		&& ft_strlen(data->execute[cnt + 2].order_str) == 3)
-		return (ADD);
+	if (data->tokens >= cnt + 1
+		&& ft_strncmp(data->execute[cnt + 1].order_str, "-ne", 3) == 0
+		&& ft_strlen(data->execute[cnt + 1].order_str) == 3
+		&& ft_strncmp(data->execute[cnt - 1].order_str, "echo", 4) == 0)
+		return (WHITE);
 	return (EXECUTED);
 }
 
@@ -61,6 +62,13 @@ int	echo(t_data *data, int cnt)
 
 	new_line = check_string_state(data, cnt);
 	counter = count_till_pipe(data, cnt);
-	printf("%i\n", counter);
+	cnt = cnt + new_line;
+	while (cnt < counter && cnt < data->tokens)
+	{
+		printf("%s", data->execute[cnt].order_str);
+		cnt++;
+	}
+	if (new_line == 0)
+		printf("\n");
 	return (cnt);
 }
