@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 12:57:12 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/08 16:26:36 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/09 15:48:00 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,32 @@
 #include "libft.h"
 #include <stdio.h>
 
-void	echo(t_data *data, int cnt)
-{
-	int	quotes;
-	int	new_line;
 
-	new_line = 0;
-	quotes = 0;
-	cnt++;
+static int	check_string_state(t_data *data, int cnt)
+{
 	if (data->string != NULL)
-	{
 		free(data->string);
-		data->string = NULL;
-	}
-	if (data->execute[cnt].order_str == NULL
-		|| is_pipe(data->execute[cnt].order_numb) == 1)
-	{
-		data->string = ft_strdup("\n");
-		return ;
-	}
-	while (data->execute[cnt].order_numb == WHITE && cnt < data->tokens
-		&& is_pipe(data->execute[cnt].order_numb) != ADD)
-	cnt++;
-	if (ft_strncmp(data->execute[cnt].order_str, "-n", 2) == 0
-		&& ft_strlen(data->execute[cnt].order_str) == 2)
-		new_line = 1;
-	cnt++;
+	data->string = NULL;
+	if (data->tokens >= cnt + 2
+		&& ft_strncmp(data->execute[cnt + 2].order_str, "-ne", 3) == 0
+		&& ft_strlen(data->execute[cnt + 2].order_str) == 3)
+		return (ADD);
+	return (EXECUTED);
+}
+
+int	echo(t_data *data, int cnt)
+{
+	int	new_line;
+	int	quote_open;
+	//int save_quote;
+
+	quote_open = 1;
+	new_line = check_string_state(data, cnt);
+	// while (is_pipe(data->execute[cnt].order_numb) + quote_open <= ADD
+	// 	&& cnt < data->tokens)
+	// {
+	// 	if (data->execute[cnt].order_numb == 3 || )
+	// 	cnt++;
+	// }
+	return (cnt);
 }

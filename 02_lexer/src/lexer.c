@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/08 10:49:14 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/09 09:54:08 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,13 @@ static int	command_line(t_data *data)
 		data->execute[cnt].order_numb
 			= calculate_command_1(data, cnt, previous);
 		data->execute[cnt].order_str = ft_strdup(data->args[cnt]);
-        // @note no NULL/malloc protection
+		if (data->execute[cnt].order_numb == ERROR)
+			return (ERROR);
 		data->execute[cnt].full_path = NULL;
 		previous = data->execute[cnt].order_numb;
 		cnt++;
 	}
-	// @note I need some kind of NULL protection at the end or some kind of 
-	// counter (i guess data->tokens mb?) so I have an if condition to look
-	// for additional command arguments. see --> line 144
+	data->execute[cnt].order_str = NULL;
 	return (EXECUTED);
 }
 
@@ -98,13 +97,12 @@ int	lexer(t_data *data)
 {
 	data->tokens = 0;
 	data->args = tokenizer(data, 0, 0, 0);
-	command_line(data);
-    //  @note error handling
+	if (command_line(data) == ERROR)
+		return (ERROR);
     if (DEBUG)
     {
         debug_print_char_array(data->args);
-        debug_print_t_execute(data, data->execute); // @todo solve segfault
-													// happening
+        debug_print_t_execute(data, data->execute); // @todo solve segfault							// happening
     }
 	return (EXECUTED);
 }

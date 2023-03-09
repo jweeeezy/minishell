@@ -6,20 +6,21 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/08 16:34:18 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/09 14:13:43 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
 
-void	execute_command(t_data *data, int cnt, int is_piped)
+int	execute_command(t_data *data, int cnt, int is_piped)
 {
 	if (is_piped != ERROR)
 	{
 		if (data->execute[cnt].order_numb == ECHO)
-			echo(data, cnt);
+			cnt = echo(data, cnt);
 	}
+	return (cnt);
 }
 
 int	pipe_error_handler(t_data *data, int cnt)
@@ -38,6 +39,43 @@ int	pipe_error_handler(t_data *data, int cnt)
 	return (cnt);
 }
 
+int	quote_check(t_data *data)
+{
+	int	cnt;
+	int	quote_check;
+	int	quote_id;
+
+	cnt = 0;
+	quote_check = 0;
+	quote_id = 0;
+	while (cnt < data->tokens)
+	{
+		if ((data->execute[cnt].order_numb == 3
+				|| data->execute[cnt].order_numb == 4) && quote_check == 0)
+		{
+			quote_check = 1;
+			quote_id = data->execute[cnt].order_numb;
+		}
+		else if (quote_id == data->execute[cnt].order_numb)
+		{
+			quote_check = 0;
+			quote_id = 0;
+		}
+		cnt++;
+	}
+	return (quote_check);
+}
+
+static int	parsing_error_handler(t_data *data)
+{
+	if (quote_check(data) == 1)
+	{
+		printf("Quote>\n");
+		return (ERROR);
+	}
+	return (EXECUTED);
+}
+
 int	parser(t_data *data)
 {
 	int	cnt;
@@ -45,12 +83,14 @@ int	parser(t_data *data)
 
 	is_piped = 0;
 	cnt = 0;
+	if (parsing_error_handler(data) == ERROR)
+		return (EXECUTED);
 	while (cnt < data->tokens)
 	{
 		while (data->execute[cnt].order_numb == WHITE && cnt < data->tokens)
 			cnt++;
 		if (cnt < data->tokens)
-			execute_command(data, cnt, is_piped);
+			cnt = execute_command(data, cnt, is_piped);
 		while (is_pipe(data->execute[cnt].order_numb) == EXECUTED
 			&& cnt < data->tokens)
 			cnt++;
