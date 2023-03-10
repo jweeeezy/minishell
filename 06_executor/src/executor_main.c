@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/10 13:21:08 by jwillert         ###   ########          */
+/*   Updated: 2023/03/10 14:56:23 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,10 +151,7 @@ static int	executor_get_command_arguments(t_data *data, t_execute *offset)
 		offset += 1;
 	}
 	data->vector_args = vector_args;
-	if (DEBUG)
-	{
-		debug_print_t_vector_str(data->vector_args);
-	}
+	debug_print_t_vector_str(data->vector_args);
 	return (0);
 }
 

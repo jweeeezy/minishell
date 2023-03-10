@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/10 13:38:25 by jwillert         ###   ########          */
+/*   Updated: 2023/03/10 14:57:31 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ int	main(int argc, char **argv, char **envp)
 	using_history();
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
 		return (ERROR);
-	if (DEBUG)
-		debug_print_t_expander(data.expander);
+	debug_print_t_expander(data.expander);
 	while (1)
 	{
 		if (history(&data) == ERROR)

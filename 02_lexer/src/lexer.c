@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/09 09:54:08 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/10 14:55:53 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,7 @@ int	lexer(t_data *data)
 	data->args = tokenizer(data, 0, 0, 0);
 	if (command_line(data) == ERROR)
 		return (ERROR);
-    if (DEBUG)
-    {
-        debug_print_char_array(data->args);
-        debug_print_t_execute(data, data->execute); // @todo solve segfault							// happening
-    }
+	debug_print_char_array(data->args);
+	debug_print_t_execute(data, data->execute);
 	return (EXECUTED);
 }
