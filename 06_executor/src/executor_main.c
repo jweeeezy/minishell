@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/10 19:47:01 by jwillert         ###   ########          */
+/*   Updated: 2023/03/10 19:57:00 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "libme.h"		// needed for ft_str_check_needle(),
 						// ft_str_join_delimiter(), t_vector_str
 #include <stdio.h>		// needed for perror()
+
+//	@todo Refactor code into multiple files
 
 static char	**executor_get_path_array(char **envp)
 {
@@ -57,7 +59,9 @@ static t_execute	*executor_loop_whitespaces(t_execute *execute)
 
 	index = 0;
 	if (execute == NULL)
+	{
 		return (NULL);
+	}
 	while (execute[index].order_numb == 1 || execute[index].order_numb == 2)
 	{
 		index += 1;
@@ -74,7 +78,9 @@ static int	executor_check_valid_command(t_data *data, t_execute *offset)
 	index = 0;
 	paths = executor_get_path_array(data->envp);
 	if (paths == NULL)
+	{
 		return (ERROR);
+	}
 	while (paths[index] != NULL)
 	{
 		return_value = executor_try_access(offset, paths[index],
@@ -95,6 +101,7 @@ static int	executor_try_execve(t_data *data, t_execute *offset)
 	char	**arg_array;	
 	int		id;
 
+	//@todo check if this is needed
 	if (data->vector_args != NULL)
 	{
 		arg_array = ft_split(data->vector_args->str, ' ');
@@ -115,6 +122,7 @@ static int	executor_try_execve(t_data *data, t_execute *offset)
 	}
 	if (id == 0)
 	{
+		// @todo extract code as child_routine
 		debug_print_char_array(arg_array);
 		if (execve(offset->full_path, arg_array,
 			data->envp) == -1)
@@ -164,17 +172,23 @@ int	executor_main(t_data *data)
 	return_value = 0;
 	offset = executor_loop_whitespaces(data->execute);
 	if (offset == NULL)
+	{
 		return (ERROR);
+	}
 	if (offset->order_numb == 10)
 	{
+		// @todo extract code as execute extern command
 		return_value = executor_check_valid_command(data, offset);
 		if (return_value == 1)
 		{
 			if (executor_get_command_arguments(data, offset) == ERROR)
 			{
-					return (ERROR);
+				return (ERROR);
 			}
-			executor_try_execve(data, offset);
+			if (executor_try_execve(data, offset) == ERROR)
+			{
+				return (ERROR);
+			{
 		}
 		else if (return_value == ERROR)
 		{
