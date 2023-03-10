@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/09 11:57:42 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/10 12:29:14 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,22 @@ typedef struct s_data
 /* ************************************************************************** */
 int		init_data(t_data *data);
 //char	**free_tokens(char **tokens);
+void	free_char_array(char **array_to_free);
 void	free_loop(t_data *data);
 int		argument_protection(t_data *data, int argc, char **argv, char **envp);
+
+//int   utils_check_for_chars(t_data *data, int segment);
+/* ************************************************************************** */
+//                                    UTILS
+/* ************************************************************************** */
+char	*ft_strjoin2(char *temp, char *buffer, size_t cnt1, size_t cnt2);
+int		is_white_space(char c);
+int		is_pipe(int c);
 int		ft_strnstr2(const char *haystack, const char *needle, size_t t);
 int		utils_is_command_helper(t_data *data, int cnt1, int cnt);
 int		utils_is_command_helper1(t_data *data, int cnt1, int cnt, char *needle);
 int		is_command(t_data *data, int cnt, char *needle);
 int		is_command1(t_data *data, int cnt, char *needle);
-//int   utils_check_for_chars(t_data *data, int segment);
-int		is_white_space(char c);
-int		is_pipe(int c);
-void	free_char_array(char **array_to_free);
 
 /* ************************************************************************** */
 //                                    LEXER

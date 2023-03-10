@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/10 15:15:08 by jwillert         ###   ########          */
+/*   Updated: 2023/03/10 15:39:08 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ int	parser(t_data *data)
 			is_piped = data->execute[cnt - 1].order_numb;
 	}
 	if (data->string != NULL)
-		printf("%s", data->string);
+		printf("%s\n", data->string);
 	return (EXECUTED);
 }
