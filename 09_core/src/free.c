@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/07 13:25:09 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/10 13:51:22 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ void	free_loop(t_data *data)
 	{
 		free(data->args[cnt]);
 		free(data->execute[cnt].order_str);
+		free(data->execute[cnt].full_path);
 		cnt++;
 	}
 	free(data->execute);
 	free(data->args);
+	data->vector_args = NULL;
 }
 
 void	free_char_array(char **array_to_free)

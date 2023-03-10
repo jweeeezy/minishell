@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/09 19:54:39 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/10 13:21:08 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "libft.h"      // needed for ft_strjoin()
 #include "libme.h"		// needed for ft_str_check_needle(),
 						// ft_str_join_delimiter(), t_vector_str
-#include <stdio.h>
+#include <stdio.h>		// needed for perror()
 
 static char	**executor_get_path_array(char **envp)
 {
@@ -92,14 +92,17 @@ static int	executor_check_valid_command(t_data *data, t_execute *offset)
 
 static int	executor_try_execve(t_data *data, t_execute *offset)
 {
-	char **arg_array;	
-	int	 id;
+	char	**arg_array;	
+	int		id;
 
 	if (data->vector_args != NULL)
 	{
 		arg_array = ft_split(data->vector_args->str, ' ');
 		if (arg_array == NULL)
+		{
+			ft_vector_str_free(data->vector_args);
 			return (ERROR);
+		}
 	}
 	else
 	{
@@ -113,16 +116,22 @@ static int	executor_try_execve(t_data *data, t_execute *offset)
 	if (id == 0)
 	{
 		if (execve(offset->full_path, arg_array,
-				   	NULL) == -1)
+				NULL) == -1)
+		{
 			if (DEBUG)
 			{
 				perror("execve");
 			}
+		}
 	}
 	else
 	{
 		if (wait(NULL) == -1)
+		{
+			free_char_array(arg_array);
 			return (ERROR);
+		}
+		free_char_array(arg_array);
 	}
 	return (0);
 }
@@ -165,7 +174,7 @@ int	executor_main(t_data *data)
 		{
 			if ((offset + 1)->order_str != NULL)
 			{
-				if (executor_get_command_arguments(data, offset + 1) == ERROR)
+				if (executor_get_command_arguments(data, offset) == ERROR)
 				{
 					return (ERROR);
 				}
