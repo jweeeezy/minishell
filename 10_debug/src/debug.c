@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:16:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/10 14:54:03 by jwillert         ###   ########          */
+/*   Updated: 2023/03/10 19:33:22 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	debug_print_char_array(char **args)
 {
 	if (DEBUG)
 	{
-		printf("Content char array:");
+		printf("Content char array: %p", args);
 		while (args != NULL && *args != NULL)
 		{
 			printf(" [%s] ", *args);

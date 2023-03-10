@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/10 14:56:23 by jwillert         ###   ########          */
+/*   Updated: 2023/03/10 19:41:07 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	executor_try_access(t_execute *execute,
 	{
 		return (ERROR);
 	}
-	if (access(execute->full_path, F_OK) != -1)
+	if (access(execute->full_path, X_OK) != -1)
 	{
 		return (1);
 	}
@@ -115,8 +115,9 @@ static int	executor_try_execve(t_data *data, t_execute *offset)
 	}
 	if (id == 0)
 	{
+		debug_print_char_array(arg_array);
 		if (execve(offset->full_path, arg_array,
-				NULL) == -1)
+			data->envp) == -1)
 		{
 			if (DEBUG)
 			{
