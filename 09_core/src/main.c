@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/10 14:57:31 by jwillert         ###   ########          */
+/*   Updated: 2023/03/10 15:14:17 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ static int	history(t_data *data)
 	{
 		add_history(data->line);
 		if (lexer(data) == ERROR)
-			return (free(data->line), ERROR);
-		if (executor_main(data) == ERROR)
 			return (free(data->line), ERROR);
 	}
 	return (EXECUTED);

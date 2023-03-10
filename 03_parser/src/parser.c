@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/09 17:31:42 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/10 15:15:08 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ int	execute_command(t_data *data, int cnt, int is_piped)
 	{
 		if (data->execute[cnt].order_numb == ECHO)
 			cnt = echo(data, cnt + 1);
+		else
+		{
+			if (executor_main(data) == ERROR)
+				return (ERROR);
+		}
 	}
 	return (cnt);
 }
