@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/10 19:41:07 by jwillert         ###   ########          */
+/*   Updated: 2023/03/10 19:47:01 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,16 +170,9 @@ int	executor_main(t_data *data)
 		return_value = executor_check_valid_command(data, offset);
 		if (return_value == 1)
 		{
-			if ((offset + 1)->order_str != NULL)
+			if (executor_get_command_arguments(data, offset) == ERROR)
 			{
-				if (executor_get_command_arguments(data, offset) == ERROR)
-				{
 					return (ERROR);
-				}
-			}
-			else
-			{
-				data->vector_args = NULL;
 			}
 			executor_try_execve(data, offset);
 		}
