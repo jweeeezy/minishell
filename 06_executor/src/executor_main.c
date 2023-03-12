@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/10 19:57:00 by jwillert         ###   ########          */
+/*   Updated: 2023/03/11 10:13:06 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,12 +188,10 @@ int	executor_main(t_data *data)
 			if (executor_try_execve(data, offset) == ERROR)
 			{
 				return (ERROR);
-			{
+			}
 		}
 		else if (return_value == ERROR)
-		{
 			return (ERROR);
-		}
 	}
-	return (0);
+	return (EXECUTED);
 }

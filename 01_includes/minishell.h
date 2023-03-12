@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/10 12:29:14 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/11 19:48:06 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,19 @@ enum e_outputs
 	EXIT = 27
 };
 
-typedef struct s_echo
-{
-	int	double_quotes;
-	int	single_quotes;
-	int	redirections;
-}	t_echo;
-
 typedef struct s_execute
 {
 	char	*order_str;
 	int		order_numb;
 	char	*full_path;
 }	t_execute;
+
+typedef struct s_combine
+{
+	t_execute	*command;
+	char		*combined_str;
+	int			execute_order;
+}	t_combine;
 
 typedef struct s_expander
 {
@@ -70,6 +70,7 @@ typedef struct s_expander
 
 typedef struct s_data
 {
+	int				commands_to_process;
 	char			**args;
 	int				tokens;
 	t_execute		*execute;
@@ -77,6 +78,7 @@ typedef struct s_data
 	char			**envp;
 	char			**argv;
 	t_expander		*expander;
+	t_combine		*combine;
 	char			*string;
 	t_vector_str	*vector_args;
 }	t_data;
@@ -113,6 +115,7 @@ char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char);
 //                                    PARSER
 /* ************************************************************************** */
 int		parser(t_data *data);
+int		parsing_error_handler(t_data *data);
 int		put_to_linked_list_expander(t_data *data, char **envp);
 
 /* ************************************************************************** */

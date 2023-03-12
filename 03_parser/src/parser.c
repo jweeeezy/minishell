@@ -6,104 +6,85 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/10 15:39:08 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/12 10:21:13 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
+#include "libft.h"
 
-int	execute_command(t_data *data, int cnt, int is_piped)
+static int	merge(t_data *data, int cnt, int cnt1)
 {
-	if (is_piped != ERROR)
-	{
-		if (data->execute[cnt].order_numb == ECHO)
-			cnt = echo(data, cnt + 1);
-		else
-		{
-			if (executor_main(data) == ERROR)
-				return (ERROR);
-		}
-	}
-	return (cnt);
+	data->combine[cnt1].combined_str
+		= ft_strjoin2(data->combine[cnt1].combined_str,
+			data->execute[cnt].order_str, 0, 0);
+	if (data->combine[cnt1].combined_str == NULL)
+		return (ERROR);
+	printf("%s\n", data->combine[cnt1].combined_str);
+	return (EXECUTED);
 }
 
-int	pipe_error_handler(t_data *data, int cnt)
+static int	count_strings(t_data *data, int cnt)
 {
-	if (is_pipe(data->execute[cnt].order_numb) == ADD)
-			cnt++;
-	if (is_pipe(data->execute[cnt].order_numb) == ADD)
-			cnt++;
-	if (is_pipe(data->execute[cnt].order_numb) == ADD)
-	{
-			data->execute[cnt].order_numb = ERROR;
-			data->execute[cnt - 1].order_numb = ERROR;
-			data->execute[cnt - 2].order_numb = ERROR;
-			cnt++;
-	}
-	return (cnt);
-}
+	int	tokens;
 
-int	quote_check(t_data *data)
-{
-	int	cnt;
-	int	quote_check;
-	int	quote_id;
-
-	cnt = 0;
-	quote_check = 0;
-	quote_id = 0;
+	tokens = 0;
 	while (cnt < data->tokens)
 	{
-		if ((data->execute[cnt].order_numb == 3
-				|| data->execute[cnt].order_numb == 4) && quote_check == 0)
-		{
-			quote_check = 1;
-			quote_id = data->execute[cnt].order_numb;
-		}
-		else if (quote_id == data->execute[cnt].order_numb)
-		{
-			quote_check = 0;
-			quote_id = 0;
-		}
-		cnt++;
+		while (cnt < data->tokens
+			&& is_pipe(data->execute[cnt].order_numb) == EXECUTED)
+			cnt++;
+		if (cnt != 0)
+			tokens++;
+		if (cnt >= data->tokens)
+			return (tokens);
+		while (cnt < data->tokens
+			&& is_pipe(data->execute[cnt].order_numb) == ADD)
+			cnt++;
+		tokens++;
+		if (cnt >= data->tokens)
+			return (tokens);
 	}
-	return (quote_check);
+	return (tokens);
 }
 
-static int	parsing_error_handler(t_data *data)
+static int	skip_white_spaces(t_data *data, int cnt)
 {
-	if (quote_check(data) == 1)
+	while (cnt < data->tokens && data->execute[cnt].order_numb == WHITE)
+		cnt++;
+	return (cnt);
+}
+
+static int	set_up_command_struct(t_data *data, int cnt, int cnt1, int switcher)
+{
+	cnt = skip_white_spaces(data, 0);
+	switcher = is_pipe(data->execute[cnt].order_numb);
+	data->commands_to_process = count_strings(data, 0);
+	data->combine = malloc(sizeof(t_combine) * (data->commands_to_process + 1));
+	while (cnt < data->tokens)
 	{
-		printf("Quote>\n");
-		return (ERROR);
+		if (is_pipe(data->execute[cnt].order_numb) == switcher)
+		{
+			if (merge(data, cnt, cnt1) == ERROR)
+				return (ERROR);
+			cnt++;
+		}
+		else
+		{
+			switcher = is_pipe(data->execute[cnt].order_numb);
+			cnt1++;
+		}
 	}
 	return (EXECUTED);
 }
 
 int	parser(t_data *data)
 {
-	int	cnt;
-	int	is_piped;
-
-	is_piped = 0;
-	cnt = 0;
+	printf("I am here\n");
 	if (parsing_error_handler(data) == ERROR)
 		return (EXECUTED);
-	while (cnt < data->tokens)
-	{
-		while (data->execute[cnt].order_numb == WHITE && cnt < data->tokens)
-			cnt++;
-		if (cnt < data->tokens)
-			cnt = execute_command(data, cnt, is_piped);
-		while (is_pipe(data->execute[cnt].order_numb) == EXECUTED
-			&& cnt < data->tokens)
-			cnt++;
-		cnt = pipe_error_handler(data, cnt);
-		if (cnt != data->tokens)
-			is_piped = data->execute[cnt - 1].order_numb;
-	}
-	if (data->string != NULL)
-		printf("%s\n", data->string);
+	if (set_up_command_struct(data, 0, 0, 0) == ERROR)
+		return (ERROR);
 	return (EXECUTED);
 }

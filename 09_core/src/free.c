@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/10 14:57:17 by jwillert         ###   ########          */
+/*   Updated: 2023/03/12 10:17:44 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ void	free_loop(t_data *data)
 		free(data->execute[cnt].full_path);
 		cnt++;
 	}
+	cnt = 0;
+	while (data->combine[cnt].combined_str != NULL)
+	{
+		free(data->combine[cnt].combined_str);
+		cnt++;
+	}
+	free(data->combine);
 	free(data->execute);
 	free(data->args);
 	data->vector_args = NULL;
