@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
+#    By: jwillert@student.42heilbronn.de            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/03/03 15:18:22 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/03 15:18:23 by jwillert         ###   ########.fr        #
+#    Created: 2023/03/12 20:31:50 by jwillert          #+#    #+#              #
+#    Updated: 2023/03/12 20:31:56 by jwillert         ###   ########           #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ LIBFT							=	$(LIBFT_DIR)libft.a
 LIBME							=	$(LIBME_DIR)libme.a
 
 #	Files
-SRC_FILES						=	executor_main.c
+SRC_FILES						=	executor_main.c\
+									executor_pipe.c
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR),$(SRC_FILES))
 OBJ								=	$(addprefix $(OBJ_DIR),$(OBJ_FILES))

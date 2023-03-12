@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/12 17:27:28 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/21 10:45:09 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	free_loop(t_data *data)
 	{
 		free(data->args[cnt]);
 		free(data->execute[cnt].order_str);
+		data->execute[cnt].order_str = NULL;
 		free(data->execute[cnt].full_path);
+		data->execute[cnt].full_path = NULL;
+		data->execute[cnt].order_numb = 0;
 		cnt++;
 	}
 	cnt = 0;
