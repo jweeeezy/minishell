@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/12 10:17:44 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/12 11:27:41 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	free_loop(t_data *data)
 	while (data->combine[cnt].combined_str != NULL)
 	{
 		free(data->combine[cnt].combined_str);
+		data->combine[cnt].combined_str = NULL;
 		cnt++;
 	}
 	free(data->combine);

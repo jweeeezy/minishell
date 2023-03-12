@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/12 10:21:13 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/12 12:00:27 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,23 @@ static int	skip_white_spaces(t_data *data, int cnt)
 	return (cnt);
 }
 
+static void init_t_combine(t_combine *combine)
+{
+	combine->combined_str = NULL;
+	combine->execute_order = 0;
+	combine->command = NULL;
+}
+
 static int	set_up_command_struct(t_data *data, int cnt, int cnt1, int switcher)
 {
 	cnt = skip_white_spaces(data, 0);
 	switcher = is_pipe(data->execute[cnt].order_numb);
 	data->commands_to_process = count_strings(data, 0);
 	data->combine = malloc(sizeof(t_combine) * (data->commands_to_process + 1));
+	// @note changes: malloc null protection + init struct to 0 / NULL
+	if (data->combine == NULL)
+		return (ERROR);
+	init_t_combine(data->combine);
 	while (cnt < data->tokens)
 	{
 		if (is_pipe(data->execute[cnt].order_numb) == switcher)
