@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/21 10:44:54 by jwillert         ###   ########          */
+/*   Updated: 2023/03/21 10:46:23 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ static t_execute *executor_t_execute_advance_offset(t_execute *offset,
 	return (&offset[index]);
 }
 
-int	executor_pipe(t_data *data, t_execute *offset, t_execute *next_pipe)
+static int	executor_pipe(t_data *data, t_execute *offset)
 {
 	int		fd_pipe[2];
 	pid_t	pid;
@@ -242,32 +242,9 @@ int	executor_pipe(t_data *data, t_execute *offset, t_execute *next_pipe)
 		close(fd_pipe[1]);
 		ft_vector_str_free(data->vector_args);
 		data->vector_args = NULL;
-		offset = executor_t_execute_advance_offset(offset, next_pipe);
-		printf("offset string after pipe %s\n", offset->order_str);
-		if (offset->order_str == NULL)
-		{
-			return (ERROR);
-		}
-		pid = fork();
-		if (pid == -1)
-		{
-			return (ERROR);
-		}
-		else if (pid == 0)
-		{	
-			dup2(fd_pipe[0], STDIN_FILENO);
-			if (executor_check_valid_command(data, offset) == 1)
-			{
-				executor_get_command_arguments(data, offset);
-				executor_try_execve(data, offset);
-				perror("execve");
-			}
-		}
-		else
-		{
-			wait(NULL);
-		}
+		dup2(fd_pipe[0], STDIN_FILENO);
 	}
+	offset = executor_t_execute_advance_offset
 	return (EXECUTED);
 }
 
@@ -296,7 +273,7 @@ int	executor_main(t_data *data)
 			{
 				return (ERROR);
 			}
-			if (executor_pipe(data, offset, next_pipe) == ERROR)
+			if (executor_pipe(data, offset) == ERROR)
 			{
 				return (ERROR);
 			}
