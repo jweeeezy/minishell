@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/10 19:57:00 by jwillert         ###   ########          */
+/*   Updated: 2023/03/12 21:04:34 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,18 +164,145 @@ static int	executor_get_command_arguments(t_data *data, t_execute *offset)
 	return (0);
 }
 
+static t_execute	*executor_t_execute_get_pipe(t_execute *offset)
+{
+	int	index;
+
+	index = 0;
+	while (offset[index].order_str != NULL
+			&& offset[index].order_numb != PIPE)
+	{
+		index += 1;
+	}
+	return (&offset[index]);
+}
+
+static t_execute *executor_t_execute_advance_offset(t_execute *offset,
+			t_execute *next_pipe)
+{
+	int	index;
+	
+	index = 0;
+	while (&offset[index] != next_pipe
+			&& offset[index].order_str != NULL)
+	{
+		index += 1;
+	}
+	while (offset[index].order_numb != STRING
+			&& offset[index].order_str != NULL)
+	{
+		index += 1;
+	}
+	return (&offset[index]);
+}
+
+int	executor_pipe(t_data *data, t_execute *offset, t_execute *next_pipe)
+{
+	int		fd_pipe[2];
+	pid_t	pid;
+	char	**arg_array;
+
+	if (data->vector_args != NULL)
+	{
+		arg_array = ft_split(data->vector_args->str, ' ');
+		if (arg_array == NULL)
+		{
+			ft_vector_str_free(data->vector_args);
+			return (ERROR);
+		}
+	}
+	else
+	{
+		arg_array = NULL;
+	}
+	if (pipe(fd_pipe) == -1)
+	{
+		return (ERROR);
+	}
+	pid = fork();
+	if (pid == -1)
+	{
+		return (ERROR);
+	}
+	else if (pid == 0)
+	{
+		close(fd_pipe[0]);
+		dup2(fd_pipe[1], STDOUT_FILENO);
+		if (execve(offset->full_path, arg_array, data->envp) == -1)
+		{
+			if (DEBUG)	
+			{
+				perror("execve");
+			}
+		}
+	}
+	else
+	{
+		wait(NULL);
+		close(fd_pipe[1]);
+		ft_vector_str_free(data->vector_args);
+		data->vector_args = NULL;
+		offset = executor_t_execute_advance_offset(offset, next_pipe);
+		printf("offset string after pipe %s\n", offset->order_str);
+		if (offset->order_str == NULL)
+		{
+			return (ERROR);
+		}
+		pid = fork();
+		if (pid == -1)
+		{
+			return (ERROR);
+		}
+		else if (pid == 0)
+		{	
+			dup2(fd_pipe[0], STDIN_FILENO);
+			if (executor_check_valid_command(data, offset) == 1)
+			{
+				executor_get_command_arguments(data, offset);
+				executor_try_execve(data, offset);
+				perror("execve");
+			}
+		}
+		else
+		{
+			wait(NULL);
+		}
+	}
+	return (EXECUTED);
+}
+
 int	executor_main(t_data *data)
 {
 	t_execute	*offset;
+	t_execute	*next_pipe;
 	int			return_value;
 
 	return_value = 0;
+	// @note mb parsing will loop through white spaces already?
 	offset = executor_loop_whitespaces(data->execute);
+	// @note mb while loop so it goes until no pipe is left, but it should also
+	// advance the offset to the next order_numb == STRING
 	if (offset == NULL)
 	{
 		return (ERROR);
 	}
-	if (offset->order_numb == 10)
+	next_pipe = executor_t_execute_get_pipe(offset);
+	if (next_pipe->order_str != NULL)
+	{
+		return_value = executor_check_valid_command(data, offset);
+		if (return_value == 1)
+		{
+			if (executor_get_command_arguments(data, offset) == ERROR)
+			{
+				return (ERROR);
+			}
+			if (executor_pipe(data, offset, next_pipe) == ERROR)
+			{
+				return (ERROR);
+			}
+		}
+	}
+	else if (offset->order_numb == STRING)
 	{
 		// @todo extract code as execute extern command
 		return_value = executor_check_valid_command(data, offset);
@@ -188,8 +315,9 @@ int	executor_main(t_data *data)
 			if (executor_try_execve(data, offset) == ERROR)
 			{
 				return (ERROR);
-			{
+			}
 		}
+		//	@note can prob save this part and just return return_value
 		else if (return_value == ERROR)
 		{
 			return (ERROR);
