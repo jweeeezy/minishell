@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:01:08 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/10 12:32:35 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/12 14:07:35 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,11 @@ int	is_pipe(int c)
 		|| c == FILE_TO_COMMAND || c == COMMAND_TO_FILE)
 		return (ADD);
 	return (EXECUTED);
+}
+
+int	skip_white_spaces(t_data *data, int cnt)
+{
+	while (cnt < data->tokens && data->execute[cnt].order_numb == WHITE)
+		cnt++;
+	return (cnt);
 }

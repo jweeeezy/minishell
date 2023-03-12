@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/11 19:48:06 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/12 18:57:56 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int		utils_is_command_helper(t_data *data, int cnt1, int cnt);
 int		utils_is_command_helper1(t_data *data, int cnt1, int cnt, char *needle);
 int		is_command(t_data *data, int cnt, char *needle);
 int		is_command1(t_data *data, int cnt, char *needle);
+int		skip_white_spaces(t_data *data, int cnt);
 
 /* ************************************************************************** */
 //                                    LEXER
@@ -117,7 +118,9 @@ char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char);
 int		parser(t_data *data);
 int		parsing_error_handler(t_data *data);
 int		put_to_linked_list_expander(t_data *data, char **envp);
-
+int		check_quote_state(t_data *data, int cnt);
+int		strjoin_with_extra_steps(t_data *data, int cnt, int cnt1);
+int		handle_quotes(t_data *data, int cnt, int cnt1);
 /* ************************************************************************** */
 //                                    EXECUTOR
 /* ************************************************************************** */

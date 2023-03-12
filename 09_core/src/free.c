@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/12 11:27:41 by jwillert         ###   ########          */
+/*   Updated: 2023/03/12 17:27:28 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_loop(t_data *data)
 	int	cnt;
 
 	cnt = 0;
-	while (data->args[cnt] != NULL)
+	while (cnt < data->tokens && data->args[cnt] != NULL)
 	{
 		free(data->args[cnt]);
 		free(data->execute[cnt].order_str);
@@ -25,13 +25,15 @@ void	free_loop(t_data *data)
 		cnt++;
 	}
 	cnt = 0;
-	while (data->combine[cnt].combined_str != NULL)
+	while (cnt < data->commands_to_process
+		&& data->combine[cnt].combined_str != NULL)
 	{
 		free(data->combine[cnt].combined_str);
 		data->combine[cnt].combined_str = NULL;
 		cnt++;
 	}
-	free(data->combine);
+	if (data->commands_to_process != 0)
+		free(data->combine);
 	free(data->execute);
 	free(data->args);
 	data->vector_args = NULL;

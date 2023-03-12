@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/12 10:11:49 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/12 17:23:33 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		if (parser(&data) == ERROR)
 		{
-			free_loop(&data);
-			break ;
-		}
+		}	
 		free_loop(&data);
 	}
 	return (EXECUTED);

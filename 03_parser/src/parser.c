@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/12 12:00:27 by jwillert         ###   ########          */
+/*   Updated: 2023/03/12 20:37:12 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,26 @@
 
 static int	merge(t_data *data, int cnt, int cnt1)
 {
-	data->combine[cnt1].combined_str
-		= ft_strjoin2(data->combine[cnt1].combined_str,
-			data->execute[cnt].order_str, 0, 0);
-	if (data->combine[cnt1].combined_str == NULL)
-		return (ERROR);
-	printf("%s\n", data->combine[cnt1].combined_str);
+	int	quote_state;
+	int	state;
+
+	quote_state = check_quote_state(data, cnt);
+	if (quote_state == APOSTROPHE)
+	{
+		if (strjoin_with_extra_steps(data, cnt, cnt1) == ERROR)
+			return (ERROR);
+	}
+	else if (quote_state == QUOTATION_MARK)
+	{
+		state = handle_quotes(data, cnt, cnt1);
+		if (state == ERROR)
+			return (ERROR);
+		else if (state == ADD)
+			return (ADD);
+	}
+	else if (quote_state == 0)
+	{
+	}
 	return (EXECUTED);
 }
 
@@ -49,50 +63,56 @@ static int	count_strings(t_data *data, int cnt)
 	return (tokens);
 }
 
-static int	skip_white_spaces(t_data *data, int cnt)
-{
-	while (cnt < data->tokens && data->execute[cnt].order_numb == WHITE)
-		cnt++;
-	return (cnt);
-}
-
-static void init_t_combine(t_combine *combine)
+static void	init_t_combine(t_combine *combine)
 {
 	combine->combined_str = NULL;
 	combine->execute_order = 0;
 	combine->command = NULL;
 }
 
-static int	set_up_command_struct(t_data *data, int cnt, int cnt1, int switcher)
+static int	i_hate_norm(t_data *data)
 {
-	cnt = skip_white_spaces(data, 0);
-	switcher = is_pipe(data->execute[cnt].order_numb);
 	data->commands_to_process = count_strings(data, 0);
 	data->combine = malloc(sizeof(t_combine) * (data->commands_to_process + 1));
-	// @note changes: malloc null protection + init struct to 0 / NULL
 	if (data->combine == NULL)
 		return (ERROR);
 	init_t_combine(data->combine);
+	return (EXECUTED);
+}
+
+static int	set_up_command_struct(t_data *data, int cnt, int cnt1, int switcher)
+{
+	int	skip;
+
+	cnt = skip_white_spaces(data, 0);
+	switcher = is_pipe(data->execute[cnt].order_numb);
+	if (i_hate_norm(data) == ERROR)
+		return (ERROR);
 	while (cnt < data->tokens)
 	{
 		if (is_pipe(data->execute[cnt].order_numb) == switcher)
 		{
-			if (merge(data, cnt, cnt1) == ERROR)
+			skip = merge(data, cnt, cnt1);
+			if (skip == ERROR)
 				return (ERROR);
+			else if (skip == ADD)
+				cnt++;
 			cnt++;
 		}
 		else
 		{
 			switcher = is_pipe(data->execute[cnt].order_numb);
+			printf("%s\n", data->combine[cnt1].combined_str);
 			cnt1++;
 		}
 	}
+	printf("%s\n", data->combine[cnt1].combined_str);
 	return (EXECUTED);
 }
 
 int	parser(t_data *data)
 {
-	printf("I am here\n");
+	data->commands_to_process = 0;
 	if (parsing_error_handler(data) == ERROR)
 		return (EXECUTED);
 	if (set_up_command_struct(data, 0, 0, 0) == ERROR)
