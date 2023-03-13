@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 09:54:42 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/13 17:06:22 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/13 18:32:45 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ void	init_t_combine(t_combine *combine, t_data *data)
 
 	cnt = 0;
 	combine->combined_str = NULL;
-	combine->execute_order = 0;
 	combine->command = NULL;
 	while (cnt < data->commands_to_process)
 	{
 		data->combine[cnt].combined_str = NULL;
+		data->combine[cnt].command = NULL;
 		cnt++;
 	}
 }

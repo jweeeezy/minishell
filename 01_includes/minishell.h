@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/13 17:50:19 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/13 18:45:50 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ enum e_outputs
 	EXPORT = 24,
 	UNSET = 25,
 	ENV = 26,
-	EXIT = 27
+	EXIT = 27,
+	LAST_PIPE = 50
 };
 
 typedef struct s_execute
@@ -59,7 +60,6 @@ typedef struct s_combine
 {
 	t_execute	*command;
 	char		*combined_str;
-	int			execute_order;
 }	t_combine;
 
 typedef struct s_expander
@@ -127,6 +127,7 @@ int		parser_count_strings(t_data *data, int cnt);
 int		parser_return_q_m(t_data *data, int cnt, int cnt1);
 int		parser_return_a(t_data *data, int cnt, int cnt1);
 int		no_quote(t_data *data, int cnt, int cnt1);
+int		find_main_command(t_data *data);
 /* ************************************************************************** */
 //                                    EXECUTOR
 /* ************************************************************************** */

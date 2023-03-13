@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:02:58 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/13 17:56:07 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/13 19:13:51 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_space_state(t_data *data, int cnt)
 	if (cnt - 1 >= 0 && data->execute[cnt - 1].order_numb == WHITE
 		&& data->execute[cnt].order_numb == WHITE)
 		return (EXECUTED);
-	if (cnt - 1 >= 0 && is_pipe(data->execute[cnt -1].order_numb)
+	if (cnt - 1 >= 0 && is_pipe(data->execute[cnt - 1].order_numb)
 		&& data->execute[cnt].order_numb == WHITE)
 		return (EXECUTED);
 	if (data->execute[cnt].order_numb == DOLLA)
@@ -43,5 +43,54 @@ int	no_quote(t_data *data, int cnt, int cnt1)
 			return (ERROR);
 		return (ADD);
 	}
+	return (EXECUTED);
+}
+
+
+void	find_last_pipe(t_data *data)
+{
+	int	cnt;
+	int	temp;
+
+	cnt = 0;
+	temp = 0;
+	while (cnt < data->commands_to_process)
+	{
+		if (data->combine[cnt].command->order_numb == PIPE)
+			temp = cnt;
+		cnt++;
+	}
+	if (data->combine->combined_str != NULL
+		&& data->combine[temp].command->order_numb == PIPE)
+		data->combine[temp].command->order_numb = PIPE * 10;
+}
+
+
+
+int	find_main_command(t_data *data)
+{
+	int	switcher;
+	int	cnt;
+	int	cnt1;
+
+	cnt = 0;
+	cnt1 = 0;
+	switcher = is_pipe(data->execute[cnt].order_numb);
+	while (cnt < data->tokens)
+	{
+		if (is_pipe(data->execute[cnt].order_numb) == switcher)
+		{
+			if (data->combine[cnt1].command == NULL
+				&& data->execute[cnt].order_numb > WHITE)
+				data->combine[cnt1].command = &data->execute[cnt];
+			cnt++;
+		}
+		else
+		{
+			switcher = is_pipe(data->execute[cnt].order_numb);
+			cnt1++;
+		}
+	}
+	find_last_pipe(data);
 	return (EXECUTED);
 }

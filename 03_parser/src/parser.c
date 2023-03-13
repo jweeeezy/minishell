@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/13 16:37:16 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/13 19:17:36 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,23 @@ static int	set_up_command_struct(t_data *data, int cnt, int cnt1, int switcher)
 		else
 		{
 			switcher = is_pipe(data->execute[cnt].order_numb);
-			printf("%s\n", data->combine[cnt1].combined_str);
 			cnt1++;
 		}
 	}
-	printf("%s\n", data->combine[cnt1].combined_str);
 	return (EXECUTED);
+}
+
+static void	debuger(t_data *data)
+{
+	int	cnt;
+
+	cnt = 0;
+	while (cnt < data->commands_to_process)
+	{
+		printf("%s ", data->combine[cnt].combined_str);
+		printf("%i\n", data->combine[cnt].command->order_numb);
+		cnt++;
+	}
 }
 
 int	parser(t_data *data)
@@ -68,5 +79,9 @@ int	parser(t_data *data)
 		return (EXECUTED);
 	if (set_up_command_struct(data, 0, 0, 0) == ERROR)
 		return (ERROR);
+	if (find_main_command(data) == ERROR)
+		return (ERROR);
+	if (DEBUG)
+		debuger(data);
 	return (EXECUTED);
 }
