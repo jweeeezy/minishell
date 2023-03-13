@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/10 15:39:08 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/13 10:13:11 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,14 @@ int	parser(t_data *data)
 	cnt = 0;
 	if (parsing_error_handler(data) == ERROR)
 		return (EXECUTED);
+
+	execute_command(data, cnt, is_piped);
 	while (cnt < data->tokens)
 	{
 		while (data->execute[cnt].order_numb == WHITE && cnt < data->tokens)
 			cnt++;
-		if (cnt < data->tokens)
-			cnt = execute_command(data, cnt, is_piped);
+		//if (cnt < data->tokens)
+//			cnt = execute_command(data, cnt, is_piped);
 		while (is_pipe(data->execute[cnt].order_numb) == EXECUTED
 			&& cnt < data->tokens)
 			cnt++;
