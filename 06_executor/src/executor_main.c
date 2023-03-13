@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/21 10:46:23 by jwillert         ###   ########          */
+/*   Updated: 2023/03/21 10:48:25 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,11 +127,9 @@ static int	executor_try_execve(t_data *data, t_execute *offset)
 		if (execve(offset->full_path, arg_array,
 			data->envp) == -1)
 		{
-			if (DEBUG)
-			{
-				perror("execve");
-			}
+			perror("execve");
 		}
+		exit(ERROR);
 	}
 	else
 	{
@@ -196,11 +194,16 @@ static t_execute *executor_t_execute_advance_offset(t_execute *offset,
 	return (&offset[index]);
 }
 
-static int	executor_pipe(t_data *data, t_execute *offset)
+static int	executor_pipe(t_data *data, t_execute *offset, t_execute *next_pipe)
 {
 	int		fd_pipe[2];
 	pid_t	pid;
 	char	**arg_array;
+	int		fd_stdout;
+	int		fd_stdin;
+
+	fd_stdout = dup(STDOUT_FILENO);
+	fd_stdin = dup(STDIN_FILENO);
 
 	if (data->vector_args != NULL)
 	{
@@ -230,21 +233,52 @@ static int	executor_pipe(t_data *data, t_execute *offset)
 		dup2(fd_pipe[1], STDOUT_FILENO);
 		if (execve(offset->full_path, arg_array, data->envp) == -1)
 		{
-			if (DEBUG)	
-			{
-				perror("execve");
-			}
+			perror("execve");
 		}
+		exit(ERROR);
 	}
 	else
 	{
-		wait(NULL);
+		pid = fork();
+		if (pid == -1)
+		{
+			return (ERROR);
+		}
+		else if (pid == 0)
+		{
+			close(fd_pipe[1]);
+			dup2(fd_pipe[0], STDIN_FILENO);
+			ft_vector_str_free(data->vector_args);
+			data->vector_args = NULL;
+			offset = executor_t_execute_advance_offset(offset, next_pipe);
+			if (executor_check_valid_command(data, offset) != 1)
+			{
+				exit(ERROR);
+			}
+			executor_get_command_arguments(data, offset);
+			free_char_array(arg_array);
+			if (data->vector_args != NULL)
+				arg_array = ft_split(data->vector_args->str, ' ');
+			else
+			{
+				arg_array = NULL;
+			}
+			if (execve(offset->full_path, arg_array, data->envp) == -1)
+			{
+				perror("execve");
+			}
+			exit(ERROR);
+		}
+		else
+		{
+			close(fd_pipe[0]);
+			wait(NULL);
+		}
 		close(fd_pipe[1]);
-		ft_vector_str_free(data->vector_args);
-		data->vector_args = NULL;
-		dup2(fd_pipe[0], STDIN_FILENO);
+		wait(NULL);
 	}
-	offset = executor_t_execute_advance_offset
+	dup2(fd_stdout, STDOUT_FILENO);
+	dup2(fd_stdin, STDIN_FILENO);
 	return (EXECUTED);
 }
 
@@ -273,7 +307,7 @@ int	executor_main(t_data *data)
 			{
 				return (ERROR);
 			}
-			if (executor_pipe(data, offset) == ERROR)
+			if (executor_pipe(data, offset, next_pipe) == ERROR)
 			{
 				return (ERROR);
 			}
