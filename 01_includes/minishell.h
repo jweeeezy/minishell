@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/13 17:01:56 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/13 17:50:19 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int		utils_is_command_helper1(t_data *data, int cnt1, int cnt, char *needle);
 int		is_command(t_data *data, int cnt, char *needle);
 int		is_command1(t_data *data, int cnt, char *needle);
 int		skip_white_spaces(t_data *data, int cnt);
+int		dolla_handler(t_data *data, int cnt, int cnt1);
 
 /* ************************************************************************** */
 //                                    LEXER
