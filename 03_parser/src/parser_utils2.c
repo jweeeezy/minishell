@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 15:30:31 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/12 21:26:01 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/13 09:56:06 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdio.h>
 #include "libft.h"
 
-// @todo Write Strnstrn2
 char	*search_needle(t_data *data, char *needle)
 {
 	t_expander	*current_node;

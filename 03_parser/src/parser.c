@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/12 20:37:12 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/13 09:55:54 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,47 +36,6 @@ static int	merge(t_data *data, int cnt, int cnt1)
 	else if (quote_state == 0)
 	{
 	}
-	return (EXECUTED);
-}
-
-static int	count_strings(t_data *data, int cnt)
-{
-	int	tokens;
-
-	tokens = 0;
-	while (cnt < data->tokens)
-	{
-		while (cnt < data->tokens
-			&& is_pipe(data->execute[cnt].order_numb) == EXECUTED)
-			cnt++;
-		if (cnt != 0)
-			tokens++;
-		if (cnt >= data->tokens)
-			return (tokens);
-		while (cnt < data->tokens
-			&& is_pipe(data->execute[cnt].order_numb) == ADD)
-			cnt++;
-		tokens++;
-		if (cnt >= data->tokens)
-			return (tokens);
-	}
-	return (tokens);
-}
-
-static void	init_t_combine(t_combine *combine)
-{
-	combine->combined_str = NULL;
-	combine->execute_order = 0;
-	combine->command = NULL;
-}
-
-static int	i_hate_norm(t_data *data)
-{
-	data->commands_to_process = count_strings(data, 0);
-	data->combine = malloc(sizeof(t_combine) * (data->commands_to_process + 1));
-	if (data->combine == NULL)
-		return (ERROR);
-	init_t_combine(data->combine);
 	return (EXECUTED);
 }
 

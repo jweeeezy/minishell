@@ -6,7 +6,7 @@
 #    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 14:39:11 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/12 18:55:26 by kvebers          ###   ########.fr        #
+#    Updated: 2023/03/13 09:56:59 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ LIBME							=	$(LIBME_DIR)libme.a
 #	Files
 SRC_FILES						=	parser.c \
 									parser_utils1.c \
-									parser_utils2.c
+									parser_utils2.c \
+									parser_utils3.c
 									
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR), $(SRC_FILES))
