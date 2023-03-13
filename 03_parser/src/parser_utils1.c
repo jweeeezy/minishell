@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 10:02:54 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/12 15:12:26 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/13 16:29:14 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	check_quote_state(t_data *data, int cnt)
 
 int	strjoin_with_extra_steps(t_data *data, int cnt, int cnt1)
 {
+
 	data->combine[cnt1].combined_str
 		= ft_strjoin2(data->combine[cnt1].combined_str,
 			data->execute[cnt].order_str, 0, 0);
@@ -88,3 +89,4 @@ int	strjoin_with_extra_steps(t_data *data, int cnt, int cnt1)
 		return (ERROR);
 	return (EXECUTED);
 }
+

@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 09:54:42 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/13 09:57:26 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/13 17:06:22 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,19 @@ int	parser_count_strings(t_data *data, int cnt)
 	return (tokens);
 }
 
-void	init_t_combine(t_combine *combine)
+void	init_t_combine(t_combine *combine, t_data *data)
 {
+	int	cnt;
+
+	cnt = 0;
 	combine->combined_str = NULL;
 	combine->execute_order = 0;
 	combine->command = NULL;
+	while (cnt < data->commands_to_process)
+	{
+		data->combine[cnt].combined_str = NULL;
+		cnt++;
+	}
 }
 
 int	i_hate_norm(t_data *data)
@@ -51,6 +59,6 @@ int	i_hate_norm(t_data *data)
 	data->combine = malloc(sizeof(t_combine) * (data->commands_to_process + 1));
 	if (data->combine == NULL)
 		return (ERROR);
-	init_t_combine(data->combine);
+	init_t_combine(data->combine, data);
 	return (EXECUTED);
 }

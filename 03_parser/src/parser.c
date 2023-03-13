@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/13 09:55:54 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/13 16:37:16 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 static int	merge(t_data *data, int cnt, int cnt1)
 {
 	int	quote_state;
-	int	state;
 
 	quote_state = check_quote_state(data, cnt);
 	if (quote_state == APOSTROPHE)
@@ -26,16 +25,9 @@ static int	merge(t_data *data, int cnt, int cnt1)
 			return (ERROR);
 	}
 	else if (quote_state == QUOTATION_MARK)
-	{
-		state = handle_quotes(data, cnt, cnt1);
-		if (state == ERROR)
-			return (ERROR);
-		else if (state == ADD)
-			return (ADD);
-	}
+		return (parser_return_q_m(data, cnt, cnt1));
 	else if (quote_state == 0)
-	{
-	}
+		return (parser_return_a(data, cnt, cnt1));
 	return (EXECUTED);
 }
 

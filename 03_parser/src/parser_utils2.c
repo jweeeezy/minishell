@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 15:30:31 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/13 09:56:06 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/13 10:33:31 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,30 @@ int	handle_quotes(t_data *data, int cnt, int cnt1)
 	else
 		strjoin_with_extra_steps(data, cnt, cnt1);
 	return (EXECUTED);
+}
+
+int	parser_return_q_m(t_data *data, int cnt, int cnt1)
+{
+	int	state;
+
+	state = handle_quotes(data, cnt, cnt1);
+	if (state == ERROR)
+		return (ERROR);
+	else if (state == ADD)
+		return (ADD);
+	else
+		return (EXECUTED);
+}
+
+int	parser_return_a(t_data *data, int cnt, int cnt1)
+{
+	int	state;
+
+	state = no_quote(data, cnt, cnt1);
+	if (state == ERROR)
+		return (ERROR);
+	else if (state == ADD)
+		return (ADD);
+	else
+		return (EXECUTED);
 }

@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/13 09:56:37 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/13 17:01:56 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ typedef struct s_data
 	char			**argv;
 	t_expander		*expander;
 	t_combine		*combine;
-	char			*string;
 	t_vector_str	*vector_args;
 }	t_data;
 
@@ -121,9 +120,12 @@ int		put_to_linked_list_expander(t_data *data, char **envp);
 int		check_quote_state(t_data *data, int cnt);
 int		strjoin_with_extra_steps(t_data *data, int cnt, int cnt1);
 int		handle_quotes(t_data *data, int cnt, int cnt1);
-void	init_t_combine(t_combine *combine);
+void	init_t_combine(t_combine *combine, t_data *data);
 int		i_hate_norm(t_data *data);
 int		parser_count_strings(t_data *data, int cnt);
+int		parser_return_q_m(t_data *data, int cnt, int cnt1);
+int		parser_return_a(t_data *data, int cnt, int cnt1);
+int		no_quote(t_data *data, int cnt, int cnt1);
 /* ************************************************************************** */
 //                                    EXECUTOR
 /* ************************************************************************** */
