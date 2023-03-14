@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:02:58 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/13 19:13:51 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/14 14:22:25 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	no_quote(t_data *data, int cnt, int cnt1)
 }
 
 
-void	find_last_pipe(t_data *data)
+static void	find_last_pipe(t_data *data)
 {
 	int	cnt;
 	int	temp;
@@ -65,7 +65,21 @@ void	find_last_pipe(t_data *data)
 		data->combine[temp].command->order_numb = PIPE * 10;
 }
 
+static int	check_the_variables(t_data *data)
+{
+	int	cnt;
 
+	cnt = 0;
+	while (cnt < data->commands_to_process)
+	{
+		if (data->combine[cnt].command->order_numb == APOSTROPHE
+			|| data->combine[cnt].command->order_numb == QUOTATION_MARK
+			|| data->combine[cnt].command->order_numb == DOLLA)
+			recheck_the_main_command(data, cnt);
+		cnt++;
+	}
+	return (EXECUTED);
+}
 
 int	find_main_command(t_data *data)
 {
@@ -92,5 +106,6 @@ int	find_main_command(t_data *data)
 		}
 	}
 	find_last_pipe(data);
+	check_the_variables(data);
 	return (EXECUTED);
 }

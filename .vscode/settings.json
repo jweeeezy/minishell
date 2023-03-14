@@ -4,7 +4,8 @@
         "history.h": "c",
         "sstream": "c",
         "locale": "c",
-        "string": "c"
+        "string": "c",
+        "libft.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
