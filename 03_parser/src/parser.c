@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/14 10:51:32 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/14 16:43:55 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	parser(t_data *data)
 		return (EXECUTED);
 	if (set_up_command_struct(data, 0, 0, 0) == ERROR)
 		return (ERROR);
-	if (find_main_command(data) == ERROR)
+	if (find_main_command(data, 0, 0, 0) == ERROR)
 		return (ERROR);
 	if (DEBUG)
 		debuger(data);

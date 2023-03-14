@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/14 14:59:19 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/14 16:43:32 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int		parser_count_strings(t_data *data, int cnt);
 int		parser_return_q_m(t_data *data, int cnt, int cnt1);
 int		parser_return_a(t_data *data, int cnt, int cnt1);
 int		no_quote(t_data *data, int cnt, int cnt1);
-int		find_main_command(t_data *data);
+int		find_main_command(t_data *data, int cnt, int cnt1, int switcher);
 int		recheck_the_main_command(t_data *data, int cnt);
 char	*ft_strnstr3(const char *haystack, const char *needle, size_t length);
 /* ************************************************************************** */

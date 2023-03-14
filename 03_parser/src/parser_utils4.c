@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:02:58 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/14 14:22:25 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/14 16:52:56 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,23 +72,19 @@ static int	check_the_variables(t_data *data)
 	cnt = 0;
 	while (cnt < data->commands_to_process)
 	{
-		if (data->combine[cnt].command->order_numb == APOSTROPHE
-			|| data->combine[cnt].command->order_numb == QUOTATION_MARK
-			|| data->combine[cnt].command->order_numb == DOLLA)
-			recheck_the_main_command(data, cnt);
+		if (data->combine[cnt].command->order_numb == DOLLA
+			&& data->combine[cnt].combined_str != NULL)
+		{
+			if (recheck_the_main_command(data, cnt) == ERROR)
+				return (ERROR);
+		}	
 		cnt++;
 	}
 	return (EXECUTED);
 }
 
-int	find_main_command(t_data *data)
+int	find_main_command(t_data *data, int cnt, int cnt1, int switcher)
 {
-	int	switcher;
-	int	cnt;
-	int	cnt1;
-
-	cnt = 0;
-	cnt1 = 0;
 	switcher = is_pipe(data->execute[cnt].order_numb);
 	while (cnt < data->tokens)
 	{
@@ -97,7 +93,7 @@ int	find_main_command(t_data *data)
 			if (data->combine[cnt1].command == NULL
 				&& data->execute[cnt].order_numb > WHITE)
 				data->combine[cnt1].command = &data->execute[cnt];
-			cnt++;
+				cnt++;
 		}
 		else
 		{
@@ -106,6 +102,7 @@ int	find_main_command(t_data *data)
 		}
 	}
 	find_last_pipe(data);
-	check_the_variables(data);
+	if (check_the_variables(data) == ERROR)
+		return (ERROR);
 	return (EXECUTED);
 }
