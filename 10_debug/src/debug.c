@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:16:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/10 19:33:22 by jwillert         ###   ########          */
+/*   Updated: 2023/03/13 19:02:58 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,3 +68,16 @@ void	debug_print_t_vector_str(t_vector_str *vector_to_print)
 		printf("size_allocated [%zu]\n", vector_to_print->size_allocated);
 	}
 }	
+
+void	debug_print_int(char *description, int int_to_print)
+{
+	if (DEBUG)
+	{
+		printf("%s%d", description, int_to_print);
+		printf("\n");
+	}
+}
+
+
+
+

@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/12 21:24:45 by jwillert         ###   ########          */
+/*   Updated: 2023/03/13 19:02:02 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ enum e_outputs
 	EXPORT = 24,
 	UNSET = 25,
 	ENV = 26,
-	EXIT = 27
+	EXIT = 27,
+	PIPE_LAST = 50
 };
 
 typedef struct s_echo
@@ -134,5 +135,6 @@ void	debug_print_t_execute(t_data *data,
 			t_execute *execute);
 void	debug_print_t_expander(t_expander *expander);
 void	debug_print_t_vector_str(t_vector_str *vector_to_print);
+void	debug_print_int(char *description, int int_to_print);
 
 #endif  // MINISHELL_H
