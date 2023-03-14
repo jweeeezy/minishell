@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/21 10:48:25 by jwillert         ###   ########          */
+/*   Updated: 2023/03/21 10:50:10 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,8 @@ static t_execute	*executor_t_execute_get_pipe(t_execute *offset)
 
 	index = 0;
 	while (offset[index].order_str != NULL
-			&& offset[index].order_numb != PIPE)
+			&& offset[index].order_numb != PIPE
+			&& offset[index].order_numb != PIPE_LAST)
 	{
 		index += 1;
 	}
@@ -194,16 +195,19 @@ static t_execute *executor_t_execute_advance_offset(t_execute *offset,
 	return (&offset[index]);
 }
 
-static int	executor_pipe(t_data *data, t_execute *offset, t_execute *next_pipe)
+
+
+//	last pipe
+		//	stdin is now pipe --> changed back after
+		//	stdout is now pipe --> changed back before
+
+
+
+static int	executor_pipe(t_data *data, t_execute *offset,
+	   			t_execute *next_pipe, int *fd_pipe)
 {
-	int		fd_pipe[2];
 	pid_t	pid;
 	char	**arg_array;
-	int		fd_stdout;
-	int		fd_stdin;
-
-	fd_stdout = dup(STDOUT_FILENO);
-	fd_stdin = dup(STDIN_FILENO);
 
 	if (data->vector_args != NULL)
 	{
@@ -217,10 +221,6 @@ static int	executor_pipe(t_data *data, t_execute *offset, t_execute *next_pipe)
 	else
 	{
 		arg_array = NULL;
-	}
-	if (pipe(fd_pipe) == -1)
-	{
-		return (ERROR);
 	}
 	pid = fork();
 	if (pid == -1)
@@ -263,6 +263,8 @@ static int	executor_pipe(t_data *data, t_execute *offset, t_execute *next_pipe)
 			{
 				arg_array = NULL;
 			}
+			ft_vector_str_free(data->vector_args);
+			data->vector_args = NULL;
 			if (execve(offset->full_path, arg_array, data->envp) == -1)
 			{
 				perror("execve");
@@ -277,18 +279,66 @@ static int	executor_pipe(t_data *data, t_execute *offset, t_execute *next_pipe)
 		close(fd_pipe[1]);
 		wait(NULL);
 	}
-	dup2(fd_stdout, STDOUT_FILENO);
-	dup2(fd_stdin, STDIN_FILENO);
+	ft_vector_str_free(data->vector_args);
+	data->vector_args = NULL;
 	return (EXECUTED);
 }
+
+static int	count_pipes(t_execute *execute)
+{
+	int	index;
+	int	counter;
+	int	i;
+
+	index = 0;
+	counter = 0;
+	i = 0;
+	while (execute[index].order_str != NULL)
+	{
+		while (execute[index].order_str[i] != '\0')
+		{
+			if (execute[index].order_str[i] == '|')
+			{
+				counter++;
+			}
+			i++;
+		}
+		i = 0;
+		index++;
+	}
+	return (counter);
+}
+
+
+static int executor_pipe_last(t_data *data, t_execute *offset,
+				t_execute *next_pipe)
+{
+
+
+
+
+
+
+}
+
 
 int	executor_main(t_data *data)
 {
 	t_execute	*offset;
 	t_execute	*next_pipe;
 	int			return_value;
+	int			counter_pipes;
+	int			fd_pipe[2];
+	int			fd_stdin;
+	int			fd_stdout;
+
+	fd_stdin = dup(STDIN_FILENO);
+	fd_stdout = dup(STDOUT_FILENO);
 
 	return_value = 0;
+	counter_pipes = 0;
+
+	pipe(fd_pipe);
 	// @note mb parsing will loop through white spaces already?
 	offset = executor_loop_whitespaces(data->execute);
 	// @note mb while loop so it goes until no pipe is left, but it should also
@@ -297,25 +347,66 @@ int	executor_main(t_data *data)
 	{
 		return (ERROR);
 	}
-	next_pipe = executor_t_execute_get_pipe(offset);
-	if (next_pipe->order_str != NULL)
+	counter_pipes = count_pipes(offset);
+	debug_print_int("Counter pipes: ", counter_pipes);
+
+	while (counter_pipes > 1)
 	{
-		return_value = executor_check_valid_command(data, offset);
-		if (return_value == 1)
+		
+		printf("Reached\n");
+		next_pipe = executor_t_execute_get_pipe(offset);
+		if (next_pipe->order_str != NULL)
 		{
-			if (executor_get_command_arguments(data, offset) == ERROR)
+			return_value = executor_check_valid_command(data, offset);
+			if (return_value == 1)
 			{
-				return (ERROR);
+				if (executor_get_command_arguments(data, offset) == ERROR)
+				{
+					return (ERROR);
+				}
+				else if (next_pipe->order_numb == PIPE)
+				{
+					dup2(fd_pipe[0], STDIN_FILENO);
+					dup2(fd_pipe[1], STDOUT_FILENO);
+					if (executor_pipe(data, offset, next_pipe, fd_pipe) == ERROR)
+					{
+						return (ERROR);
+					}
+				}
 			}
-			if (executor_pipe(data, offset, next_pipe) == ERROR)
+		}
+		counter_pipes -= 1;
+		offset = next_pipe + 1;
+		offset = executor_loop_whitespaces(offset);
+	}
+	if (counter_pipes == 1)
+	{
+		printf("Reached 2\n");
+		next_pipe = executor_t_execute_get_pipe(offset);
+		if (next_pipe->order_str != NULL)
+		{
+			return_value = executor_check_valid_command(data, offset);
+			if (return_value == 1)
 			{
-				return (ERROR);
+				if (executor_get_command_arguments(data, offset) == ERROR)
+				{
+					return (ERROR);
+				}
+				if (next_pipe->order_numb == PIPE)
+				{
+					if (executor_pipe(data, offset,
+								next_pipe, fd_pipe) == ERROR)
+					{
+						return (ERROR);
+					}
+				}
 			}
 		}
 	}
 	else if (offset->order_numb == STRING)
 	{
 		// @todo extract code as execute extern command
+		printf("Reached 3\n");
 		return_value = executor_check_valid_command(data, offset);
 		if (return_value == 1)
 		{
