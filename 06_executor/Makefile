@@ -6,7 +6,7 @@
 #    By: jwillert@student.42heilbronn.de            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/12 20:31:50 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/13 17:56:12 by jwillert         ###   ########           #
+#    Updated: 2023/03/14 09:53:02 by jwillert         ###   ########           #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,9 @@ LIBFT							=	$(LIBFT_DIR)libft.a
 LIBME							=	$(LIBME_DIR)libme.a
 
 #	Files
-SRC_FILES						=	executor_main.c
+SRC_FILES						=	executor_main.c\
+									executor_utils.c\
+									executor_setup.c
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR),$(SRC_FILES))
 OBJ								=	$(addprefix $(OBJ_DIR),$(OBJ_FILES))
