@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 12:23:13 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/14 19:08:09 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/16 14:46:13 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,12 @@ int	recheck_the_main_command(t_data *data, int cnt)
 		&& is_white_space(*(data->combine[cnt].combined_str + cnt1)) == EXECUTED
 		&& is_pipe(*(data->combine[cnt].combined_str + cnt1)) == EXECUTED)
 			cnt1++;
-	free(data->combine[cnt].command->order_str);
+	if (data->combine[cnt].command->order_str != NULL)
+		free(data->combine[cnt].command->order_str);
 	data->combine[cnt].command->order_str = malloc(sizeof(char) * (cnt1 + 1));
 	if (ft_strlcpy(data->combine[cnt].command->order_str,
 			data->combine[cnt].combined_str, cnt1) == 0)
 		return (ERROR);
-	printf("%s\n", data->combine[cnt].command->order_str);
+	data->combine[data->combine[cnt].command->number].command->order_numb;
 	return (EXECUTED);
 }

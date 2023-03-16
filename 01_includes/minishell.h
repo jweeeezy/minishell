@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/14 16:43:32 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/16 13:46:07 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_execute
 	char	*order_str;
 	int		order_numb;
 	char	*full_path;
+	int		number;
 }	t_execute;
 
 typedef struct s_combine
