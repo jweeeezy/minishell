@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 10:02:54 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/15 11:45:03 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/19 17:36:49 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,4 @@ int	strjoin_with_extra_steps(t_data *data, int cnt, int cnt1)
 	if (data->combine[cnt1].combined_str == NULL)
 		return (ERROR);
 	return (EXECUTED);
-}
+}	

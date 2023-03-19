@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:02:58 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/14 16:52:56 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/19 14:25:37 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	no_quote(t_data *data, int cnt, int cnt1)
 	}
 	return (EXECUTED);
 }
-
 
 static void	find_last_pipe(t_data *data)
 {
