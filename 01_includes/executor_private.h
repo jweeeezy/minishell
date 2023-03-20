@@ -6,7 +6,7 @@
 /*   By: jwillert@student.42heilbronn.de            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:22:50 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/20 10:13:44 by jwillert         ###   ########          */
+/*   Updated: 2023/03/20 18:11:07 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,3 +33,5 @@ int			check_valid_command(t_execute *offset, char **envp);
 //			@note might not be needed if parser handles that
 int			convert_command_to_vector(t_data *data, t_execute *offset);
 char		**convert_vector_to_array(t_data *data);
+
+#endif	// EXECUTOR_PRIVATE_H

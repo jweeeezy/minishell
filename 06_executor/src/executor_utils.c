@@ -6,11 +6,12 @@
 /*   By: jwillert@student.42heilbronn.de            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:20:28 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/14 10:08:45 by jwillert         ###   ########          */
+/*   Updated: 2023/03/20 18:16:06 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"	// needed for t_data, t_execute
+#include "libft.h"		// needed for ft_split(), ft_strlen()
 
 int	count_pipes(t_execute *execute)
 {

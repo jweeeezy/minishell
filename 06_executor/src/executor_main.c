@@ -6,19 +6,15 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/21 10:51:38 by jwillert         ###   ########          */
+/*   Updated: 2023/03/21 10:52:20 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>		// needed for fork(), access(), NULL
 #include "minishell.h"  // needed for t_data, function()
-#include "libft.h"      // needed for ft_strjoin()
-#include "libme.h"		// needed for ft_str_check_needle(),
-						// ft_str_join_delimiter(), t_vector_str
+#include "executor_private.h"
 #include <stdio.h>		// needed for perror()
-
-//	@todo Refactor code into multiple files
-
+						//
 static void	child_routine(t_data *data, t_execute *offset,
 		char **array_command, int *fd_pipe)
 {
@@ -27,6 +23,8 @@ static void	child_routine(t_data *data, t_execute *offset,
 	{
 		close(fd_pipe[1]);
 	}
+	printf("child: %s\n", offset->full_path);
+	debug_print_char_array(array_command);
 	if (execve(offset->full_path, array_command, data->envp) == -1)
 	{
 		//@note freeing in child needed?
@@ -34,6 +32,19 @@ static void	child_routine(t_data *data, t_execute *offset,
 		perror("execve");
 		exit (ERROR);
 	}
+}
+
+static int	parent_routine(int *fd_pipe)
+{
+	if (fd_pipe != NULL)
+	{
+		close(fd_pipe[0]);
+	}
+	if (wait(NULL) == -1)
+	{
+		return (ERROR);
+	}
+	return (0);
 }
 
 static int	execute_in_child(t_data *data, t_execute *offset,
@@ -52,11 +63,7 @@ static int	execute_in_child(t_data *data, t_execute *offset,
 	}
 	else
 	{
-		if (fd_pipe != NULL)
-		{
-			close(fd_pipe[0]);
-		}
-		if (wait(NULL) == -1)
+		if (parent_routine(fd_pipe) == -1)
 		{
 			return (ERROR);
 		}
@@ -67,9 +74,7 @@ static int	execute_in_child(t_data *data, t_execute *offset,
 	return (EXECUTED);
 }
 
-
-static int	executor_routine(t_data *data, t_execute *offset,
-		t_execute *next_pipe, int *fd_pipe)
+static int	executor_routine(t_data *data, t_execute *offset, int *fd_pipe)
 {
 	int			return_value;
 	char		**array_command;
@@ -80,6 +85,7 @@ static int	executor_routine(t_data *data, t_execute *offset,
 	{
 		if (convert_command_to_vector(data, offset) == ERROR)
 		{
+			printf("here\n");
 			return (ERROR);
 		}
 		array_command = convert_vector_to_array(data);
@@ -99,8 +105,7 @@ int	executor_main(t_data *data)
 {
 	int			counter_pipes;
 	int			fd_pipe[2];
-	int			fd_stdin;
-	int			fd_stdout;
+	int			fd_temp[2];
 	t_execute	*next_pipe;
 	t_execute	*offset;
 
@@ -108,36 +113,33 @@ int	executor_main(t_data *data)
 	{
 		return (ERROR);
 	}
-	offset = executor_loop_whitespaces(data->execute);
+	offset = get_string_after_whitespaces(data->execute);
 	counter_pipes = count_pipes(offset);
 	if (offset == NULL)
 	{
 		return (ERROR);
 	}
-	
-	fd_stdin = dup(STDIN_FILENO);
-	fd_stdout = dup(STDOUT_FILENO);
-
+	fd_temp[0] = dup(STDIN_FILENO);
+	fd_temp[1] = dup(STDOUT_FILENO);
 	dup2(fd_pipe[0], STDIN_FILENO);
 	dup2(fd_pipe[1], STDOUT_FILENO);
-
 	while (counter_pipes > 0)
 	{
 		next_pipe = get_pipe(offset);
 		if (next_pipe->order_str != NULL)
 		{
-			if (executor_routine(data, offset, next_pipe, fd_pipe) == ERROR)
+			if (executor_routine(data, offset, fd_pipe) == ERROR)
 			{
 				return (ERROR);
 			}
 		}
 	}
-
-	dup2(STDIN_FILENO, ft_stdin);
-	dup2(STDOUT_FILENO, ft_stdout);
-	if (executor_routine(data, offset, next_pipe, fd_pipe) == ERROR)
+	dup2(fd_pipe[0], fd_temp[0]);
+	dup2(fd_pipe[1], fd_temp[1]);
+	if (executor_routine(data, offset, fd_pipe) == ERROR)
 	{
+		printf("reached\n");
 		return (ERROR);
 	}
+	return (0);
 }
-

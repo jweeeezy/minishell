@@ -6,27 +6,28 @@
 /*   By: jwillert@student.42heilbronn.de            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:57:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/14 11:10:55 by jwillert         ###   ########          */
+/*   Updated: 2023/03/20 19:03:19 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libme.h"
+#include "libft.h"
+#include <unistd.h>
+#include "executor_private.h"
 
 int	try_access(t_execute *execute, char *path, char *command)
-{
+{	
 	execute->full_path = ft_str_join_delimiter(path, "/", command);
 	if (execute->full_path == NULL)
 	{
 		return (ERROR);
 	}
-	if (access(execute->full_path, X_OK) != -1)
+	if (access(execute->full_path, X_OK) == 0)
 	{
-		free(execute_full_path);
-		execute->full_path = NULL;
-		return (ERROR);
+		return (1);
 	}
-	free(execute_full_path);
+	free(execute->full_path);
 	execute->full_path = NULL;
 	return (EXECUTED);
 }
