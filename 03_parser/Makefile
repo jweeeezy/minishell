@@ -6,7 +6,7 @@
 #    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 14:39:11 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/14 12:23:34 by kvebers          ###   ########.fr        #
+#    Updated: 2023/03/20 11:26:38 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SRC_FILES						=	parser.c \
 									parser_utils2.c \
 									parser_utils3.c \
 									parser_utils4.c \
-									parser_utils5.c
+									parser_utils5.c \
+									parser_error1.c
 									
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR), $(SRC_FILES))
@@ -41,7 +42,7 @@ OBJ								=	$(addprefix $(OBJ_DIR), $(OBJ_FILES))
 #	General Rules
 CC								=	cc
 DEBUG							=	$(shell echo $$DEBUG_FLAG)
-CFLAGS							=	-Wall -Wextra -Werror $(DEBUG)
+CFLAGS							=	-Wall -Wextra -Werror -g $(DEBUG)
 INCLUDE							=	-I $(INCLUDE_DIR) -I $(LIBFT_DIR)include \
 									-I $(LIBME_DIR)include
 CC_OBJ							=	$(CC) $(INCLUDE) $(CFLAGS) -c $^ -o \

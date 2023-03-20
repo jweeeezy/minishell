@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:01:08 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/13 16:52:42 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/20 16:12:55 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,11 @@ int	skip_white_spaces(t_data *data, int cnt)
 	while (cnt < data->tokens && data->execute[cnt].order_numb == WHITE)
 		cnt++;
 	return (cnt);
+}
+
+int	is_micro_pipe(int c)
+{
+	if (c == PIPE || c == COMMAND_TO_FILE || c == FILE_TO_COMMAND)
+		return (ADD);
+	return (EXECUTED);
 }

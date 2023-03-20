@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/16 13:46:07 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/20 16:13:16 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int		is_command(t_data *data, int cnt, char *needle);
 int		is_command1(t_data *data, int cnt, char *needle);
 int		skip_white_spaces(t_data *data, int cnt);
 int		dolla_handler(t_data *data, int cnt, int cnt1);
+int		is_micro_pipe(int c);
 
 /* ************************************************************************** */
 //                                    LEXER
@@ -131,6 +132,7 @@ int		no_quote(t_data *data, int cnt, int cnt1);
 int		find_main_command(t_data *data, int cnt, int cnt1, int switcher);
 int		recheck_the_main_command(t_data *data, int cnt);
 char	*ft_strnstr3(const char *haystack, const char *needle, size_t length);
+int		token_error_handeler(t_data *data);
 /* ************************************************************************** */
 //                                    EXECUTOR
 /* ************************************************************************** */

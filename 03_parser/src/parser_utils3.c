@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 09:54:42 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/13 18:32:45 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/20 15:06:59 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ void	init_t_combine(t_combine *combine, t_data *data)
 
 int	i_hate_norm(t_data *data)
 {
+	int	cnt;
+
+	cnt = 0;
 	data->commands_to_process = parser_count_strings(data, 0);
 	data->combine = malloc(sizeof(t_combine) * (data->commands_to_process + 1));
 	if (data->combine == NULL)

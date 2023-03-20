@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 12:23:13 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/19 17:36:19 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/20 10:28:03 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	calculate_command(char *str)
 		return (LS);
 	else if (is_command2(str, "pwd") == ADD)
 		return (PWD);
-	return (WHITE);
+	return (STRING);
 }
 
 int	recheck_the_main_command(t_data *data, int cnt)

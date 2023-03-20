@@ -6,13 +6,14 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:02:58 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/19 14:25:37 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/20 15:05:33 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
 #include "libft.h"
+#include <unistd.h>
 
 int	check_space_state(t_data *data, int cnt)
 {
@@ -92,14 +93,18 @@ int	find_main_command(t_data *data, int cnt, int cnt1, int switcher)
 			if (data->combine[cnt1].command == NULL
 				&& data->execute[cnt].order_numb > WHITE)
 				data->combine[cnt1].command = &data->execute[cnt];
-				cnt++;
+			cnt++;
 		}
 		else
 		{
+			if (data->combine[cnt1].command == NULL && cnt > 0)
+				data->combine[cnt1].command = &data->execute[cnt - 1];
 			switcher = is_pipe(data->execute[cnt].order_numb);
 			cnt1++;
 		}
 	}
+	if (data->combine[cnt1].command == NULL && cnt > 0)
+				data->combine[cnt1].command = &data->execute[cnt - 1];
 	find_last_pipe(data);
 	if (check_the_variables(data) == ERROR)
 		return (ERROR);

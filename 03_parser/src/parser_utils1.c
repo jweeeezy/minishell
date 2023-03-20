@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 10:02:54 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/19 17:36:49 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/20 11:15:14 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	parsing_error_handler(t_data *data)
 		printf("Quote BDU>\n");
 		return (ERROR);
 	}
-	return (EXECUTED);
+	return (token_error_handeler(data));
 }
 
 int	check_quote_state(t_data *data, int cnt)
