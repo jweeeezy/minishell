@@ -5,7 +5,8 @@
         "sstream": "c",
         "locale": "c",
         "string": "c",
-        "libft.h": "c"
+        "libft.h": "c",
+        "stdio.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

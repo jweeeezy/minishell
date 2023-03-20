@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:11:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/20 17:20:25 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/20 17:42:40 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	error_conseq_seperators(t_data *data, int cnt, int q_o, int last_command)
 			last_command = data->execute[cnt].order_numb;
 		cnt++;
 	}
-	if (is_pipe(last_command) == ADD)
+	if (is_micro_pipe(last_command) == ADD)
 		return (ERROR);
 	return (EXECUTED);
 }
@@ -78,7 +78,7 @@ int	error_3_sep(t_data *data, int cnt, int q_o, int last_command)
 			last_command = data->execute[cnt].order_numb;
 		cnt++;
 	}
-	if (is_pipe(last_command) == ADD)
+	if (is_micro_pipe(last_command) == ADD)
 		return (ERROR);
 	return (EXECUTED);
 }
@@ -87,12 +87,12 @@ int	pipe_error_handeler(t_data *data)
 {
 	if (error_consequatives_pipes(data, 0, 0, 0) == ERROR)
 	{
-		printf("ERROR: Do not activate the forbiden magic with |\n");
+		printf("ERROR: This ain't elder wand this is |PIPE|\n");
 		return (ERROR);
 	}
 	else if (error_conseq_seperators(data, 0, 0, 0) == ERROR)
 	{
-		printf("ERROR: You have some sketchy command there with <>|\n");
+		printf("ERROR: You have some sketcy stuff going out there with <>|\n");
 		return (ERROR);
 	}
 	else if (error_3_sep(data, 0, 0, 0) == ERROR)
