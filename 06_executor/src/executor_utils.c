@@ -6,7 +6,7 @@
 /*   By: jwillert@student.42heilbronn.de            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:20:28 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/20 18:16:06 by jwillert         ###   ########          */
+/*   Updated: 2023/03/21 11:21:58 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,43 +62,9 @@ t_execute	*get_pipe(t_execute *offset)
 	index = 0;
 	while (offset[index].order_str != NULL
 		&& offset[index].order_numb != PIPE
-		&& offset[index].order_numb != PIPE_LAST)
+		&& offset[index].order_numb != LAST_PIPE)
 	{
 		index += 1;
 	}
 	return (&offset[index]);
-}
-
-t_execute	*get_string_after_pipe(t_execute *offset, t_execute *next_pipe)
-{
-	int	index;
-
-	index = 0;
-	while (&offset[index] != next_pipe
-		&& offset[index].order_str != NULL)
-	{
-		index += 1;
-	}
-	while (offset[index].order_numb != STRING
-		&& offset[index].order_str != NULL)
-	{
-		index += 1;
-	}
-	return (&offset[index]);
-}
-
-t_execute	*get_string_after_whitespaces(t_execute *execute)
-{
-	int	index;
-
-	index = 0;
-	if (execute == NULL)
-	{
-		return (NULL);
-	}
-	while (execute[index].order_numb == 1 || execute[index].order_numb == 2)
-	{
-		index += 1;
-	}
-	return (&execute[index]);
 }

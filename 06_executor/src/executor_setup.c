@@ -6,7 +6,7 @@
 /*   By: jwillert@student.42heilbronn.de            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:57:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/20 19:03:19 by jwillert         ###   ########          */
+/*   Updated: 2023/03/21 11:17:09 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,23 @@
 #include <unistd.h>
 #include "executor_private.h"
 
-int	try_access(t_execute *execute, char *path, char *command)
+int	try_access(t_combine *cmd, char *path, char *command)
 {	
-	execute->full_path = ft_str_join_delimiter(path, "/", command);
-	if (execute->full_path == NULL)
+	cmd->full_path = ft_str_join_delimiter(path, "/", command);
+	if (cmd->full_path == NULL)
 	{
 		return (ERROR);
 	}
-	if (access(execute->full_path, X_OK) == 0)
+	if (access(cmd->full_path, X_OK) == 0)
 	{
 		return (1);
 	}
-	free(execute->full_path);
-	execute->full_path = NULL;
+	free(cmd->full_path);
+	cmd->full_path = NULL;
 	return (EXECUTED);
 }
 
-int	check_valid_command(t_execute *offset, char **envp)
+int	check_valid_command(t_combine *cmd, char **envp)
 {	
 	int		return_value;
 	int		index;
@@ -47,7 +47,7 @@ int	check_valid_command(t_execute *offset, char **envp)
 	}
 	while (paths[index] != NULL)
 	{
-		return_value = try_access(offset, paths[index], offset->order_str);
+		return_value = try_access(cmd->command, paths[index], cmd->command->order_str );
 		if (return_value != 0)
 		{
 			free_char_array(paths);
@@ -59,35 +59,10 @@ int	check_valid_command(t_execute *offset, char **envp)
 	return (return_value);
 }
 
-int	convert_command_to_vector(t_data *data, t_execute *offset)
-{
-	t_vector_str	*vector_args;
-
-	vector_args = data->vector_args;
-	while (offset->order_str != NULL && offset->order_numb != 5)
-	{
-		vector_args = ft_vector_str_join(vector_args, offset->order_str, 0);
-		if (vector_args == NULL)
-		{
-			return (ERROR);
-		}
-		offset += 1;
-	}
-	data->vector_args = vector_args;
-	debug_print_t_vector_str(data->vector_args);
-	return (0);
-}
-
-char	**convert_vector_to_array(t_data *data)
+char	**convert_str_to_array(t_combine *cmd)
 {
 	char	**array_command;
 
-	array_command = NULL;
-	if (data->vector_args != NULL)
-	{
-		array_command = ft_split(data->vector_args->str, ' ');
-		ft_vector_str_free(data->vector_args);
-		data->vector_args = NULL;
-	}
+	array_command = ft_split(cmd->combined_str, ' ');
 	return (array_command);
 }

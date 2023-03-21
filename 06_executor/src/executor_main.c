@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/21 10:57:07 by jwillert         ###   ########          */
+/*   Updated: 2023/03/21 11:22:52 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	child_routine(t_data *data, t_execute *offset,
 	}
 	if (execve(offset->full_path, array_command, data->envp) == -1)
 	{
-		//@note freeing in child needed?
 		free_char_array(array_command);
 		perror("execve");
 	}
@@ -72,24 +71,20 @@ static int	execute_in_child(t_data *data, t_execute *offset,
 	return (EXECUTED);
 }
 
-static int	executor_routine(t_data *data, t_execute *offset, int *fd_pipe)
+static int	executor_routine(t_data *data, t_combine *cmd, int *fd_pipe)
 {
 	int			return_value;
 	char		**array_command;
 
-	return_value = check_valid_command(offset, data->envp);
+	return_value = check_valid_command(cmd->command, data->envp);
 	if (return_value == 1)
 	{
-		if (convert_command_to_vector(data, offset) == ERROR)
-		{
-			return (ERROR);
-		}
-		array_command = convert_vector_to_array(data);
+		array_command = convert_str_to_array(cmd->command->combined_str);
 		if (array_command == NULL)
 		{
 			return (ERROR);
 		}
-		if (execute_in_child(data, offset, array_command, fd_pipe) == ERROR)
+		if (execute_in_child(data, cmd->command, array_command, fd_pipe) == ERROR)
 		{
 			return (ERROR);
 		}
@@ -101,34 +96,32 @@ int	executor_main(t_data *data)
 {
 	int			counter_pipes;
 	int			fd_pipe[2];
-	t_execute	*next_pipe;
-	t_execute	*offset;
+	t_combine	*next_pipe;
+	t_combine	*cmd_string;
 
 	if (pipe(fd_pipe) == ERROR)
 	{
 		return (ERROR);
 	}
-	offset = get_string_after_whitespaces(data->execute);
-	counter_pipes = count_pipes(offset);
+	counter_pipes = count_pipes(data->execute);
 	if (offset == NULL)
 	{
 		return (ERROR);
 	}
 	while (counter_pipes > 0)
 	{
-		next_pipe = get_pipe(offset);
+		next_pipe = get_pipe(data->combine->command);
 		if (next_pipe->order_str != NULL)
 		{
-			if (executor_routine(data, offset, fd_pipe) == ERROR)
+			if (executor_routine(data, data->combine, fd_pipe) == ERROR)
 			{
-				printf("here\n");
 				return (ERROR);
 			}
 		}
-		offset = get_string_after_pipe(offset, next_pipe);
+		data->combine += 1;
 		counter_pipes -= 1;
 	}
-	if (executor_routine(data, offset, NULL) == ERROR)
+	if (executor_routine(data, data->combine, NULL) == ERROR)
 	{
 		return (ERROR);
 	}
