@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/21 10:52:20 by jwillert         ###   ########          */
+/*   Updated: 2023/03/21 10:52:49 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,17 @@
 static void	child_routine(t_data *data, t_execute *offset,
 		char **array_command, int *fd_pipe)
 {
-	debug_print_char_array(array_command);
 	if (fd_pipe != NULL)
 	{
+		close(fd_pipe[0]);
+		dup2(fd_pipe[1], STDOUT_FILENO);
 		close(fd_pipe[1]);
 	}
-	printf("child: %s\n", offset->full_path);
-	debug_print_char_array(array_command);
 	if (execve(offset->full_path, array_command, data->envp) == -1)
 	{
 		//@note freeing in child needed?
 		free_char_array(array_command);
 		perror("execve");
-		exit (ERROR);
 	}
 }
 
@@ -38,6 +36,8 @@ static int	parent_routine(int *fd_pipe)
 {
 	if (fd_pipe != NULL)
 	{
+		close(fd_pipe[1]);
+		dup2(fd_pipe[0], STDIN_FILENO);
 		close(fd_pipe[0]);
 	}
 	if (wait(NULL) == -1)
@@ -68,8 +68,6 @@ static int	execute_in_child(t_data *data, t_execute *offset,
 			return (ERROR);
 		}
 	}
-	// @note freeing setting to NULL
-	close(fd_pipe[1]);
 	free_char_array(array_command);
 	return (EXECUTED);
 }
@@ -79,13 +77,11 @@ static int	executor_routine(t_data *data, t_execute *offset, int *fd_pipe)
 	int			return_value;
 	char		**array_command;
 
-	return_value = 0;
 	return_value = check_valid_command(offset, data->envp);
 	if (return_value == 1)
 	{
 		if (convert_command_to_vector(data, offset) == ERROR)
 		{
-			printf("here\n");
 			return (ERROR);
 		}
 		array_command = convert_vector_to_array(data);
@@ -98,14 +94,13 @@ static int	executor_routine(t_data *data, t_execute *offset, int *fd_pipe)
 			return (ERROR);
 		}
 	}
-	return (return_value);
+	return (EXECUTED);
 }
 
 int	executor_main(t_data *data)
 {
 	int			counter_pipes;
 	int			fd_pipe[2];
-	int			fd_temp[2];
 	t_execute	*next_pipe;
 	t_execute	*offset;
 
@@ -119,10 +114,6 @@ int	executor_main(t_data *data)
 	{
 		return (ERROR);
 	}
-	fd_temp[0] = dup(STDIN_FILENO);
-	fd_temp[1] = dup(STDOUT_FILENO);
-	dup2(fd_pipe[0], STDIN_FILENO);
-	dup2(fd_pipe[1], STDOUT_FILENO);
 	while (counter_pipes > 0)
 	{
 		next_pipe = get_pipe(offset);
@@ -130,15 +121,15 @@ int	executor_main(t_data *data)
 		{
 			if (executor_routine(data, offset, fd_pipe) == ERROR)
 			{
+				printf("here\n");
 				return (ERROR);
 			}
 		}
+		offset = get_string_after_pipe(offset, next_pipe);
+		counter_pipes -= 1;
 	}
-	dup2(fd_pipe[0], fd_temp[0]);
-	dup2(fd_pipe[1], fd_temp[1]);
-	if (executor_routine(data, offset, fd_pipe) == ERROR)
+	if (executor_routine(data, offset, NULL) == ERROR)
 	{
-		printf("reached\n");
 		return (ERROR);
 	}
 	return (0);
