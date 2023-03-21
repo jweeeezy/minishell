@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/21 11:22:52 by jwillert         ###   ########          */
+/*   Updated: 2023/03/21 19:01:56 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	child_routine(t_data *data, t_execute *offset,
 	{
 		free_char_array(array_command);
 		perror("execve");
+		exit(ERROR);
 	}
 }
 
@@ -79,7 +80,7 @@ static int	executor_routine(t_data *data, t_combine *cmd, int *fd_pipe)
 	return_value = check_valid_command(cmd->command, data->envp);
 	if (return_value == 1)
 	{
-		array_command = convert_str_to_array(cmd->command->combined_str);
+		array_command = convert_str_to_array(cmd);
 		if (array_command == NULL)
 		{
 			return (ERROR);
@@ -96,18 +97,13 @@ int	executor_main(t_data *data)
 {
 	int			counter_pipes;
 	int			fd_pipe[2];
-	t_combine	*next_pipe;
-	t_combine	*cmd_string;
+	t_execute	*next_pipe;
 
 	if (pipe(fd_pipe) == ERROR)
 	{
 		return (ERROR);
 	}
 	counter_pipes = count_pipes(data->execute);
-	if (offset == NULL)
-	{
-		return (ERROR);
-	}
 	while (counter_pipes > 0)
 	{
 		next_pipe = get_pipe(data->combine->command);

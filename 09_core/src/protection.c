@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:11:31 by kvebers           #+#    #+#             */
-/*   Updated: 2023/02/27 15:08:44 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/21 18:55:40 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,5 @@ int	argument_protection(t_data *data, int argc, char **argv, char **envp)
 	put_to_linked_list_expander(data, envp);
 	data->argv = argv;
 	data->envp = envp;
-	data->vector_args = NULL;
 	return (EXECUTED);
 }

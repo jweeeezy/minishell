@@ -6,7 +6,7 @@
 /*   By: jwillert@student.42heilbronn.de            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:57:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/21 11:17:09 by jwillert         ###   ########          */
+/*   Updated: 2023/03/21 18:22:17 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include "executor_private.h"
 
-int	try_access(t_combine *cmd, char *path, char *command)
+int	try_access(t_execute *cmd, char *path, char *command)
 {	
 	cmd->full_path = ft_str_join_delimiter(path, "/", command);
 	if (cmd->full_path == NULL)
@@ -32,7 +32,7 @@ int	try_access(t_combine *cmd, char *path, char *command)
 	return (EXECUTED);
 }
 
-int	check_valid_command(t_combine *cmd, char **envp)
+int	check_valid_command(t_execute *cmd, char **envp)
 {	
 	int		return_value;
 	int		index;
@@ -47,7 +47,8 @@ int	check_valid_command(t_combine *cmd, char **envp)
 	}
 	while (paths[index] != NULL)
 	{
-		return_value = try_access(cmd->command, paths[index], cmd->command->order_str );
+		return_value = try_access(cmd, paths[index],
+				cmd->order_str );
 		if (return_value != 0)
 		{
 			free_char_array(paths);

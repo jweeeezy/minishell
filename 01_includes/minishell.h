@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/21 10:55:21 by jwillert         ###   ########          */
+/*   Updated: 2023/03/21 18:55:08 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ typedef struct s_data
 	char			**argv;
 	t_expander		*expander;
 	t_combine		*combine;
-	t_vector_str	*vector_args;
 }	t_data;
 
 /* ************************************************************************** */
