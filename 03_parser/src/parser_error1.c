@@ -6,14 +6,14 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:11:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/20 17:42:40 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/20 18:19:38 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
 
-int	error_consequatives_pipes(t_data *data, int cnt, int last_command, int q_o)
+static int	error_conseq_pipes(t_data *data, int cnt, int last_command, int q_o)
 {
 	while (cnt < data->tokens && data->execute[cnt].order_numb == WHITE)
 		cnt++;
@@ -38,7 +38,7 @@ int	error_consequatives_pipes(t_data *data, int cnt, int last_command, int q_o)
 	return (EXECUTED);
 }
 
-int	error_conseq_seperators(t_data *data, int cnt, int q_o, int last_command)
+static int	error_conseq_seps(t_data *data, int cnt, int q_o, int last_command)
 {
 	while (cnt < data->tokens)
 	{
@@ -60,7 +60,7 @@ int	error_conseq_seperators(t_data *data, int cnt, int q_o, int last_command)
 	return (EXECUTED);
 }
 
-int	error_3_sep(t_data *data, int cnt, int q_o, int last_command)
+static int	error_3_sep(t_data *data, int cnt, int q_o, int last_command)
 {
 	while (cnt < data->tokens)
 	{
@@ -83,14 +83,14 @@ int	error_3_sep(t_data *data, int cnt, int q_o, int last_command)
 	return (EXECUTED);
 }
 
-int	pipe_error_handeler(t_data *data)
+static int	pipe_error_handeler(t_data *data)
 {
-	if (error_consequatives_pipes(data, 0, 0, 0) == ERROR)
+	if (error_conseq_pipes(data, 0, 0, 0) == ERROR)
 	{
 		printf("ERROR: This ain't elder wand this is |PIPE|\n");
 		return (ERROR);
 	}
-	else if (error_conseq_seperators(data, 0, 0, 0) == ERROR)
+	else if (error_conseq_seps(data, 0, 0, 0) == ERROR)
 	{
 		printf("ERROR: You have some sketcy stuff going out there with <>|\n");
 		return (ERROR);
@@ -106,6 +106,8 @@ int	pipe_error_handeler(t_data *data)
 int	token_error_handeler(t_data *data)
 {
 	if (pipe_error_handeler(data) == ERROR)
+		return (ERROR);
+	if (syntax_errors(data) == ERROR)
 		return (ERROR);
 	return (EXECUTED);
 }

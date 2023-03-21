@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/20 16:13:16 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/20 18:17:38 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ int		find_main_command(t_data *data, int cnt, int cnt1, int switcher);
 int		recheck_the_main_command(t_data *data, int cnt);
 char	*ft_strnstr3(const char *haystack, const char *needle, size_t length);
 int		token_error_handeler(t_data *data);
+int		syntax_errors(t_data *data);
 /* ************************************************************************** */
 //                                    EXECUTOR
 /* ************************************************************************** */
