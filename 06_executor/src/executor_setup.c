@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:57:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/22 12:31:33 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/22 14:43:52 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ int	check_valid_command(t_execute *cmd, char **envp)
 	index = 0;
 	paths = get_path_array(envp);
 	if (paths == NULL)
-	{
 		return (ERROR);
-	}
 	while (paths[index] != NULL)
 	{
 		return_value = try_access(cmd, paths[index],
