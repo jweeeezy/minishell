@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/22 10:54:21 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/22 12:39:14 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,8 @@ int	executor_main(t_data *data)
 	{
 		next_pipe = get_pipe(data->combine->command);
 		if (next_pipe->order_str != NULL)
-		{
 			if (executor_routine(data, data->combine, fd_pipe) == ERROR)
 				return (ERROR);
-		}
 		data->combine += 1;
 		counter_pipes--;
 	}

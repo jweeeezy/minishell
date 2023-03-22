@@ -6,13 +6,13 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/21 18:54:51 by jwillert         ###   ########          */
+/*   Updated: 2023/03/22 12:29:07 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_loop(t_data *data)
+void	free_helper(t_data *data)
 {
 	int	cnt;
 
@@ -27,7 +27,14 @@ void	free_loop(t_data *data)
 		data->execute[cnt].order_numb = 0;
 		cnt++;
 	}
+}
+
+void	free_loop(t_data *data)
+{
+	int	cnt;
+
 	cnt = 0;
+	free_helper(data);
 	while (cnt < data->commands_to_process
 		&& data->combine[cnt].combined_str != NULL)
 	{
@@ -35,10 +42,13 @@ void	free_loop(t_data *data)
 		data->combine[cnt].combined_str = NULL;
 		cnt++;
 	}
-	if (data->commands_to_process != 0)
+	if (data->tokens > 0)
+	{
+		free(data->execute);
+		free(data->args);
+	}
+	if (data->commands_to_process > 0 && data->combine != NULL)
 		free(data->combine);
-	free(data->execute);
-	free(data->args);
 }
 
 void	free_char_array(char **array_to_free)
