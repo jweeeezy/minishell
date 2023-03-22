@@ -6,13 +6,17 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/22 13:19:34 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/22 13:20:57 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "minishell.h"
 #include <readline/history.h>
+#include <readline/readline.h>
 #include "libft.h"
+#include <signal.h>
+#include <unistd.h>
 
 static int	history(t_data *data)
 {
