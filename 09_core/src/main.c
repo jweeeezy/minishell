@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/22 13:16:15 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/22 13:19:34 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,18 @@ static int	history(t_data *data)
 void	check_leaks(void)
 {
 	system ("leaks minishell");
+}
+
+void	signals(void)
+{
+	struct termios	term_settings;
+
+	tcgetattr(1, &term_settings);
+	term_settings.c_lflag &= ~ECHOCTL;
+	tcsetattr(1, TCSAFLUSH, &term_settings);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handle_signal);
+	signal(SIGTERM, handle_signal);
 }
 
 int	main(int argc, char **argv, char **envp)
