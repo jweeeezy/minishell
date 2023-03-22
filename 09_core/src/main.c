@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/22 13:28:23 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/22 14:04:40 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,10 @@ int	main(int argc, char **argv, char **envp)
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
 		return (ERROR);
 	debug_print_t_expander(data.expander);
-	while (1)
+	signals();
+	while (g_signal >= 1)
 	{
-		if (history(&data) == ERROR)
+		if (history(&data) == ERROR && g_signal != 2)
 			break ;
 		if (parser(&data) != ERROR)
 			executor_main(&data);

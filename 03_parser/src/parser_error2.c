@@ -6,12 +6,13 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 17:32:37 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/22 10:07:49 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/22 14:08:41 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
+
 
 static int	last_pipe(t_data *data)
 {

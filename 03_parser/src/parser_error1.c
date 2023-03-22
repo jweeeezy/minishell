@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 11:11:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/22 10:24:40 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/22 14:07:31 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	error_conseq_seps(t_data *data, int cnt, int q_o, int last_command)
 			last_command = data->execute[cnt].order_numb;
 		cnt++;
 	}
-	if (is_micro_pipe(last_command) == ADD)
+	if (is_pipe(last_command) == ADD)
 		return (ERROR);
 	return (EXECUTED);
 }

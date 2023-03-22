@@ -6,7 +6,8 @@
         "locale": "c",
         "string": "c",
         "libft.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "signal.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

@@ -6,7 +6,7 @@
 #    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 12:52:07 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/12 10:31:13 by kvebers          ###   ########.fr        #
+#    Updated: 2023/03/21 17:38:57 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,9 @@ MODULES_ALL							=	$(LIBME)\
 CC									=	cc
 CC_DEBUG							=	$(shell echo $$DEBUG_FLAG)
 CFLAGS								=	-Wall -Wextra -Werror $(CC_DEBUG) \
-										-lreadline
+										-lreadline $(LDFLAGS)
+
+LDFLAGS  							=	-L /Users/$(USER)/.brew/opt/readline/lib
 REMOVE								=	rm -f
 
 #	Deletes targets on error
