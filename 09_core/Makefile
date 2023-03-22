@@ -6,7 +6,7 @@
 #    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:18:22 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/22 13:29:33 by kvebers          ###   ########.fr        #
+#    Updated: 2023/03/22 13:31:26 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,18 +31,21 @@ SRC_FILES						=	main.c\
 									free.c\
 									protection.c\
 									utils.c\
-									utils1.c\
+									utils1.c \
 									signals.c
+									
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR),$(SRC_FILES))
 OBJ								=	$(addprefix $(OBJ_DIR),$(OBJ_FILES))
 
 #	General rules
 CC								=	cc
+LDFLAGS  						=	-L /Users/$(USER)/.brew/opt/readline/lib -lreadline
+INCLUDE_RL 						=	-I /Users/$(USER)/.brew/opt/readline/include 
 DEBUG							=	$(shell echo $$DEBUG_FLAG)
-CFLAGS							=	-Wall -Wextra -Werror $(DEBUG) 
+CFLAGS							=	-Wall -Wextra -Werror $(DEBUG)
 INCLUDE							=	-I $(INCLUDE_DIR) -I $(LIBFT_DIR)include \
-									-I $(LIBME_DIR)include
+									-I $(LIBME_DIR)include $(INCLUDE_RL)
 CC_OBJ							=	$(CC) $(INCLUDE) $(CFLAGS) -c $^ -o \
 									$(OBJ_DIR)$@
 REMOVE							=	rm -f
@@ -58,7 +61,7 @@ LIB_CREATE						=	ar -crs $(NAME)
 .PHONY:								all clean fclean re
 all:								$(NAME)
 $(NAME):							$(LIBME) $(OBJ_FILES)
-										$(LIB_CREATE) $(OBJ)
+										$(LIB_CREATE) $(OBJ) 
 $(LIBME):
 										$(MAKE) libme -C $(LIBALLME_DIR)
 clean:
