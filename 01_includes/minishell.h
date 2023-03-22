@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/22 13:23:21 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/22 13:30:07 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 # include <stdlib.h>
 # include "libme.h"	// needed for t_vector_str
+
+int g_signal;
 
 enum e_outputs
 {
