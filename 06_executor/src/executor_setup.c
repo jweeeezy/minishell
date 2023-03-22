@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_setup.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert@student.42heilbronn.de            +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:57:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/21 18:22:17 by jwillert         ###   ########          */
+/*   Updated: 2023/03/22 09:28:22 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,9 @@ int	try_access(t_execute *cmd, char *path, char *command)
 {	
 	cmd->full_path = ft_str_join_delimiter(path, "/", command);
 	if (cmd->full_path == NULL)
-	{
 		return (ERROR);
-	}
 	if (access(cmd->full_path, X_OK) == 0)
-	{
 		return (1);
-	}
 	free(cmd->full_path);
 	cmd->full_path = NULL;
 	return (EXECUTED);

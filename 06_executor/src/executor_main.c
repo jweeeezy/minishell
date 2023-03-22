@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/21 19:01:56 by jwillert         ###   ########          */
+/*   Updated: 2023/03/22 09:27:33 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ static int	parent_routine(int *fd_pipe)
 		close(fd_pipe[0]);
 	}
 	if (wait(NULL) == -1)
-	{
 		return (ERROR);
-	}
 	return (0);
 }
 
@@ -54,19 +52,13 @@ static int	execute_in_child(t_data *data, t_execute *offset,
 
 	id = fork();
 	if (id == ERROR)
-	{
 		return (ERROR);
-	}
 	if (id == 0)
-	{
 		child_routine(data, offset, array_command, fd_pipe);
-	}
 	else
 	{
 		if (parent_routine(fd_pipe) == -1)
-		{
 			return (ERROR);
-		}
 	}
 	free_char_array(array_command);
 	return (EXECUTED);
@@ -82,13 +74,10 @@ static int	executor_routine(t_data *data, t_combine *cmd, int *fd_pipe)
 	{
 		array_command = convert_str_to_array(cmd);
 		if (array_command == NULL)
-		{
 			return (ERROR);
-		}
-		if (execute_in_child(data, cmd->command, array_command, fd_pipe) == ERROR)
-		{
+		if (execute_in_child(data, cmd->command,
+				array_command, fd_pipe) == ERROR)
 			return (ERROR);
-		}
 	}
 	return (EXECUTED);
 }
@@ -100,9 +89,7 @@ int	executor_main(t_data *data)
 	t_execute	*next_pipe;
 
 	if (pipe(fd_pipe) == ERROR)
-	{
 		return (ERROR);
-	}
 	counter_pipes = count_pipes(data->execute);
 	while (counter_pipes > 0)
 	{
@@ -118,8 +105,6 @@ int	executor_main(t_data *data)
 		counter_pipes -= 1;
 	}
 	if (executor_routine(data, data->combine, NULL) == ERROR)
-	{
 		return (ERROR);
-	}
 	return (0);
 }
