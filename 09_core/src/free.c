@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/22 12:29:07 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/22 13:16:44 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	free_loop(t_data *data)
 
 	cnt = 0;
 	free_helper(data);
+	free(data->line);
 	while (cnt < data->commands_to_process
 		&& data->combine[cnt].combined_str != NULL)
 	{
@@ -62,4 +63,17 @@ void	free_char_array(char **array_to_free)
 		index += 1;
 	}
 	free (array_to_free);
+}
+
+void	free_env(t_data *data)
+{
+	t_expander	*temp;
+
+	while (data->expander != NULL)
+	{
+		temp = data->expander;
+		data->expander = data->expander->next;
+		free(temp->str);
+		free(temp);
+	}
 }

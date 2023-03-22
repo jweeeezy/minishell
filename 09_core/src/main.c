@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/22 11:01:57 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/22 13:16:15 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,17 @@ static int	history(t_data *data)
 	return (EXECUTED);
 }
 
+void	check_leaks(void)
+{
+	system ("leaks minishell");
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
+	if (DEBUG)
+		atexit(check_leaks);
 	using_history();
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
 		return (ERROR);
@@ -44,5 +51,6 @@ int	main(int argc, char **argv, char **envp)
 			executor_main(&data);
 		free_loop(&data);
 	}
+	free_env(&data);
 	return (EXECUTED);
 }
