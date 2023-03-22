@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:20:28 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/22 12:39:38 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/22 17:07:06 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	count_pipes(t_data *data)
 	cnt1 = 0;
 	while (cnt < data->commands_to_process)
 	{
-		if (data->combine[cnt].command->order_numb == PIPE)
+		if (data->combine[cnt].command->order_numb == PIPE
+			|| data->combine[cnt].command->order_numb == LAST_PIPE)
 			cnt1++;
 		cnt++;
 	}
