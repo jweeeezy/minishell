@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/21 10:56:23 by jwillert         ###   ########          */
+/*   Updated: 2023/03/22 10:42:36 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ static int	set_up_command_struct(t_data *data, int cnt, int cnt1, int switcher)
 int	parser(t_data *data)
 {
 	data->commands_to_process = 0;
-	if (parsing_error_handler(data) == ERROR)
-		return (EXECUTED);
+	if (parsing_error_handler(
+		data) == ERROR)
+		return (ERROR);
 	if (set_up_command_struct(data, 0, 0, 0) == ERROR)
 		return (ERROR);
 	if (find_main_command(data, 0, 0, 0) == ERROR)

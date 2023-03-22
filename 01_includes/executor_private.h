@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_private.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert@student.42heilbronn.de            +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:22:50 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/21 18:17:42 by jwillert         ###   ########          */
+/*   Updated: 2023/03/22 10:49:23 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /* ************************************************************************** */
 //								EXECUTOR_UTILS
 /* ************************************************************************** */
-int			count_pipes(t_execute *execute);
+int         count_pipes(t_data *data);
 char		**get_path_array(char **envp);
 t_execute	*get_pipe(t_execute *offset);
 
