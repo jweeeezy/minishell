@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/22 13:38:20 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/24 11:04:35 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	free_char_array(char **array_to_free);
 void	free_loop(t_data *data);
 void	free_env(t_data *data);
 int		argument_protection(t_data *data, int argc, char **argv, char **envp);
-
+void	free_int_array(int **array, int size);
 //int   utils_check_for_chars(t_data *data, int segment);
 /* ************************************************************************** */
 //                                    UTILS

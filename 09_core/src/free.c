@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/22 13:16:44 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/24 11:02:47 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,3 +77,23 @@ void	free_env(t_data *data)
 		free(temp);
 	}
 }
+
+void	free_int_array(int **array, int size)
+{
+	int	index;
+
+	index = 0;
+	while (index < size && array[index] != NULL)
+	{
+		free (array[index]);
+	}
+	free(array);
+}
+
+
+
+
+
+
+
+
