@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_new.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/24 11:06:12 by jwillert         ###   ########          */
+/*   Updated: 2023/03/24 13:52:34 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static void close_pipes_before(int **fd_pipes, int i)
 	int	index;
 
 	index = 0;
-	while (index < i && fd_pipes[i] != NULL)
+	while (index < i && fd_pipes[index] != NULL)
 	{
 		if (index != i - 1)
 			close(fd_pipes[index][0]);
-		close(fd_pipes[index][1]);
+		close(fd_pipes[index][0]);
 		index++;
 	}
 }
@@ -47,7 +47,7 @@ static void	close_unused_pipes_child(int **fd_pipes, int index, int counter_pipe
 		dup2(fd_pipes[0][1], STDOUT_FILENO);
 		close_pipes_after(fd_pipes, 1, counter_pipes);
 	}
-	else if (index == counter_pipes - 1)	//	LAST PIPE
+	else if (index != counter_pipes - 1)	//	LAST PIPE
 	{
 		close(fd_pipes[index][1]);
 		dup2(fd_pipes[index][0], STDIN_FILENO);
@@ -100,7 +100,7 @@ static int execute_fork_and_execute(t_data *data, int index, int **fd_pipes,
 	int 	pid;
 
 	pid = fork();
-	if (pid == ERROR)
+	if (pid == ERROR || pid < 0)
 	{
 		return (ERROR);
 	}
@@ -126,7 +126,7 @@ static int	**create_pipes(int counter_pipes)
 
 	index = 0;
 	
-	fd_pipes = malloc (sizeof (int *) * counter_pipes + 1);
+	fd_pipes = malloc (sizeof (int *) * (counter_pipes + 1));
 	if (fd_pipes == NULL)
 	{
 		return (NULL);
