@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:18:22 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/22 13:37:41 by kvebers          ###   ########.fr        #
+#    Updated: 2023/03/24 15:06:51 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,19 +33,24 @@ SRC_FILES						=	main.c\
 									utils.c\
 									utils1.c \
 									signals.c
-									
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR),$(SRC_FILES))
 OBJ								=	$(addprefix $(OBJ_DIR),$(OBJ_FILES))
+BREW_PATH_IF  					=	if test -d /Users/$(USER)/.brew; \
+									then echo /Users/$(USER)/.brew; \
+									elif test -d /Users/$(USER)/goinfre/.brew/; \
+									then echo /Users/$(USER)/goinfre/.brew/; \
+									else echo ""; fi
+BREW_PATH 						:= 	$(shell $(BREW_PATH_IF))
 
 #	General rules
 CC								=	cc
-LDFLAGS  						=	-L /Users/$(USER)/.brew/opt/readline/lib -lreadline
-INCLUDE_RL 						=	-I /Users/$(USER)/.brew/opt/readline/include 
+RL_LINK  						=	-L $(BREW_PATH)opt/readline/lib -lreadline
+RL_INCLUDE 						=	$(BREW_PATH)opt/readline/include
 DEBUG							=	$(shell echo $$DEBUG_FLAG)
 CFLAGS							=	-Wall -Wextra -Werror $(DEBUG)
 INCLUDE							=	-I $(INCLUDE_DIR) -I $(LIBFT_DIR)include \
-									-I $(LIBME_DIR)include $(INCLUDE_RL)
+									-I $(LIBME_DIR)include -I $(RL_INCLUDE)
 CC_OBJ							=	$(CC) $(INCLUDE) $(CFLAGS) -c $^ -o \
 									$(OBJ_DIR)$@
 REMOVE							=	rm -f
@@ -61,7 +66,7 @@ LIB_CREATE						=	ar -crs $(NAME)
 .PHONY:								all clean fclean re
 all:								$(NAME)
 $(NAME):							$(LIBME) $(OBJ_FILES)
-										$(LIB_CREATE) $(OBJ) 
+										$(LIB_CREATE) $(OBJ)
 $(LIBME):
 										$(MAKE) libme -C $(LIBALLME_DIR)
 clean:
