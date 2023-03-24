@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/24 18:10:37 by jwillert         ###   ########          */
+/*   Updated: 2023/03/24 20:03:30 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	free_char_array(char **array_to_free);
 void	free_loop(t_data *data);
 void	free_env(t_data *data);
 int		argument_protection(t_data *data, int argc, char **argv, char **envp);
-void	free_int_array(int **array, int size);
+void	free_pipe_array(int **array, int size);
 //int   utils_check_for_chars(t_data *data, int segment);
 /* ************************************************************************** */
 //                                    UTILS

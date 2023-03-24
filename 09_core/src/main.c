@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/24 15:59:19 by jwillert         ###   ########          */
+/*   Updated: 2023/03/24 19:44:00 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	main(int argc, char **argv, char **envp)
 		if (parser(&data) != ERROR)
 		{
 			executor_decide(&data);
-			ft_dummy(envp);
 		}
 		free_loop(&data);
 	}

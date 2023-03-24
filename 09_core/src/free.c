@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/24 11:02:47 by jwillert         ###   ########          */
+/*   Updated: 2023/03/24 20:04:37 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
 void	free_helper(t_data *data)
 {
@@ -78,22 +79,15 @@ void	free_env(t_data *data)
 	}
 }
 
-void	free_int_array(int **array, int size)
+void	free_pipe_array(int **array, int size)
 {
 	int	index;
 
 	index = 0;
 	while (index < size && array[index] != NULL)
 	{
-		free (array[index]);
+		close(array[index][0]);
+		close(array[index][1]);
 	}
 	free(array);
 }
-
-
-
-
-
-
-
-

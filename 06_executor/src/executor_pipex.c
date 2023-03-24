@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_pipex.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/24 18:23:05 by jwillert         ###   ########          */
+/*   Updated: 2023/03/24 20:15:56 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,21 @@
 #include "executor_private.h"
 #include <stdio.h>
 #include <unistd.h>
+
+// static void	print_pipes(int **fd_pipes)
+// {
+// 	int	index;
+
+// 	index = 0;
+// 	while (fd_pipes[index] != NULL)
+// 	{
+// 		printf("Pipe #%d:\n", index);
+// 		printf("fd[%d][%d]\n", index, 0);
+// 		printf("fd[%d][%d]\n", index, 1);
+// 		printf("\n");
+// 		index++;
+// 	}
+// }
 
 static void close_pipes_before(int **fd_pipes, int i)
 {
@@ -29,9 +44,9 @@ static void close_pipes_before(int **fd_pipes, int i)
 	}
 }
 
-static void	close_pipes_after(int **fd_pipes, int i, int counter_pipes)
+static void	close_pipes_after(int **fd_pipes, int i)
 {
-	while(fd_pipes[i] != NULL && i < counter_pipes)
+	while(fd_pipes[i] != NULL)
 	{
 		close(fd_pipes[i][0]);
 		close(fd_pipes[i][1]);
@@ -44,32 +59,36 @@ static void	close_unused_pipes_child(int **fd_pipes, int index,
 {
 	if (index == 0)						// FIRST PIPE
 	{
+		printf("--- first process --- \n");
 		close(fd_pipes[0][0]);
 		dup2(fd_pipes[0][1], STDOUT_FILENO);
-		close_pipes_after(fd_pipes, 1, counter_pipes);
+		close_pipes_after(fd_pipes, index + 1);
 	}
-	else if (index != counter_pipes - 1)	//	LAST PIPE
+	else if (index == counter_pipes)	//	LAST PIPE
 	{
+		printf("*** LAST PROCESS ***\n");
 		close(fd_pipes[index][1]);
 		dup2(fd_pipes[index][0], STDIN_FILENO);
+		close(fd_pipes[index - 1][0]);
 		close_pipes_before(fd_pipes, index);
 	}
-	else								//	MIDDLE PIPES
+	else						//	MIDDLE PIPES
 	{
+		printf("::: Middle Process:::\n");
 		close(fd_pipes[index][0]);
 		dup2(fd_pipes[index][1], STDOUT_FILENO);
 		dup2(fd_pipes[index - 1][0], STDIN_FILENO);
 		close_pipes_before(fd_pipes, index);
-		close_pipes_after(fd_pipes, index + 1, counter_pipes);
+		close_pipes_after(fd_pipes, index + 1);
 	}
 }
 
-static void	close_unused_pipes_parent(int **fd_pipes, int counter_pipes)
+static void	close_unused_pipes_parent(int **fd_pipes)
 {
 	int index;
 
 	index = 0;
-	while (fd_pipes[index] != NULL && index < counter_pipes)
+	while (fd_pipes[index] != NULL)
 	{
 		close(fd_pipes[index][0]);
 		close(fd_pipes[index][1]);
@@ -80,20 +99,16 @@ static void	close_unused_pipes_parent(int **fd_pipes, int counter_pipes)
 static void child_routine(t_data *data, int index)
 {
 	char	**cmd_array;
-  
+
 	cmd_array = convert_str_to_array(&data->combine[index]);
 	if (cmd_array == NULL)
 	{
 		exit(ERROR);
 	}
-	if (execve(data->combine[index].command->full_path,
-			   	cmd_array, data->envp) == -1)
-	{
-		free_char_array(cmd_array);
-		perror("execve");
-		printf("child here\n");
-		exit(ERROR);
-	}
+	execve(data->combine[index].command->full_path, cmd_array, data->envp);
+	free_char_array(cmd_array);
+	perror("execve");
+	exit(ERROR);
 }
 
 static int execute_fork_and_execute(t_data *data, int index, int **fd_pipes,
@@ -104,7 +119,6 @@ static int execute_fork_and_execute(t_data *data, int index, int **fd_pipes,
 	pid = fork();
 	if (pid == ERROR || pid < 0)
 	{
-		printf("here\n");
 		return (ERROR);
 	}
 	if (pid == 0)
@@ -120,7 +134,6 @@ static int execute_fork_and_execute(t_data *data, int index, int **fd_pipes,
 	{
 		if (wait(NULL) == -1)
 		{
-			printf("or here?\n");
 			perror("wait");
 			return (ERROR);
 		}
@@ -141,10 +154,16 @@ static int	**create_pipes(int counter_pipes)
 	}
 	while (index < counter_pipes)
 	{
+
 		fd_pipes[index] = malloc (sizeof (int) * 2);
 		if (fd_pipes[index] == NULL)
 		{
-			free_int_array(fd_pipes, index);
+			free_pipe_array(fd_pipes, index);
+			return (NULL);
+		}
+		if (pipe(fd_pipes[index]) == ERROR)
+		{
+			free_pipe_array(fd_pipes, index);
 			return (NULL);
 		}
 		index += 1;
@@ -165,7 +184,6 @@ int	executor_pipex(t_data *data, int counter_pipes)
 	{
 		return (ERROR);
 	}
-	close_unused_pipes_parent(fd_pipes, counter_pipes);
 	while (index < counter_pipes + counter_pipes + 1)
 	{
 		if (data->combine[index].command->order_numb == PIPE
@@ -192,6 +210,7 @@ int	executor_pipex(t_data *data, int counter_pipes)
 			return (ERROR);
 		}
 	}
+	close_unused_pipes_parent(fd_pipes);
 	//free_int_array(fd_pipes, counter_pipes);
 	return (EXECUTED);
 }
