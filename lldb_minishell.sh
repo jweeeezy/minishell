@@ -4,6 +4,6 @@
 #	breakpoint before continuing the process
 
 lldb -s <(echo "process attach -name minishell --waitfor") \
--o "b parser" \
+-o "b executor_decide" \
 -o "process continue"
 

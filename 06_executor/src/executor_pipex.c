@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor_new.c                                     :+:      :+:    :+:   */
+/*   executor_pipex.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/24 13:52:34 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/24 18:23:05 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void close_pipes_before(int **fd_pipes, int i)
 	{
 		if (index != i - 1)
 			close(fd_pipes[index][0]);
-		close(fd_pipes[index][0]);
+		close(fd_pipes[index][1]);
 		index++;
 	}
 }
@@ -39,7 +39,8 @@ static void	close_pipes_after(int **fd_pipes, int i, int counter_pipes)
 	}
 }
 
-static void	close_unused_pipes_child(int **fd_pipes, int index, int counter_pipes)
+static void	close_unused_pipes_child(int **fd_pipes, int index,
+		int counter_pipes)
 {
 	if (index == 0)						// FIRST PIPE
 	{
@@ -90,10 +91,11 @@ static void child_routine(t_data *data, int index)
 	{
 		free_char_array(cmd_array);
 		perror("execve");
+		printf("child here\n");
 		exit(ERROR);
 	}
 }
-  
+
 static int execute_fork_and_execute(t_data *data, int index, int **fd_pipes,
 		int counter_pipes)
 {
@@ -102,17 +104,24 @@ static int execute_fork_and_execute(t_data *data, int index, int **fd_pipes,
 	pid = fork();
 	if (pid == ERROR || pid < 0)
 	{
+		printf("here\n");
 		return (ERROR);
 	}
 	if (pid == 0)
 	{
-		close_unused_pipes_child(fd_pipes, index, counter_pipes);
+		if (fd_pipes != NULL && counter_pipes != 0)
+		{
+			close_unused_pipes_child(fd_pipes, data->index_processes,
+				   	counter_pipes);
+		}
 		child_routine(data, index);
 	}
 	else
 	{
 		if (wait(NULL) == -1)
 		{
+			printf("or here?\n");
+			perror("wait");
 			return (ERROR);
 		}
 	}
@@ -125,7 +134,6 @@ static int	**create_pipes(int counter_pipes)
 	int	index;
 
 	index = 0;
-	
 	fd_pipes = malloc (sizeof (int *) * (counter_pipes + 1));
 	if (fd_pipes == NULL)
 	{
@@ -145,24 +153,27 @@ static int	**create_pipes(int counter_pipes)
 	return (fd_pipes);
 }
 
-int	executor_pipex(t_data *data)
+int	executor_pipex(t_data *data, int counter_pipes)
 {
-	int	counter_pipes;
 	int	**fd_pipes;
 	int	index;
 	int	return_value;
 
 	index = 0;
-	counter_pipes = count_pipes(data);
 	fd_pipes = create_pipes(counter_pipes);
 	if (fd_pipes == NULL)
 	{
 		return (ERROR);
 	}
 	close_unused_pipes_parent(fd_pipes, counter_pipes);
-	while (index <= counter_pipes)
+	while (index < counter_pipes + counter_pipes + 1)
 	{
-		return_value =  check_valid_command(data->combine[index].command,
+		if (data->combine[index].command->order_numb == PIPE
+			|| data->combine[index].command->order_numb == LAST_PIPE)
+		{
+			index += 1;
+		}
+		return_value = check_valid_command(data->combine[index].command,
 			  data->envp);
 		if (return_value == 1)
 		{
@@ -171,16 +182,49 @@ int	executor_pipex(t_data *data)
 			{
 				return (ERROR);
 			}
+			free(data->combine[index].command->full_path);
+			data->combine[index].command->full_path = NULL;
 			index += 1;
+			data->index_processes += 1;
 		}
 		else if (return_value == ERROR)
 		{
 			return (ERROR);
 		}
-		else
+	}
+	//free_int_array(fd_pipes, counter_pipes);
+	return (EXECUTED);
+}
+
+int	executor_execute(t_data *data)
+{
+	int	return_value;
+
+	return_value = check_valid_command(data->combine->command, data->envp);
+	if (return_value == 1)
+	{
+		if (execute_fork_and_execute(data, 0, NULL, 0) == ERROR)
 		{
-			return (-2);
+			return (ERROR);
 		}
 	}
+	else if (return_value == ERROR)
+	{
+		return (ERROR);
+	}
 	return (EXECUTED);
+}
+
+void	executor_decide(t_data *data)
+{
+	data->counter_pipes = count_pipes(data);
+	data->index_processes = 0;
+	if (data->counter_pipes != 0)
+	{
+		executor_pipex(data, data->counter_pipes);
+	}
+	else
+	{
+		executor_execute(data);
+	}
 }

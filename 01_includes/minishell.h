@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/24 15:15:28 by jwillert         ###   ########          */
+/*   Updated: 2023/03/24 18:10:37 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ typedef struct s_data
 	char			**argv;
 	t_expander		*expander;
 	t_combine		*combine;
+	int				counter_pipes;
+	int				index_processes;
 }	t_data;
 
 /* ************************************************************************** */
@@ -139,8 +141,8 @@ int		syntax_errors(t_data *data);
 /* ************************************************************************** */
 //                                    EXECUTOR
 /* ************************************************************************** */
-int		executor_main(t_data *data);
-int		executor_pipex(t_data *data);
+int		executor_pipex(t_data *data, int counter_pipes);
+void	executor_decide(t_data *data);
 /* ************************************************************************** */
 //                                    BUILTINS
 /* ************************************************************************** */
