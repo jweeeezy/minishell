@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 13:42:00 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/25 15:31:36 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/25 15:54:14 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	check_echo_n(t_data *data)
 				|| data->execute[cnt1].order_numb == WHITE
 				|| data->execute[cnt1].order_numb == DOLLA)
 			{
-				if (cnt1 + 1 < data->tokens && execute[cnt1].order_numb == DOLLA)
-				{
+				// if (cnt1 + 1 < data->tokens && execute[cnt1].order_numb == DOLLA)
+				// {
 					
-				}
+				// }
 				if (is_n(data->execute[cnt1].order_str) == ADD)
 					data->combine[cnt].count_n++;
 				cnt1++;
