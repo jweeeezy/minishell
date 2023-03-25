@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/24 20:03:30 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/25 14:43:30 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <stdlib.h>
 # include "libme.h"	// needed for t_vector_str
 
-int g_signal;
+int	g_signal;
 
 enum e_outputs
 {
@@ -41,13 +41,14 @@ enum e_outputs
 	SHELL_REDIRECTION = 17,
 	HERE_DOC = 18,
 	ECHO = 20,
-	CD = 21,
-	LS = 22,
+	ECHO_N = 21,
+	CD = 22,
 	PWD = 23,
 	EXPORT = 24,
 	UNSET = 25,
 	ENV = 26,
 	EXIT = 27,
+	N = 28,
 	LAST_PIPE = 50
 };
 
@@ -62,6 +63,7 @@ typedef struct s_execute
 typedef struct s_combine
 {
 	t_execute	*command;
+	int			count_n;
 	char		*combined_str;
 }	t_combine;
 
@@ -117,7 +119,7 @@ int		is_micro_pipe(int c);
 /* ************************************************************************** */
 int		lexer(t_data *data);
 char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char);
-
+int		is_n(char *str);
 /* ************************************************************************** */
 //                                    PARSER
 /* ************************************************************************** */
@@ -138,6 +140,7 @@ int		recheck_the_main_command(t_data *data, int cnt);
 char	*ft_strnstr3(const char *haystack, const char *needle, size_t length);
 int		token_error_handeler(t_data *data);
 int		syntax_errors(t_data *data);
+void	check_echo_n(t_data *data);
 /* ************************************************************************** */
 //                                    EXECUTOR
 /* ************************************************************************** */
@@ -146,7 +149,7 @@ void	executor_decide(t_data *data);
 /* ************************************************************************** */
 //                                    BUILTINS
 /* ************************************************************************** */
-int		echo(t_data *data, int cnt);
+int		echo(t_combine str);
 /* ************************************************************************** */
 //                                    SIGNALS
 /* ************************************************************************** */

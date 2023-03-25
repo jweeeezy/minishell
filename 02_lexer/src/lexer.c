@@ -6,21 +6,45 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/16 13:47:52 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/25 14:33:34 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"  //  needed for t_data, ENUMS
 #include "libft.h"      //  needed for ft_strdup()
+#include <stdio.h>
+
+int	is_n(char *str)
+{
+	int	len;
+	int	cnt;
+
+	cnt = 0;
+	len = ft_strlen(str);
+	if (len > 1)
+	{
+		if (str[cnt] != '-')
+			return (EXECUTED);
+		cnt++;
+		while (str[cnt] != '\0')
+		{
+			if (str[cnt] != 'n')
+				return (EXECUTED);
+			cnt++;
+		}
+		return (ADD);
+	}
+	return (EXECUTED);
+}
 
 static int	calculate_command_2(t_data *data, int cnt)
 {
 	if (*data->args[cnt] == '=')
 		return (EQUALS);
+	else if (is_n(data->args[cnt]) == ADD)
+		return (N);
 	else if (is_command(data, cnt, "echo") > 0)
 		return (ECHO + is_command(data, cnt, "echo") - 1);
-	else if (is_command(data, cnt, "ls") > 0)
-		return (LS + is_command(data, cnt, "ls") - 1);
 	else if (is_command1(data, cnt, "cd") > 0)
 		return (CD + is_command1(data, cnt, "cd") - 1);
 	else if (is_command(data, cnt, "pwd") > 0)

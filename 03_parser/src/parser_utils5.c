@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 12:23:13 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/20 10:28:03 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/25 14:03:50 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ int	calculate_command(char *str)
 		return (ENV);
 	else if (is_command2(str, "echo") == ADD)
 		return (ECHO);
-	else if (is_command2(str, "ls") == ADD)
-		return (LS);
 	else if (is_command2(str, "pwd") == ADD)
 		return (PWD);
 	return (STRING);

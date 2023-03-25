@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 10:02:58 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/20 15:05:33 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/25 14:07:37 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ static int	check_the_variables(t_data *data)
 	cnt = 0;
 	while (cnt < data->commands_to_process)
 	{
-		if (data->combine[cnt].command->order_numb == DOLLA
+		if ((data->combine[cnt].command->order_numb == DOLLA
+				|| data->combine[cnt].command->order_numb == APOSTROPHE
+				|| data->combine[cnt].command->order_numb == QUOTATION_MARK)
 			&& data->combine[cnt].combined_str != NULL)
 		{
 			if (recheck_the_main_command(data, cnt) == ERROR)
