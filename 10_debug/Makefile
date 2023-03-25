@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:18:22 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/14 10:53:02 by kvebers          ###   ########.fr        #
+#    Updated: 2023/03/25 14:33:30 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,6 @@ LIBME							=	$(LIBME_DIR)libme.a
 #	Files
 SRC_FILES						=	debug.c \
 									debug1.c
-
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR),$(SRC_FILES))
 OBJ								=	$(addprefix $(OBJ_DIR),$(OBJ_FILES))
@@ -37,7 +36,7 @@ OBJ								=	$(addprefix $(OBJ_DIR),$(OBJ_FILES))
 #	General rules
 CC								=	cc
 DEBUG							=	$(shell echo $$DEBUG_FLAG)
-CFLAGS							=	-Wall -Wextra -Werror $(DEBUG) 
+CFLAGS							=	-Wall -Wextra -Werror $(DEBUG)
 INCLUDE							=	-I $(INCLUDE_DIR) -I $(LIBFT_DIR)include \
 									-I $(LIBME_DIR)include
 CC_OBJ							=	$(CC) $(INCLUDE) $(CFLAGS) -c $^ -o \

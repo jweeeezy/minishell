@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:16:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/13 19:02:58 by jwillert         ###   ########          */
+/*   Updated: 2023/03/25 14:35:39 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	debug_print_t_execute(t_data *data,	t_execute *execute)
 void	debug_print_t_expander(t_expander *expander)
 {
 	if (DEBUG)
-	{	
+	{
 		printf("t_expander:\n");
 		while (expander != NULL)
 		{
@@ -67,7 +67,7 @@ void	debug_print_t_vector_str(t_vector_str *vector_to_print)
 		printf("size_used [%zu]\n", vector_to_print->size_used);
 		printf("size_allocated [%zu]\n", vector_to_print->size_allocated);
 	}
-}	
+}
 
 void	debug_print_int(char *description, int int_to_print)
 {
@@ -77,7 +77,3 @@ void	debug_print_int(char *description, int int_to_print)
 		printf("\n");
 	}
 }
-
-
-
-
