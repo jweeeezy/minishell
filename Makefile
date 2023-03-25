@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
+#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 12:52:07 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/24 15:08:44 by jwillert         ###   ########.fr        #
+#    Updated: 2023/03/24 18:45:34 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,8 +65,8 @@ CC								=	cc
 CC_DEBUG						=	$(shell echo $$DEBUG_FLAG)
 CFLAGS							=	-Wall -Wextra -Werror $(CC_DEBUG)
 BREW_PATH_IF  					=	if test -d /Users/$(USER)/.brew; \
-									then echo /Users/$(USER)/.brew; \
-									elif test -d /Users/$(USER)/goinfre/.brew/; \
+									then echo /Users/$(USER)/.brew/; \
+									elif test -d /Users/$(USER)/goinfre/.brew; \
                						then echo /Users/$(USER)/goinfre/.brew/; \
 									else echo ""; fi
 BREW_PATH 						:= 	$(shell $(BREW_PATH_IF))

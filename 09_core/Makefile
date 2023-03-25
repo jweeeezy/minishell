@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
+#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:18:22 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/24 15:06:51 by jwillert         ###   ########.fr        #
+#    Updated: 2023/03/24 18:45:45 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,8 @@ OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR),$(SRC_FILES))
 OBJ								=	$(addprefix $(OBJ_DIR),$(OBJ_FILES))
 BREW_PATH_IF  					=	if test -d /Users/$(USER)/.brew; \
-									then echo /Users/$(USER)/.brew; \
-									elif test -d /Users/$(USER)/goinfre/.brew/; \
+									then echo /Users/$(USER)/.brew/; \
+									elif test -d /Users/$(USER)/goinfre/.brew; \
 									then echo /Users/$(USER)/goinfre/.brew/; \
 									else echo ""; fi
 BREW_PATH 						:= 	$(shell $(BREW_PATH_IF))

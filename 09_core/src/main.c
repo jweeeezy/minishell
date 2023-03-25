@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/24 19:44:00 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:52:08 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,7 @@ int	main(int argc, char **argv, char **envp)
 		if (history(&data) == ERROR && g_signal != 2)
 			break ;
 		if (parser(&data) != ERROR)
-		{
 			executor_decide(&data);
-		}
 		free_loop(&data);
 	}
 	free_env(&data);
