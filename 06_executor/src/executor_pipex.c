@@ -6,14 +6,13 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/26 16:15:58 by jwillert         ###   ########          */
+/*   Updated: 2023/03/26 16:50:31 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"	// needed for t_data, MACROS
 #include "executor_private.h"	// needed for UTILS_IS
 #include <unistd.h>		// needed for pipe()
-
 
 static int	pipex_skip_non_commands(t_combine *cmd, int index)
 {
@@ -65,7 +64,6 @@ int	executor_pipex(t_data *data)
 	}
 	while (index < data->counter_pipes + data->counter_pipes + 1)
 	{
-		index += pipex_skip_non_commands(data->combine, index);
 		if (executor_select_cmd(data, fd_pipes, index) == ERROR)
 		{
 			free_pipe_array(fd_pipes, data->counter_pipes);
@@ -73,6 +71,7 @@ int	executor_pipex(t_data *data)
 		}
 		index += 1;
 		data->index_processes += 1;
+		index += pipex_skip_non_commands(data->combine, index);
 	}
 	free_pipe_array(fd_pipes, data->counter_pipes);
 	return (EXECUTED);

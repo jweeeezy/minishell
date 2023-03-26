@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/26 16:08:57 by jwillert         ###   ########          */
+/*   Updated: 2023/03/26 16:51:16 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	executor_extern_child_routine(t_data *data, int **fd_pipes, int index)
 	if (fd_pipes != NULL && data->counter_pipes != 0)
 	{
 		child_prepare_pipes(fd_pipes, data->index_processes,
-			   data->counter_pipes);;
+			data->counter_pipes);
 	}
 	cmd_array = ft_split(data->combine[index].combined_str, ' ');
 	if (cmd_array == NULL)
