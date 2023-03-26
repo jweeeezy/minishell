@@ -6,23 +6,31 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/26 16:50:31 by jwillert         ###   ########          */
+/*   Updated: 2023/03/26 17:39:38 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"	// needed for t_data, MACROS
 #include "executor_private.h"	// needed for UTILS_IS
 #include <unistd.h>		// needed for pipe()
+#include <stdio.h>		// @note debug
 
-static int	pipex_skip_non_commands(t_combine *cmd, int index)
+static int	pipex_skip_non_commands(t_data *data, t_combine *cmd, int index)
 {
-	while (executor_is_pipe(&cmd[index]) == 1
+	int	offset;
+
+	offset = 0;
+	if (index >= data->commands_to_process)
+	{
+		return (offset);
+	}
+	if (executor_is_pipe(&cmd[index]) == 1
 		|| executor_is_redirection(&cmd[index]) == 1
 		|| executor_is_heredoc(&cmd[index]) == 1)
 	{
-		index += 1;
+		offset += 1;
 	}
-	return (index);
+	return (offset);
 }
 
 static int	**pipex_create_pipes(int counter_pipes)
@@ -62,7 +70,7 @@ int	executor_pipex(t_data *data)
 	{
 		return (ERROR);
 	}
-	while (index < data->counter_pipes + data->counter_pipes + 1)
+	while (index < data->commands_to_process)
 	{
 		if (executor_select_cmd(data, fd_pipes, index) == ERROR)
 		{
@@ -70,8 +78,8 @@ int	executor_pipex(t_data *data)
 			return (ERROR);
 		}
 		index += 1;
+		index += pipex_skip_non_commands(data, data->combine, index);
 		data->index_processes += 1;
-		index += pipex_skip_non_commands(data->combine, index);
 	}
 	free_pipe_array(fd_pipes, data->counter_pipes);
 	return (EXECUTED);

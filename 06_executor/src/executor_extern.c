@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:10:36 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/26 16:04:58 by jwillert         ###   ########          */
+/*   Updated: 2023/03/26 17:05:01 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,9 @@ int	executor_extern(t_data *data, int **fd_pipes, int index)
 	}
 	else
 	{
-		printf("WIP: command not found!");
+		printf("WIP: command not found!\n");
+		free(data->combine[index].command->full_path);
+		data->combine[index].command->full_path = NULL;
 	}
 	return (EXECUTED);
 }
