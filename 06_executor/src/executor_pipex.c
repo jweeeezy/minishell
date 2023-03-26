@@ -6,14 +6,13 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/26 17:39:38 by jwillert         ###   ########          */
+/*   Updated: 2023/03/26 20:32:07 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"	// needed for t_data, MACROS
 #include "executor_private.h"	// needed for UTILS_IS
 #include <unistd.h>		// needed for pipe()
-#include <stdio.h>		// @note debug
 
 static int	pipex_skip_non_commands(t_data *data, t_combine *cmd, int index)
 {

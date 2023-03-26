@@ -6,12 +6,12 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/26 16:22:02 by jwillert         ###   ########          */
+/*   Updated: 2023/03/26 20:32:43 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "executor_private.h"
+#include "minishell.h"			// needed for t_data, MACROS
+#include "executor_private.h"	// needed for executor_*()
 
 int	executor_select_cmd(t_data *data, int **fd_pipes, int index)
 {
