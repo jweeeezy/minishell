@@ -6,17 +6,20 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/25 21:04:34 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:15:58 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell.h"	// needed for t_data, MACROS
+#include "executor_private.h"	// needed for UTILS_IS
+#include <unistd.h>		// needed for pipe()
 
-static int	pipex_skip_non_commands(t_combine cmd, int index)
+
+static int	pipex_skip_non_commands(t_combine *cmd, int index)
 {
-	while (executor_is_pipe(data->combine[index]) == 1
-		|| executor_is_redirection(data->combine[index]) == 1
-		|| executor_is_heredoc(data->combine[index]) == 1)
+	while (executor_is_pipe(&cmd[index]) == 1
+		|| executor_is_redirection(&cmd[index]) == 1
+		|| executor_is_heredoc(&cmd[index]) == 1)
 	{
 		index += 1;
 	}
@@ -60,9 +63,9 @@ int	executor_pipex(t_data *data)
 	{
 		return (ERROR);
 	}
-	while (index < data->counter_pipes + counter_pipes + 1)
+	while (index < data->counter_pipes + data->counter_pipes + 1)
 	{
-		index += pipex_skip_non_commands(data.combine, index);
+		index += pipex_skip_non_commands(data->combine, index);
 		if (executor_select_cmd(data, fd_pipes, index) == ERROR)
 		{
 			free_pipe_array(fd_pipes, data->counter_pipes);

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/25 21:09:30 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:22:02 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	executor_select_cmd(t_data *data, int **fd_pipes, int index)
 {
-	if (is_builtin(data->combine[index]) == 1)
+	if (is_builtin(data->combine[index].command->order_numb) == 1)
 	{
 		if (executor_builtin(data, fd_pipes, index) == ERROR)
 		{
@@ -34,7 +34,7 @@ int	executor_select_cmd(t_data *data, int **fd_pipes, int index)
 
 int	executor_main(t_data *data)
 {
-	data->counter_pipes = count_pipes(data);
+	data->counter_pipes = executor_count_pipes(data);
 	data->index_processes = 0;
 	if (data->counter_pipes != 0)
 	{

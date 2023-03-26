@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/12 20:31:50 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/25 21:23:58 by jwillert         ###   ########.fr        #
+#    Updated: 2023/03/26 16:24:46 by jwillert         ###   ########           #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ LIBME							=	$(LIBME_DIR)libme.a
 SRC_FILES						=	executor_builtin.c\
 									executor_extern.c\
 									executor_extern_child.c\
+									executor_extern_parent.c\
 									executor_main.c\
 									executor_pipex.c\
 									executor_utils_count.c\

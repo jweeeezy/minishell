@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:22:50 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/25 21:21:33 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:16:21 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "minishell.h"
 
-int		executor_main(t_data *data);
+//		MAIN
 int		executor_select_cmd(t_data *data, int **fd_pipes, int index);
 
 //		PIPEX
@@ -33,12 +33,12 @@ void	executor_extern_child_routine(t_data *data, int **fd_pipes, int index);
 //		EXTERN_parent
 int		executor_extern_parent_routine(t_data *data, int **fd_pipes);
 
-//		IS_UTILS
-int		executor_is_redirection(t_combine cmd);
-int		executor_is_heredoc(t_combine cmd);
-int		executor_is_pipe(t_combine cmd);
+//		UTILS_IS
+int		executor_is_redirection(t_combine *cmd);
+int		executor_is_heredoc(t_combine *cmd);
+int		executor_is_pipe(t_combine *cmd);
 
-//		COUNT_UTILS
+//		UTILS_COUNT
 int		executor_count_pipes(t_data *data);
 
 #endif	// EXECUTOR_PRIVATE_H

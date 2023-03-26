@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/25 20:26:51 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:25:35 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>		// needed for close()
 #include <stdio.h>		// needed perror()
 
-static int	executor_extern_parent_routine(t_data *data, int **fd_pipes)
+int	executor_extern_parent_routine(t_data *data, int **fd_pipes)
 {
 	if (fd_pipes != NULL && data->counter_pipes != 0)
 	{
@@ -36,4 +36,5 @@ static int	executor_extern_parent_routine(t_data *data, int **fd_pipes)
 		perror("wait");
 		return (ERROR);
 	}
+	return (EXECUTED);
 }

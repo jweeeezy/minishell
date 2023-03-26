@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/25 15:52:08 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/26 15:59:28 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static int	history(t_data *data)
 
 void	check_leaks(void)
 {
-	system ("leaks minishell");
+	if (DEBUG)
+		system ("leaks minishell");
 }
 
 void	signals(void)
@@ -54,8 +55,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	if (DEBUG)
-		atexit(check_leaks);
+	atexit(check_leaks);
 	using_history();
 	signals();
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
@@ -67,7 +67,7 @@ int	main(int argc, char **argv, char **envp)
 		if (history(&data) == ERROR && g_signal != 2)
 			break ;
 		if (parser(&data) != ERROR)
-			executor_decide(&data);
+			executor_main(&data);
 		free_loop(&data);
 	}
 	free_env(&data);

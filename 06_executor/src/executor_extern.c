@@ -6,15 +6,17 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:10:36 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/25 20:54:26 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:04:58 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"	// needed for t_data, MACROS, free_()
+#include "executor_private.h"	// needed for child(), parent(); 
 #include "libft.h"		// needed for ft_strlen(), ft_split()
 #include "libme.h"		// needed for ft_str_check_needle(),
 						// ft_str_join_delimiter()
 #include <unistd.h>		// needed for NULL, access(), malloc(), free()
+#include <stdio.h>		// needed for printf(); @note prob not needed
 
 static char	**extern_get_path_array(char **envp)
 {
@@ -58,7 +60,7 @@ int	extern_is_cmd_valid(t_execute *cmd, char **envp)
 		return (ERROR);
 	while (paths[index] != NULL)
 	{
-		return_value = try_access(cmd, paths[index],
+		return_value = extern_try_access(cmd, paths[index],
 				cmd->order_str);
 		if (return_value != 0)
 		{

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/25 20:53:12 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:08:57 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	child_close_pipes_before(int **fd_pipes, int end)
 		if (index != end - 1)
 			close(fd_pipes[index][0]);
 		close(fd_pipes[index][1]);
-		index++;
+		index += 1;
 	}
 }
 
@@ -38,11 +38,11 @@ static void	child_close_pipes_after(int **fd_pipes, int start)
 	{
 		close(fd_pipes[index][0]);
 		close(fd_pipes[index][1]);
-		i++;
+		index += 1;
 	}
 }
 
-static void	child_prepare_pipes(int **fd_pipes, int index)
+static void	child_prepare_pipes(int **fd_pipes, int index, int counter_pipes)
 {
 	if (index == 0)
 	{
@@ -51,7 +51,7 @@ static void	child_prepare_pipes(int **fd_pipes, int index)
 		debug_print_pipe_status("__in Child ---first---", fd_pipes);
 		dup2(fd_pipes[0][1], STDOUT_FILENO);
 	}
-	else if (index == data->counter_pipes)
+	else if (index == counter_pipes)
 	{
 		close(fd_pipes[index - 1][1]);
 		debug_print_pipe_status("__in Child ***LAST***", fd_pipes);
@@ -75,7 +75,7 @@ void	executor_extern_child_routine(t_data *data, int **fd_pipes, int index)
 	if (fd_pipes != NULL && data->counter_pipes != 0)
 	{
 		child_prepare_pipes(fd_pipes, data->index_processes,
-			data->counter_pipes);
+			   data->counter_pipes);;
 	}
 	cmd_array = ft_split(data->combine[index].combined_str, ' ');
 	if (cmd_array == NULL)

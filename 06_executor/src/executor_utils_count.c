@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:07:10 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/25 21:24:17 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:17:18 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	executor_count_heredocs(t_data *data)
 	counter_heredocs = 0;
 	while (index < data->commands_to_process)
 	{
-		if (data->combine[index].command->order_numb == HEREDOC)
+		if (data->combine[index].command->order_numb == HERE_DOC)
 		{
 			counter_heredocs += 1;
 		}
