@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/27 19:53:40 by jwillert         ###   ########          */
+/*   Updated: 2023/03/27 20:20:29 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	executor_pipex(t_data *data)
 	{
 		if (executor_select_cmd(data, fd_pipes, index) == ERROR)
 		{
-			free(data->child_pids);
 			free_pipe_array(fd_pipes, data->counter_pipes);
 			return (ERROR);
 		}
@@ -81,5 +80,6 @@ int	executor_pipex(t_data *data)
 		index += pipex_skip_non_commands(data, data->combine, index);
 		data->index_processes += 1;
 	}
+	free_pipe_array(fd_pipes, data->counter_pipes);
 	return (EXECUTED);
 }
