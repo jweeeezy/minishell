@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 13:42:00 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/25 15:54:14 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/27 17:00:33 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,21 @@
 
 void	check_echo_n(t_data *data)
 {
-	int	cnt;
-	int	cnt1;
+	int		cnt;
+	size_t	cnt1;
 
 	cnt = 0;
 	while (cnt < data->commands_to_process)
 	{
-		cnt1 = data->combine[cnt].command->number;
-		if (cnt1 + 1 < data->tokens)
-				cnt1++;
+		cnt1 = 4;
 		if (data->combine[cnt].command->order_numb == ECHO)
 		{
-			while (is_n(data->execute[cnt1].order_str) == ADD
-				|| data->execute[cnt1].order_numb == WHITE
-				|| data->execute[cnt1].order_numb == DOLLA)
-			{
-				// if (cnt1 + 1 < data->tokens && execute[cnt1].order_numb == DOLLA)
-				// {
-					
-				// }
-				if (is_n(data->execute[cnt1].order_str) == ADD)
-					data->combine[cnt].count_n++;
+			while (is_white_space(*(data->combine[cnt].combined_str + cnt1))
+				&& *(data->combine[cnt].combined_str + cnt1) != '\0')
 				cnt1++;
-			}
-			if (data->combine[cnt].count_n > 0)
+			if (cnt1 + 1 < ft_strlen(data->combine[cnt].combined_str)
+				&& *(data->combine[cnt].combined_str + cnt1) == '-'
+				&& *(data->combine[cnt].combined_str + cnt1 + 1) == 'n')
 				data->combine[cnt].command->order_numb = ECHO_N;
 		}
 		cnt++;
