@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/26 15:59:28 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:09:13 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	history(t_data *data)
 	return (EXECUTED);
 }
 
-void	check_leaks(void)
+static void	check_leaks(void)
 {
 	if (DEBUG)
 		system ("leaks minishell");
@@ -66,8 +66,11 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (history(&data) == ERROR && g_signal != 2)
 			break ;
-		if (parser(&data) != ERROR)
-			executor_main(&data);
+		// @note not sure if this is correct
+		if (parser(&data) == ERROR)
+			break ;
+		if (executor(&data) == ERROR)
+			break ;
 		free_loop(&data);
 	}
 	free_env(&data);

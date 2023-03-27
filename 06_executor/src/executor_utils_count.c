@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:07:10 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/27 10:22:34 by jwillert         ###   ########          */
+/*   Updated: 2023/03/27 20:06:44 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	executor_count_redirections(t_data *data)
 int	executor_count_processes(t_data *data)
 {
 	int	index;
-	int counter_processes;
+	int	counter_processes;
 
 	index = 0;
 	counter_processes = 0;
