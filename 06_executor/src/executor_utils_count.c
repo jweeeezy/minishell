@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:07:10 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/26 16:17:18 by jwillert         ###   ########          */
+/*   Updated: 2023/03/27 10:22:34 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,3 +67,24 @@ int	executor_count_redirections(t_data *data)
 	}
 	return (index);
 }
+
+int	executor_count_processes(t_data *data)
+{
+	int	index;
+	int counter_processes;
+
+	index = 0;
+	counter_processes = 0;
+	while (index < data->commands_to_process)
+	{
+		if (data->combine[index].command->order_numb == STRING
+			|| is_builtin(data->combine[index].command->order_numb) == 1)
+		{
+			counter_processes += 1;
+		}
+		index += 1;
+	}
+	return (counter_processes);
+}
+
+// @todo put all of them in one function

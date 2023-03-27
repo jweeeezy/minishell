@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:47:50 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/07 16:58:55 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/27 10:48:28 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ static int	t_exp_add_b(t_expander **lst_to_expand, t_expander *node_to_add)
 {
 	t_expander	*lst_index;
 
-	lst_index = (*lst_to_expand);
-	if (lst_to_expand == NULL || node_to_add == NULL)
+	lst_index = *lst_to_expand;
+	// @note i get segfaults here for some reason
+	if (lst_to_expand == NULL || lst_index == NULL || node_to_add == NULL)
 		return (ERROR);
 	while (lst_index->next != NULL)
 		lst_index = lst_index->next;

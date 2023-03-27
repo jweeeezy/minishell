@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/26 20:32:07 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/27 11:06:23 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,17 @@ int	executor_pipex(t_data *data)
 	{
 		return (ERROR);
 	}
+	data->child_pids = malloc (sizeof (int) * data->counter_processes);
+	if (data->child_pids == NULL)
+	{
+		free_pipe_array(fd_pipes, data->counter_pipes);
+		return (ERROR);
+	}
 	while (index < data->commands_to_process)
 	{
 		if (executor_select_cmd(data, fd_pipes, index) == ERROR)
 		{
+			free(data->child_pids);
 			free_pipe_array(fd_pipes, data->counter_pipes);
 			return (ERROR);
 		}

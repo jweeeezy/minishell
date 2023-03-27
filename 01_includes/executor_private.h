@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:22:50 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/26 16:16:21 by jwillert         ###   ########          */
+/*   Updated: 2023/03/27 10:12:25 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,8 @@ int		executor_is_pipe(t_combine *cmd);
 
 //		UTILS_COUNT
 int		executor_count_pipes(t_data *data);
+int		executor_count_heredocs(t_data *data);
+int		executor_count_redirections(t_data *data);
+int		executor_count_processes(t_data *data);
 
 #endif	// EXECUTOR_PRIVATE_H

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/26 16:22:25 by jwillert         ###   ########          */
+/*   Updated: 2023/03/27 10:44:56 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_expander
 
 typedef struct s_data
 {
-	int				commands_to_process;
+	int				commands_to_process;	
 	char			**args;
 	int				tokens;
 	t_execute		*execute;
@@ -85,6 +85,8 @@ typedef struct s_data
 	t_expander		*expander;
 	t_combine		*combine;
 	int				counter_pipes;
+	int				counter_processes;
+	int				*child_pids;
 	int				index_processes;
 }	t_data;
 

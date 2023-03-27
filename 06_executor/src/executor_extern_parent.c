@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/26 16:25:35 by jwillert         ###   ########          */
+/*   Updated: 2023/03/27 10:14:33 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,6 @@ int	executor_extern_parent_routine(t_data *data, int **fd_pipes)
 			close(fd_pipes[data->index_processes - 1][1]);
 		}
 		debug_print_pipe_status("|| IN PARENT ||", fd_pipes);
-	}
-	if (wait(NULL) == -1)
-	{
-		perror("wait");
-		return (ERROR);
 	}
 	return (EXECUTED);
 }

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:10:36 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/26 17:05:01 by jwillert         ###   ########          */
+/*   Updated: 2023/03/27 10:12:13 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,12 @@ int	extern_is_cmd_valid(t_execute *cmd, char **envp)
 
 static int	extern_fork_and_execute(t_data *data, int **fd_pipes, int index)
 {
-	int	pid;
-
-	pid = fork();
-	if (pid == ERROR || pid < 0)
+	data->child_pids[data->index_processes] = fork();
+	if (data->child_pids[data->index_processes] == -1)
 	{
 		return (ERROR);
 	}
-	if (pid == 0)
+	if (data->child_pids[data->index_processes] == 0)
 	{
 		executor_extern_child_routine(data, fd_pipes, index);
 	}
