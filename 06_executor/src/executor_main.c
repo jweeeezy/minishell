@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/27 11:06:36 by jwillert         ###   ########          */
+/*   Updated: 2023/03/27 12:13:01 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	executor_main(t_data *data)
 			free(data->child_pids);
 			return (ERROR);
 		}
-			free(data->child_pids);
+		free(data->child_pids);
 	}
 	else
 	{

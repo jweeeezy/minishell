@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/27 10:44:56 by jwillert         ###   ########          */
+/*   Updated: 2023/03/27 15:51:53 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,6 @@ typedef struct s_combine
 	char		*combined_str;
 }	t_combine;
 
-typedef struct s_expander
-{
-	char				*str;
-	struct s_expander	*next;
-}	t_expander;
-
 typedef struct s_data
 {
 	int				commands_to_process;	
@@ -82,7 +76,6 @@ typedef struct s_data
 	char			*line;
 	char			**envp;
 	char			**argv;
-	t_expander		*expander;
 	t_combine		*combine;
 	int				counter_pipes;
 	int				counter_processes;
@@ -98,7 +91,6 @@ int		init_data(t_data *data);
 //char	**free_tokens(char **tokens);
 void	free_char_array(char **array_to_free);
 void	free_loop(t_data *data);
-void	free_env(t_data *data);
 int		argument_protection(t_data *data, int argc, char **argv, char **envp);
 void	free_pipe_array(int **array, int size);
 //int   utils_check_for_chars(t_data *data, int segment);
@@ -160,7 +152,10 @@ int		executor_main(t_data *data);
 /* ************************************************************************** */
 
 int		echo(t_combine str);
+int		echo_n(t_combine str);
 int		is_builtin(int cmd_to_check);
+char	builtin_pwd(void);
+void	env(t_data *data);
 
 /* ************************************************************************** */
 //                                    SIGNALS
@@ -178,7 +173,6 @@ void	handle_signal(int sig);
 void	debug_print_char_array(char **args);
 void	debug_print_t_execute(t_data *data,
 			t_execute *execute);
-void	debug_print_t_expander(t_expander *expander);
 void	debug_print_t_vector_str(t_vector_str *vector_to_print);
 void	debuger(t_data *data);
 void	debug_print_int(char *description, int int_to_print);

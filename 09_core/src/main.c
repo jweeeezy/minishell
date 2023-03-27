@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/26 15:59:28 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:28:01 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	main(int argc, char **argv, char **envp)
 	signals();
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
 		return (ERROR);
-	debug_print_t_expander(data.expander);
 	signals();
 	while (g_signal >= 1)
 	{
@@ -70,6 +69,5 @@ int	main(int argc, char **argv, char **envp)
 			executor_main(&data);
 		free_loop(&data);
 	}
-	free_env(&data);
 	return (EXECUTED);
 }

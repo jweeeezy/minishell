@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/27 10:09:00 by jwillert         ###   ########          */
+/*   Updated: 2023/03/27 15:26:55 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,6 @@ void	free_char_array(char **array_to_free)
 		index += 1;
 	}
 	free (array_to_free);
-}
-
-void	free_env(t_data *data)
-{
-	t_expander	*temp;
-
-	while (data->expander != NULL)
-	{
-		temp = data->expander;
-		data->expander = data->expander->next;
-		free(temp->str);
-		free(temp);
-	}
 }
 
 void	free_pipe_array(int **array, int size)
