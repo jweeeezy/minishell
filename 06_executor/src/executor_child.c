@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/28 20:23:18 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/28 23:08:10 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static int	child_execute_extern(t_data *data, int index)
 void	executor_child(t_data *data, int **fd_pipes, int index,
 			int flag_cmd)
 {
+	printf("child started\n");
 	if (fd_pipes != NULL && data->counter_pipes != 0)
 	{
 		child_prepare_pipes(fd_pipes, data->index_processes,
