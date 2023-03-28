@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:51:18 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/25 14:35:57 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/28 21:57:20 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	is_fd_open(int fd)
 	int	flags;
 
 	flags = fcntl(fd, F_GETFD);
-	return !(flags & FD_CLOEXEC);
+	return (!(flags & FD_CLOEXEC));
 }
 
 void	debug_print_pipe_status(char *message, int **fd_pipes)

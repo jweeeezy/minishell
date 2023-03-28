@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/28 19:25:15 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/28 22:01:43 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ enum e_outputs
 	N = 28,
 	LAST_PIPE = 50,
 	BUILTIN = 200,
-	EXTERN  = 100
+	EXTERN = 100
 };
 
 typedef struct s_execute

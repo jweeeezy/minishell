@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/27 20:09:13 by jwillert         ###   ########          */
+/*   Updated: 2023/03/28 21:58:41 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (history(&data) == ERROR && g_signal != 2)
 			break ;
-		// @note not sure if this is correct
 		if (parser(&data) == ERROR)
 			break ;
 		if (executor(&data) == ERROR)
@@ -76,3 +75,5 @@ int	main(int argc, char **argv, char **envp)
 	free_env(&data);
 	return (EXECUTED);
 }
+
+// @note error handling!
