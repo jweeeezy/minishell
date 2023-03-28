@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/27 15:51:53 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/28 23:04:31 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ char	*ft_strnstr3(const char *haystack, const char *needle, size_t length);
 int		token_error_handeler(t_data *data);
 int		syntax_errors(t_data *data);
 void	check_echo_n(t_data *data);
+char	*search_needle(t_data *data, char *needle);
 
 /* ************************************************************************** */
 //                                    EXECUTOR
@@ -151,12 +152,15 @@ int		executor_main(t_data *data);
 //                                    BUILTINS
 /* ************************************************************************** */
 
-int		echo(t_combine str);
-int		echo_n(t_combine str);
+void	echo(t_combine str);
+void	echo_n(t_data *data, int index);
 int		is_builtin(int cmd_to_check);
 char	builtin_pwd(void);
 void	env(t_data *data);
-
+int		echo_n_quote_state(char *str, int cnt, int quote_state);
+char	*ft_charjoin(char *temp, char c, size_t cnt1, size_t cnt2);
+char	*echo_n_helper(t_data *data, int cnt, char *comb);
+char	*echo_merge(char *str, size_t cnt, int quote_state);
 /* ************************************************************************** */
 //                                    SIGNALS
 /* ************************************************************************** */

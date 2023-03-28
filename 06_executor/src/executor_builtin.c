@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:31:13 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/27 16:34:52 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/28 12:26:52 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	executor_builtin(t_data *data, int **fd_pipes, int index)
 			return (ERROR);
 	}
 	else if (data->combine[index].command->order_numb == ECHO_N)
-		echo_n(data->combine[index]);
+		echo_n(data, index);
 	else if (data->combine[index].command->order_numb == ENV)
 		env(data);
 	ft_dummy(data);
