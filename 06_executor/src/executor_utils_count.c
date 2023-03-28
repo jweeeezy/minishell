@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:07:10 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/27 20:06:44 by jwillert         ###   ########          */
+/*   Updated: 2023/03/28 20:32:32 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,3 @@ int	executor_count_processes(t_data *data)
 	}
 	return (counter_processes);
 }
-
-// @todo put all of them in one function

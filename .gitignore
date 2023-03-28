@@ -1,10 +1,10 @@
 *.vim
 *.o
-.vscode
 *.a
 *.dSYM
+*.out
+.vscode
 minishell
 main_test.c
-*.out
 lldb_minishell.sh
 submodule_initialised

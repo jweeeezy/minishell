@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/27 10:09:00 by jwillert         ###   ########          */
+/*   Updated: 2023/03/28 20:39:03 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ void	free_pipe_array(int **array, int size)
 	index = 0;
 	while (index < size && array[index] != NULL)
 	{
-		//free(&(array[index][0]));
-		//free(&(array[index][1]));
 		free(array[index]);
 		index += 1;
 	}

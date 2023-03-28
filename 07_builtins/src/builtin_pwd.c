@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 16:10:01 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/21 12:11:13 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/28 20:37:33 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "minishell.h"
+#include <unistd.h>			// needed for getcwd(), NULL
+#include <stdlib.h>			// needed for free()
+#include <stdio.h>			// needed for printf()
+#include "minishell.h"		// needed for MACRO
 
 char	builtin_pwd(void)
 {
