@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor_extern_parent.c                           :+:      :+:    :+:   */
+/*   executor_parent.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/27 10:14:33 by jwillert         ###   ########          */
+/*   Updated: 2023/03/28 20:14:37 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>		// needed for close()
 #include <stdio.h>		// needed perror()
 
-int	executor_extern_parent_routine(t_data *data, int **fd_pipes)
+void	executor_parent(t_data *data, int **fd_pipes, int index)
 {
 	if (fd_pipes != NULL && data->counter_pipes != 0)
 	{
@@ -31,5 +31,6 @@ int	executor_extern_parent_routine(t_data *data, int **fd_pipes)
 		}
 		debug_print_pipe_status("|| IN PARENT ||", fd_pipes);
 	}
-	return (EXECUTED);
+	free(data->combine[index].command->full_path);
+	data->combine[index].command->full_path = NULL;
 }

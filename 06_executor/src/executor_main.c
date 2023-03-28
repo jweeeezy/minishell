@@ -6,31 +6,12 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/27 20:13:29 by jwillert         ###   ########          */
+/*   Updated: 2023/03/28 19:57:57 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"			// needed for t_data, MACROS
 #include "executor_private.h"	// needed for executor_*()
-
-int	executor_select_cmd(t_data *data, int **fd_pipes, int index)
-{
-	if (is_builtin(data->combine[index].command->order_numb) == 1)
-	{
-		if (executor_builtin(data, fd_pipes, index) == ERROR)
-		{
-			return (ERROR);
-		}
-	}
-	else
-	{
-		if (executor_extern(data, fd_pipes, index) == ERROR)
-		{
-			return (ERROR);
-		}
-	}
-	return (EXECUTED);
-}
 
 static int	executor_wait_for_childs(t_data *data)
 {
@@ -56,7 +37,7 @@ static void	executor_init(t_data *data)
 	data->child_pids = malloc (sizeof (int) * data->counter_processes);
 }
 
-static int	executor_main(t_data *data)
+static int	executor_crossroads(t_data *data)
 {
 	if (data->counter_pipes != 0)
 	{
@@ -71,7 +52,7 @@ static int	executor_main(t_data *data)
 	}
 	else
 	{
-		if (executor_select_cmd(data, NULL, 0) == ERROR)
+		if (executor_cmd_selector(data, NULL, 0) == ERROR)
 		{
 			return (ERROR);
 		}
@@ -90,7 +71,7 @@ int	executor(t_data *data)
 	{
 		return (ERROR);
 	}
-	if (executor_main(data) == ERROR)
+	if (executor_crossroads(data) == ERROR)
 	{
 		free(data->child_pids);
 		data->child_pids = NULL;

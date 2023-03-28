@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/27 20:02:31 by jwillert         ###   ########          */
+/*   Updated: 2023/03/28 19:25:15 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ enum e_outputs
 	ENV = 26,
 	EXIT = 27,
 	N = 28,
-	LAST_PIPE = 50
+	LAST_PIPE = 50,
+	BUILTIN = 200,
+	EXTERN  = 100
 };
 
 typedef struct s_execute
@@ -75,19 +77,19 @@ typedef struct s_expander
 
 typedef struct s_data
 {
-	int				commands_to_process;	
-	char			**args;
-	int				tokens;
 	t_execute		*execute;
-	char			*line;
-	char			**envp;
-	char			**argv;
 	t_expander		*expander;
 	t_combine		*combine;
+	char			**args;
+	char			**envp;
+	char			**argv;
+	char			*line;
+	int				*child_pids;
+	int				commands_to_process;
 	int				counter_pipes;
 	int				counter_processes;
-	int				*child_pids;
 	int				index_processes;
+	int				tokens;
 }	t_data;
 
 /* ************************************************************************** */
@@ -126,6 +128,7 @@ int		is_micro_pipe(int c);
 int		lexer(t_data *data);
 char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char);
 int		is_n(char *str);
+
 /* ************************************************************************** */
 //                                    PARSER
 /* ************************************************************************** */
