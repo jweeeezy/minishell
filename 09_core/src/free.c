@@ -6,13 +6,13 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/28 20:39:03 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:11:39 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <unistd.h>
-
+#include <stdio.h>
 void	free_helper(t_data *data)
 {
 	int	cnt;
@@ -35,6 +35,7 @@ void	free_loop(t_data *data)
 	int	cnt;
 
 	cnt = 0;
+	printf("reached\n");
 	free_helper(data);
 	free(data->line);
 	while (cnt < data->commands_to_process

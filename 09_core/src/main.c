@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/28 22:55:43 by jwillert         ###   ########          */
+/*   Updated: 2023/03/29 16:02:07 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static int	history(t_data *data)
 		return (ERROR);
 	else if (data->line)
 	{
+		debug_print_t_expander(data->expander);
 		add_history(data->line);
 		if (lexer(data) == ERROR)
 			return (free(data->line), ERROR);
@@ -36,7 +37,9 @@ static int	history(t_data *data)
 static void	check_leaks(void)
 {
 	if (DEBUG)
+	{
 		system ("leaks minishell");
+	}
 }
 
 void	signals(void)
@@ -61,6 +64,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
 		return (ERROR);
 	debug_print_t_expander(data.expander);
+	debug_print_pid("Parent process");
 	signals();
 	while (g_signal >= 1)
 	{
@@ -77,6 +81,7 @@ int	main(int argc, char **argv, char **envp)
 		free_loop(&data);
 	}
 	free_env(&data);
+	free_loop(&data);
 	return (EXECUTED);
 }
 

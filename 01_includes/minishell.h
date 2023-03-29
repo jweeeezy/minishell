@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/28 22:01:43 by jwillert         ###   ########          */
+/*   Updated: 2023/03/29 15:32:38 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,13 +178,14 @@ void	handle_signal(int sig);
 # ifndef DEBUG
 #  define DEBUG 0
 # endif  // DEBUG
-void	debug_print_char_array(char **args);
-void	debug_print_t_execute(t_data *data,
-			t_execute *execute);
+
+void	debug_print_pid(char *process_name);
+void	debug_print_char_array(char **args, char *name);
+void	debug_print_int(char *description, int int_to_print);
+void	debug_print_t_execute(t_data *data,	t_execute *execute);
 void	debug_print_t_expander(t_expander *expander);
 void	debug_print_t_vector_str(t_vector_str *vector_to_print);
-void	debuger(t_data *data);
-void	debug_print_int(char *description, int int_to_print);
+void	debug_print_t_combine(t_data *data);
 void	debug_print_pipe_status(char *message, int **fd_pipes);
 
 #endif  // MINISHELL_H

@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/25 14:44:02 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/29 14:51:19 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	parser(t_data *data)
 	if (find_main_command(data, 0, 0, 0) == ERROR)
 		return (ERROR);
 	check_echo_n(data);
-	if (DEBUG)
-		debuger(data);
+	debug_print_t_combine(data);
 	return (EXECUTED);
 }

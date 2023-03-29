@@ -6,21 +6,21 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:16:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/28 21:58:02 by jwillert         ###   ########          */
+/*   Updated: 2023/03/29 15:45:47 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "minishell.h"
+#include <stdio.h>			// needed for printf(), NULL
+#include "minishell.h"		// needed for t_data
 
-void	debug_print_char_array(char **args)
+void	debug_print_char_array(char **args, char *name)
 {
 	if (DEBUG)
 	{
-		printf("Content char array: %p", args);
+		printf("%s: %p\n", name, args);
 		while (args != NULL && *args != NULL)
 		{
-			printf(" [%s] ", *args);
+			printf("%s: [%s]\n", name, *args);
 			args += 1;
 		}
 		printf("\n");
@@ -34,14 +34,16 @@ void	debug_print_t_execute(t_data *data,	t_execute *execute)
 	counter = 0;
 	if (DEBUG)
 	{
+		printf("t_execute: %p\n", execute);
 		while (counter < data->tokens + 1 && execute[counter].order_str != NULL)
 		{
 			printf("t_execute: ");
 			printf("order_str: [%s] ", execute[counter].order_str);
-			printf("order_numb: [%d] ", execute[counter].order_numb);
-			printf("full_path: [%s]\n", execute[counter].full_path);
+			printf("order_numb: [%d]", execute[counter].order_numb);
+			printf("\n");
 			counter += 1;
 		}
+		printf("\n");
 	}
 }
 
@@ -49,23 +51,14 @@ void	debug_print_t_expander(t_expander *expander)
 {
 	if (DEBUG)
 	{
-		printf("t_expander:\n");
+		printf("\n");
+		printf("t_expander: %p\n", expander);
 		while (expander != NULL)
 		{
-			printf("[%s]\n", expander->str);
+			printf("t_expander: [%s]\n", expander->str);
 			expander = expander->next;
 		}
-	}
-}
-
-void	debug_print_t_vector_str(t_vector_str *vector_to_print)
-{
-	if (DEBUG)
-	{
-		printf("t_vector:\n");
-		printf("str [%s]\n", vector_to_print->str);
-		printf("size_used [%zu]\n", vector_to_print->size_used);
-		printf("size_allocated [%zu]\n", vector_to_print->size_allocated);
+		printf("\n");
 	}
 }
 
@@ -73,7 +66,8 @@ void	debug_print_int(char *description, int int_to_print)
 {
 	if (DEBUG)
 	{
-		printf("%s%d", description, int_to_print);
+		printf("%s: %p\n", description, &int_to_print);
+		printf("%s: %d\n", description, int_to_print);
 		printf("\n");
 	}
 }

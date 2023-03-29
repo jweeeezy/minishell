@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/28 23:08:10 by jwillert         ###   ########          */
+/*   Updated: 2023/03/29 15:52:29 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,12 @@ static int	child_execute_extern(t_data *data, int index)
 	{
 		exit(ERROR);
 	}
+	if (DEBUG)
+	{
+		printf("t_combine: full_path: [%s]\n\n",
+			data->combine[index].command->full_path);
+		printf("Output:\n");
+	}
 	execve(data->combine[index].command->full_path, cmd_array, data->envp);
 	free_char_array(cmd_array);
 	perror("execve");
@@ -60,7 +66,7 @@ static int	child_execute_extern(t_data *data, int index)
 void	executor_child(t_data *data, int **fd_pipes, int index,
 			int flag_cmd)
 {
-	printf("child started\n");
+	debug_print_pid("Child process");
 	if (fd_pipes != NULL && data->counter_pipes != 0)
 	{
 		child_prepare_pipes(fd_pipes, data->index_processes,
