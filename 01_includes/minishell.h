@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/29 18:13:21 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:18:07 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,6 @@ typedef struct s_combine
 typedef struct s_data
 {
 	t_execute		*execute;
-	char			*line;
-	char			**envp;
-	char			**argv;
 	t_combine		*combine;
 	char			**args;
 	char			**envp;
@@ -130,7 +127,7 @@ int		is_n(char *str);
 
 int		parser(t_data *data);
 int		parsing_error_handler(t_data *data);
-int		put_to_linked_list_expander(t_data *data, char **envp);
+//int		put_to_linked_list_expander(t_data *data, char **envp);
 int		check_quote_state(t_data *data, int cnt);
 int		strjoin_with_extra_steps(t_data *data, int cnt, int cnt1);
 int		handle_quotes(t_data *data, int cnt, int cnt1);
@@ -187,7 +184,6 @@ void	debug_print_pid(char *process_name);
 void	debug_print_char_array(char **args, char *name);
 void	debug_print_int(char *description, int int_to_print);
 void	debug_print_t_execute(t_data *data,	t_execute *execute);
-void	debug_print_t_expander(t_expander *expander);
 void	debug_print_t_vector_str(t_vector_str *vector_to_print);
 void	debug_print_t_combine(t_data *data);
 void	debug_print_pipe_status(char *message, int **fd_pipes);

@@ -6,11 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/03/27 12:13:01 by kvebers          ###   ########.fr       */
-=======
-/*   Updated: 2023/03/28 22:48:43 by jwillert         ###   ########          */
->>>>>>> develop
+/*   Updated: 2023/03/29 18:19:07 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +49,6 @@ static int	executor_crossroads(t_data *data)
 		{
 			return (ERROR);
 		}
-<<<<<<< HEAD
-		free(data->child_pids);
-=======
->>>>>>> develop
 	}
 	else
 	{

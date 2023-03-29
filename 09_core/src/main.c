@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/29 18:14:16 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:19:39 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static int	history(t_data *data)
 		return (ERROR);
 	else if (data->line)
 	{
-		debug_print_t_expander(data->expander);
 		if (*data->line == '\0')
 			return (EXECUTED);
 		add_history(data->line);
@@ -65,7 +64,6 @@ int	main(int argc, char **argv, char **envp)
 	signals();
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
 		return (ERROR);
-	debug_print_t_expander(data.expander);
 	debug_print_pid("Parent process");
 	signals();
 	while (g_signal >= 1)
