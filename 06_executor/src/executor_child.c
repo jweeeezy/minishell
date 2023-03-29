@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/29 20:51:11 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/29 20:55:55 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	child_execute_builtin(t_data *data, int index)
 	else if (cmd_type == CD)
 		printf("cd executed\n");
 	else if (cmd_type == PWD)
-		pwd(data);
+		builtin_pwd();
 	else if (cmd_type == EXPORT)
 		printf("export executed\n");
 	else if (cmd_type == UNSET)
