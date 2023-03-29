@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/28 23:04:31 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/29 17:16:20 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,8 @@ int		executor_main(t_data *data);
 //                                    BUILTINS
 /* ************************************************************************** */
 
+void	renumber_echo(int *numbered, char *str, int cnt);
+void	num_echo(int *numbered, char *str, int quote_state, int cnt);
 void	echo(t_combine str);
 void	echo_n(t_data *data, int index);
 int		is_builtin(int cmd_to_check);
