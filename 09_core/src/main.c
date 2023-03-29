@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/27 15:28:01 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:14:16 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ static int	history(t_data *data)
 		return (ERROR);
 	else if (data->line)
 	{
+		debug_print_t_expander(data->expander);
+		if (*data->line == '\0')
+			return (EXECUTED);
 		add_history(data->line);
 		if (lexer(data) == ERROR)
 			return (free(data->line), ERROR);
@@ -33,10 +36,12 @@ static int	history(t_data *data)
 	return (EXECUTED);
 }
 
-void	check_leaks(void)
+static void	check_leaks(void)
 {
 	if (DEBUG)
+	{
 		system ("leaks minishell");
+	}
 }
 
 void	signals(void)
@@ -60,14 +65,24 @@ int	main(int argc, char **argv, char **envp)
 	signals();
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
 		return (ERROR);
+	debug_print_t_expander(data.expander);
+	debug_print_pid("Parent process");
 	signals();
 	while (g_signal >= 1)
 	{
 		if (history(&data) == ERROR && g_signal != 2)
 			break ;
 		if (parser(&data) != ERROR)
-			executor_main(&data);
+		{
+			if (executor(&data) == ERROR)
+			{
+				if (DEBUG)
+					printf("Execution error\n");
+			}
+		}
 		free_loop(&data);
 	}
 	return (EXECUTED);
 }
+
+// @note error handling!

@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/29 17:16:20 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:13:21 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ enum e_outputs
 	ENV = 26,
 	EXIT = 27,
 	N = 28,
-	LAST_PIPE = 50
+	LAST_PIPE = 50,
+	BUILTIN = 200,
+	EXTERN = 100
 };
 
 typedef struct s_execute
@@ -69,18 +71,21 @@ typedef struct s_combine
 
 typedef struct s_data
 {
-	int				commands_to_process;	
-	char			**args;
-	int				tokens;
 	t_execute		*execute;
 	char			*line;
 	char			**envp;
 	char			**argv;
 	t_combine		*combine;
+	char			**args;
+	char			**envp;
+	char			**argv;
+	char			*line;
+	int				*child_pids;
+	int				commands_to_process;
 	int				counter_pipes;
 	int				counter_processes;
-	int				*child_pids;
 	int				index_processes;
+	int				tokens;
 }	t_data;
 
 /* ************************************************************************** */
@@ -118,6 +123,7 @@ int		is_micro_pipe(int c);
 int		lexer(t_data *data);
 char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char);
 int		is_n(char *str);
+
 /* ************************************************************************** */
 //                                    PARSER
 /* ************************************************************************** */
@@ -146,7 +152,7 @@ char	*search_needle(t_data *data, char *needle);
 //                                    EXECUTOR
 /* ************************************************************************** */
 
-int		executor_main(t_data *data);
+int		executor(t_data *data);
 
 /* ************************************************************************** */
 //                                    BUILTINS
@@ -176,12 +182,14 @@ void	handle_signal(int sig);
 # ifndef DEBUG
 #  define DEBUG 0
 # endif  // DEBUG
-void	debug_print_char_array(char **args);
-void	debug_print_t_execute(t_data *data,
-			t_execute *execute);
-void	debug_print_t_vector_str(t_vector_str *vector_to_print);
-void	debuger(t_data *data);
+
+void	debug_print_pid(char *process_name);
+void	debug_print_char_array(char **args, char *name);
 void	debug_print_int(char *description, int int_to_print);
+void	debug_print_t_execute(t_data *data,	t_execute *execute);
+void	debug_print_t_expander(t_expander *expander);
+void	debug_print_t_vector_str(t_vector_str *vector_to_print);
+void	debug_print_t_combine(t_data *data);
 void	debug_print_pipe_status(char *message, int **fd_pipes);
 
 #endif  // MINISHELL_H

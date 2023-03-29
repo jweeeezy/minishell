@@ -6,34 +6,18 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/03/27 12:13:01 by kvebers          ###   ########.fr       */
+=======
+/*   Updated: 2023/03/28 22:48:43 by jwillert         ###   ########          */
+>>>>>>> develop
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"			// needed for t_data, MACROS
 #include "executor_private.h"	// needed for executor_*()
-#include <stdio.h>
 
-int	executor_select_cmd(t_data *data, int **fd_pipes, int index)
-{
-	if (is_builtin(data->combine[index].command->order_numb) == 1)
-	{
-		if (executor_builtin(data, fd_pipes, index) == ERROR)
-		{
-			return (ERROR);
-		}
-	}
-	else
-	{
-		if (executor_extern(data, fd_pipes, index) == ERROR)
-		{
-			return (ERROR);
-		}
-	}
-	return (EXECUTED);
-}
-
-int	executor_wait_for_childs(t_data *data)
+static int	executor_wait_for_childs(t_data *data)
 {
 	int	index;
 
@@ -49,11 +33,16 @@ int	executor_wait_for_childs(t_data *data)
 	return (EXECUTED);
 }
 
-int	executor_main(t_data *data)
+static void	executor_init(t_data *data)
 {
 	data->counter_pipes = executor_count_pipes(data);
 	data->counter_processes = executor_count_processes(data);
 	data->index_processes = 0;
+	data->child_pids = malloc (sizeof (int) * data->counter_processes);
+}
+
+static int	executor_crossroads(t_data *data)
+{
 	if (data->counter_pipes != 0)
 	{
 		if (executor_pipex(data) == ERROR)
@@ -62,30 +51,47 @@ int	executor_main(t_data *data)
 		}
 		if (executor_wait_for_childs(data) == ERROR)
 		{
-			free(data->child_pids);
 			return (ERROR);
 		}
+<<<<<<< HEAD
 		free(data->child_pids);
+=======
+>>>>>>> develop
 	}
 	else
 	{
-		data->child_pids = malloc (sizeof(int) * data->counter_processes);
-		if (data->child_pids == NULL)
+		if (executor_cmd_selector(data, NULL, 0) == ERROR)
 		{
 			return (ERROR);
 		}
-		if (executor_select_cmd(data, NULL, 0) == ERROR)
+		if (data->counter_processes != 0)
 		{
-			free(data->child_pids);
-			return (ERROR);
+			if (wait(NULL) == -1)
+				return (ERROR);
 		}
-		if (wait(NULL) == -1)
-		{
-			free(data->child_pids);
-			return (ERROR);
-		}
-		free(data->child_pids);
 	}
+	return (EXECUTED);
+}
+
+int	executor(t_data *data)
+{
+	if (data->commands_to_process == 0)
+	{
+		return (EXECUTED);
+	}
+	executor_init(data);
+	if (data->child_pids == NULL)
+	{
+		return (ERROR);
+	}
+	if (executor_crossroads(data) == ERROR)
+	{
+		free(data->child_pids);
+		data->child_pids = NULL;
+		return (ERROR);
+	}
+	free(data->child_pids);
+	data->child_pids = NULL;
 	return (EXECUTED);
 }
 
