@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/29 16:28:08 by jwillert         ###   ########          */
+/*   Updated: 2023/03/29 20:48:03 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,26 @@ static int	set_up_command_struct(t_data *data, int cnt, int cnt1, int switcher)
 	return (EXECUTED);
 }
 
+int	check_if_combine_is_valid(t_data *data)
+{
+	int	cnt;
+
+	cnt = 0;
+	while (cnt < data->commands_to_process)
+	{
+		if (data->combine[cnt].combined_str == NULL)
+		{
+			data->combine[cnt].combined_str = malloc(sizeof(char) * 2);
+			if (data->combine[cnt].combined_str == NULL)
+				return (ERROR);
+			*(data->combine[cnt].combined_str) = ' ';
+			*(data->combine[cnt].combined_str + 1) = '\0';
+		}
+		cnt++;
+	}
+	return (EXECUTED);
+}
+
 int	parser(t_data *data)
 {
 	if (*data->line == '\0')
@@ -69,6 +89,8 @@ int	parser(t_data *data)
 	if (set_up_command_struct(data, 0, 0, 0) == ERROR)
 		return (ERROR);
 	if (find_main_command(data, 0, 0, 0) == ERROR)
+		return (ERROR);
+	if (check_if_combine_is_valid(data) == ERROR)
 		return (ERROR);
 	check_echo_n(data);
 	debug_print_t_combine(data);

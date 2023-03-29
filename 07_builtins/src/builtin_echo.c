@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 12:57:12 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/29 19:01:23 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/29 19:59:11 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ void	echo_n(t_data *data, int index)
 	if (cnt == 0)
 		printf("%s\n", data->combine[index].combined_str + 5);
 	else
-		printf("%s", data->combine[index].combined_str + kindergarden_meth_2(data->combine[index].combined_str, cnt));
+		printf("%s", data->combine[index].combined_str
+			+ kindergarden_meth_2(data->combine[index].combined_str, cnt));
 	free(comb);
 	free(numbered);
 }
