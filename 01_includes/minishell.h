@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/29 15:32:38 by jwillert         ###   ########          */
+/*   Updated: 2023/03/29 22:40:43 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ typedef struct s_data
 	int				commands_to_process;
 	int				counter_pipes;
 	int				counter_processes;
+	int				flag_infile;
+	int				flag_outfile;
 	int				index_processes;
 	int				tokens;
 }	t_data;
@@ -170,6 +172,13 @@ int		is_builtin(int cmd_to_check);
 /* ************************************************************************** */
 
 void	handle_signal(int sig);
+
+/* ************************************************************************** */
+//                                    REDIRECTOR
+/* ************************************************************************** */
+
+int		redirector_main(t_data *data, int index);
+
 
 /* ************************************************************************** */
 //                                    DEBUG

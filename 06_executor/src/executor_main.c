@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/28 22:48:43 by jwillert         ###   ########          */
+/*   Updated: 2023/03/29 22:39:28 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static int	executor_crossroads(t_data *data)
 	}
 	else
 	{
+		redirector_main(data, 0);
 		if (executor_cmd_selector(data, NULL, 0) == ERROR)
 		{
 			return (ERROR);

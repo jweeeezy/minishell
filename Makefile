@@ -6,7 +6,7 @@
 #    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 12:52:07 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/24 18:45:34 by kvebers          ###   ########.fr        #
+#    Updated: 2023/03/29 22:22:48 by jwillert         ###   ########           #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ HEADER_DIR						=	./01_includes/
 LEXER_DIR						=	./02_lexer/
 PARSER_DIR						=	./03_parser/
 EXPANDER_DIR					=	./04_expander/
-REDIRECTOR						=	./05_redirector/
+REDIRECTOR_DIR					=	./05_redirector/
 EXECUTOR_DIR					=	./06_executor/
 BUILTINS_DIR					=	./07_builtins/
 SIGNALS_DIR						=	./08_signals/
@@ -33,8 +33,8 @@ MODULES_DIR_ALL					=	$(LEXER_DIR)\
 									$(CORE_DIR)\
 									$(EXPANDER_DIR)\
 									$(DEBUG_DIR)\
-									$(EXECUTOR_DIR)
-									#$(REDIRECTOR_DIR)\#
+									$(EXECUTOR_DIR)\
+									$(REDIRECTOR_DIR)\
 									#$(SIGNALS_DIR)#
 SUBMODULE						=	submodule_initialised
 
@@ -56,8 +56,8 @@ MODULES_ALL						=	$(LIBME)\
 									$(CORE)\
 									$(EXPANDER)\
 									$(DEBUG)\
-									$(EXECUTOR)
-									#$(REDIRECTOR)\#
+									$(EXECUTOR)\
+									$(REDIRECTOR)\
 									#$(SIGNALS)#
 
 #	General Rules
