@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:51:18 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/29 15:42:50 by jwillert         ###   ########          */
+/*   Updated: 2023/03/29 16:29:36 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	debug_print_pid(char *process_name)
 		printf("\n");
 	}
 }
-
 
 void	debug_print_t_combine(t_data *data)
 {

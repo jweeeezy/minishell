@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/29 16:02:07 by jwillert         ###   ########          */
+/*   Updated: 2023/03/29 16:28:56 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static int	history(t_data *data)
 	else if (data->line)
 	{
 		debug_print_t_expander(data->expander);
+		if (*data->line == '\0')
+			return (EXECUTED);
 		add_history(data->line);
 		if (lexer(data) == ERROR)
 			return (free(data->line), ERROR);
@@ -81,7 +83,6 @@ int	main(int argc, char **argv, char **envp)
 		free_loop(&data);
 	}
 	free_env(&data);
-	free_loop(&data);
 	return (EXECUTED);
 }
 
