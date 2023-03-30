@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/30 19:15:15 by jwillert         ###   ########          */
+/*   Updated: 2023/03/30 19:45:55 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static int	selector_try_access(t_execute *cmd, char *path, char *command)
 static int	selector_is_cmd_valid(t_execute *cmd, char **envp)
 {
 	int		return_value;
-	int		index;
 	char	**paths;
 
 	if (access(cmd->order_str, X_OK) == 0)
@@ -60,20 +59,19 @@ static int	selector_is_cmd_valid(t_execute *cmd, char **envp)
 		cmd->full_path = ft_strdup(cmd->order_str);
 		return (EXTERN);
 	}
-	index = 0;
 	paths = selector_get_path_array(envp);
 	if (paths == NULL)
 		return (ERROR);
-	while (paths[index] != NULL)
+	while (*paths != NULL)
 	{
-		return_value = selector_try_access(cmd, paths[index],
+		return_value = selector_try_access(cmd, *paths,
 				cmd->order_str);
 		if (return_value != COMMAND_NOT_FOUND)
 		{
 			free_char_array(paths);
 			return (return_value);
 		}
-		index += 1;
+		paths += 1;
 	}
 	free_char_array(paths);
 	return (COMMAND_NOT_FOUND);
