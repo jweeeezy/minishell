@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/30 22:56:55 by jwillert         ###   ########          */
+/*   Updated: 2023/03/30 23:01:32 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static int	selector_is_cmd_valid(t_execute *cmd, char **envp)
 		if (return_value != COMMAND_NOT_FOUND)
 		{
 			free_char_array(paths);
-			printf("return value: %d\n", return_value);
 			// @todo returning but doesnt give the right value?
 			return (return_value);
 		}
@@ -85,7 +84,6 @@ static int	selector_is_cmd_valid(t_execute *cmd, char **envp)
 static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 				int flag_cmd)
 {
-	printf("flag_cmd: %d\n", flag_cmd);
 	if (flag_cmd == ERROR)
 	{
 		return (ERROR);
@@ -129,7 +127,7 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 	}
 	else if (selector_fork_and_execute(data, fd_pipes, index, 
 				selector_is_cmd_valid(data->combine[index].command,
-					data->envp) == ERROR))
+					data->envp)) == ERROR)
 			// @todo returning but doesnt give the right value?
 	{
 		return (ERROR);
