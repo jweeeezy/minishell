@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/30 23:01:32 by jwillert         ###   ########          */
+/*   Updated: 2023/03/30 23:02:52 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static int	selector_is_cmd_valid(t_execute *cmd, char **envp)
 		if (return_value != COMMAND_NOT_FOUND)
 		{
 			free_char_array(paths);
-			// @todo returning but doesnt give the right value?
 			return (return_value);
 		}
 		index += 1;
@@ -125,10 +124,9 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 			return (ERROR);
 		}
 	}
-	else if (selector_fork_and_execute(data, fd_pipes, index, 
-				selector_is_cmd_valid(data->combine[index].command,
-					data->envp)) == ERROR)
-			// @todo returning but doesnt give the right value?
+	else if (selector_fork_and_execute(data, fd_pipes, index,
+			selector_is_cmd_valid(data->combine[index].command,
+				data->envp)) == ERROR)
 	{
 		return (ERROR);
 	}
