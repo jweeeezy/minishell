@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/29 18:18:07 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/30 12:02:38 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ int		is_command1(t_data *data, int cnt, char *needle);
 int		skip_white_spaces(t_data *data, int cnt);
 int		dolla_handler(t_data *data, int cnt, int cnt1);
 int		is_micro_pipe(int c);
-
+int		count_split(char **split);
+void	split_free(char **split);
 /* ************************************************************************** */
 //                                    LEXER
 /* ************************************************************************** */
@@ -127,7 +128,8 @@ int		is_n(char *str);
 
 int		parser(t_data *data);
 int		parsing_error_handler(t_data *data);
-//int		put_to_linked_list_expander(t_data *data, char **envp);
+int		check_if_combine_is_valid(t_data *data);
+int		set_up_command_struct(t_data *data, int cnt, int cnt1, int switcher);
 int		check_quote_state(t_data *data, int cnt);
 int		strjoin_with_extra_steps(t_data *data, int cnt, int cnt1);
 int		handle_quotes(t_data *data, int cnt, int cnt1);
@@ -144,6 +146,8 @@ int		token_error_handeler(t_data *data);
 int		syntax_errors(t_data *data);
 void	check_echo_n(t_data *data);
 char	*search_needle(t_data *data, char *needle);
+int		merge(t_data *data, int cnt, int cnt1);
+int		retokenize_the_commands(t_data *data, int cnt);
 
 /* ************************************************************************** */
 //                                    EXECUTOR

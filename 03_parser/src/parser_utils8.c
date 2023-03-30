@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser_utils8.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/30 12:01:33 by kvebers          ###   ########.fr       */
+/*   Created: 2023/03/30 12:01:44 by kvebers           #+#    #+#             */
+/*   Updated: 2023/03/30 12:02:20 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,45 +73,5 @@ int	retokenize_the_commands(t_data *data, int cnt)
 		return (ERROR);
 	}
 	split_free(split);
-	return (EXECUTED);
-}
-
-static int	retokenize_arrows(t_data *data)
-{
-	int	cnt;
-
-	cnt = 0;
-	while (cnt < data->commands_to_process)
-	{
-		if (data->combine[cnt].command->order_numb == HERE_DOC
-			|| data->combine[cnt].command->order_numb == SHELL_REDIRECTION
-			|| data->combine[cnt].command->order_numb == FILE_TO_COMMAND
-			|| data->combine[cnt].command->order_numb == COMMAND_TO_FILE)
-		{
-			if (retokenize_the_commands(data, cnt) == ERROR)
-				return (ERROR);
-		}
-		cnt++;
-	}
-	return (EXECUTED);
-}
-
-int	parser(t_data *data)
-{
-	if (*data->line == '\0')
-		return (ERROR);
-	data->commands_to_process = 0;
-	if (parsing_error_handler(data) == ERROR)
-		return (ERROR);
-	if (set_up_command_struct(data, 0, 0, 0) == ERROR)
-		return (ERROR);
-	if (find_main_command(data, 0, 0, 0) == ERROR)
-		return (ERROR);
-	if (retokenize_arrows(data) == ERROR)
-		return (ERROR);
-	if (check_if_combine_is_valid(data) == ERROR)
-		return (ERROR);
-	check_echo_n(data);
-	debug_print_t_combine(data);
 	return (EXECUTED);
 }
