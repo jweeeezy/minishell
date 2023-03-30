@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:22:50 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/28 22:01:03 by jwillert         ###   ########          */
+/*   Updated: 2023/03/30 22:30:57 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ int			executor_count_processes(t_data *data);
 int			executor_is_pipe(t_combine *cmd);
 int			executor_is_redirection(t_combine *cmd);
 int			executor_is_heredoc(t_combine *cmd);
+int			executor_is_cmd_path_valid(t_execute *cmd);
 
 #endif	// EXECUTOR_PRIVATE_H

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/30 19:45:55 by jwillert         ###   ########          */
+/*   Updated: 2023/03/30 22:56:55 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,13 @@ static int	selector_try_access(t_execute *cmd, char *path, char *command)
 {
 	cmd->full_path = ft_str_join_delimiter(path, "/", command);
 	if (cmd->full_path == NULL)
+	{
 		return (ERROR);
+	}
 	if (access(cmd->full_path, X_OK) == 0)
+	{
 		return (EXTERN);
+	}
 	free(cmd->full_path);
 	cmd->full_path = NULL;
 	return (COMMAND_NOT_FOUND);
@@ -53,25 +57,26 @@ static int	selector_is_cmd_valid(t_execute *cmd, char **envp)
 {
 	int		return_value;
 	char	**paths;
+	int		index;
 
-	if (access(cmd->order_str, X_OK) == 0)
-	{
-		cmd->full_path = ft_strdup(cmd->order_str);
-		return (EXTERN);
-	}
+	index = 0;
 	paths = selector_get_path_array(envp);
 	if (paths == NULL)
-		return (ERROR);
-	while (*paths != NULL)
 	{
-		return_value = selector_try_access(cmd, *paths,
+		return (ERROR);
+	}
+	while (paths[index] != NULL)
+	{
+		return_value = selector_try_access(cmd, paths[index],
 				cmd->order_str);
 		if (return_value != COMMAND_NOT_FOUND)
 		{
 			free_char_array(paths);
+			printf("return value: %d\n", return_value);
+			// @todo returning but doesnt give the right value?
 			return (return_value);
 		}
-		paths += 1;
+		index += 1;
 	}
 	free_char_array(paths);
 	return (COMMAND_NOT_FOUND);
@@ -80,6 +85,7 @@ static int	selector_is_cmd_valid(t_execute *cmd, char **envp)
 static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 				int flag_cmd)
 {
+	printf("flag_cmd: %d\n", flag_cmd);
 	if (flag_cmd == ERROR)
 	{
 		return (ERROR);
@@ -113,11 +119,18 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 		{
 			return (ERROR);
 		}
-		return (EXECUTED);
 	}
-	else if (selector_fork_and_execute(data, fd_pipes, index,
-			selector_is_cmd_valid(data->combine[index].command,
-				data->envp)) == ERROR)
+	else if (executor_is_cmd_path_valid(data->combine[index].command) == EXTERN)
+	{
+		if (selector_fork_and_execute(data, fd_pipes, index, EXTERN) == ERROR)
+		{
+			return (ERROR);
+		}
+	}
+	else if (selector_fork_and_execute(data, fd_pipes, index, 
+				selector_is_cmd_valid(data->combine[index].command,
+					data->envp) == ERROR))
+			// @todo returning but doesnt give the right value?
 	{
 		return (ERROR);
 	}
