@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/28 20:18:55 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:15:15 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,11 @@ static int	selector_is_cmd_valid(t_execute *cmd, char **envp)
 	int		index;
 	char	**paths;
 
-	return_value = 0;
+	if (access(cmd->order_str, X_OK) == 0)
+	{
+		cmd->full_path = ft_strdup(cmd->order_str);
+		return (EXTERN);
+	}
 	index = 0;
 	paths = selector_get_path_array(envp);
 	if (paths == NULL)
