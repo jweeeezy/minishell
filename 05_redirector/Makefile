@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:17:16 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/29 22:16:57 by jwillert         ###   ########           #
+#    Updated: 2023/03/30 11:15:53 by jwillert         ###   ########           #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ VPATH							=	$(SRC_DIR):$(OBJ_DIR)
 LIBFT							=	$(LIBFT_DIR)libft.a
 LIBME							=	$(LIBME_DIR)libme.a
 #	Files
-SRC_FILES						=	redirection_main.c
+SRC_FILES						=	redirector_main.c\
+									redirector_utils.c
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR),$(SRC_FILES))
 OBJ								=	$(addprefix $(OBJ_DIR),$(OBJ_FILES))

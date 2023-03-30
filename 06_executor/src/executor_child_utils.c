@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:19:52 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/29 20:54:57 by jwillert         ###   ########          */
+/*   Updated: 2023/03/30 13:10:02 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,26 @@ void	child_prepare_pipes(int **fd_pipes, int index, int counter_pipes)
 	if (index == 0)
 	{
 		// @note check for redirection input
+		redirector_handler_input(data, index);
+		//
 		close(fd_pipes[0][0]);
 		child_close_pipes_after(fd_pipes, index + 1);
 		debug_print_pipe_status("Child first", fd_pipes);
 		dup2(fd_pipes[0][1], STDOUT_FILENO);
 		// @note check for redirection output
+		redirector_handler_output(data, index);
+		//
 	}
 	else if (index == counter_pipes)
 	{
 		// @note check for redirection output
+		redirector_handler_output(data, index);
+		//
 		close(fd_pipes[index - 1][1]);
 		debug_print_pipe_status("Child LAST", fd_pipes);
 		// @note check for redirection input
+		redirector_handler_input(data, index);
+		//
 		dup2(fd_pipes[index - 1][0], STDIN_FILENO);
 	}
 	else
@@ -65,10 +73,13 @@ void	child_prepare_pipes(int **fd_pipes, int index, int counter_pipes)
 		child_close_pipes_before(fd_pipes, index);
 		child_close_pipes_after(fd_pipes, index + 1);
 		debug_print_pipe_status("Child Middle", fd_pipes);
-		// @note check for redirection output
 		dup2(fd_pipes[index][1], STDOUT_FILENO);
-		// @note check for redirection input
+		// @note check for redirection output
+		redirector_handler_output(data, index);
+		//
 		dup2(fd_pipes[index - 1][0], STDIN_FILENO);
-		// @note check for redirection
+		// @note check for redirection input
+		redirector_handler_input(data, index);
+		//	
 	}
 }

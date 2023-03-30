@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/30 10:43:16 by jwillert         ###   ########          */
+/*   Updated: 2023/03/30 13:15:48 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,8 +179,9 @@ void	handle_signal(int sig);
 //                                    REDIRECTOR
 /* ************************************************************************** */
 
-int		redirector_main(t_data *data, int index);
-
+int		redirector_prehandler(t_data *data, int index);
+void	redirector_handler_input(t_data *data, int index);
+void	redirector_handler_output(t_data *data, int index);
 
 /* ************************************************************************** */
 //                                    DEBUG
