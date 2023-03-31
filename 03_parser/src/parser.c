@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/30 12:01:33 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/30 15:40:04 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,82 +14,43 @@
 #include <stdio.h>
 #include "libft.h"
 
-static int	retoken_helper_helper(t_data *data, int cnt, char **split)
+int	investigate_redirections(t_data *data, int cnt)
 {
-	char	*temp;
-	size_t	cnt1;
-
-	cnt1 = 0;
-	temp = ft_strdup(data->combine[cnt + 1].combined_str + ft_strlen(split[0]));
-	if (temp == NULL)
-		return (ERROR);
-	while (cnt1 < ft_strlen(temp) && is_white_space(temp[cnt1]) == ADD)
-		cnt1++;
-	free(temp);
-	temp = ft_strdup(data->combine[cnt + 1].combined_str
-			+ ft_strlen(split[0]) + cnt1);
-	free(data->combine[cnt + 1].combined_str);
-	data->combine[cnt + 1].combined_str = NULL;
-	if (temp != NULL)
-		data->combine[cnt + 1].combined_str = temp;
+	(void) data;
+	(void) cnt;
 	return (EXECUTED);
 }
 
-static int	retoken_helper(t_data *data, int cnt, char **split, int numb)
+int	investigate_quotes(t_data *data, int cnt)
 {
-	int	cn;
-
-	cn = 1;
-	if (numb == 0)
-		return (ERROR);
-	data->combine[cnt].combined_str
-		= ft_strjoin2(data->combine[cnt].combined_str, " ", 0, 0);
-	if (data->combine[cnt].combined_str == NULL)
-		return (ERROR);
-	data->combine[cnt].combined_str
-		= ft_strjoin2(data->combine[cnt].combined_str, split[0], 0, 0);
-	if (data->combine[cnt].combined_str == NULL)
-		return (ERROR);
-	if (retoken_helper_helper(data, cnt, split) == ERROR)
-		return (ERROR);
+	(void) data;
+	(void) cnt;
 	return (EXECUTED);
 }
 
-int	retokenize_the_commands(t_data *data, int cnt)
+
+int	crime_scene_investigation(t_data *data, int cnt)
 {
-	char	**split;
-	int		split_tokens;
-
-	split = NULL;
-	if (cnt + 1 >= data->commands_to_process)
-		return (ERROR);
-	split = ft_split(data->combine[cnt + 1].combined_str, ' ');
-	if (split == NULL)
-		return (ERROR);
-	split_tokens = count_split(split);
-	if (retoken_helper(data, cnt, split, split_tokens) == ERROR)
-	{
-		split_free(split);
-		return (ERROR);
-	}
-	split_free(split);
-	return (EXECUTED);
-}
-
-static int	retokenize_arrows(t_data *data)
-{
-	int	cnt;
-
-	cnt = 0;
 	while (cnt < data->commands_to_process)
 	{
-		if (data->combine[cnt].command->order_numb == HERE_DOC
-			|| data->combine[cnt].command->order_numb == SHELL_REDIRECTION
-			|| data->combine[cnt].command->order_numb == FILE_TO_COMMAND
-			|| data->combine[cnt].command->order_numb == COMMAND_TO_FILE)
+		if (cnt > 0)
 		{
-			if (retokenize_the_commands(data, cnt) == ERROR)
-				return (ERROR);
+			if (data->combine[cnt - 1].command->order_numb == FILE_TO_COMMAND
+				|| data->combine[cnt - 1].command->order_numb == COMMAND_TO_FILE
+				|| data->combine[cnt - 1].command->order_numb == HERE_DOC
+				|| data->combine[cnt - 1].command->order_numb
+				== SHELL_REDIRECTION)
+			{
+				if (investigate_redirections(data, cnt) == ERROR)
+					return (ERROR);
+			}
+			else if (data->combine[cnt].command->order_numb == APOSTROPHE
+				|| data->combine[cnt].command->order_numb == QUOTATION_MARK
+				|| data->combine[cnt].command->order_numb == STRING)
+			{
+				if (investigate_quotes(data, cnt) == ERROR)
+					return (ERROR);
+			}
 		}
 		cnt++;
 	}
@@ -110,6 +71,8 @@ int	parser(t_data *data)
 	if (retokenize_arrows(data) == ERROR)
 		return (ERROR);
 	if (check_if_combine_is_valid(data) == ERROR)
+		return (ERROR);
+	if (crime_scene_investigation(data, 0) == ERROR)
 		return (ERROR);
 	check_echo_n(data);
 	debug_print_t_combine(data);

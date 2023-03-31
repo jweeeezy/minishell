@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/30 12:02:38 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/31 09:46:28 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@ enum e_outputs
 	BUILTIN = 200,
 	EXTERN = 100
 };
+
+typedef struct s_dump
+{
+	int	a;
+	int	b;
+	int	c;
+	int	d;
+}	t_dump;
 
 typedef struct s_execute
 {
@@ -121,7 +129,8 @@ void	split_free(char **split);
 int		lexer(t_data *data);
 char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char);
 int		is_n(char *str);
-
+int		remove_usless_quotes(t_data *data, int quote_state, int cnt);
+int		remove_usless_quotes2(t_data *data, int quote_state, int cnt);
 /* ************************************************************************** */
 //                                    PARSER
 /* ************************************************************************** */
@@ -148,6 +157,7 @@ void	check_echo_n(t_data *data);
 char	*search_needle(t_data *data, char *needle);
 int		merge(t_data *data, int cnt, int cnt1);
 int		retokenize_the_commands(t_data *data, int cnt);
+int		retokenize_arrows(t_data *data);
 
 /* ************************************************************************** */
 //                                    EXECUTOR
