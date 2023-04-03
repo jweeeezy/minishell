@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/29 18:18:07 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/31 09:46:28 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@ enum e_outputs
 	BUILTIN = 200,
 	EXTERN = 100
 };
+
+typedef struct s_dump
+{
+	int	a;
+	int	b;
+	int	c;
+	int	d;
+}	t_dump;
 
 typedef struct s_execute
 {
@@ -112,7 +120,8 @@ int		is_command1(t_data *data, int cnt, char *needle);
 int		skip_white_spaces(t_data *data, int cnt);
 int		dolla_handler(t_data *data, int cnt, int cnt1);
 int		is_micro_pipe(int c);
-
+int		count_split(char **split);
+void	split_free(char **split);
 /* ************************************************************************** */
 //                                    LEXER
 /* ************************************************************************** */
@@ -120,14 +129,16 @@ int		is_micro_pipe(int c);
 int		lexer(t_data *data);
 char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char);
 int		is_n(char *str);
-
+int		remove_usless_quotes(t_data *data, int quote_state, int cnt);
+int		remove_usless_quotes2(t_data *data, int quote_state, int cnt);
 /* ************************************************************************** */
 //                                    PARSER
 /* ************************************************************************** */
 
 int		parser(t_data *data);
 int		parsing_error_handler(t_data *data);
-//int		put_to_linked_list_expander(t_data *data, char **envp);
+int		check_if_combine_is_valid(t_data *data);
+int		set_up_command_struct(t_data *data, int cnt, int cnt1, int switcher);
 int		check_quote_state(t_data *data, int cnt);
 int		strjoin_with_extra_steps(t_data *data, int cnt, int cnt1);
 int		handle_quotes(t_data *data, int cnt, int cnt1);
@@ -144,6 +155,9 @@ int		token_error_handeler(t_data *data);
 int		syntax_errors(t_data *data);
 void	check_echo_n(t_data *data);
 char	*search_needle(t_data *data, char *needle);
+int		merge(t_data *data, int cnt, int cnt1);
+int		retokenize_the_commands(t_data *data, int cnt);
+int		retokenize_arrows(t_data *data);
 
 /* ************************************************************************** */
 //                                    EXECUTOR

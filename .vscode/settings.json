@@ -11,7 +11,8 @@
         "array": "c",
         "iterator": "c",
         "string_view": "c",
-        "vector": "c"
+        "vector": "c",
+        "__locale": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
