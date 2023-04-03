@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/03 10:07:47 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/03 13:15:57 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,6 @@ enum e_outputs
 	BUILTIN = 200,
 	EXTERN = 100
 };
-
-typedef struct s_dump
-{
-	int	a;
-	int	b;
-	int	c;
-	int	d;
-}	t_dump;
 
 typedef struct s_execute
 {

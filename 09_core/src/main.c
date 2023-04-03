@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/03 12:50:14 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/03 13:21:48 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,19 @@ int	main(int argc, char **argv, char **envp)
 	signals();
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
 		return (ERROR);
-	debug_print_pid("Parent process");
 	signals();
 	while (g_signal >= 1)
 	{
 		if (history(&data) == ERROR && g_signal != 2)
 			break ;
-		if (parser(&data) != ERROR)
-		{
-			if (executor(&data) == ERROR)
-			{
-				if (DEBUG)
-					printf("Execution error\n");
-			}
-		}
+		// if (parser(&data) != ERROR)
+		// {
+		// 	if (executor(&data) == ERROR)
+		// 	{
+		// 		if (DEBUG)
+		// 			printf("Execution error\n");
+		// 	}
+		// }
 		free_loop(&data);
 	}
 	return (EXECUTED);
