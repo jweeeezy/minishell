@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/03 12:37:12 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/03 13:32:10 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	free_helper(t_data *data)
 	while (cnt < data->tokens && data->args[cnt] != NULL)
 	{
 		free(data->args[cnt]);
+		data->args[cnt] = NULL;
 		free(data->execute[cnt].order_str);
 		data->execute[cnt].order_str = NULL;
 		free(data->execute[cnt].full_path);
@@ -49,6 +50,7 @@ void	free_loop(t_data *data)
 	if (data->tokens > 0)
 	{
 		free(data->execute);
+		data->execute = NULL;
 		free(data->args);
 	}
 	if (data->commands_to_process > 0 && data->combine != NULL)
