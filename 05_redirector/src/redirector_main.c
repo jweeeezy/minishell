@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirector_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert@student.42heilbronn.de            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/30 13:09:38 by jwillert         ###   ########          */
+/*   Updated: 2023/04/03 17:19:36 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	redirector_assign_outfile(t_data *data, char *str_filename)
 		close(fd_outfile);
 	}
 	data->fd_outfile = open(str_filename,
-			O_WRONLY | O_CREAT | 0_TRUNC, 0666);
+			O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (fd == -1)
 	{
 		perror("open");
@@ -39,7 +39,7 @@ static int	redirector_assign_outfile_append(t_data *data, char *str_filename)
 		close(fd_outfile);
 	}
 	data->fd_outfile = open(str_filename,
-			O_WRONLY | O_CREAT | 0_APPEND, 0666);
+			O_WRONLY | O_CREAT | O_APPEND, 0666);
 	if (fd == -1)
 	{
 		perror("open");
