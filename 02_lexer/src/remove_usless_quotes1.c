@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   protection.c                                       :+:      :+:    :+:   */
+/*   remove_usless_quotes1.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/20 17:11:31 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/03 12:50:20 by kvebers          ###   ########.fr       */
+/*   Created: 2023/04/03 09:38:22 by kvebers           #+#    #+#             */
+/*   Updated: 2023/04/03 10:26:46 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "libft.h"
+#include <stdio.h>
 
-int	argument_protection(t_data *data, int argc, char **argv, char **envp)
+char	*remove_usless_quotes5(char *str, int *numb, int cnt)
 {
-	g_signal = 1;
-	if (argc > 1)
-		return (ERROR);
-	data->argv = argv;
-	data->envp = envp;
-	return (EXECUTED);
+	char	*temp;
+
+	temp = NULL;
+	while (str[cnt] != '\0')
+	{
+		if (numb[cnt] != 3)
+			temp = ft_charjoin(temp, str[cnt], 0, 0);
+		cnt++;
+	}
+	return (free(str), temp);
 }

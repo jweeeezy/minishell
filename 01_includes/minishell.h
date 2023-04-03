@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/31 09:46:28 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/03 10:07:47 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char);
 int		is_n(char *str);
 int		remove_usless_quotes(t_data *data, int quote_state, int cnt);
 int		remove_usless_quotes2(t_data *data, int quote_state, int cnt);
+char	*remove_usless_quotes5(char *str, int *numb, int cnt);
 /* ************************************************************************** */
 //                                    PARSER
 /* ************************************************************************** */

@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:28 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/31 10:41:37 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/03 12:14:10 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,15 @@ void	remove_usless_quotes4(char *str, int *numb, int cnt)
 {
 	t_dump	quotes;
 
-	quotes.a = str[cnt];
-	quotes.b = str[cnt + 1];
-	quotes.c = str[cnt + 2];
-	quotes.d = str[cnt + 3];
+	(void) str;
+	quotes.a = numb[cnt];
+	quotes.b = numb[cnt + 1];
+	quotes.c = numb[cnt + 2];
+	quotes.d = numb[cnt + 3];
 	if (quotes.a > 30 && quotes.a == quotes.b && quotes.c == 0)
 	{
 		numb[cnt] = 3;
 		numb[cnt + 1] = 3;
-	}
-	while (str[cnt] != '\0')
-		cnt++;
-	quotes.c = str[cnt - 2];
-	quotes.d = str[cnt - 1];
-	if (quotes.d > 30 && quotes.d == quotes.c)
-	{
-		numb[cnt - 2] = 3;
-		numb[cnt - 1] = 3;
 	}
 }
 
@@ -77,7 +69,8 @@ void	remove_usless_quotes3(char *str, int *numb, int cnt)
 		quotes.c = numb[cnt + 2];
 		quotes.d = numb[cnt + 3];
 		if (quotes.b > 30 && quotes.b == quotes.c
-			&& (quotes.a == 0 || quotes.d == 0))
+			&& (quotes.a == 0 || quotes.d == 0)
+			&& (quotes.a != quotes.b && quotes.d != quotes.b))
 		{
 			numb[cnt + 1] = 3;
 			numb[cnt + 2] = 3;
@@ -85,12 +78,6 @@ void	remove_usless_quotes3(char *str, int *numb, int cnt)
 		cnt++;
 	}
 	remove_usless_quotes4(str, numb, 0);
-	cnt = 0;
-	while (str[cnt] != '\0')
-	{
-		printf("%i %c\n", numb[cnt], str[cnt]);
-		cnt++;
-	}
 }
 
 int	remove_usless_quotes2(t_data *data, int quote_state, int cnt)
@@ -107,13 +94,16 @@ int	remove_usless_quotes2(t_data *data, int quote_state, int cnt)
 	{
 		quote_state = echo_n_quote_state(data->line, cnt, quote_state);
 		numb[cnt] = quote_state;
-		if (numb[cnt] == 0)
-			numb[cnt] = is_white_space(data->line[cnt]);
 		if (numb[cnt] == 0
 			&& (data->line[cnt] == 34 || data->line[cnt] == 39))
 			numb[cnt] = data->line[cnt];
+		else if (numb[cnt] == 0)
+			numb[cnt] = is_white_space(data->line[cnt]);
 		cnt++;
 	}
 	remove_usless_quotes3(data->line, numb, 0);
+	data->line = remove_usless_quotes5(data->line, numb, 0);
+	if (data->line == NULL)
+		return (free(numb), ERROR);
 	return (free(numb), EXECUTED);
 }

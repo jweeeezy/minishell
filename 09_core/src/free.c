@@ -6,12 +6,13 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/29 18:13:54 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/03 12:37:12 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <unistd.h>
+#include <stdio.h>
 
 void	free_helper(t_data *data)
 {
@@ -35,7 +36,8 @@ void	free_loop(t_data *data)
 	int	cnt;
 
 	cnt = 0;
-	free_helper(data);
+	if (data->line != NULL)
+		free_helper(data);
 	free(data->line);
 	while (cnt < data->commands_to_process
 		&& data->combine[cnt].combined_str != NULL)

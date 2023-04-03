@@ -6,7 +6,7 @@
 #    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 14:11:35 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/30 16:22:42 by kvebers          ###   ########.fr        #
+#    Updated: 2023/04/03 10:08:05 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ LIBME							=	$(LIBME_DIR)libme.a
 #	Files
 SRC_FILES						=	lexer.c\
 									tokenizer.c\
-									remove_usless_quotes.c
+									remove_usless_quotes.c \
+									remove_usless_quotes1.c
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR),$(SRC_FILES))
 OBJ								=	$(addprefix $(OBJ_DIR),$(OBJ_FILES))
