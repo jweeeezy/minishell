@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_child_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:19:52 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/29 15:19:17 by jwillert         ###   ########          */
+/*   Updated: 2023/04/03 20:42:24 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

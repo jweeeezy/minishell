@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_cmd_selector.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/28 20:18:55 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/03 20:42:29 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

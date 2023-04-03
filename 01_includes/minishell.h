@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/03 13:15:57 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/03 22:51:28 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,15 @@ enum e_outputs
 	EXTERN = 100
 };
 
-typedef struct s_execute
+typedef struct s_var
+{
+	int	cnt;
+	int	cnt1;
+	int	last;
+	int	blob_state;
+}	t_var;
+
+typedef struct s_execute // @todo not used anymore
 {
 	char	*order_str;
 	int		order_numb;
@@ -64,14 +72,16 @@ typedef struct s_execute
 
 typedef struct s_combine
 {
-	t_execute	*command;
+	t_execute	*command; // @todo not used anymore
 	int			count_n;
 	char		*combined_str;
+	int			tks;
+	char		**order_str;
 }	t_combine;
 
 typedef struct s_data
 {
-	t_execute		*execute;
+	t_execute		*execute; // @todo not used anymore
 	t_combine		*combine;
 	char			**args;
 	char			**envp;
@@ -114,16 +124,18 @@ int		dolla_handler(t_data *data, int cnt, int cnt1);
 int		is_micro_pipe(int c);
 int		count_split(char **split);
 void	split_free(char **split);
+int		q_state(char *str, int cnt, int quote_state);
 /* ************************************************************************** */
 //                                    LEXER
 /* ************************************************************************** */
 
 int		lexer(t_data *data);
-char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char);
-int		is_n(char *str);
-int		remove_usless_quotes(t_data *data, int quote_state, int cnt);
-int		remove_usless_quotes2(t_data *data, int quote_state, int cnt);
-char	*remove_usless_quotes5(char *str, int *numb, int cnt);
+void	determine_quote_state(char *str, int cnt, int *numb, int *numb1);
+void	init_combine(t_data *data);
+int		create_tokens(t_data *data);
+void	init_tokens(t_data *data, int cnt1);
+void 	print_numberator(char *str, int *numb, int *numb1);
+void	debug_tokens(t_data *data);
 /* ************************************************************************** */
 //                                    PARSER
 /* ************************************************************************** */
@@ -151,6 +163,7 @@ char	*search_needle(t_data *data, char *needle);
 int		merge(t_data *data, int cnt, int cnt1);
 int		retokenize_the_commands(t_data *data, int cnt);
 int		retokenize_arrows(t_data *data);
+int		create_tks(t_data *data, int *numb, int cnt1);
 
 /* ************************************************************************** */
 //                                    EXECUTOR

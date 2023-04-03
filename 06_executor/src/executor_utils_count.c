@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils_count.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:07:10 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/28 20:32:32 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/03 20:42:35 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

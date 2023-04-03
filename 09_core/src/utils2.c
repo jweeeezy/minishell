@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:18:12 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/30 10:49:30 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/03 14:38:39 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,17 @@ void	split_free(char **split)
 		cnt++;
 	}
 	free(split);
+}
+
+int	q_state(char *str, int cnt, int quote_state)
+{
+	if (str[cnt] == 34 && quote_state == 0)
+		quote_state = 34;
+	else if (str[cnt] == 39 && quote_state == 0)
+		quote_state = 39;
+	else if (str[cnt] == 39 && quote_state == 39)
+		quote_state = 0;
+	else if (str[cnt] == 34 && quote_state == 34)
+		quote_state = 0;
+	return (quote_state);
 }

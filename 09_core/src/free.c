@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/03 13:26:20 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/03 21:58:21 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,19 @@
 #include <unistd.h>
 #include <stdio.h>
 
-void	free_helper(t_data *data)
+void	free_tks(t_data *data, int cnt)
 {
-	int	cnt;
+	int	cnt1;
 
-	cnt = 0;
-	while (cnt < data->tokens && data->args[cnt] != NULL)
+	cnt1 = 0;
+	while (cnt1 < data->combine[cnt].tks
+		&& data->combine[cnt].order_str != NULL)
 	{
-		free(data->args[cnt]);
-		data->args[cnt] = NULL;
-		// free(data->execute[cnt].order_str);
-		// data->execute[cnt].order_str = NULL;
-		// free(data->execute[cnt].full_path);
-		// data->execute[cnt].full_path = NULL;
-		// data->execute[cnt].order_numb = 0;
+		free(data->combine[cnt].order_str[cnt1]);
+		data->combine[cnt].order_str[cnt1] = NULL;
 		cnt++;
 	}
+	data->combine[cnt].tks = 0;
 }
 
 void	free_loop(t_data *data)
@@ -37,24 +34,26 @@ void	free_loop(t_data *data)
 	int	cnt;
 
 	cnt = 0;
-	free_helper(data);
+	while (cnt < data->commands_to_process - 1
+		&& data->combine[cnt].combined_str != NULL)
+	{
+		if (data->combine[cnt].combined_str != NULL)
+		{
+			free(data->combine[cnt].combined_str);
+			data->combine[cnt].combined_str = NULL;
+		}
+		free_tks(data, cnt);
+		if (data->combine[cnt].order_str != NULL)
+		{
+			free(data->combine[cnt].order_str);
+			data->combine[cnt].order_str = NULL;
+		}
+		cnt++;
+	}
 	free(data->line);
-	// while (cnt < data->commands_to_process
-	// 	&& data->combine[cnt].combined_str != NULL)
-	// {
-	// 	free(data->combine[cnt].combined_str);
-	// 	data->combine[cnt].combined_str = NULL;
-	// 	cnt++;
-	// }
-	// if (data->tokens > 0)
-	// {
-	// 	free(data->execute);
-	// 	free(data->args);
-	// }
-	// if (data->commands_to_process > 0 && data->combine != NULL)
-	// 	free(data->combine);
+	if (data->commands_to_process - 1 > 0)
+		free(data->combine);
 }
-
 void	free_char_array(char **array_to_free)
 {
 	int	index;
