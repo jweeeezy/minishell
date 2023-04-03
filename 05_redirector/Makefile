@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:17:16 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/03 15:17:18 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/03 09:57:03 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ VPATH							=	$(SRC_DIR):$(OBJ_DIR)
 LIBFT							=	$(LIBFT_DIR)libft.a
 LIBME							=	$(LIBME_DIR)libme.a
 #	Files
-SRC_FILES						=	
+SRC_FILES						=
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR),$(SRC_FILES))
 OBJ								=	$(addprefix $(OBJ_DIR),$(OBJ_FILES))
@@ -58,7 +58,12 @@ $(LIBME):
 										$(MAKE) libme -C $(LIBALLME_DIR)
 clean:
 										$(REMOVE) $(OBJ)
+										$(MAKE) clean -C $(LIBALLME_DIR)
 fclean:								clean
 										$(REMOVE) $(NAME)
+										$(MAKE) fclean -C $(LIBALLME_DIR)
 re:									fclean
 										$(MAKE)
+test:								$(LIBME)
+									$(CC) $(CFLAGS) -g $(INCLUDE) \
+									   	$(LIBME) main_test.c -lreadline
