@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/31 09:46:28 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/04 10:27:52 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,17 @@ typedef struct s_combine
 	char		*combined_str;
 }	t_combine;
 
+typedef struct s_heredoc
+{
+	struct s_heredoc	*next;
+	int					*fd_pipe;
+}	t_heredoc;
+
 typedef struct s_data
 {
 	t_execute		*execute;
 	t_combine		*combine;
+	t_heredoc		*heredoc;
 	char			**args;
 	char			**envp;
 	char			**argv;
