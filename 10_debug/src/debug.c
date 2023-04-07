@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:16:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/29 15:45:47 by jwillert         ###   ########          */
+/*   Updated: 2023/03/29 18:18:40 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,6 @@ void	debug_print_t_execute(t_data *data,	t_execute *execute)
 			printf("order_numb: [%d]", execute[counter].order_numb);
 			printf("\n");
 			counter += 1;
-		}
-		printf("\n");
-	}
-}
-
-void	debug_print_t_expander(t_expander *expander)
-{
-	if (DEBUG)
-	{
-		printf("\n");
-		printf("t_expander: %p\n", expander);
-		while (expander != NULL)
-		{
-			printf("t_expander: [%s]\n", expander->str);
-			expander = expander->next;
 		}
 		printf("\n");
 	}

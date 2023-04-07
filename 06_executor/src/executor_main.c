@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/29 22:39:28 by jwillert         ###   ########          */
+/*   Updated: 2023/04/07 14:38:52 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ static void	executor_init(t_data *data)
 
 static int	executor_crossroads(t_data *data)
 {
+	//	open heredocs
+	//	handle redirections // save last redirection/heredoc fd to data
+	
 	if (data->counter_pipes != 0)
 	{
 		if (executor_pipex(data) == ERROR)

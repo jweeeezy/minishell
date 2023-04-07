@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 15:30:31 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/25 15:25:05 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/03/27 15:11:43 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,21 @@
 
 char	*search_needle(t_data *data, char *needle)
 {
-	t_expander	*current_node;
 	char		*temp_needle;
+	int			cnt;
 
-	current_node = data->expander;
 	temp_needle = ft_strjoin(needle, "=");
 	if (temp_needle == NULL)
 		return (NULL);
-	while (current_node != NULL)
+	cnt = 0;
+	if (data->envp == NULL)
+		return (NULL);
+	while (data->envp[cnt] != NULL)
 	{
-		if (ft_strnstr3(current_node->str, temp_needle,
-				ft_strlen(current_node->str)) != NULL)
-			return (free(temp_needle), current_node->str);
-		current_node = current_node->next;
+		if (ft_strnstr3(data->envp[cnt], temp_needle,
+				ft_strlen(data->envp[cnt])) != NULL)
+			return (free(temp_needle), data->envp[cnt]);
+		cnt++;
 	}
 	return (free(temp_needle), NULL);
 }

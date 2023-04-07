@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:17:16 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/30 11:15:53 by jwillert         ###   ########           #
+#    Updated: 2023/04/07 14:39:58 by jwillert         ###   ########           #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ VPATH							=	$(SRC_DIR):$(OBJ_DIR)
 
 LIBFT							=	$(LIBFT_DIR)libft.a
 LIBME							=	$(LIBME_DIR)libme.a
+
 #	Files
 SRC_FILES						=	redirector_main.c\
 									redirector_utils.c
@@ -59,7 +60,12 @@ $(LIBME):
 										$(MAKE) libme -C $(LIBALLME_DIR)
 clean:
 										$(REMOVE) $(OBJ)
+										$(MAKE) clean -C $(LIBALLME_DIR)
 fclean:								clean
 										$(REMOVE) $(NAME)
+										$(MAKE) fclean -C $(LIBALLME_DIR)
 re:									fclean
 										$(MAKE)
+test:								$(LIBME)
+									$(CC) $(CFLAGS) -g $(INCLUDE) \
+									   	$(LIBME) main_test.c -lreadline

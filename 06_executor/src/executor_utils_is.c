@@ -6,11 +6,13 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:20:28 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/28 19:24:19 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/30 22:33:35 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"	// needed for t_combine, MAROS
+#include <unistd.h>		// needed for access()
+#include "libft.h"		// needed for ft_strdup()
 
 int	executor_is_heredoc(t_combine *cmd)
 {
@@ -46,4 +48,14 @@ int	executor_is_pipe(t_combine *cmd)
 	{
 		return (0);
 	}
+}
+
+int	executor_is_cmd_path_valid(t_execute *cmd)
+{
+	if (access(cmd->order_str, X_OK) == 0)
+	{
+		cmd->full_path = ft_strdup(cmd->order_str);
+		return (EXTERN);
+	}
+	return (COMMAND_NOT_FOUND);
 }

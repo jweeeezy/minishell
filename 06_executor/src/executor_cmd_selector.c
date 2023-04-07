@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/28 20:18:55 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/03/30 23:02:52 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,13 @@ static int	selector_try_access(t_execute *cmd, char *path, char *command)
 {
 	cmd->full_path = ft_str_join_delimiter(path, "/", command);
 	if (cmd->full_path == NULL)
+	{
 		return (ERROR);
+	}
 	if (access(cmd->full_path, X_OK) == 0)
+	{
 		return (EXTERN);
+	}
 	free(cmd->full_path);
 	cmd->full_path = NULL;
 	return (COMMAND_NOT_FOUND);
@@ -52,14 +56,15 @@ static int	selector_try_access(t_execute *cmd, char *path, char *command)
 static int	selector_is_cmd_valid(t_execute *cmd, char **envp)
 {
 	int		return_value;
-	int		index;
 	char	**paths;
+	int		index;
 
-	return_value = 0;
 	index = 0;
 	paths = selector_get_path_array(envp);
 	if (paths == NULL)
+	{
 		return (ERROR);
+	}
 	while (paths[index] != NULL)
 	{
 		return_value = selector_try_access(cmd, paths[index],
@@ -111,7 +116,13 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 		{
 			return (ERROR);
 		}
-		return (EXECUTED);
+	}
+	else if (executor_is_cmd_path_valid(data->combine[index].command) == EXTERN)
+	{
+		if (selector_fork_and_execute(data, fd_pipes, index, EXTERN) == ERROR)
+		{
+			return (ERROR);
+		}
 	}
 	else if (selector_fork_and_execute(data, fd_pipes, index,
 			selector_is_cmd_valid(data->combine[index].command,

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/30 13:15:48 by jwillert         ###   ########          */
+/*   Updated: 2023/04/07 14:39:10 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@ enum e_outputs
 	EXTERN = 100
 };
 
+typedef struct s_dump
+{
+	int	a;
+	int	b;
+	int	c;
+	int	d;
+}	t_dump;
+
 typedef struct s_execute
 {
 	char	*order_str;
@@ -69,17 +77,17 @@ typedef struct s_combine
 	char		*combined_str;
 }	t_combine;
 
-typedef struct s_expander
+typedef struct s_heredoc
 {
-	char				*str;
-	struct s_expander	*next;
-}	t_expander;
+	struct s_heredoc	*next;
+	int					*fd_pipe;
+}	t_heredoc;
 
 typedef struct s_data
 {
 	t_execute		*execute;
-	t_expander		*expander;
 	t_combine		*combine;
+	t_heredoc		*heredoc;
 	char			**args;
 	char			**envp;
 	char			**argv;
@@ -104,7 +112,6 @@ int		init_data(t_data *data);
 //char	**free_tokens(char **tokens);
 void	free_char_array(char **array_to_free);
 void	free_loop(t_data *data);
-void	free_env(t_data *data);
 int		argument_protection(t_data *data, int argc, char **argv, char **envp);
 void	free_pipe_array(int **array, int size);
 //int   utils_check_for_chars(t_data *data, int segment);
@@ -124,7 +131,8 @@ int		is_command1(t_data *data, int cnt, char *needle);
 int		skip_white_spaces(t_data *data, int cnt);
 int		dolla_handler(t_data *data, int cnt, int cnt1);
 int		is_micro_pipe(int c);
-
+int		count_split(char **split);
+void	split_free(char **split);
 /* ************************************************************************** */
 //                                    LEXER
 /* ************************************************************************** */
@@ -132,14 +140,16 @@ int		is_micro_pipe(int c);
 int		lexer(t_data *data);
 char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char);
 int		is_n(char *str);
-
+int		remove_usless_quotes(t_data *data, int quote_state, int cnt);
+int		remove_usless_quotes2(t_data *data, int quote_state, int cnt);
 /* ************************************************************************** */
 //                                    PARSER
 /* ************************************************************************** */
 
 int		parser(t_data *data);
 int		parsing_error_handler(t_data *data);
-int		put_to_linked_list_expander(t_data *data, char **envp);
+int		check_if_combine_is_valid(t_data *data);
+int		set_up_command_struct(t_data *data, int cnt, int cnt1, int switcher);
 int		check_quote_state(t_data *data, int cnt);
 int		strjoin_with_extra_steps(t_data *data, int cnt, int cnt1);
 int		handle_quotes(t_data *data, int cnt, int cnt1);
@@ -155,6 +165,10 @@ char	*ft_strnstr3(const char *haystack, const char *needle, size_t length);
 int		token_error_handeler(t_data *data);
 int		syntax_errors(t_data *data);
 void	check_echo_n(t_data *data);
+char	*search_needle(t_data *data, char *needle);
+int		merge(t_data *data, int cnt, int cnt1);
+int		retokenize_the_commands(t_data *data, int cnt);
+int		retokenize_arrows(t_data *data);
 
 /* ************************************************************************** */
 //                                    EXECUTOR
@@ -166,9 +180,17 @@ int		executor(t_data *data);
 //                                    BUILTINS
 /* ************************************************************************** */
 
-int		echo(t_combine str);
+void	renumber_echo(int *numbered, char *str, int cnt);
+void	num_echo(int *numbered, char *str, int quote_state, int cnt);
+void	echo(t_combine str);
+void	echo_n(t_data *data, int index);
 int		is_builtin(int cmd_to_check);
-
+char	builtin_pwd(void);
+void	env(t_data *data);
+int		echo_n_quote_state(char *str, int cnt, int quote_state);
+char	*ft_charjoin(char *temp, char c, size_t cnt1, size_t cnt2);
+char	*echo_n_helper(t_data *data, int cnt, char *comb);
+char	*echo_merge(char *str, size_t cnt, int quote_state);
 /* ************************************************************************** */
 //                                    SIGNALS
 /* ************************************************************************** */
@@ -195,7 +217,6 @@ void	debug_print_pid(char *process_name);
 void	debug_print_char_array(char **args, char *name);
 void	debug_print_int(char *description, int int_to_print);
 void	debug_print_t_execute(t_data *data,	t_execute *execute);
-void	debug_print_t_expander(t_expander *expander);
 void	debug_print_t_vector_str(t_vector_str *vector_to_print);
 void	debug_print_t_combine(t_data *data);
 void	debug_print_pipe_status(char *message, int **fd_pipes);

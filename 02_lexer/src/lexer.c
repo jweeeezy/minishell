@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/29 14:56:59 by jwillert         ###   ########          */
+/*   Updated: 2023/03/31 08:44:23 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,12 @@ static int	command_line(t_data *data)
 int	lexer(t_data *data)
 {
 	data->tokens = 0;
+	if (data->line == NULL)
+		return (ERROR);
+	if (remove_usless_quotes(data, 0, 0) == ERROR)
+		return (ERROR);
+	if (remove_usless_quotes2(data, 0, 0) == ERROR)
+		return (ERROR);
 	data->args = tokenizer(data, 0, 0, 0);
 	if (command_line(data) == ERROR)
 		return (ERROR);
