@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/07 14:38:52 by jwillert         ###   ########          */
+/*   Updated: 2023/04/07 17:03:08 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ static void	executor_init(t_data *data)
 
 static int	executor_crossroads(t_data *data)
 {
-	//	open heredocs
-	//	handle redirections // save last redirection/heredoc fd to data
-	
 	if (data->counter_pipes != 0)
 	{
 		if (executor_pipex(data) == ERROR)
@@ -55,7 +52,6 @@ static int	executor_crossroads(t_data *data)
 	}
 	else
 	{
-		redirector_main(data, 0);
 		if (executor_cmd_selector(data, NULL, 0) == ERROR)
 		{
 			return (ERROR);

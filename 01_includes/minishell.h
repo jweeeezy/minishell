@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/07 14:39:10 by jwillert         ###   ########          */
+/*   Updated: 2023/04/07 17:21:57 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,12 @@ int		retokenize_the_commands(t_data *data, int cnt);
 int		retokenize_arrows(t_data *data);
 
 /* ************************************************************************** */
+//                                    REDIRECTOR
+/* ************************************************************************** */
+
+int		redirector(t_data *data);
+
+/* ************************************************************************** */
 //                                    EXECUTOR
 /* ************************************************************************** */
 
@@ -202,8 +208,8 @@ void	handle_signal(int sig);
 /* ************************************************************************** */
 
 int		redirector_prehandler(t_data *data, int index);
-void	redirector_handler_input(t_data *data, int index);
-void	redirector_handler_output(t_data *data, int index);
+void	redirector_handler_input(t_data *data);
+void	redirector_handler_output(t_data *data);
 
 /* ************************************************************************** */
 //                                    DEBUG

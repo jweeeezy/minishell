@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/30 13:23:18 by jwillert         ###   ########          */
+/*   Updated: 2023/04/07 17:02:32 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>		// needed for close()
 #include <stdio.h>		// needed perror()
 
-static void	executor_parent_close_pipes(t_data *data, int **fd_pipes, int index)
+static void	executor_parent_close_pipes(t_data *data, int **fd_pipes)
 {
 	if (data->index_processes == 0)
 	{
@@ -35,18 +35,18 @@ void	executor_parent(t_data *data, int **fd_pipes, int index)
 {
 	if (fd_pipes != NULL && data->counter_pipes != 0)
 	{
-		executor_parent_close_pipes(data, fd_pipes, index);
+		executor_parent_close_pipes(data, fd_pipes);
 		debug_print_pipe_status("Parent", fd_pipes);
 	}
-	if (flag_infile == 1)
+	if (data->flag_infile == 1)
 	{
-		close(fd_infile);
-		flag_infile = 0;
+		close(data->fd_infile);
+		data->flag_infile = 0;
 	}
-	if (flag_outfile == 1)
+	if (data->flag_outfile == 1)
 	{
-		close(fd_outfile);
-		flag_outfile = 0;
+		close(data->fd_outfile);
+		data->flag_outfile = 0;
 	}
 	free(data->combine[index].command->full_path);
 	data->combine[index].command->full_path = NULL;

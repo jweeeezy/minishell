@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:19:52 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/30 13:10:02 by jwillert         ###   ########          */
+/*   Updated: 2023/04/07 16:59:09 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	child_close_pipes_after(int **fd_pipes, int start)
 	}
 }
 
-void	child_prepare_pipes(int **fd_pipes, int index, int counter_pipes)
+void	child_prepare_pipes(t_data *data, int **fd_pipes, int index, int counter_pipes)
 {
 	if (index == 0)
 	{

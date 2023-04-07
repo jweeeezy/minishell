@@ -6,16 +6,20 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/07 16:24:44 by jwillert         ###   ########          */
+/*   Updated: 2023/04/07 17:33:35 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "redirector_private.h"
 #include "minishell.h"		// needed for t_data
 #include "libft.h"			// needed for ft_strncmp(), ft_strlen()
 #include <fcntl.h>			// needed for open()
 #include <time.h>			// needed for time()
+#include <unistd.h>			// needed for pipe(), open(), close()
+#include <readline/readline.h>
+#include <readline/history.h>
 
-int	heredoc_create_pipe(t_heredoc *note_to_edit)
+int	heredoc_create_pipe(t_heredoc *node_to_edit)
 {
 	int	*fd_pipe;
 
@@ -40,7 +44,7 @@ char	*heredoc_get_delimiter(t_data *data, int index)
 	delimiter = data->combine[index].combined_str + 2;
 	if (*delimiter == '\0')
 	{
-		delimiter == NULL;
+		delimiter = NULL;
 	}
 	return (delimiter);
 }
@@ -52,7 +56,7 @@ t_heredoc	*heredoc_create_lst(t_data *data)
 	if (data->heredoc == NULL)
 	{
 		data->heredoc = heredoc_get_new_node();
-		note_to_edit = data->heredoc;
+		node_to_edit = data->heredoc;
 	}
 	else
 	{
@@ -70,7 +74,7 @@ t_heredoc	*heredoc_create_lst(t_data *data)
 	return (node_to_edit);
 }
 
-int	heredoc_open_heredoc(t_data *data, int index, t_heredoc current_node)
+int	heredoc_open_heredoc(t_data *data, int index, t_heredoc *current_node)
 {
 	char		*heredoc_line;
 	char		*heredoc_delimiter;
@@ -115,7 +119,7 @@ t_heredoc	*redirector_heredoc_update_lst(t_data *data)
 	}
 	else
 	{
-		current_node = heredoc_add_back(data);
+		current_node = heredoc_add_back(data->heredoc, heredoc_create_lst(data));
 	}
 	return (current_node);
 }
@@ -125,12 +129,12 @@ int	redirector_prehandle_heredocs(t_data *data, int counter_heredocs)
 	int				index;
 	int				id;
 	t_heredoc		*current_node;
-	t_vector_str	*buffer;
+	//t_vector_str	*buffer;
 
 	index = 0;
 	while (index < counter_heredocs)
 	{
-		if (data->combine[index].command->order_numb == HEREDOC)
+		if (data->combine[index].command->order_numb == HERE_DOC)
 		{
 			current_node = redirector_heredoc_update_lst(data);
 			id = fork();
@@ -146,9 +150,9 @@ int	redirector_prehandle_heredocs(t_data *data, int counter_heredocs)
 			else
 			{
 				wait(NULL);
-				buffer = ft_vector_str_join(buffer, 
-						get_next_line(current_node->fd_pipe[0]), 0);
-				printf("%s\n", buffer->str);
+				//buffer = ft_vector_str_join(buffer, 
+						//get_next_line(current_node->fd_pipe[0]), 0);
+				//printf("%s\n", buffer->str);
 			}
 		}
 		index += 1;
