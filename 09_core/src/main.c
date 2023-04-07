@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/29 18:19:39 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/07 14:36:26 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		if (parser(&data) != ERROR)
 		{
+			if (redirector(&data) == ERROR)
+			{
+				printf("Redirection error\n");
+			}
 			if (executor(&data) == ERROR)
 			{
 				if (DEBUG)

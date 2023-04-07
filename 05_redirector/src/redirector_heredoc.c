@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/04 19:41:24 by jwillert         ###   ########          */
+/*   Updated: 2023/04/07 14:31:13 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,4 +135,3 @@ int	redirector_open_heredocs(t_data *data, int counter_heredocs)
 	return (EXECUTED);
 }
 
-// @note can prob rewrite so I dont to go trough all heredocs first?

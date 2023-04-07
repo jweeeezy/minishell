@@ -1,6 +1,5 @@
 //	Heredoc flow
 //
-//
 //	while index < counter_heredocs
 //	if heredoc
 //	create heredoc node
@@ -13,4 +12,6 @@
 //		exit
 //	in parent
 //	wait for child
-//	close pipe
+//	READ TO BUFFER AND EXPAND BEFORE CHILD?
+//	save read end for execution_child
+//	EXPANSION IN CHILD?

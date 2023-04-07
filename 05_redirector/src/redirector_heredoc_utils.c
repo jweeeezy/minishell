@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:05:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/04 11:14:08 by jwillert         ###   ########          */
+/*   Updated: 2023/04/05 14:50:50 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_heredoc	*heredoc_get_new_node(void)
 	return (new_node);
 }
 
-t_heredoc	*heredoc_add_back(t_heredoc *lst_to_expand, t_heredoc *node_to_add)
+t_heredoc	*heredoc_adad_back(t_heredoc *lst_to_expand, t_heredoc *node_to_add)
 {
 	if (lst_to_expand == NULL || node_to_add == NULL)
 	{
