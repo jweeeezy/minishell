@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/07 14:31:13 by jwillert         ###   ########          */
+/*   Updated: 2023/04/07 16:24:44 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*heredoc_get_delimiter(t_data *data, int index)
 	return (delimiter);
 }
 
-t_heredoc	*heredoc_create_heredoc_lst(t_data *data)
+t_heredoc	*heredoc_create_lst(t_data *data)
 {
 	t_heredoc	*node_to_edit;
 
@@ -70,19 +70,17 @@ t_heredoc	*heredoc_create_heredoc_lst(t_data *data)
 	return (node_to_edit);
 }
 
-int	heredoc_open_heredoc(t_data *data, int index)
+int	heredoc_open_heredoc(t_data *data, int index, t_heredoc current_node)
 {
 	char		*heredoc_line;
 	char		*heredoc_delimiter;
-	t_heredoc	*current_node;
 
-	heredoc_delimiter = heredoc_get_delimiter(data, index);
-	current_node = heredoc_create_heredoc(data);
 	if (current_node == NULL)
 	{
-		heredoc_clean_list(data, -1);
+		heredoc_clean_lst(data, -1);
 		return (ERROR);
 	}
+	heredoc_delimiter = heredoc_get_delimiter(data, index);
 	while (1)
 	{
 		heredoc_line = readline(">");
@@ -98,28 +96,48 @@ int	heredoc_open_heredoc(t_data *data, int index)
 				break ;
 			}
 		}
-		// write to tmp file should be done in child
-		// or parent writes to the pipe, child reads from it?
+
+		ft_putstr_fd(heredoc_line, current_node->fd_pipe[1]);
+		close (current_node->fd_pipe[0]);
 		free(heredoc_line);
 	}
 	free(heredoc_line);
 	return (EXECUTED);
 }
 
-int	redirector_open_heredocs(t_data *data, int counter_heredocs)
+t_heredoc	*redirector_heredoc_update_lst(t_data *data)
 {
-	int	index;
-	int	id;
+	t_heredoc *current_node;
+
+	if (data->heredoc == NULL)
+	{
+		current_node = heredoc_create_lst(data);
+	}
+	else
+	{
+		current_node = heredoc_add_back(data);
+	}
+	return (current_node);
+}
+
+int	redirector_prehandle_heredocs(t_data *data, int counter_heredocs)
+{
+	int				index;
+	int				id;
+	t_heredoc		*current_node;
+	t_vector_str	*buffer;
 
 	index = 0;
 	while (index < counter_heredocs)
 	{
 		if (data->combine[index].command->order_numb == HEREDOC)
 		{
+			current_node = redirector_heredoc_update_lst(data);
 			id = fork();
 			if (id == 0)
 			{
-				if (heredoc_open_heredoc(data, index) == ERROR)
+				heredoc_child_close_fd_before(data, current_node);
+				if (heredoc_open_heredoc(data, index, current_node) == ERROR)
 				{
 					exit(ERROR);
 				}
@@ -128,6 +146,9 @@ int	redirector_open_heredocs(t_data *data, int counter_heredocs)
 			else
 			{
 				wait(NULL);
+				buffer = ft_vector_str_join(buffer, 
+						get_next_line(current_node->fd_pipe[0]), 0);
+				printf("%s\n", buffer->str);
 			}
 		}
 		index += 1;

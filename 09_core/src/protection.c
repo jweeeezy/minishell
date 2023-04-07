@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:11:31 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/07 14:38:16 by jwillert         ###   ########          */
+/*   Updated: 2023/04/07 15:19:05 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	argument_protection(t_data *data, int argc, char **argv, char **envp)
 	data->argv = argv;
 	data->envp = envp;
 	//@note sure how to set them at first
+	data->heredoc = NULL;
 	data->flag_infile = 0;
 	data->flag_outfile = 0;
 	data->fd_infile = 0;
