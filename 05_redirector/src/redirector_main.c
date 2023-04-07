@@ -6,7 +6,7 @@
 /*   By: jwillert@student.42heilbronn.de            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:43:42 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/07 17:14:18 by jwillert         ###   ########          */
+/*   Updated: 2023/04/07 18:33:50 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	redirector(t_data *data)
 		{
 			return (ERROR);
 		}
-		heredoc_child_close_fd(data, heredoc_get_node_by_index(data->heredoc, LAST));
+		heredoc_child_close_fd_before(data, heredoc_get_node_by_index(data->heredoc, LAST));
 	}
 	if (redirections > 0)
 	{
