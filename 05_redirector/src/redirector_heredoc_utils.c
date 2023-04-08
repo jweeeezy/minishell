@@ -6,26 +6,13 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:05:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/07 17:28:05 by jwillert         ###   ########          */
+/*   Updated: 2023/04/08 11:06:45 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>			// needed for malloc(), free(), NULL
 #include "minishell.h"		// needed for t_heredoc
 #include <unistd.h>			// needed for open(), close()
-
-void	heredoc_child_close_fd_before(t_data *data, t_heredoc *current_node)
-{
-	t_heredoc *head;
-
-	head = data->heredoc;
-	while (head != NULL && head != current_node)
-	{
-		close(head->fd_pipe[0]);
-		close(head->fd_pipe[1]);
-		head = head->next;
-	}
-}
 
 void	heredoc_clean_lst(t_data *data, int flag_input)
 {
@@ -44,15 +31,8 @@ void	heredoc_clean_lst(t_data *data, int flag_input)
 	while (current_node != NULL)
 	{
 		next = current_node->next;
-		//if (index == flag_input)
-		//{
-			//dup2(fd_pipe[0], STDIN_FILENO);
-		//}
-		//else
-		//{
-		close(current_node->fd_pipe[0]); // read end
-//		}
-		close(current_node->fd_pipe[1]); // write end
+		free(current_node->full_path);
+		current_node->full_path = NULL;
 		// @note mb the other way around if parent immediately writes to pipe
 		free(current_node);
 		current_node = next;
@@ -69,7 +49,8 @@ t_heredoc	*heredoc_get_new_node(void)
 	{
 		return (NULL);
 	}
-	new_node->fd_pipe = NULL;
+	new_node->fd = -1;
+	new_node->full_path = NULL;
 	new_node->next = NULL;
 	return (new_node);
 }

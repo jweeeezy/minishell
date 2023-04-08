@@ -6,12 +6,13 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/07 17:03:08 by jwillert         ###   ########          */
+/*   Updated: 2023/04/08 12:32:33 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"			// needed for t_data, MACROS
 #include "executor_private.h"	// needed for executor_*()
+#include <stdio.h>
 
 static int	executor_wait_for_childs(t_data *data)
 {
@@ -71,6 +72,7 @@ int	executor(t_data *data)
 	{
 		return (EXECUTED);
 	}
+	printf("reached\n");
 	executor_init(data);
 	if (data->child_pids == NULL)
 	{

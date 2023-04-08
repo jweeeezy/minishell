@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:17:16 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/07 17:24:21 by jwillert         ###   ########           #
+#    Updated: 2023/04/08 12:36:28 by jwillert         ###   ########           #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,10 +63,8 @@ $(LIBME):
 										$(MAKE) libme -C $(LIBALLME_DIR)
 clean:
 										$(REMOVE) $(OBJ)
-										$(MAKE) clean -C $(LIBALLME_DIR)
 fclean:								clean
 										$(REMOVE) $(NAME)
-										$(MAKE) fclean -C $(LIBALLME_DIR)
 re:									fclean
 										$(MAKE)
 test:								$(LIBME)

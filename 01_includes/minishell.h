@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/07 17:21:57 by jwillert         ###   ########          */
+/*   Updated: 2023/04/08 10:44:43 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,22 +65,24 @@ typedef struct s_dump
 typedef struct s_execute
 {
 	char	*order_str;
-	int		order_numb;
 	char	*full_path;
+	int		order_numb;
 	int		number;
 }	t_execute;
 
 typedef struct s_combine
 {
 	t_execute	*command;
-	int			count_n;
 	char		*combined_str;
+	int			count_n;
 }	t_combine;
 
 typedef struct s_heredoc
 {
 	struct s_heredoc	*next;
-	int					*fd_pipe;
+	char				*full_path;
+	unsigned long int	hash;
+	int					fd;
 }	t_heredoc;
 
 typedef struct s_data

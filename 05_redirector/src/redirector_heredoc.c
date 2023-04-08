@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/07 17:33:35 by jwillert         ###   ########          */
+/*   Updated: 2023/04/08 12:24:53 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,75 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-int	heredoc_create_pipe(t_heredoc *node_to_edit)
+int	heredoc_check_duplicate_hash(t_heredoc *head, t_heredoc *node_to_compare)
 {
-	int	*fd_pipe;
+	while (head != NULL)
+	{
+		if (head == node_to_compare)
+		{
+			head = head->next;
+		}
+		if (node_to_compare->hash == head->hash)
+		{
+			return (1);
+		}		
+		head = head->next;
+	}
+	return (0);
+}
 
-	fd_pipe = malloc (sizeof (int) * 2);
-	if (fd_pipe == NULL)
+int	heredoc_create_hash(char *string_to_hash)
+{
+	unsigned long int	hash;
+	int					value;
+
+	value = ft_atoi(string_to_hash);
+	while(*string_to_hash != '\0')
+	{
+		hash = ((hash << 5) + hash) + *string_to_hash;
+		string_to_hash += 1;
+	}
+	return (hash * value);
+}
+
+int	heredoc_create_file(t_heredoc *node_to_edit)
+{
+	char	*path;
+	char	*file;
+	char	*hash_str;
+	char	*temp;
+	
+	path = ft_strdup("/tmp/");
+	if (path == NULL)
 	{
 		return (ERROR);
 	}
-	if (pipe(fd_pipe) == -1)
+	temp = ft_itoa_unsigned_long((unsigned long int) node_to_edit);
+	node_to_edit->hash = heredoc_create_hash(temp);
+	free(temp);
+	hash_str = ft_itoa_unsigned_long(node_to_edit->hash);
+	if (hash_str == NULL)
 	{
-		free(fd_pipe);
+		free(path);
 		return (ERROR);
 	}
-	node_to_edit->fd_pipe = fd_pipe;
+
+	// type cast to unsigned long int?
+	file = ft_strjoin(path, hash_str);
+	free(path);
+	free(hash_str);
+	if (file == NULL)
+	{
+		return (ERROR);
+	}
+	node_to_edit->fd = open(file, O_WRONLY| O_CREAT | O_APPEND, 0600);
+	//perror("open");
+	if (node_to_edit->fd < 0)
+	{
+		free(file);
+		return (ERROR);
+	}
+	free(file);
 	return (EXECUTED);
 }
 
@@ -66,7 +120,7 @@ t_heredoc	*heredoc_create_lst(t_data *data)
 	{
 		return (NULL);
 	}
-	if (heredoc_create_pipe(node_to_edit) == ERROR)
+	if (heredoc_create_file(node_to_edit) == ERROR)
 	{
 		free(node_to_edit);
 		return (NULL);
@@ -85,6 +139,7 @@ int	heredoc_open_heredoc(t_data *data, int index, t_heredoc *current_node)
 		return (ERROR);
 	}
 	heredoc_delimiter = heredoc_get_delimiter(data, index);
+	printf("delimiter: [%s]\n", heredoc_delimiter);
 	while (1)
 	{
 		heredoc_line = readline(">");
@@ -100,9 +155,7 @@ int	heredoc_open_heredoc(t_data *data, int index, t_heredoc *current_node)
 				break ;
 			}
 		}
-
-		ft_putstr_fd(heredoc_line, current_node->fd_pipe[1]);
-		close (current_node->fd_pipe[0]);
+		ft_putstr_fd(heredoc_line, current_node->fd);
 		free(heredoc_line);
 	}
 	free(heredoc_line);
@@ -129,7 +182,6 @@ int	redirector_prehandle_heredocs(t_data *data, int counter_heredocs)
 	int				index;
 	int				id;
 	t_heredoc		*current_node;
-	//t_vector_str	*buffer;
 
 	index = 0;
 	while (index < counter_heredocs)
@@ -140,7 +192,6 @@ int	redirector_prehandle_heredocs(t_data *data, int counter_heredocs)
 			id = fork();
 			if (id == 0)
 			{
-				heredoc_child_close_fd_before(data, current_node);
 				if (heredoc_open_heredoc(data, index, current_node) == ERROR)
 				{
 					exit(ERROR);
@@ -150,9 +201,6 @@ int	redirector_prehandle_heredocs(t_data *data, int counter_heredocs)
 			else
 			{
 				wait(NULL);
-				//buffer = ft_vector_str_join(buffer, 
-						//get_next_line(current_node->fd_pipe[0]), 0);
-				//printf("%s\n", buffer->str);
 			}
 		}
 		index += 1;
