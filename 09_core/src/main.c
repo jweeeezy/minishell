@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/07 14:38:33 by jwillert         ###   ########          */
+/*   Updated: 2023/04/08 14:07:56 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	check_leaks(void)
 {
 	if (DEBUG)
 	{
-		system ("leaks minishell");
+//		system ("leaks minishell");
 	}
 }
 

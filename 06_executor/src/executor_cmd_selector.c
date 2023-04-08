@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/30 23:02:52 by jwillert         ###   ########          */
+/*   Updated: 2023/04/08 14:41:41 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,16 @@ static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 
 int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 {
+	printf("str: [%s]\n", data->combine[index].combined_str);
+
+	index += pipex_skip_non_commands(data, &data->combine[index], index);
+	while ((data->combine[index].combined_str != NULL && data->combine[index].command->order_numb != STRING
+		&& is_builtin(data->combine[index].command->order_numb) == 0))
+	{
+		index += 1;
+	}
+	printf("index in cmd_selector: [%d]\n", index);
+	printf("str: [%s]\n", data->combine[index].combined_str);
 	if (is_builtin(data->combine[index].command->order_numb) == 1)
 	{
 		if (selector_fork_and_execute(data, fd_pipes, index, BUILTIN) == ERROR)
@@ -117,7 +127,7 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 			return (ERROR);
 		}
 	}
-	else if (executor_is_cmd_path_valid(data->combine[index].command) == EXTERN)
+	else if (executor_is_cmd_path_valid(data->combine[index].combined_str) == EXTERN)
 	{
 		if (selector_fork_and_execute(data, fd_pipes, index, EXTERN) == ERROR)
 		{
@@ -125,7 +135,7 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 		}
 	}
 	else if (selector_fork_and_execute(data, fd_pipes, index,
-			selector_is_cmd_valid(data->combine[index].command,
+			selector_is_cmd_valid(data->combine[index].combined_str,
 				data->envp)) == ERROR)
 	{
 		return (ERROR);

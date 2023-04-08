@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/08 12:24:53 by jwillert         ###   ########          */
+/*   Updated: 2023/04/08 14:04:03 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	heredoc_check_duplicate_hash(t_heredoc *head, t_heredoc *node_to_compare)
 		if (node_to_compare->hash == head->hash)
 		{
 			return (1);
-		}		
+		}
 		head = head->next;
 	}
 	return (0);
@@ -56,7 +56,7 @@ int	heredoc_create_file(t_heredoc *node_to_edit)
 	char	*file;
 	char	*hash_str;
 	char	*temp;
-	
+
 	path = ft_strdup("/tmp/");
 	if (path == NULL)
 	{
@@ -80,7 +80,7 @@ int	heredoc_create_file(t_heredoc *node_to_edit)
 	{
 		return (ERROR);
 	}
-	node_to_edit->fd = open(file, O_WRONLY| O_CREAT | O_APPEND, 0600);
+	node_to_edit->fd = open(file, O_RDWR | O_CREAT | O_APPEND, 0666);
 	//perror("open");
 	if (node_to_edit->fd < 0)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_child.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/29 20:55:55 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/08 14:39:19 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static int	child_execute_extern(t_data *data, int index)
 			data->combine[index].command->full_path);
 		printf("Output:\n");
 	}
+	printf("in child [%s]\n", data->combine[index].command->full_path);
 	execve(data->combine[index].command->full_path, cmd_array, data->envp);
 	free_char_array(cmd_array);
 	perror("execve");

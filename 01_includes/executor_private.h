@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:22:50 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/07 14:56:00 by jwillert         ###   ########          */
+/*   Updated: 2023/04/08 13:55:23 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void		executor_child(t_data *data, int **fd_pipes, int index,
 				int flag_cmd);
 // static int	child_execute_builtin(t_data *data, int index);
 // static int	child_execute_extern(t_data *data, int index);
-// static void	child_prepare_pipes(int **fd_pipes, int index, 
+// static void	child_prepare_pipes(int **fd_pipes, int index,
 // 				int counter_pipes);
 // static void	child_close_pipes_after(int **fd_pipes, int start);
 // static void	child_close_pipes_before(int **fd_pipes, int end);
@@ -62,5 +62,7 @@ int			executor_is_pipe(t_combine *cmd);
 int			executor_is_redirection(t_combine *cmd);
 int			executor_is_heredoc(t_combine *cmd);
 int			executor_is_cmd_path_valid(t_execute *cmd);
+
+int			pipex_skip_non_commands(t_data *data, t_combine *cmd, int index);
 
 #endif	// EXECUTOR_PRIVATE_H

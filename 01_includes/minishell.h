@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/08 10:44:43 by jwillert         ###   ########          */
+/*   Updated: 2023/04/08 13:38:59 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_combine
 typedef struct s_heredoc
 {
 	struct s_heredoc	*next;
-	char				*full_path;
+	//char				*full_path;
 	unsigned long int	hash;
 	int					fd;
 }	t_heredoc;
@@ -100,6 +100,7 @@ typedef struct s_data
 	int				counter_processes;
 	int				index_processes;
 	int				tokens;
+	int				flag_heredoc;
 	int				flag_infile;
 	int				flag_outfile;
 	int				fd_infile;

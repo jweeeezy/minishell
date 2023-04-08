@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/08 12:32:33 by jwillert         ###   ########          */
+/*   Updated: 2023/04/08 13:45:51 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	executor_init(t_data *data)
 
 static int	executor_crossroads(t_data *data)
 {
+	// @note prob need to prehandle here in between pipes
 	if (data->counter_pipes != 0)
 	{
 		if (executor_pipex(data) == ERROR)
@@ -68,12 +69,16 @@ static int	executor_crossroads(t_data *data)
 
 int	executor(t_data *data)
 {
-	if (data->commands_to_process == 0)
+	//if (data->commands_to_process == 0)
+	//{
+	//	return (EXECUTED);
+	//}
+	executor_init(data);
+	printf("counter_processes: %d\n", data->counter_processes);
+	if (data->counter_processes < 1)
 	{
 		return (EXECUTED);
 	}
-	printf("reached\n");
-	executor_init(data);
 	if (data->child_pids == NULL)
 	{
 		return (ERROR);
@@ -88,7 +93,3 @@ int	executor(t_data *data)
 	data->child_pids = NULL;
 	return (EXECUTED);
 }
-
-//	@todo Handle HEREDOC
-//	@todo Handle REDIRECTION
-//	@todo Handle waitpid errors!

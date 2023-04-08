@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/07 17:22:47 by jwillert         ###   ########          */
+/*   Updated: 2023/04/08 14:13:51 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,17 @@ static int	redirector_assign_outfile_append(t_data *data, char *str_filename)
 
 static int	redirector_assign_infile(t_data *data, char *str_filename)
 {
-	if (data->flag_infile == 1)
+	t_heredoc	*next_node;
+
+	if (data->flag_heredoc == 1)
+	{
+		next_node = data->heredoc->next;
+		//free(data->heredoc->full_path);
+		close(data->heredoc->fd);
+		free(data->heredoc);
+		data->heredoc = next_node;
+	}
+	else if (data->flag_infile == 1)
 	{
 		close(data->fd_infile);
 	}
@@ -68,7 +78,34 @@ static int	redirector_assign_infile(t_data *data, char *str_filename)
 		return (ERROR);
 	}
 	data->flag_infile = 1;
+	data->flag_heredoc = 0;
 	free(str_filename);
+	return (EXECUTED);
+}
+
+static int	redirector_assign_heredoc(t_data *data)
+{
+	t_heredoc *next_node;
+
+	if (data->flag_heredoc == 1)
+	{
+		next_node = data->heredoc->next;
+	//	free(data->heredoc->full_path);
+		close(data->heredoc->fd);
+		free(data->heredoc);
+		data->heredoc = next_node;
+	}
+	else if (data->flag_infile == 1)
+	{
+		close(data->fd_infile);
+	}
+	data->fd_infile = data->heredoc->fd;
+	if (data->heredoc->fd < 0)
+	{
+		return (ERROR);
+	}
+	data->flag_heredoc = 1;
+	data->flag_infile = 0;
 	return (EXECUTED);
 }
 
@@ -94,6 +131,11 @@ static int	redirector_crossroads(t_data *data, int index, int flag_redirection)
 	else if (flag_redirection == SHELL_REDIRECTION)
 	{
 		return_value = redirector_assign_outfile_append(data, str_filename);
+	}
+	else if (flag_redirection == HERE_DOC)
+	{
+		free(str_filename);
+		return_value = redirector_assign_heredoc(data);
 	}
 	if (return_value == ERROR)
 	{
@@ -132,13 +174,14 @@ int	redirector_prehandle_redirections(t_data *data, int counter_redirections)
 		token_type = data->combine[index].command->order_numb;
 		if (token_type == COMMAND_TO_FILE
 			|| token_type == FILE_TO_COMMAND
-			|| token_type == SHELL_REDIRECTION)
+			|| token_type == SHELL_REDIRECTION
+			|| token_type == HERE_DOC)
 		{
 			if (redirector_crossroads(data, index, token_type) == ERROR)
 			{
 				return (ERROR);
 			}
-			token_type = WHITE;
+			data->combine[index].command->order_numb = WHITE;
 		}
 		index += 1;
 	}
