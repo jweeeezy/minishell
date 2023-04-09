@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 14:39:11 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/30 12:02:08 by kvebers          ###   ########.fr        #
+#    Updated: 2023/04/09 14:27:11 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,8 @@ SRC_FILES						=	parser.c \
 									parser_utils7.c \
 									parser_utils8.c \
 									parser_error1.c \
-									parser_error2.c 
-									
+									parser_error2.c
+
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ								=	$(addprefix $(OBJ_DIR), $(OBJ_FILES))
@@ -71,5 +71,6 @@ clean:
 										$(REMOVE) $(OBJ)
 fclean:								clean
 										$(REMOVE) $(NAME)
+										$(REMOVE) a.out
 re:									fclean
 										$(MAKE)

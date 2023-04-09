@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:17:16 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/08 12:36:28 by jwillert         ###   ########           #
+#    Updated: 2023/04/09 14:26:41 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,7 @@ clean:
 										$(REMOVE) $(OBJ)
 fclean:								clean
 										$(REMOVE) $(NAME)
+										$(REMOVE) a.out
 re:									fclean
 										$(MAKE)
 test:								$(LIBME)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:18:22 by jwillert          #+#    #+#              #
-#    Updated: 2023/03/29 17:17:07 by kvebers          ###   ########.fr        #
+#    Updated: 2023/04/09 14:27:40 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,5 +65,6 @@ clean:
 										$(REMOVE) $(OBJ)
 fclean:								clean
 										$(REMOVE) $(NAME)
+										$(REMOVE) a.out
 re:									fclean
 										$(MAKE)
