@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/08 14:14:30 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/08 14:57:42 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	executor_pipex(t_data *data)
 			return (ERROR);
 		}
 		index += 1;
-		index += pipex_skip_non_commands(data, data->combine, index);
+		//index += pipex_skip_non_commands(data, data->combine, index);
 		data->index_processes += 1;
 	}
 	free_pipe_array(fd_pipes, data->counter_pipes);

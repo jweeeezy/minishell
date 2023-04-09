@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/08 14:41:41 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/08 14:55:08 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,12 @@ static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 
 int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 {
+
+	if (redirector_prehandle_redirections(data, 0) == ERROR)
+	{
+		return (ERROR);
+	}
+
 	printf("str: [%s]\n", data->combine[index].combined_str);
 
 	index += pipex_skip_non_commands(data, &data->combine[index], index);

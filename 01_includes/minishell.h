@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/08 13:38:59 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/09 13:57:07 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ int		dolla_handler(t_data *data, int cnt, int cnt1);
 int		is_micro_pipe(int c);
 int		count_split(char **split);
 void	split_free(char **split);
+
 /* ************************************************************************** */
 //                                    LEXER
 /* ************************************************************************** */
@@ -145,6 +146,7 @@ char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char);
 int		is_n(char *str);
 int		remove_usless_quotes(t_data *data, int quote_state, int cnt);
 int		remove_usless_quotes2(t_data *data, int quote_state, int cnt);
+
 /* ************************************************************************** */
 //                                    PARSER
 /* ************************************************************************** */
@@ -178,6 +180,8 @@ int		retokenize_arrows(t_data *data);
 /* ************************************************************************** */
 
 int		redirector(t_data *data);
+void	redirector_handler_input(t_data *data);
+void	redirector_handler_output(t_data *data);
 
 /* ************************************************************************** */
 //                                    EXECUTOR
@@ -205,14 +209,6 @@ char	*echo_merge(char *str, size_t cnt, int quote_state);
 /* ************************************************************************** */
 
 void	handle_signal(int sig);
-
-/* ************************************************************************** */
-//                                    REDIRECTOR
-/* ************************************************************************** */
-
-int		redirector_prehandler(t_data *data, int index);
-void	redirector_handler_input(t_data *data);
-void	redirector_handler_output(t_data *data);
 
 /* ************************************************************************** */
 //                                    DEBUG
