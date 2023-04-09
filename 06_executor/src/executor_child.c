@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/08 14:39:19 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/09 15:33:25 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,10 @@ static int	child_execute_extern(t_data *data, int index)
 	if (DEBUG)
 	{
 		printf("t_combine: full_path: [%s]\n\n",
-			data->combine[index].command->full_path);
+			data->combine[index].full_path);
 		printf("Output:\n");
 	}
-	printf("in child [%s]\n", data->combine[index].command->full_path);
-	execve(data->combine[index].command->full_path, cmd_array, data->envp);
+	execve(data->combine[index].full_path, cmd_array, data->envp);
 	free_char_array(cmd_array);
 	perror("execve");
 	return (ERROR);
@@ -72,6 +71,14 @@ void	executor_child(t_data *data, int **fd_pipes, int index,
 	{
 		child_prepare_pipes(fd_pipes, data->index_processes,
 			data->counter_pipes);
+	}
+	else
+	{
+		printf("reached\n");
+		printf("fd_infile %d flag %d\n", data->fd_infile, data->flag_infile);
+		redirector_handler_input(data);
+		printf("fd_infile %d flag %d\n", data->fd_infile, data->flag_infile);
+		redirector_handler_output(data);
 	}
 	if (flag_cmd == BUILTIN)
 	{

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/08 14:13:51 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/09 15:35:30 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ static int	redirector_crossroads(t_data *data, int index, int flag_redirection)
 
 void	redirector_handler_input(t_data *data)
 {
-	if (data->flag_infile == 1)
+	if (data->flag_infile == 1 || data->flag_heredoc == 1)
 	{
 		dup2(data->fd_infile, STDIN_FILENO);
 	}
