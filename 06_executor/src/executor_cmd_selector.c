@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/08 14:55:08 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/09 14:23:18 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include "libft.h"				// needed for ft_split(), ft_strlen()
 #include "libme.h"				// needed for ft_str_check_needle(),
 								// ft_str_join_delimiter()
-
 #include <stdio.h>				// needed for printf()
 
 static char	**selector_get_path_array(char **envp)
@@ -37,7 +36,7 @@ static char	**selector_get_path_array(char **envp)
 	return (path_array);
 }
 
-static int	selector_try_access(t_execute *cmd, char *path, char *command)
+static int	selector_try_access(t_combine *cmd, char *path, char *command)
 {
 	cmd->full_path = ft_str_join_delimiter(path, "/", command);
 	if (cmd->full_path == NULL)
@@ -53,7 +52,7 @@ static int	selector_try_access(t_execute *cmd, char *path, char *command)
 	return (COMMAND_NOT_FOUND);
 }
 
-static int	selector_is_cmd_valid(t_execute *cmd, char **envp)
+static int	selector_is_cmd_valid(t_combine *cmd, char **envp)
 {
 	int		return_value;
 	char	**paths;
@@ -68,7 +67,7 @@ static int	selector_is_cmd_valid(t_execute *cmd, char **envp)
 	while (paths[index] != NULL)
 	{
 		return_value = selector_try_access(cmd, paths[index],
-				cmd->order_str);
+				cmd->first_element);
 		if (return_value != COMMAND_NOT_FOUND)
 		{
 			free_char_array(paths);
@@ -110,22 +109,16 @@ static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 
 int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 {
-
 	if (redirector_prehandle_redirections(data, 0) == ERROR)
 	{
 		return (ERROR);
 	}
-
-	printf("str: [%s]\n", data->combine[index].combined_str);
-
 	index += pipex_skip_non_commands(data, &data->combine[index], index);
 	while ((data->combine[index].combined_str != NULL && data->combine[index].command->order_numb != STRING
 		&& is_builtin(data->combine[index].command->order_numb) == 0))
 	{
 		index += 1;
 	}
-	printf("index in cmd_selector: [%d]\n", index);
-	printf("str: [%s]\n", data->combine[index].combined_str);
 	if (is_builtin(data->combine[index].command->order_numb) == 1)
 	{
 		if (selector_fork_and_execute(data, fd_pipes, index, BUILTIN) == ERROR)
@@ -133,7 +126,7 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 			return (ERROR);
 		}
 	}
-	else if (executor_is_cmd_path_valid(data->combine[index].combined_str) == EXTERN)
+	else if (executor_is_cmd_path_valid(&data->combine[index]) == EXTERN)
 	{
 		if (selector_fork_and_execute(data, fd_pipes, index, EXTERN) == ERROR)
 		{
@@ -141,7 +134,7 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 		}
 	}
 	else if (selector_fork_and_execute(data, fd_pipes, index,
-			selector_is_cmd_valid(data->combine[index].combined_str,
+			selector_is_cmd_valid(&data->combine[index],
 				data->envp)) == ERROR)
 	{
 		return (ERROR);

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:22:50 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/08 13:55:23 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/09 14:23:42 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			executor_count_heredocs(t_data *data);
 int			executor_is_pipe(t_combine *cmd);
 int			executor_is_redirection(t_combine *cmd);
 int			executor_is_heredoc(t_combine *cmd);
-int			executor_is_cmd_path_valid(t_execute *cmd);
+int			executor_is_cmd_path_valid(t_combine *cmd);
 
 int			pipex_skip_non_commands(t_data *data, t_combine *cmd, int index);
 

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/09 13:57:07 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/09 14:22:01 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ typedef struct s_combine
 {
 	t_execute	*command;
 	char		*combined_str;
+	char		*first_element;
+	char		*full_path;
 	int			count_n;
 }	t_combine;
 
@@ -182,6 +184,7 @@ int		retokenize_arrows(t_data *data);
 int		redirector(t_data *data);
 void	redirector_handler_input(t_data *data);
 void	redirector_handler_output(t_data *data);
+int		redirector_prehandle_redirections(t_data *data, int counter_redirections);
 
 /* ************************************************************************** */
 //                                    EXECUTOR
@@ -204,6 +207,7 @@ int		echo_n_quote_state(char *str, int cnt, int quote_state);
 char	*ft_charjoin(char *temp, char c, size_t cnt1, size_t cnt2);
 char	*echo_n_helper(t_data *data, int cnt, char *comb);
 char	*echo_merge(char *str, size_t cnt, int quote_state);
+
 /* ************************************************************************** */
 //                                    SIGNALS
 /* ************************************************************************** */
