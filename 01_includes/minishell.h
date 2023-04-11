@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/11 14:39:02 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:51:56 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_combine
 typedef struct s_heredoc
 {
 	struct s_heredoc	*next;
-	//char				*full_path;
+	char				*full_path;
 	unsigned long int	hash;
 	int					fd;
 }	t_heredoc;

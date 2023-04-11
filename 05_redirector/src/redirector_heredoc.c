@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/11 18:40:01 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:55:02 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	heredoc_create_hash(char *string_to_hash)
 int	heredoc_create_file(t_heredoc *node_to_edit)
 {
 	char	*path;
-	char	*file;
+//	char	*file;
 	char	*hash_str;
 	char	*temp;
 
@@ -71,21 +71,20 @@ int	heredoc_create_file(t_heredoc *node_to_edit)
 		free(path);
 		return (ERROR);
 	}
-	file = ft_strjoin(path, hash_str);
+	node_to_edit->full_path = ft_strjoin(path, hash_str);
 	free(path);
 	free(hash_str);
-	if (file == NULL)
+	if (node_to_edit->full_path == NULL)
 	{
 		return (ERROR);
 	}
-	node_to_edit->fd = open(file, O_RDWR | O_CREAT | O_APPEND, 0666);
+	node_to_edit->fd = open(node_to_edit->full_path, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	//perror("open");
 	if (node_to_edit->fd < 0)
 	{
-		free(file);
+		free(node_to_edit->full_path);
 		return (ERROR);
 	}
-	free(file);
 	return (EXECUTED);
 }
 
@@ -195,12 +194,14 @@ int	redirector_prehandle_heredocs(t_data *data, int counter_heredocs)
 				{
 					exit(ERROR);
 				}
+				close(current_node->fd);
 				exit(EXECUTED);
 			}
 			else
 			{
 				wait(NULL);
 				counter_heredocs -= 1;
+				close(current_node->fd);
 			}
 		}
 		index += 1;
