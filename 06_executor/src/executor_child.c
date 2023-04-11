@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/11 14:02:22 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:22:47 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,9 @@ void	executor_child(t_data *data, int **fd_pipes, int index,
 	}
 	else
 	{
-		//printf("reached\n");
-		printf("fd_infile %d flag %d\n", data->fd_infile, data->flag_infile);
-		printf("fd_infile %d flag %d\n", data->heredoc->fd, data->flag_heredoc);
+		printf("yup\n");
+		printf("%d\n", data->fd_infile);
 		redirector_handler_input(data);
-		printf("fd_infile %d flag %d\n", data->heredoc->fd, data->flag_heredoc);
-		//printf("fd_infile %d flag %d\n", data->fd_infile, data->flag_infile);
 		redirector_handler_output(data);
 	}
 	if (flag_cmd == BUILTIN)

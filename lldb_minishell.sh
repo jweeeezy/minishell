@@ -4,6 +4,6 @@
 #	breakpoint before continuing the process
 
 lldb -s <(echo "process attach -name minishell --waitfor") \
--o "b redirector_handler_input" \
+-o "b redirector_assign_heredoc" \
 -o "process continue"
 

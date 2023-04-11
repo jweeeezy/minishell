@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/11 14:42:51 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:45:37 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	redirector_assign_infile(t_data *data, char *str_filename)
 {
 	t_heredoc	*next_node;
 
-	if (data->flag_heredoc == 1)
+	if (data->flag_heredoc == 1 && data->flag_infile == 0)
 	{
 		next_node = data->heredoc->next;
 		//free(data->heredoc->full_path);
@@ -85,33 +85,28 @@ static int	redirector_assign_infile(t_data *data, char *str_filename)
 
 static int	redirector_assign_heredoc(t_data *data)
 {
-	t_heredoc *next_node;
+	// t_heredoc *next_node;
 
-	if (data->flag_heredoc == 1)
-	{
-		next_node = data->heredoc->next;
-	//	free(data->heredoc->full_path);
-		close(data->heredoc->fd);
-		free(data->heredoc);
-		data->heredoc = next_node;
-	}
-	else if (data->flag_infile == 1)
-	{
-		close(data->fd_infile);
-	}
-//	data->fd_infile = dup(data->heredoc->fd);
-
-	data->fd_infile = data->heredoc->fd;
-	if (data->heredoc->fd < 0)
-	{
-		return (ERROR);
-	}
+	// if (data->flag_heredoc == 1 && data->flag_infile == 0)
+	// {
+	// 	next_node = data->heredoc->next;
+	// //	free(data->heredoc->full_path);
+	// 	close(data->heredoc->fd);
+	// 	free(data->heredoc);
+	// 	data->heredoc = next_node;
+	// }
+	// else if (data->flag_infile == 1)
+	// {
+	// 	close(data->fd_infile);
+	// }
+	//	data->fd_infile = dup(data->heredoc->fd);
+	data->fd_infile = dup(data->heredoc->fd);
+	// if (data->heredoc->fd < 0)
+	// {
+	// 	return (ERROR);
+	// }
 	data->flag_heredoc = 1;
 	data->flag_infile = 0;
-	//printf("%d\n", data->flag_heredoc);
-	//printf("%d\n", data->flag_infile);
-	//printf("%d\n", data->fd_infile);
-	//printf("%d\n", data->heredoc->fd);
 	return (EXECUTED);
 }
 
@@ -154,6 +149,7 @@ void	redirector_handler_input(t_data *data)
 {
 	if (data->flag_infile == 1 || data->flag_heredoc == 1)
 	{
+		printf("input handler happenend\n");
 		dup2(data->fd_infile, STDIN_FILENO);
 	}
 }
@@ -162,6 +158,7 @@ void	redirector_handler_output(t_data *data)
 {
 	if (data->flag_outfile == 1)
 	{
+		printf("output handler happenend\n");
 		dup2(data->fd_outfile, STDOUT_FILENO);
 	}
 }

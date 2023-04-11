@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:11:31 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/08 13:17:12 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:09:38 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	argument_protection(t_data *data, int argc, char **argv, char **envp)
 	data->heredoc = NULL;
 	data->flag_infile = 0;
 	data->flag_outfile = 0;
+	data->flag_heredoc = 0;
 	data->fd_infile = 0;
 	data->fd_outfile = 1;
 	return (EXECUTED);

@@ -6,13 +6,14 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/11 14:39:57 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:25:04 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"			// needed for t_data, MACROS
 #include "executor_private.h"	// needed for executor_*()
 #include <stdio.h>
+#include <unistd.h>
 
 static int	executor_wait_for_childs(t_data *data)
 {

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/08 14:07:56 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 14:55:46 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ int	main(int argc, char **argv, char **envp)
 			}
 			if (executor(&data) == ERROR)
 			{
-				if (DEBUG)
-					printf("Execution error\n");
+				printf("Execution error\n");
 			}
 		}
 		free_loop(&data);
