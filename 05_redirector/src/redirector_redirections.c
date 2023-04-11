@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/11 15:45:37 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:27:49 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,6 @@ void	redirector_handler_input(t_data *data)
 {
 	if (data->flag_infile == 1 || data->flag_heredoc == 1)
 	{
-		printf("input handler happenend\n");
 		dup2(data->fd_infile, STDIN_FILENO);
 	}
 }
@@ -158,7 +157,6 @@ void	redirector_handler_output(t_data *data)
 {
 	if (data->flag_outfile == 1)
 	{
-		printf("output handler happenend\n");
 		dup2(data->fd_outfile, STDOUT_FILENO);
 	}
 }

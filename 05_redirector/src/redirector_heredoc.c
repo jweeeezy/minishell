@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/11 14:29:23 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:27:23 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ int	heredoc_open_heredoc(t_data *data, int index, t_heredoc *current_node)
 		return (ERROR);
 	}
 	heredoc_delimiter = heredoc_get_delimiter(data, index);
-	printf("delimiter: [%s]\n", heredoc_delimiter);
 	while (1)
 	{
 		heredoc_line = readline(">");

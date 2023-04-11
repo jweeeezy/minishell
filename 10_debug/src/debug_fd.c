@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 14:34:33 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/11 14:40:23 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:28:41 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,19 @@ void	debug_fds(int max)
 	int	fd;
 	int	flags;
 
-	fd = 0;
-	flags = -1;
-	printf("List of used fd:\n");
-	while (fd < max)
+	if (DEBUG)
 	{
-		flags = fcntl(fd, F_GETFL);
-		if (flags != -1)
+		fd = 0;
+		flags = -1;
+		printf("List of used fd:\n");
+		while (fd < max)
 		{
-			printf("%d\n", fd);
+			flags = fcntl(fd, F_GETFL);
+			if (flags != -1)
+			{
+				printf("%d\n", fd);
+			}
+			fd += 1;
 		}
-		fd += 1;
 	}
 }
