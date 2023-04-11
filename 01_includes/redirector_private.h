@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:34:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/11 19:48:27 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:11:27 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ t_heredoc	*heredoc_create_lst(t_data *data);
 int	heredoc_open_heredoc(t_data *data, int index, t_heredoc *current_node);
 t_heredoc	*redirector_heredoc_update_lst(t_data *data);
 int	redirector_prehandle_heredocs(t_data *data, int counter_heredocs);
-
+int	redirector_fork_and_open_heredoc(t_data *data, int index,
+		int counter_heredocs);
 
 
 //		MAIN

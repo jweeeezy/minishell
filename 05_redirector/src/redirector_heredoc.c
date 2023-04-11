@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/11 18:55:02 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:10:23 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	heredoc_create_hash(char *string_to_hash)
 	int					value;
 
 	value = ft_atoi(string_to_hash);
-	while(*string_to_hash != '\0')
+	while (*string_to_hash != '\0')
 	{
 		hash = ((hash << 5) + hash) + *string_to_hash;
 		string_to_hash += 1;
@@ -50,10 +50,9 @@ int	heredoc_create_hash(char *string_to_hash)
 	return (hash * value);
 }
 
-int	heredoc_create_file(t_heredoc *node_to_edit)
+int	heredoc_get_full_path(t_heredoc *node_to_edit)
 {
 	char	*path;
-//	char	*file;
 	char	*hash_str;
 	char	*temp;
 
@@ -74,12 +73,21 @@ int	heredoc_create_file(t_heredoc *node_to_edit)
 	node_to_edit->full_path = ft_strjoin(path, hash_str);
 	free(path);
 	free(hash_str);
+	return (EXECUTED);
+}
+
+int	heredoc_create_file(t_heredoc *node_to_edit)
+{
+	if (heredoc_get_full_path(node_to_edit) == ERROR)
+	{
+		return (ERROR);
+	}
 	if (node_to_edit->full_path == NULL)
 	{
 		return (ERROR);
 	}
-	node_to_edit->fd = open(node_to_edit->full_path, O_WRONLY | O_CREAT | O_APPEND, 0666);
-	//perror("open");
+	node_to_edit->fd = open(node_to_edit->full_path,
+			O_WRONLY | O_CREAT | O_APPEND, 0666);
 	if (node_to_edit->fd < 0)
 	{
 		free(node_to_edit->full_path);
@@ -125,11 +133,36 @@ t_heredoc	*heredoc_create_lst(t_data *data)
 	return (node_to_edit);
 }
 
+int	heredoc_loop(t_heredoc *current_node, char *heredoc_delimiter)
+{
+	char	*heredoc_line;
+
+	heredoc_line = readline(">");
+	if (heredoc_line == NULL)
+	{
+		return (ERROR);
+	}
+	if (heredoc_delimiter != NULL)
+	{
+		if (ft_strncmp(heredoc_line, heredoc_delimiter,
+				ft_strlen(heredoc_delimiter)) == 0)
+		{
+			ft_putstr_fd("\0", current_node->fd);
+			free(heredoc_line);
+			return (1);
+		}
+	}
+	ft_putstr_fd(heredoc_line, current_node->fd);
+	ft_putstr_fd("\n", current_node->fd);
+	return (EXECUTED);
+}
+
 int	heredoc_open_heredoc(t_data *data, int index, t_heredoc *current_node)
 {
-	char		*heredoc_line;
-	char		*heredoc_delimiter;
+	int		return_value;
+	char	*heredoc_delimiter;
 
+	return_value = 0;
 	if (current_node == NULL)
 	{
 		heredoc_clean_lst(data, -1);
@@ -138,31 +171,18 @@ int	heredoc_open_heredoc(t_data *data, int index, t_heredoc *current_node)
 	heredoc_delimiter = heredoc_get_delimiter(data, index);
 	while (1)
 	{
-		heredoc_line = readline(">");
-		if (heredoc_line == NULL)
+		return_value = heredoc_loop(current_node, heredoc_delimiter);
+		if (return_value != EXECUTED)
 		{
-			return (ERROR);
+			break ;
 		}
-		if (heredoc_delimiter != NULL)
-		{
-			if (ft_strncmp(heredoc_line, heredoc_delimiter,
-					ft_strlen(heredoc_delimiter)) == 0)
-			{
-				ft_putstr_fd("\0", current_node->fd);
-				break ;
-			}
-		}
-		ft_putstr_fd(heredoc_line, current_node->fd);
-		ft_putstr_fd("\n", current_node->fd);
-		free(heredoc_line);
 	}
-	free(heredoc_line);
-	return (EXECUTED);
+	return (return_value);
 }
 
 t_heredoc	*redirector_heredoc_update_lst(t_data *data)
 {
-	t_heredoc *current_node;
+	t_heredoc	*current_node;
 
 	if (data->heredoc == NULL)
 	{
@@ -170,42 +190,54 @@ t_heredoc	*redirector_heredoc_update_lst(t_data *data)
 	}
 	else
 	{
-		current_node = heredoc_add_back(data->heredoc, heredoc_create_lst(data));
+		current_node = heredoc_add_back(data->heredoc,
+				heredoc_create_lst(data));
 	}
 	return (current_node);
+}
+
+int	redirector_fork_and_open_heredoc(t_data *data, int index,
+		int counter_heredocs)
+{
+	t_heredoc	*current_node;
+	int			id;
+
+	current_node = redirector_heredoc_update_lst(data);
+	id = fork();
+	if (id == 0)
+	{
+		if (heredoc_open_heredoc(data, index, current_node) == ERROR)
+		{
+			exit(ERROR);
+		}
+		close(current_node->fd);
+		exit(EXECUTED);
+	}
+	else
+	{
+		wait(NULL);
+		close(current_node->fd);
+	}
+	return (EXECUTED);
 }
 
 int	redirector_prehandle_heredocs(t_data *data, int counter_heredocs)
 {
 	int				index;
-	int				id;
-	t_heredoc		*current_node;
 
 	index = 0;
 	while (data->combine[index].combined_str != NULL && counter_heredocs > 0)
 	{
 		if (data->combine[index].command->order_numb == HERE_DOC)
 		{
-			current_node = redirector_heredoc_update_lst(data);
-			id = fork();
-			if (id == 0)
+			if (redirector_fork_and_open_heredoc(data, index,
+					counter_heredocs) == ERROR)
 			{
-				if (heredoc_open_heredoc(data, index, current_node) == ERROR)
-				{
-					exit(ERROR);
-				}
-				close(current_node->fd);
-				exit(EXECUTED);
+				return (ERROR);
 			}
-			else
-			{
-				wait(NULL);
-				counter_heredocs -= 1;
-				close(current_node->fd);
-			}
+			counter_heredocs -= 1;
 		}
 		index += 1;
 	}
 	return (EXECUTED);
 }
-
