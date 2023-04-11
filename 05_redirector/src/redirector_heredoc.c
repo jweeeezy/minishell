@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/11 17:27:23 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:40:01 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ int	redirector_prehandle_heredocs(t_data *data, int counter_heredocs)
 	t_heredoc		*current_node;
 
 	index = 0;
-	while (index < counter_heredocs)
+	while (data->combine[index].combined_str != NULL && counter_heredocs > 0)
 	{
 		if (data->combine[index].command->order_numb == HERE_DOC)
 		{
@@ -200,6 +200,7 @@ int	redirector_prehandle_heredocs(t_data *data, int counter_heredocs)
 			else
 			{
 				wait(NULL);
+				counter_heredocs -= 1;
 			}
 		}
 		index += 1;
