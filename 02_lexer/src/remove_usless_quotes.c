@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_usless_quotes.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:28 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/31 10:41:37 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/11 13:36:07 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	remove_usless_quotes3(char *str, int *numb, int cnt)
 	cnt = 0;
 	while (str[cnt] != '\0')
 	{
-		printf("%i %c\n", numb[cnt], str[cnt]);
+		//printf("%i %c\n", numb[cnt], str[cnt]);
 		cnt++;
 	}
 }

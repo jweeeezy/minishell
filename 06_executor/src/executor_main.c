@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/08 13:45:51 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 14:39:57 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	executor(t_data *data)
 	//	return (EXECUTED);
 	//}
 	executor_init(data);
-	printf("counter_processes: %d\n", data->counter_processes);
+	//printf("counter_processes: %d\n", data->counter_processes);
 	if (data->counter_processes < 1)
 	{
 		return (EXECUTED);
@@ -83,6 +83,7 @@ int	executor(t_data *data)
 	{
 		return (ERROR);
 	}
+	debug_fds(5);
 	if (executor_crossroads(data) == ERROR)
 	{
 		free(data->child_pids);

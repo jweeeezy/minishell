@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/09 14:22:01 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 14:39:02 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,5 +229,6 @@ void	debug_print_t_execute(t_data *data,	t_execute *execute);
 void	debug_print_t_vector_str(t_vector_str *vector_to_print);
 void	debug_print_t_combine(t_data *data);
 void	debug_print_pipe_status(char *message, int **fd_pipes);
+void	debug_fds(int max);
 
 #endif  // MINISHELL_H

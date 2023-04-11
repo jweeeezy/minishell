@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/08 14:04:03 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 14:29:23 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ int	heredoc_create_file(t_heredoc *node_to_edit)
 		free(path);
 		return (ERROR);
 	}
-
-	// type cast to unsigned long int?
 	file = ft_strjoin(path, hash_str);
 	free(path);
 	free(hash_str);
@@ -152,10 +150,12 @@ int	heredoc_open_heredoc(t_data *data, int index, t_heredoc *current_node)
 			if (ft_strncmp(heredoc_line, heredoc_delimiter,
 					ft_strlen(heredoc_delimiter)) == 0)
 			{
+				ft_putstr_fd("\0", current_node->fd);
 				break ;
 			}
 		}
 		ft_putstr_fd(heredoc_line, current_node->fd);
+		ft_putstr_fd("\n", current_node->fd);
 		free(heredoc_line);
 	}
 	free(heredoc_line);

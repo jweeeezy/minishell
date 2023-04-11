@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/09 15:35:30 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 14:42:51 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ static int	redirector_assign_heredoc(t_data *data)
 	{
 		close(data->fd_infile);
 	}
+//	data->fd_infile = dup(data->heredoc->fd);
+
 	data->fd_infile = data->heredoc->fd;
 	if (data->heredoc->fd < 0)
 	{
@@ -106,6 +108,10 @@ static int	redirector_assign_heredoc(t_data *data)
 	}
 	data->flag_heredoc = 1;
 	data->flag_infile = 0;
+	//printf("%d\n", data->flag_heredoc);
+	//printf("%d\n", data->flag_infile);
+	//printf("%d\n", data->fd_infile);
+	//printf("%d\n", data->heredoc->fd);
 	return (EXECUTED);
 }
 
