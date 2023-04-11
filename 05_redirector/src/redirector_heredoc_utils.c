@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:05:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/08 13:56:21 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:43:17 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@ void	heredoc_clean_lst(t_data *data, int flag_input)
 	while (current_node != NULL)
 	{
 		next = current_node->next;
-		//free(current_node->full_path);
-		//current_node->full_path = NULL;
-		// @note mb the other way around if parent immediately writes to pipe
+		free(current_node->full_path);
+		current_node->full_path = NULL;
 		free(current_node);
 		current_node = next;
 		index += 1;
@@ -50,7 +49,7 @@ t_heredoc	*heredoc_get_new_node(void)
 		return (NULL);
 	}
 	new_node->fd = -1;
-	//new_node->full_path = NULL;
+	new_node->full_path = NULL;
 	new_node->next = NULL;
 	return (new_node);
 }
