@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:17:16 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/09 14:26:41 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/12 16:28:12 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC_FILES						=	redirector_main.c\
 									redirector_utils.c\
 									redirector_redirections.c\
 									redirector_heredoc_utils.c\
+									redirector_heredoc_lst_utils.c\
 									redirector_heredoc.c
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR),$(SRC_FILES))

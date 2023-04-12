@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:05:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/11 19:43:17 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:21:28 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,97 +14,66 @@
 #include "minishell.h"		// needed for t_heredoc
 #include <unistd.h>			// needed for open(), close()
 
-void	heredoc_clean_lst(t_data *data, int flag_input)
+char	*heredoc_get_delimiter(t_data *data, int index)
 {
-	t_heredoc	*current_node;
-	t_heredoc	*next;
-	int			index;
+	char	*delimiter;
 
-	index = 0;
-	(void)flag_input;
-	current_node = data->heredoc;
-	if (current_node == NULL)
+	delimiter = data->combine[index].combined_str + 2;
+	if (*delimiter == '\0')
 	{
-		return ;
+		delimiter = NULL;
 	}
-	next = current_node->next;
-	while (current_node != NULL)
-	{
-		next = current_node->next;
-		free(current_node->full_path);
-		current_node->full_path = NULL;
-		free(current_node);
-		current_node = next;
-		index += 1;
-	}
+	return (delimiter);
 }
 
-t_heredoc	*heredoc_get_new_node(void)
+int	heredoc_check_duplicate_hash(t_heredoc *head, t_heredoc *node_to_compare)
 {
-	t_heredoc	*new_node;
-
-	new_node = malloc (sizeof (t_heredoc));
-	if (new_node == NULL)
+	while (head != NULL)
 	{
-		return (NULL);
-	}
-	new_node->fd = -1;
-	new_node->full_path = NULL;
-	new_node->next = NULL;
-	return (new_node);
-}
-
-t_heredoc	*heredoc_add_back(t_heredoc *lst_to_expand, t_heredoc *node_to_add)
-{
-	if (lst_to_expand == NULL || node_to_add == NULL)
-	{
-		return (NULL);
-	}
-	while (lst_to_expand->next != NULL)
-	{
-		lst_to_expand = lst_to_expand->next;
-	}
-	lst_to_expand->next = node_to_add;
-	return (node_to_add);
-}
-
-t_heredoc	*heredoc_get_node_by_index(t_heredoc *lst_to_loop, int index)
-{
-	if (lst_to_loop == NULL)
-	{
-		return (NULL);
-	}
-	if (index < 0)
-	{
-		while (lst_to_loop->next != NULL)
+		if (head == node_to_compare)
 		{
-			lst_to_loop = lst_to_loop->next;
+			head = head->next;
 		}
-		return (lst_to_loop);
-	}
-	else
-	{
-		while (lst_to_loop->next != NULL && index > 0)
+		if (node_to_compare->hash == head->hash)
 		{
-			lst_to_loop = lst_to_loop->next;
+			return (1);
 		}
-		return (lst_to_loop);
+		head = head->next;
 	}
+	return (0);
 }
 
-int	heredoc_count_nodes(t_heredoc *lst_to_loop)
+int	heredoc_create_hash(char *string_to_hash)
 {
-	int	length;
+	unsigned long int	hash;
+	int					value;
 
-	length = 0;
-	if (lst_to_loop == NULL)
+	value = ft_atoi(string_to_hash);
+	while (*string_to_hash != '\0')
 	{
-		return (0);
+		hash = ((hash << 5) + hash) + *string_to_hash;
+		string_to_hash += 1;
 	}
-	while (lst_to_loop->next != NULL)
+	return (hash * value);
+}
+
+int	heredoc_get_full_path(t_heredoc *node_to_edit)
+{
+	char	*temp;
+
+	temp = ft_itoa_unsigned_long((unsigned long int) node_to_edit);
+	while (node_to_edit->hash == 0
+		&& heredoc_check_duplicate_hash(data->heredoc, node_to_edit) == 1)
 	{
-		lst_to_loop = lst_to_loop->next;
-		length += 1;
+		note_to_edit->hash = heredoc_create_hash(temp);
 	}
-	return (length);
+	free(temp);
+	temp = ft_itoa_unsigned_long(node_to_edit->hash);
+	if (temp == NULL)
+	{
+		return (ERROR);
+	}
+	node_to_edit->full_path = ft_strjoin("/tmp/", temp);
+	free(temp);
+	return (EXECUTED);
 }

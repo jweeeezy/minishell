@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/11 18:54:17 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:14:05 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,3 +191,6 @@ int	redirector_prehandle_redirections(t_data *data, int counter_redirections)
 
 // @note close file descriptors!
 // @note free array/string
+
+
+//	@todo needs OVERHAUL!
