@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:05:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 19:22:53 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:38:01 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,7 @@ static int	heredoc_check_duplicate_hash(t_heredoc *head,
 {
 	while (head != NULL)
 	{
-		if (head == node_to_compare)
-		{
-			head = head->next;
-		}
-		if (node_to_compare->hash == head->hash)
+		if (head != node_to_compare && node_to_compare->hash == head->hash)
 		{
 			return (1);
 		}

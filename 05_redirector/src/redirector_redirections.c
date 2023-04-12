@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 19:20:21 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:26:35 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ static int	redirector_assign_heredoc(t_data *data, char *str_filename)
 	return (EXECUTED);
 }
 
-static int	redirector_crossroads(t_data *data, int flag_redirection, char *str_filename)
+static int	redirector_crossroads(t_data *data, int flag_redirection,
+				char *str_filename)
 {
 	int		return_value;
 
@@ -114,7 +115,8 @@ static int	redirector_crossroads(t_data *data, int flag_redirection, char *str_f
 	if (flag_redirection == COMMAND_TO_FILE
 		|| flag_redirection == SHELL_REDIRECTION)
 	{
-		return_value = redirector_assign_outfile(data, flag_redirection, str_filename);
+		return_value = redirector_assign_outfile(data, flag_redirection,
+				str_filename);
 	}
 	else if (flag_redirection == FILE_TO_COMMAND)
 	{
