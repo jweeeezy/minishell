@@ -6,12 +6,13 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:11:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 18:46:39 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:09:33 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"		// needed for t_data, MACROS
-#include "libft.h"			// needed for ft_split
+#include "libft.h"			// needed for ft_split()
+#include <stdlib.h>			// needed for free()
 
 char	*redirector_get_filename(t_data *data, int index)
 {

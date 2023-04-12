@@ -6,18 +6,19 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 17:07:07 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:08:40 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "redirector_private.h"
-#include "minishell.h"		// needed for t_data
-#include "libft.h"			// needed for ft_strncmp(), ft_strlen()
-#include <fcntl.h>			// needed for open()
-#include <time.h>			// needed for time()
-#include <unistd.h>			// needed for pipe(), open(), close()
-#include <readline/readline.h>
-#include <readline/history.h>
+#include "redirector.h"			// needed for heredoc_*()
+#include "executor.h"			// needed for executor_count_heredocs()
+#include "minishell.h"			// needed for t_data
+#include "libft.h"				// needed for ft_strncmp(), ft_strlen(),
+								// ft_putstr_fd()
+#include <fcntl.h>				// needed for open()
+#include <unistd.h>				// needed for close(), fork()
+#include <readline/readline.h>	// needed for readline()
+#include <readline/history.h>	// @note heredoc history?
 
 static char	*heredoc_get_delimiter(t_data *data, int index)
 {

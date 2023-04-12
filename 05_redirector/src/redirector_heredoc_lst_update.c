@@ -6,13 +6,16 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:05:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 18:18:02 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:06:24 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>			// needed for malloc(), free(), NULL
 #include "minishell.h"		// needed for t_heredoc
-#include <unistd.h>			// needed for open(), close()
+#include <fcntl.h>			// needed for open()
+#include <unistd.h>			// needed for close()
+#include "libft.h"			// needed for ft_atoi(), ft_strjoin()
+#include "libme.h"			// needed for ft_itoa_unsigned_long
 
 static int	heredoc_check_duplicate_hash(t_heredoc *head,
 				t_heredoc *node_to_compare)

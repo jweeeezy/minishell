@@ -6,15 +6,15 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 18:43:07 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:11:32 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"	// needed for t_data, MACROS
 #include <fcntl.h>		// needed for open()
-#include <unistd.h>		// needed for open(), close()
-#include <stdio.h>		// needed for printf(), perror()
-#include "redirector_private.h"
+#include <unistd.h>		// needed for close(), free(), NULL
+#include <stdio.h>		// needed for perror()
+#include "redirector.h"	// needed for redirector_*()
 
 static int	redirector_assign_outfile(t_data *data, int flag_redirection,
 				char *str_filename)
