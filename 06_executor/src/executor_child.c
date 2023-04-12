@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/11 17:26:01 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:42:59 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static int	child_execute_extern(t_data *data, int index)
 	return (ERROR);
 }
 
+
+
 void	executor_child(t_data *data, int **fd_pipes, int index,
 			int flag_cmd)
 {
@@ -68,8 +70,8 @@ void	executor_child(t_data *data, int **fd_pipes, int index,
 	}
 	else
 	{
-		redirector_handler_input(data);
-		redirector_handler_output(data);
+		child_handle_indirection(data);
+		child_handle_outdirection(data);
 	}
 	if (flag_cmd == BUILTIN)
 	{

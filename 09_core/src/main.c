@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/11 14:55:46 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:51:03 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		if (parser(&data) != ERROR)
 		{
-			if (redirector(&data) == ERROR)
+			if (redirector_prehandle_heredocs(&data) == ERROR)
 			{
 				printf("Redirection error\n");
 			}

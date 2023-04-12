@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/09 14:23:18 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:54:30 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 
 int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 {
-	if (redirector_prehandle_redirections(data, 0) == ERROR)
+	if (redirector_handle_redirections(data) == ERROR)
 	{
 		return (ERROR);
 	}

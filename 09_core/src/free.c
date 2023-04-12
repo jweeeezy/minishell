@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/29 18:13:54 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/12 16:33:11 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,20 @@ void	free_pipe_array(int **array, int size)
 		index += 1;
 	}
 	free(array);
+}
+
+void	free_t_heredoc(t_data *data)
+{
+	t_heredoc 	*current_node;
+	t_heredoc	*next_node;
+
+	current_node = data->heredoc;
+	while (current_node != NULL)
+	{
+		next_node = current_node->next;
+		free(current_node->full_path);
+		free(current_node);
+		current_node = next_node;
+	}
+	data->heredoc = NULL;
 }

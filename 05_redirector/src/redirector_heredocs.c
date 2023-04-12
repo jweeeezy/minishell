@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 16:26:40 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:51:47 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,13 @@ static int	heredoc_fork_and_open(t_data *data, int index,
 	return (EXECUTED);
 }
 
-int	redirector_prehandle_heredocs(t_data *data, int counter_heredocs)
+int	redirector_prehandle_heredocs(t_data *data)
 {
-	int				index;
+	int	index;
+	int	counter_heredocs;
 
 	index = 0;
+	counter_heredocs = executor_count_heredocs(data);
 	while (data->combine[index].combined_str != NULL && counter_heredocs > 0)
 	{
 		if (data->combine[index].command->order_numb == HERE_DOC)
