@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:05:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 19:38:01 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 21:36:21 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	heredoc_get_full_path(t_data *data, t_heredoc *node_to_edit)
 
 	temp = ft_itoa_unsigned_long((unsigned long int) node_to_edit);
 	while (node_to_edit->hash == 0
-		&& heredoc_check_duplicate_hash(data->heredoc, node_to_edit) == 1)
+		&& heredoc_check_duplicate_hash(data->heredoc, node_to_edit) != 1)
 	{
 		node_to_edit->hash = heredoc_create_hash(temp);
 	}
