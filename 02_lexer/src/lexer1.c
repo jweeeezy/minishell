@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:18:28 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/03 22:53:42 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/11 20:08:00 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,64 @@
 #include "libft.h"      //  needed for ft_strdup()
 #include <stdio.h>
 
-void	determin_helper(char *str, int *numb, int *numb1, t_var *var)
+void	determine_quote_state3(char *str, int *numb, int *numb1, int last)
 {
-	if (var->blob_state == 0 && (var->last == '<' || var->last == '>'))
+	int	cnt;
+
+	cnt = 0;
+	while (str[cnt] != '\0')
 	{
-		while (str[var->cnt] != '\0' && numb[var->cnt] == 1)
+		if (numb[cnt] == 60 || numb[cnt] == 62)
 		{
-			numb1[var->cnt] = var->cnt1;
-			var->cnt++;
+			last = numb[cnt];
+			while (str[cnt] != '\0' && last == numb[cnt])
+				cnt++;
+			while (str[cnt] != '\0' && numb[cnt] == 1)
+			{
+				numb1[cnt] = numb1[cnt] - 1;
+				cnt++;
+			}
+			while (str[cnt] != '\0' && (numb[cnt] == 0
+					|| numb[cnt] == 34 || numb[cnt] == 39))
+			{
+				numb1[cnt] = numb1[cnt] - 1;
+				cnt++;
+			}
 		}
-		while (str[var->cnt] != '\0' && (numb[var->cnt] == 0
-				|| numb[var->cnt] == 34 || numb[var->cnt] == 39))
-		{
-			numb1[var->cnt] = var->cnt1;
-			var->cnt++;
-		}
-		var->blob_state = 1;
+		else
+			cnt++;
 	}
-	else if (var->blob_state == 0 && var->last == '|')
-		var->blob_state = 1;
 }
 
-void	determine_quote_state1(char *str, int *numb, t_var *var, int *numb1)
+void	determine_quote_state2(char *str, int *numb1)
 {
+	int	cnt;
+
+	cnt = 0;
+	if (str[cnt] != '\0' && numb1[cnt] == 0)
+		return ;
+	while (str[cnt] != '\0')
+	{
+		numb1[cnt] = numb1[cnt] - 1;
+		cnt++;
+	}
+}
+
+void	determine_quote_state1(char *str, int *numb, t_var	*var, int *numb1)
+{
+	if (str[var->cnt] != '\0')
+		var->last = numb[var->cnt];
 	while (str[var->cnt] != '\0')
 	{
-		if (str[var->cnt] == '<' || str[var->cnt] == '>'
-			|| str[var->cnt] == '|')
+		if (numb[var->cnt] >= 60)
 		{
-			if (var->cnt1 != 0)
-				var->cnt1++;
-			var->last = str[var->cnt];
-			var->blob_state = 0;
-			while (str[var->cnt] != '\0' && numb[var->cnt] == var->last)
+			var->cnt1++;
+			var->last = numb[var->cnt];
+			while (str[var->cnt] != '\0' && var->last == numb[var->cnt])
 			{
 				numb1[var->cnt] = var->cnt1;
 				var->cnt++;
 			}
-			determin_helper(str, numb, numb1, var);
 			var->cnt1++;
 		}
 		else
@@ -70,7 +90,6 @@ void	determine_quote_state(char *str, int cnt, int *numb, int *numb1)
 	var.last = 0;
 	var.cnt1 = 0;
 	var.cnt = 0;
-	var.blob_state = 0;
 	quote_state = 0;
 	while (str[cnt] != '\0')
 	{
@@ -86,6 +105,6 @@ void	determine_quote_state(char *str, int cnt, int *numb, int *numb1)
 		cnt++;
 	}
 	determine_quote_state1(str, numb, &var, numb1);
-	if (DEBUG)
-		print_numberator(str, numb, numb1);
+	determine_quote_state2(str, numb1);
+	determine_quote_state3(str, numb, numb1, 0);
 }

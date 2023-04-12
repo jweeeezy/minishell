@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/03 22:51:28 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/12 13:30:07 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,9 @@ typedef struct s_var
 	int	cnt;
 	int	cnt1;
 	int	last;
-	int	blob_state;
 }	t_var;
 
-typedef struct s_execute // @todo not used anymore
+typedef struct s_execute
 {
 	char	*order_str;
 	int		order_numb;
@@ -72,16 +71,15 @@ typedef struct s_execute // @todo not used anymore
 
 typedef struct s_combine
 {
-	t_execute	*command; // @todo not used anymore
+	t_execute	*command;
 	int			count_n;
 	char		*combined_str;
-	int			tks;
-	char		**order_str;
+	t_execute	*execute;
 }	t_combine;
 
 typedef struct s_data
 {
-	t_execute		*execute; // @todo not used anymore
+	t_execute		*execute;
 	t_combine		*combine;
 	char			**args;
 	char			**envp;
@@ -134,8 +132,9 @@ void	determine_quote_state(char *str, int cnt, int *numb, int *numb1);
 void	init_combine(t_data *data);
 int		create_tokens(t_data *data);
 void	init_tokens(t_data *data, int cnt1);
-void 	print_numberator(char *str, int *numb, int *numb1);
+void	print_numberator(char *str, int *numb, int *numb1);
 void	debug_tokens(t_data *data);
+void	debug_print_combined(t_data *data);
 /* ************************************************************************** */
 //                                    PARSER
 /* ************************************************************************** */
@@ -191,6 +190,12 @@ char	*echo_merge(char *str, size_t cnt, int quote_state);
 /* ************************************************************************** */
 
 void	handle_signal(int sig);
+
+/* ************************************************************************** */
+//                                    EXPAND
+/* ************************************************************************** */
+
+int	expand_line(t_data *data, int cnt);
 
 /* ************************************************************************** */
 //                                    DEBUG

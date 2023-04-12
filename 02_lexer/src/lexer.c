@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/03 22:08:24 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/12 08:52:37 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	create_strings(t_data *data, int *numb1)
 	cnt1 = 0;
 	while (data->line[cnt] != '\0')
 		cnt++;
+	if (cnt == 0)
+		return (EXECUTED);
 	data->commands_to_process = numb1[cnt - 1] + 1;
 	data->combine = malloc(sizeof(t_combine) * (data->commands_to_process));
 	if (data->combine == NULL)
@@ -83,9 +85,9 @@ int	lexer(t_data *data)
 		return (ERROR);
 	if (command_line(data) == ERROR)
 		return (ERROR);
+	debug_print_combined(data);
 	if (create_tokens(data) == ERROR)
 		return (ERROR);
-	if (DEBUG)
-		debug_tokens(data);
+	debug_tokens(data);
 	return (EXECUTED);
 }
