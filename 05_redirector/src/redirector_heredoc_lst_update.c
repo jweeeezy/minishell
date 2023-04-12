@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:05:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 19:06:24 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:22:53 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <unistd.h>			// needed for close()
 #include "libft.h"			// needed for ft_atoi(), ft_strjoin()
 #include "libme.h"			// needed for ft_itoa_unsigned_long
+#include "redirector.h"		// needed for heredoc_lst_*
 
 static int	heredoc_check_duplicate_hash(t_heredoc *head,
 				t_heredoc *node_to_compare)
@@ -49,7 +50,7 @@ static int	heredoc_create_hash(char *string_to_hash)
 	return (hash * value);
 }
 
-static int	heredoc_get_full_path(t_heredoc *node_to_edit)
+static int	heredoc_get_full_path(t_data *data, t_heredoc *node_to_edit)
 {
 	char	*temp;
 
@@ -57,7 +58,7 @@ static int	heredoc_get_full_path(t_heredoc *node_to_edit)
 	while (node_to_edit->hash == 0
 		&& heredoc_check_duplicate_hash(data->heredoc, node_to_edit) == 1)
 	{
-		note_to_edit->hash = heredoc_create_hash(temp);
+		node_to_edit->hash = heredoc_create_hash(temp);
 	}
 	free(temp);
 	temp = ft_itoa_unsigned_long(node_to_edit->hash);
@@ -70,9 +71,9 @@ static int	heredoc_get_full_path(t_heredoc *node_to_edit)
 	return (EXECUTED);
 }
 
-static int	heredoc_create_file(t_heredoc *node_to_edit)
+static int	heredoc_create_file(t_data *data, t_heredoc *node_to_edit)
 {
-	if (heredoc_get_full_path(node_to_edit) == ERROR)
+	if (heredoc_get_full_path(data, node_to_edit) == ERROR)
 	{
 		return (ERROR);
 	}
@@ -108,7 +109,7 @@ t_heredoc	*heredoc_lst_update(t_data *data)
 	{
 		return (NULL);
 	}
-	if (heredoc_create_file(node_to_edit) == ERROR)
+	if (heredoc_create_file(data, node_to_edit) == ERROR)
 	{
 		free(node_to_edit);
 		return (NULL);

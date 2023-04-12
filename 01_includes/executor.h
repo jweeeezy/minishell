@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:22:50 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 18:50:21 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:17:40 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void		executor_child(t_data *data, int **fd_pipes, int index,
 //			CHILD_UTILS
 void		child_prepare_pipes(t_data *data, int **fd_pipes,
 				int index, int counter_pipes);
+void		child_handle_indirection(t_data *data);
+void		child_handle_outdirection(t_data *data);
 
 //			PARENT
 int			executor_parent(t_data *data, int **fd_pipes, int index);

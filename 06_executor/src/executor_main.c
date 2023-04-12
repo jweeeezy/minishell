@@ -6,12 +6,12 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/11 19:49:04 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:13:16 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"			// needed for t_data, MACROS
-#include "executor_private.h"	// needed for executor_*()
+#include "executor.h"	// needed for executor_*()
 #include <stdio.h>
 #include <unistd.h>
 

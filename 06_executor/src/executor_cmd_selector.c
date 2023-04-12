@@ -6,11 +6,11 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 18:20:47 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:13:00 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor_private.h"	// needed for executor_child(),
+#include "executor.h"	// needed for executor_child(),
 								// executor_parent()
 #include "minishell.h"			// needed for t_data
 #include <unistd.h>				// needed for NULL, access()

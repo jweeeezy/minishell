@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 19:08:40 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:24:28 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	heredoc_open_heredoc(t_data *data, int index,
 	return_value = 0;
 	if (current_node == NULL)
 	{
-		heredoc_lst_clean(data, -1);
+		heredoc_lst_clean(data);
 		return (ERROR);
 	}
 	heredoc_delimiter = heredoc_get_delimiter(data, index);
@@ -80,8 +80,7 @@ static int	heredoc_open_heredoc(t_data *data, int index,
 	return (return_value);
 }
 
-static int	heredoc_fork_and_open(t_data *data, int index,
-		int counter_heredocs)
+static int	heredoc_fork_and_open(t_data *data, int index)
 {
 	t_heredoc	*current_node;
 	int			id;
@@ -120,7 +119,7 @@ int	redirector_prehandle_heredocs(t_data *data)
 	{
 		if (data->combine[index].command->order_numb == HERE_DOC)
 		{
-			if (heredoc_fork_and_open(data, index, counter_heredocs) == ERROR)
+			if (heredoc_fork_and_open(data, index) == ERROR)
 			{
 				return (ERROR);
 			}

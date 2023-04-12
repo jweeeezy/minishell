@@ -6,11 +6,11 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 18:02:11 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:16:48 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor_private.h"	// needed for child_prepare_pipes()
+#include "executor.h"	// needed for child_prepare_pipes()
 #include "libft.h"				// needed for ft_split()
 #include "minishell.h"			// needed for t_data, debug()
 #include <unistd.h>				// needed for execve(), NULL
@@ -63,7 +63,7 @@ void	executor_child(t_data *data, int **fd_pipes, int index,
 	debug_print_pid("Child process");
 	if (fd_pipes != NULL && data->counter_pipes != 0)
 	{
-		child_prepare_pipes(fd_pipes, data->index_processes,
+		child_prepare_pipes(data, fd_pipes, data->index_processes,
 			data->counter_pipes);
 	}
 	else

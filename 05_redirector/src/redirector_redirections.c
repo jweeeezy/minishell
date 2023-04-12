@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 19:11:32 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:20:21 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static int	redirector_assign_outfile(t_data *data, int flag_redirection,
 
 static int	redirector_assign_infile(t_data *data, char *str_filename)
 {
+	t_heredoc	*next_node;
+
 	if (data->flag_heredoc == 1)
 	{
 		next_node = data->heredoc->next;
@@ -71,7 +73,7 @@ static int	redirector_assign_infile(t_data *data, char *str_filename)
 	return (EXECUTED);
 }
 
-static int	redirector_assign_heredoc(t_data *data)
+static int	redirector_assign_heredoc(t_data *data, char *str_filename)
 {
 	t_heredoc	*next_node;
 
@@ -100,8 +102,7 @@ static int	redirector_assign_heredoc(t_data *data)
 	return (EXECUTED);
 }
 
-static int	redirector_crossroads(t_data *data, int index,
-				int flag_redirection, char *str_filename)
+static int	redirector_crossroads(t_data *data, int flag_redirection, char *str_filename)
 {
 	int		return_value;
 
@@ -113,7 +114,7 @@ static int	redirector_crossroads(t_data *data, int index,
 	if (flag_redirection == COMMAND_TO_FILE
 		|| flag_redirection == SHELL_REDIRECTION)
 	{
-		return_value = redirector_assign_outfile(data, str_filename);
+		return_value = redirector_assign_outfile(data, flag_redirection, str_filename);
 	}
 	else if (flag_redirection == FILE_TO_COMMAND)
 	{
@@ -121,7 +122,7 @@ static int	redirector_crossroads(t_data *data, int index,
 	}
 	else if (flag_redirection == HERE_DOC)
 	{
-		return_value = redirector_assign_heredoc(data);
+		return_value = redirector_assign_heredoc(data, str_filename);
 	}
 	return (return_value);
 }
@@ -142,7 +143,7 @@ int	redirector_handle_redirections(t_data *data)
 			|| token_type == SHELL_REDIRECTION
 			|| token_type == HERE_DOC)
 		{
-			if (redirector_crossroads(data, index, token_type,
+			if (redirector_crossroads(data, token_type,
 					redirector_get_filename(data, index)) == ERROR)
 			{
 				return (ERROR);

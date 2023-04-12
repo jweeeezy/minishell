@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/12 18:50:58 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:15:13 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ int		retokenize_arrows(t_data *data);
 /* ************************************************************************** */
 
 int		redirector_prehandle_heredocs(t_data *data);
-int		redirector_handle_redirections(t_data *data, int counter_redirections);
+int		redirector_handle_redirections(t_data *data);
 
 /* ************************************************************************** */
 //                                    EXECUTOR
