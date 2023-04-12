@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 16:54:30 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:20:47 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 	{
 		index += 1;
 	}
+	//	@note invalid command check
 	if (is_builtin(data->combine[index].command->order_numb) == 1)
 	{
 		if (selector_fork_and_execute(data, fd_pipes, index, BUILTIN) == ERROR)

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 16:51:47 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 17:07:07 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,16 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-static int	heredoc_create_file(t_heredoc *node_to_edit)
+static char	*heredoc_get_delimiter(t_data *data, int index)
 {
-	if (heredoc_get_full_path(node_to_edit) == ERROR)
+	char	*delimiter;
+
+	delimiter = data->combine[index].combined_str + 2;
+	if (*delimiter == '\0')
 	{
-		return (ERROR);
+		delimiter = NULL;
 	}
-	if (node_to_edit->full_path == NULL)
-	{
-		return (ERROR);
-	}
-	node_to_edit->fd = open(node_to_edit->full_path,
-			O_WRONLY | O_CREAT | O_APPEND, 0666);
-	if (node_to_edit->fd < 0)
-	{
-		free(node_to_edit->full_path);
-		return (ERROR);
-	}
-	return (EXECUTED);
+	return (delimiter);
 }
 
 static int	heredoc_loop(t_heredoc *current_node, char *heredoc_delimiter)
@@ -93,7 +85,11 @@ static int	heredoc_fork_and_open(t_data *data, int index,
 	t_heredoc	*current_node;
 	int			id;
 
-	current_node = heredoc_lst_get_and_update_lst(data);
+	current_node = heredoc_lst_update(data);
+	if (current_node == NULL)
+	{
+		return (ERROR);
+	}
 	id = fork();
 	if (id == 0)
 	{

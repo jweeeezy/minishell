@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirector_heredoc_utils.c                         :+:      :+:    :+:   */
+/*   redirector_heredoc_lst_update.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:05:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 16:21:28 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:18:02 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,8 @@
 #include "minishell.h"		// needed for t_heredoc
 #include <unistd.h>			// needed for open(), close()
 
-char	*heredoc_get_delimiter(t_data *data, int index)
-{
-	char	*delimiter;
-
-	delimiter = data->combine[index].combined_str + 2;
-	if (*delimiter == '\0')
-	{
-		delimiter = NULL;
-	}
-	return (delimiter);
-}
-
-int	heredoc_check_duplicate_hash(t_heredoc *head, t_heredoc *node_to_compare)
+static int	heredoc_check_duplicate_hash(t_heredoc *head,
+				t_heredoc *node_to_compare)
 {
 	while (head != NULL)
 	{
@@ -43,7 +32,7 @@ int	heredoc_check_duplicate_hash(t_heredoc *head, t_heredoc *node_to_compare)
 	return (0);
 }
 
-int	heredoc_create_hash(char *string_to_hash)
+static int	heredoc_create_hash(char *string_to_hash)
 {
 	unsigned long int	hash;
 	int					value;
@@ -57,7 +46,7 @@ int	heredoc_create_hash(char *string_to_hash)
 	return (hash * value);
 }
 
-int	heredoc_get_full_path(t_heredoc *node_to_edit)
+static int	heredoc_get_full_path(t_heredoc *node_to_edit)
 {
 	char	*temp;
 
@@ -76,4 +65,50 @@ int	heredoc_get_full_path(t_heredoc *node_to_edit)
 	node_to_edit->full_path = ft_strjoin("/tmp/", temp);
 	free(temp);
 	return (EXECUTED);
+}
+
+static int	heredoc_create_file(t_heredoc *node_to_edit)
+{
+	if (heredoc_get_full_path(node_to_edit) == ERROR)
+	{
+		return (ERROR);
+	}
+	if (node_to_edit->full_path == NULL)
+	{
+		return (ERROR);
+	}
+	node_to_edit->fd = open(node_to_edit->full_path,
+			O_WRONLY | O_CREAT | O_APPEND, 0666);
+	if (node_to_edit->fd < 0)
+	{
+		free(node_to_edit->full_path);
+		return (ERROR);
+	}
+	return (EXECUTED);
+}
+
+t_heredoc	*heredoc_lst_update(t_data *data)
+{
+	t_heredoc	*node_to_edit;
+
+	if (data->heredoc == NULL)
+	{
+		data->heredoc = heredoc_lst_get_new_node();
+		node_to_edit = data->heredoc;
+	}
+	else
+	{
+		node_to_edit = heredoc_lst_get_and_add_last(data->heredoc,
+				heredoc_lst_get_new_node());
+	}
+	if (node_to_edit == NULL)
+	{
+		return (NULL);
+	}
+	if (heredoc_create_file(node_to_edit) == ERROR)
+	{
+		free(node_to_edit);
+		return (NULL);
+	}
+	return (node_to_edit);
 }

@@ -6,9 +6,13 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:49:43 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 16:09:29 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:45:14 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"		// needed for t_data
+#include "redirector.h"		// needed for heredoc_*()
+#include <unistd.h>			// needed for malloc(), NULL, free()
 
 t_heredoc	*heredoc_lst_get_new_node(void)
 {
@@ -63,32 +67,6 @@ t_heredoc	*heredoc_lst_get_by_index(t_heredoc *lst_to_loop, int index)
 		}
 		return (lst_to_loop);
 	}
-}
-
-t_heredoc	*heredoc_lst_get_and_update_lst(t_data *data)
-{
-	t_heredoc	*node_to_edit;
-
-	if (data->heredoc == NULL)
-	{
-		data->heredoc = heredoc_lst_get_new_node();
-		node_to_edit = data->heredoc;
-	}
-	else
-	{
-		node_to_edit = heredoc_lst_get_and_add_last(data->heredoc,
-				heredoc_lst_get_new_node());
-	}
-	if (node_to_edit == NULL)
-	{
-		return (NULL);
-	}
-	if (heredoc_create_file(node_to_edit) == ERROR)
-	{
-		free(node_to_edit);
-		return (NULL);
-	}
-	return (node_to_edit);
 }
 
 void	heredoc_lst_clean(t_data *data)

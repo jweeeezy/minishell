@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:17:16 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/12 16:28:12 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/12 18:47:06 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,9 @@ LIBFT							=	$(LIBFT_DIR)libft.a
 LIBME							=	$(LIBME_DIR)libme.a
 
 #	Files
-SRC_FILES						=	redirector_main.c\
-									redirector_utils.c\
+SRC_FILES						=	redirector_redirections_utils.c\
 									redirector_redirections.c\
-									redirector_heredoc_utils.c\
+									redirector_heredoc_lst_update.c\
 									redirector_heredoc_lst_utils.c\
 									redirector_heredoc.c
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
