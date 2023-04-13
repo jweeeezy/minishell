@@ -6,15 +6,15 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 19:16:48 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:26:38 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"	// needed for child_prepare_pipes()
-#include "libft.h"				// needed for ft_split()
-#include "minishell.h"			// needed for t_data, debug()
-#include <unistd.h>				// needed for execve(), NULL
-#include <stdio.h>				// needed for close(), dup2()
+#include "libft.h"		// needed for ft_split()
+#include "minishell.h"	// needed for t_data, debug()
+#include <unistd.h>		// needed for execve(), NULL
+#include <stdio.h>		// needed for close(), dup2()
 
 static int	child_execute_builtin(t_data *data, int index)
 {
@@ -60,7 +60,6 @@ static int	child_execute_extern(t_data *data, int index)
 void	executor_child(t_data *data, int **fd_pipes, int index,
 			int flag_cmd)
 {
-	debug_print_pid("Child process");
 	if (fd_pipes != NULL && data->counter_pipes != 0)
 	{
 		child_prepare_pipes(data, fd_pipes, data->index_processes,
@@ -68,8 +67,8 @@ void	executor_child(t_data *data, int **fd_pipes, int index,
 	}
 	else
 	{
-		child_handle_indirection(data);		// @note closing?
-		child_handle_outdirection(data);	// @note closing?
+		child_handle_indirection(data);
+		child_handle_outdirection(data);
 	}
 	if (flag_cmd == BUILTIN)
 	{

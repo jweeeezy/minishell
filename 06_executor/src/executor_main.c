@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 19:13:16 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:31:16 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ static void	executor_init(t_data *data)
 	data->child_pids = malloc (sizeof (int) * data->counter_processes);
 }
 
+// @note prob need to prehandle here in between pipes
+
 static int	executor_crossroads(t_data *data)
 {
-	// @note prob need to prehandle here in between pipes
 	if (data->counter_pipes != 0)
 	{
 		if (executor_pipex(data) == ERROR)
@@ -70,10 +71,6 @@ static int	executor_crossroads(t_data *data)
 
 int	executor(t_data *data)
 {
-	//if (data->commands_to_process == 0)
-	//{
-	//	return (EXECUTED);
-	//}
 	executor_init(data);
 	if (data->counter_processes < 1)
 	{
@@ -93,3 +90,8 @@ int	executor(t_data *data)
 	data->child_pids = NULL;
 	return (EXECUTED);
 }
+
+//if (data->commands_to_process == 0)
+//{
+//	return (EXECUTED);
+//}

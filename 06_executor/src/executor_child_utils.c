@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:19:52 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 16:43:57 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:23:42 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,31 +56,22 @@ static void	child_close_pipes_after(int **fd_pipes, int start)
 	}
 }
 
-void	child_prepare_pipes(t_data *data, int **fd_pipes, int index, int counter_pipes)
+void	child_prepare_pipes(t_data *data, int **fd_pipes, int index,
+			int counter_pipes)
 {
 	if (index == 0)
 	{
-		// @note check for redirection input
 		child_handle_indirection(data);
-		//
 		close(fd_pipes[0][0]);
 		child_close_pipes_after(fd_pipes, index + 1);
-		debug_print_pipe_status("Child first", fd_pipes);
 		dup2(fd_pipes[0][1], STDOUT_FILENO);
-		// @note check for redirection output
 		child_handle_outdirection(data);
-		//
 	}
 	else if (index == counter_pipes)
 	{
-		// @note check for redirection output
 		child_handle_outdirection(data);
-		//
 		close(fd_pipes[index - 1][1]);
-		debug_print_pipe_status("Child LAST", fd_pipes);
-		// @note check for redirection input
 		child_handle_indirection(data);
-		//
 		dup2(fd_pipes[index - 1][0], STDIN_FILENO);
 	}
 	else
@@ -88,14 +79,9 @@ void	child_prepare_pipes(t_data *data, int **fd_pipes, int index, int counter_pi
 		close(fd_pipes[index][0]);
 		child_close_pipes_before(fd_pipes, index);
 		child_close_pipes_after(fd_pipes, index + 1);
-		debug_print_pipe_status("Child Middle", fd_pipes);
 		dup2(fd_pipes[index][1], STDOUT_FILENO);
-		// @note check for redirection output
 		child_handle_outdirection(data);
-		//
 		dup2(fd_pipes[index - 1][0], STDIN_FILENO);
-		// @note check for redirection input
 		child_handle_indirection(data);
-		//
 	}
 }

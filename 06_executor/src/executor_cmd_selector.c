@@ -6,18 +6,18 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 19:13:00 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:32:38 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"	// needed for executor_child(),
-								// executor_parent()
-#include "minishell.h"			// needed for t_data
-#include <unistd.h>				// needed for NULL, access()
-#include "libft.h"				// needed for ft_split(), ft_strlen()
-#include "libme.h"				// needed for ft_str_check_needle(),
-								// ft_str_join_delimiter()
-#include <stdio.h>				// needed for printf()
+						// executor_parent()
+#include "minishell.h"	// needed for t_data
+#include <unistd.h>		// needed for NULL, access()
+#include "libft.h"		// needed for ft_split(), ft_strlen()
+#include "libme.h"		// needed for ft_str_check_needle(),
+						// ft_str_join_delimiter()
+#include <stdio.h>		// needed for printf()
 
 static char	**selector_get_path_array(char **envp)
 {
@@ -114,12 +114,12 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 		return (ERROR);
 	}
 	index += pipex_skip_non_commands(data, &data->combine[index], index);
-	while ((data->combine[index].combined_str != NULL && data->combine[index].command->order_numb != STRING
-		&& is_builtin(data->combine[index].command->order_numb) == 0))
+	while ((data->combine[index].combined_str != NULL
+			&& data->combine[index].command->order_numb != STRING
+			&& is_builtin(data->combine[index].command->order_numb) == 0))
 	{
 		index += 1;
 	}
-	//	@note invalid command check
 	if (is_builtin(data->combine[index].command->order_numb) == 1)
 	{
 		if (selector_fork_and_execute(data, fd_pipes, index, BUILTIN) == ERROR)
@@ -142,3 +142,5 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 	}
 	return (EXECUTED);
 }
+
+//	@note invalid command check

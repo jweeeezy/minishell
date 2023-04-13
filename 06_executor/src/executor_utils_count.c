@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:07:10 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/08 13:13:59 by jwillert         ###   ########          */
+/*   Updated: 2023/04/13 13:29:51 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	executor_count_redirections(t_data *data)
 	{
 		if (data->combine[index].command->order_numb == COMMAND_TO_FILE
 			|| data->combine[index].command->order_numb == FILE_TO_COMMAND
-			||	data->combine[index].command->order_numb == HERE_DOC)
+			|| data->combine[index].command->order_numb == HERE_DOC)
 		{
 			counter_redirections += 1;
 		}
