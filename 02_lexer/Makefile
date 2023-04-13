@@ -6,12 +6,12 @@
 #    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 14:11:35 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/13 07:38:30 by kvebers          ###   ########.fr        #
+#    Updated: 2023/04/13 17:45:04 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #	Library Name
-NAME							=	lexer.a
+NAME							=	lexer.a 
 
 #	Directories
 INCLUDE_DIR						=	../01_includes/

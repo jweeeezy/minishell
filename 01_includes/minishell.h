@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/13 14:17:56 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/13 18:22:50 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ enum e_outputs
 	SHELL_REDIRECTION = 17,
 	HERE_DOC = 18,
 	ECHO = 20,
-	ECHO_N = 21,
+	REJECTED_ECHO = 21,
 	CD = 22,
 	PWD = 23,
 	EXPORT = 24,

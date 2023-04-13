@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 14:30:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/13 16:18:21 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/13 18:00:14 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ char	*ft_charjoin(char *temp, char c, size_t cnt1, size_t cnt2)
 	if (temp == NULL)
 	{
 		temp = malloc(sizeof(char));
-		if (temp == NULL)
-			return (NULL);
-		temp[0] = '\0';
+		*temp = '\0';
 	}
 	if (temp == NULL)
 		return (NULL);
@@ -84,4 +82,3 @@ int	only_whites(char *str)
 	}
 	return (ADD);
 }
-
