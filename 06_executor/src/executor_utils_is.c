@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:20:28 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/09 15:07:45 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:12:24 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,4 @@ int	executor_is_pipe(t_combine *cmd)
 	{
 		return (0);
 	}
-}
-
-int	executor_is_cmd_path_valid(t_combine *cmd)
-{
-	char	**array;
-
-	array = ft_split(cmd->combined_str, ' ');
-	if (array == NULL)
-	{
-		return (ERROR);
-	}
-	if (access(array[0], X_OK) == 0)
-	{
-		cmd->first_element = ft_strdup(array[0]);
-		ft_array_str_free(array);
-		return (EXTERN);
-	}
-	cmd->first_element = ft_strdup(array[0]);
-	ft_array_str_free(array);
-	return (COMMAND_NOT_FOUND);
 }
