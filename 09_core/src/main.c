@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/03 21:53:58 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/13 15:49:11 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ static int	history(t_data *data)
 		if (data->line == NULL)
 			return (EXECUTED);
 		if (lexer(data) == ERROR)
-			return (free(data->line), ERROR);
+			return (ERROR);
 	}
 	return (EXECUTED);
 }
 
-static void	check_leaks(void)
-{
-	if (DEBUG)
-	{
-		system ("leaks minishell");
-	}
-}
+// static void	check_leaks(void)
+// {
+// 	if (DEBUG)
+// 	{
+// 		system ("leaks minishell");
+// 	}
+// }
 
 void	signals(void)
 {
@@ -61,7 +61,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	atexit(check_leaks);
+	//atexit(check_leaks);
 	using_history();
 	signals();
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
@@ -71,15 +71,21 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (history(&data) == ERROR && g_signal != 2)
 			break ;
-		// if (parser(&data) != ERROR)
-		// {
-		// 	if (executor(&data) == ERROR)
-		// 	{
-		// 		if (DEBUG)
-		// 			printf("Execution error\n");
-		// 	}
-		// }
+		if (parser(&data) != ERROR)
+		{
+			if (DEBUG)
+				debug_tokens(&data);
+			// if (executor(&data) == ERROR)
+			// {
+			// 	if (DEBUG)
+			// 		printf("Execution error\n");
+			// }
+		}
+		free(data.line);
+		data.line = NULL;
+		printf("\n\n%s\n\n", data.line);
 		free_loop(&data);
+		system ("leaks minishell");
 	}
 	return (EXECUTED);
 }

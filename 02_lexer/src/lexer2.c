@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:41:33 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/12 13:29:21 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/13 13:31:17 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	init_tokens(t_data *data, int cnt)
 	while (cnt1 < data->combine[cnt].count_n)
 	{
 		data->combine[cnt].execute[cnt1].order_str = NULL;
+		data->combine[cnt].execute[cnt1].order_numb = 0;
 		cnt1++;
 	}
 }
@@ -88,14 +89,21 @@ int	create_tokens(t_data *data)
 	cnt = 0;
 	while (cnt < data->commands_to_process)
 	{
-		expand_line()
+		if (expand_line(data, cnt, 0) == ERROR)
+			return (ERROR);
 		data->combine[cnt].count_n = estimate_tokens(data, cnt, 0, 0);
 		data->combine[cnt].execute = malloc(sizeof(t_execute)
 				* data->combine[cnt].count_n);
 		if (data->combine[cnt].execute == NULL)
 			return (ERROR);
 		init_tokens(data, cnt);
+		if (remove_null(data, cnt) == ERROR)
+			return (ERROR);
 		if (init_ex_tokens(data, cnt, 0, 0) == ERROR)
+			return (ERROR);
+		if (remove_whitespaces(data, cnt) == ERROR)
+			return (ERROR);
+		if (remove_quotes(data, cnt, 0) == ERROR)
 			return (ERROR);
 		cnt++;
 	}

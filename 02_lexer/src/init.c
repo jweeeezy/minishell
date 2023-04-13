@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:29:23 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/12 07:43:50 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/13 14:44:17 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ void	init_combine(t_data *data)
 		data->combine[cnt].combined_str = NULL;
 		cnt++;
 	}
+	data->combine[cnt].count_n = cnt;
 	data->combine[cnt].combined_str = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:39:45 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/12 17:04:06 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/12 15:08:52 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,7 @@ static int	count_chars(int char_counter, char *line)
 	while (line[char_counter] != '\0'
 		&& line[char_counter] != 39
 		&& line[char_counter] != 34
-		&& line[char_counter] != '|'
 		&& line[char_counter] != '$'
-		&& line[char_counter] != '<'
-		&& line[char_counter] != '>'
-		&& line[char_counter] != '='
 		&& line[char_counter] != 32
 		&& line[char_counter] != '\t'
 		&& line[char_counter] != '\v'
@@ -78,7 +74,7 @@ static int	count_chars(int char_counter, char *line)
 	return (char_counter);
 }
 
-static char	*create_sub_string(t_data *data, int pos_1, int pos_2)
+static char	*create_sub_string(char *str, int pos_1, int pos_2)
 {
 	char	*token;
 	int		cnt;
@@ -87,29 +83,30 @@ static char	*create_sub_string(t_data *data, int pos_1, int pos_2)
 	token = malloc(sizeof(char) * (pos_2 - pos_1 + 1));
 	if (token == NULL)
 		return (NULL);
-	while (pos_1 + cnt < pos_2 && data->line[pos_1 + cnt] != '\0')
+	while (pos_1 + cnt < pos_2 && str[pos_1 + cnt] != '\0')
 	{
-		token[cnt] = data->line[pos_1 + cnt];
+		token[cnt] = str[pos_1 + cnt];
 		cnt++;
 	}
 	token[cnt] = '\0';
 	return (token);
 }
 
-char	**tokenizer(t_data *data, int cnt, int char_counter, int temp_char)
+char	**tokenizer(char *str, int cnt, int char_counter, int temp_char)
 {
 	char	**tokens;
+	int		cnt1;
 
-	data->tokens = count_tokens(data->line, "<>=$|");
-	tokens = malloc(sizeof(char *) * (data->tokens + 1));
+	cnt1 = count_tokens(str, "$");
+	tokens = malloc(sizeof(char *) * (cnt1 + 1));
 	if (tokens == NULL)
 		return (NULL);
-	while (cnt < data->tokens)
+	while (cnt < cnt1)
 	{
-		char_counter = count_chars(char_counter, data->line);
+		char_counter = count_chars(char_counter, str);
 		if (temp_char == char_counter)
 			char_counter++;
-		tokens[cnt] = create_sub_string(data, temp_char, char_counter);
+		tokens[cnt] = create_sub_string(str, temp_char, char_counter);
 		if (tokens[cnt] == NULL)
 		{
 			free_tokens(tokens);

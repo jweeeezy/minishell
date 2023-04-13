@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/12 08:52:37 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/13 16:37:39 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ int	merge_strings(t_data *data, int *numb1)
 			data->combine[cnt1].combined_str
 				= ft_charjoin(data->combine[cnt1].combined_str,
 					data->line[cnt], 0, 0);
-			if (data->combine[cnt1].combined_str == NULL )
+			if (data->combine[cnt1].combined_str == NULL)
 				return (ERROR);
 			cnt++;
 		}
 		else
 			cnt1++;
-
 	}
 	return (EXECUTED);
 }
@@ -65,6 +64,8 @@ int	command_line(t_data *data)
 	int	*numb;
 	int	*numb1;
 
+	numb = NULL;
+	numb1 = NULL;
 	numb = malloc(sizeof(int) * ft_strlen(data->line));
 	if (numb == NULL)
 		return (ERROR);
@@ -85,9 +86,7 @@ int	lexer(t_data *data)
 		return (ERROR);
 	if (command_line(data) == ERROR)
 		return (ERROR);
-	debug_print_combined(data);
 	if (create_tokens(data) == ERROR)
 		return (ERROR);
-	debug_tokens(data);
 	return (EXECUTED);
 }

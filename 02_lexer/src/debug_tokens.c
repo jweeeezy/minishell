@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 22:02:34 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/12 08:52:02 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/13 14:17:23 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,13 @@ void	debug_tokens(t_data *data)
 		cnt1 = 0;
 		while (cnt1 < data->combine[cnt].count_n)
 		{
-			printf("Tokens: %s\n", data->combine[cnt].execute[cnt1].order_str);
+			printf("Tokens: %s Numb: %i\n",
+				data->combine[cnt].execute[cnt1].order_str,
+				data->combine[cnt].execute[cnt1].order_numb);
 			cnt1++;
 		}
 		cnt++;
 	}
-}
-
-void	print_numberator(char *str, int *numb, int *numb1)
-{
-	int	cnt;
-
-	cnt = 0;
-	printf("=============\n");
-	while (str[cnt] != '\0')
-	{
-		printf("%i %i %c\n", numb[cnt], numb1[cnt], str[cnt]);
-		cnt++;
-	}
-	printf("=============\n");
 }
 
 void	debug_print_combined(t_data *data)
