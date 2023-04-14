@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:46:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/28 20:36:35 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/13 18:32:55 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	is_builtin(int cmd_to_check)
 {
 	if (cmd_to_check == ECHO
-		|| cmd_to_check == ECHO_N
+		|| cmd_to_check == REJECTED_ECHO
 		|| cmd_to_check == ENV
 		|| cmd_to_check == CD
 		|| cmd_to_check == PWD

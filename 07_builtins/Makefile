@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:18:22 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/09 14:27:40 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/14 13:35:41 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,7 @@ LIBME							=	$(LIBME_DIR)libme.a
 SRC_FILES						=	builtin_pwd.c\
 									builtin_env.c\
 									builtin_echo.c\
-									builtin_utils.c\
-									echo_n_helper.c\
-									echo_n_helper1.c
+									builtin_utils.c
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR),$(SRC_FILES))
 OBJ								=	$(addprefix $(OBJ_DIR),$(OBJ_FILES))

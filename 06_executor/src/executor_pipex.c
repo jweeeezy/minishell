@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 13:21:45 by jwillert         ###   ########          */
+/*   Updated: 2023/04/14 13:35:25 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int	executor_pipex(t_data *data)
 		//  if pipe and no string
 		//  	--> no command found?
 		//  return index!
-		
-		// 
+
+		//
 		debug_print_t_combine(data);
 		if (executor_cmd_selector(data, fd_pipes, index) == ERROR)
 		{

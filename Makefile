@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 12:52:07 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/14 10:42:16 by jwillert         ###   ########           #
+#    Updated: 2023/04/14 13:37:25 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,7 +112,7 @@ $(SUBMODULE):
 												--recursive --remote
 											touch $(SUBMODULE)
 											$(MAKE) update
-update:									
+update:
 											git submodule foreach git pull \
 												origin master
 											git submodule foreach git checkout \

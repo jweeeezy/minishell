@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/13 13:26:38 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 13:34:59 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static int	child_execute_builtin(t_data *data, int index)
 	cmd_type = data->combine[index].command->order_numb;
 	if (cmd_type == ECHO)
 		echo(data->combine[index]);
-	else if (cmd_type == ECHO_N)
-		echo_n(data, index);
+	else if (cmd_type == REJECTED_ECHO)
+		echo(data->combine[index]);
 	else if (cmd_type == ENV)
 		env(data);
 	else if (cmd_type == CD)

@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:04:35 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/09 14:27:19 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/14 13:34:33 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ LIBFT							=	$(LIBFT_DIR)libft.a
 LIBME							=	$(LIBME_DIR)libme.a
 
 #	Files
-SRC_FILES						=	env_to_list.c
+SRC_FILES						=	expander.c \
+									tokenizer.c
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ								=	$(addprefix $(OBJ_DIR), $(OBJ_FILES))

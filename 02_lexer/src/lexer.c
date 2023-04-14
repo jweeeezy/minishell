@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/31 08:44:23 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/13 18:44:49 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,123 +14,79 @@
 #include "libft.h"      //  needed for ft_strdup()
 #include <stdio.h>
 
-int	is_n(char *str)
+int	merge_strings(t_data *data, int *numb1)
 {
-	int	len;
 	int	cnt;
+	int	cnt1;
 
+	cnt1 = 0;
 	cnt = 0;
-	len = ft_strlen(str);
-	if (len > 1)
+	while (data->line[cnt] != '\0')
 	{
-		if (str[cnt] != '-')
-			return (EXECUTED);
-		cnt++;
-		while (str[cnt] != '\0')
+		if (cnt1 == numb1[cnt])
 		{
-			if (str[cnt] != 'n')
-				return (EXECUTED);
+			data->combine[cnt1].combined_str
+				= ft_charjoin(data->combine[cnt1].combined_str,
+					data->line[cnt], 0, 0);
+			if (data->combine[cnt1].combined_str == NULL)
+				return (ERROR);
 			cnt++;
 		}
-		return (ADD);
+		else
+			cnt1++;
 	}
 	return (EXECUTED);
 }
 
-static int	calculate_command_2(t_data *data, int cnt)
-{
-	if (*data->args[cnt] == '=')
-		return (EQUALS);
-	else if (is_n(data->args[cnt]) == ADD)
-		return (N);
-	else if (is_command(data, cnt, "echo") > 0)
-		return (ECHO + is_command(data, cnt, "echo") - 1);
-	else if (is_command1(data, cnt, "cd") > 0)
-		return (CD + is_command1(data, cnt, "cd") - 1);
-	else if (is_command(data, cnt, "pwd") > 0)
-		return (PWD + is_command(data, cnt, "pwd") - 1);
-	else if (is_command1(data, cnt, "unset") > 0)
-		return (UNSET + is_command1(data, cnt, "unset") - 1);
-	else if (is_command1(data, cnt, "export") > 0)
-		return (EXPORT + is_command1(data, cnt, "export") - 1);
-	else if (is_command1(data, cnt, "env") > 0)
-		return (ENV + is_command1(data, cnt, "env") - 1);
-	else if (is_command1(data, cnt, "exit") > 0)
-		return (EXIT + is_command1(data, cnt, "exit") - 1);
-	else if (is_white_space(*data->args[cnt]) == ADD)
-		return (WHITE);
-	else if (*data->args[cnt] == '\0')
-		return (EXECUTED);
-	return (STRING);
-}
-
-static int	calculate_command_1(t_data *data, int cnt, int previous)
-{
-	if (*(data->args[cnt]) == 39)
-		return (APOSTROPHE);
-	else if (*(data->args[cnt]) == 34)
-		return (QUOTATION_MARK);
-	else if (*(data->args[cnt]) == '|')
-		return (PIPE);
-	else if (*data->args[cnt] == '$')
-		return (DOLLA);
-	else if (data->args[cnt + 1] != NULL && *data->args[cnt] == '>'
-		&& *(data->args[cnt + 1]) == '>')
-		return (SHELL_REDIRECTION);
-	else if (data->args[cnt + 1] != NULL && *data->args[cnt] == '<'
-		&& *(data->args[cnt + 1]) == '<' && data->args[cnt + 1] != NULL)
-		return (HERE_DOC);
-	else if (*data->args[cnt] == '>' && previous == SHELL_REDIRECTION)
-		return (COMMAND_TO_FILE + 10);
-	else if (*data->args[cnt] == '<' && previous == HERE_DOC)
-		return (FILE_TO_COMMAND + 10);
-	else if (*data->args[cnt] == '>')
-		return (COMMAND_TO_FILE);
-	else if (*data->args[cnt] == '<')
-		return (FILE_TO_COMMAND);
-	else
-		return (calculate_command_2(data, cnt));
-}
-
-static int	command_line(t_data *data)
+int	create_strings(t_data *data, int *numb1)
 {
 	int	cnt;
-	int	previous;
+	int	cnt1;
 
-	data->execute = malloc(sizeof(t_execute) * data->tokens + 1);
-	if (data->execute == NULL)
-		return (ERROR);
 	cnt = 0;
-	previous = 0;
-	while (data->args[cnt] != NULL)
-	{
-		data->execute[cnt].order_numb
-			= calculate_command_1(data, cnt, previous);
-		data->execute[cnt].order_str = ft_strdup(data->args[cnt]);
-		data->execute[cnt].number = cnt;
-		if (data->execute[cnt].order_numb == ERROR)
-			return (ERROR);
-		data->execute[cnt].full_path = NULL;
-		previous = data->execute[cnt].order_numb;
+	cnt1 = 0;
+	while (data->line[cnt] != '\0')
 		cnt++;
-	}
-	data->execute[cnt].order_str = NULL;
+	if (cnt == 0)
+		return (EXECUTED);
+	data->commands_to_process = numb1[cnt - 1] + 1;
+	data->combine = malloc(sizeof(t_combine) * (data->commands_to_process));
+	if (data->combine == NULL)
+		return (ERROR);
+	init_combine(data);
+	if (merge_strings(data, numb1) == ERROR)
+		return (ERROR);
 	return (EXECUTED);
+}
+
+int	command_line(t_data *data)
+{
+	int	*numb;
+	int	*numb1;
+
+	numb = NULL;
+	numb1 = NULL;
+	numb = malloc(sizeof(int) * ft_strlen(data->line));
+	if (numb == NULL)
+		return (ERROR);
+	numb1 = malloc(sizeof(int) * ft_strlen(data->line));
+	if (numb1 == NULL)
+		return (free(numb), ERROR);
+	determine_quote_state(data->line, 0, numb, numb1);
+	if (create_strings(data, numb1) == ERROR)
+		return (free(numb), free(numb1), ERROR);
+	return (free(numb), free(numb1), EXECUTED);
 }
 
 int	lexer(t_data *data)
 {
 	data->tokens = 0;
+	data->commands_to_process = 0;
 	if (data->line == NULL)
 		return (ERROR);
-	if (remove_usless_quotes(data, 0, 0) == ERROR)
-		return (ERROR);
-	if (remove_usless_quotes2(data, 0, 0) == ERROR)
-		return (ERROR);
-	data->args = tokenizer(data, 0, 0, 0);
 	if (command_line(data) == ERROR)
 		return (ERROR);
-	debug_print_char_array(data->args, "data->args");
-	debug_print_t_execute(data, data->execute);
+	if (create_tokens(data) == ERROR)
+		return (ERROR);
 	return (EXECUTED);
 }

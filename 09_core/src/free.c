@@ -6,27 +6,38 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/12 16:33:11 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 13:35:56 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <unistd.h>
+#include <stdio.h>
 
 void	free_helper(t_data *data)
 {
-	int	cnt;
-
-	cnt = 0;
-	while (cnt < data->tokens && data->args[cnt] != NULL)
+	if (data->commands_to_process > 0)
 	{
-		free(data->args[cnt]);
-		free(data->execute[cnt].order_str);
-		data->execute[cnt].order_str = NULL;
-		free(data->execute[cnt].full_path);
-		data->execute[cnt].full_path = NULL;
-		data->execute[cnt].order_numb = 0;
-		cnt++;
+		free(data->combine);
+		data->combine = NULL;
+	}
+	free(data->line);
+	data->line = NULL;
+}
+
+void	free_tokens(t_data *data, int cnt)
+{
+	int	cnt1;
+
+	cnt1 = 0;
+	while (cnt1 < data->combine[cnt].count_n)
+	{
+		if (data->combine[cnt].execute[cnt1].order_str != NULL)
+		{
+			free(data->combine[cnt].execute[cnt1].order_str);
+			data->combine[cnt].execute[cnt1].order_str = NULL;
+		}
+		cnt1++;
 	}
 }
 
@@ -35,22 +46,25 @@ void	free_loop(t_data *data)
 	int	cnt;
 
 	cnt = 0;
-	free_helper(data);
-	free(data->line);
-	while (cnt < data->commands_to_process
-		&& data->combine[cnt].combined_str != NULL)
+	if (data->line == NULL || *data->line == '\0')
 	{
-		free(data->combine[cnt].combined_str);
-		data->combine[cnt].combined_str = NULL;
+		free(data->line);
+		data->line = NULL;
+		return ;
+	}
+	while (cnt < data->commands_to_process)
+	{
+		free_tokens(data, cnt);
+		if (data->combine[cnt].combined_str != NULL)
+		{
+			free(data->combine[cnt].combined_str);
+			data->combine[cnt].combined_str = NULL;
+			free(data->combine[cnt].execute);
+			data->combine[cnt].execute = NULL;
+		}
 		cnt++;
 	}
-	if (data->tokens > 0)
-	{
-		free(data->execute);
-		free(data->args);
-	}
-	if (data->commands_to_process > 0 && data->combine != NULL)
-		free(data->combine);
+	free_helper(data);
 }
 
 void	free_char_array(char **array_to_free)

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/12 16:51:03 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 13:37:05 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,21 @@ static int	history(t_data *data)
 		if (*data->line == '\0')
 			return (EXECUTED);
 		add_history(data->line);
+		if (data->line == NULL)
+			return (EXECUTED);
 		if (lexer(data) == ERROR)
-			return (free(data->line), ERROR);
+			return (ERROR);
 	}
 	return (EXECUTED);
 }
 
-static void	check_leaks(void)
-{
-	if (DEBUG)
-	{
-//		system ("leaks minishell");
-	}
-}
+// static void	check_leaks(void)
+// {
+// 	if (DEBUG)
+// 	{
+// 		system ("leaks minishell");
+// 	}
+// }
 
 void	signals(void)
 {
@@ -59,12 +61,11 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	atexit(check_leaks);
+	// atexit(check_leaks);
 	using_history();
 	signals();
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
 		return (ERROR);
-	debug_print_pid("Parent process");
 	signals();
 	while (g_signal >= 1)
 	{
@@ -72,6 +73,8 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		if (parser(&data) != ERROR)
 		{
+			if (DEBUG)
+				debug_tokens(&data);
 			if (redirector_prehandle_heredocs(&data) == ERROR)
 			{
 				printf("Redirection error\n");
@@ -85,5 +88,3 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (EXECUTED);
 }
-
-// @note error handling!

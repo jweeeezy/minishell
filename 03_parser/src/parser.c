@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/30 15:40:04 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/14 12:19:53 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,67 +14,91 @@
 #include <stdio.h>
 #include "libft.h"
 
-int	investigate_redirections(t_data *data, int cnt)
+void	last_pipe(t_data *data)
 {
-	(void) data;
-	(void) cnt;
-	return (EXECUTED);
+	int	cnt;
+
+	cnt = data->commands_to_process - 1;
+	while (cnt > -1)
+	{
+		if (data->combine[cnt].count_n > 0)
+		{
+			if (data->combine[cnt].execute[0].order_numb == PIPE)
+			{
+				data->combine[cnt].execute[0].order_numb = LAST_PIPE;
+				return ;
+			}
+		}
+		cnt--;
+	}
 }
 
-int	investigate_quotes(t_data *data, int cnt)
+static int	token_numbers_helper(char *str)
 {
-	(void) data;
-	(void) cnt;
-	return (EXECUTED);
+	if (ft_strlen(str) >= 2 && str[0] == '<' && str[1] == '<')
+		return (HERE_DOC);
+	else if (ft_strlen(str) >= 2 && str[0] == '>' && str[1] == '>')
+		return (SHELL_REDIRECTION);
+	else if (ft_strlen(str) >= 1 && str[0] == '<')
+		return (FILE_TO_COMMAND);
+	else if (ft_strlen(str) >= 1 && str[0] == '>')
+		return (COMMAND_TO_FILE);
+	else if (ft_strlen(str) >= 1 && str[0] == '|')
+		return (PIPE);
+	return (STRING);
 }
 
-
-int	crime_scene_investigation(t_data *data, int cnt)
+static int	token_numbers(char *str)
 {
+	if (is_command(str, "exit") == ADD)
+		return (EXIT);
+	else if (is_command(str, "export") == ADD)
+		return (EXPORT);
+	else if (is_command(str, "unset") == ADD)
+		return (UNSET);
+	else if (is_command(str, "echo") == ADD)
+		return (ECHO);
+	else if (is_command_mixed(str, "echo") == ADD)
+		return (REJECTED_ECHO);
+	else if (is_command_mixed(str, "env") == ADD)
+		return (ENV);
+	else if (is_command_mixed(str, "pwd") == ADD)
+		return (PWD);
+	else if (is_command(str, "cd") == ADD)
+		return (CD);
+	else
+		return (token_numbers_helper(str));
+	return (STRING);
+}
+
+void	re_number(t_data *data)
+{
+	int	cnt;
+	int	cnt1;
+
+	cnt = 0;
 	while (cnt < data->commands_to_process)
 	{
-		if (cnt > 0)
+		cnt1 = 0;
+		while (data->combine != NULL && cnt1 < data->combine[cnt].count_n)
 		{
-			if (data->combine[cnt - 1].command->order_numb == FILE_TO_COMMAND
-				|| data->combine[cnt - 1].command->order_numb == COMMAND_TO_FILE
-				|| data->combine[cnt - 1].command->order_numb == HERE_DOC
-				|| data->combine[cnt - 1].command->order_numb
-				== SHELL_REDIRECTION)
-			{
-				if (investigate_redirections(data, cnt) == ERROR)
-					return (ERROR);
-			}
-			else if (data->combine[cnt].command->order_numb == APOSTROPHE
-				|| data->combine[cnt].command->order_numb == QUOTATION_MARK
-				|| data->combine[cnt].command->order_numb == STRING)
-			{
-				if (investigate_quotes(data, cnt) == ERROR)
-					return (ERROR);
-			}
+			if (cnt1 < data->combine[cnt].execute[cnt1].order_numb == 0)
+				data->combine[cnt].execute[cnt1].order_numb
+					= token_numbers(data->combine[cnt].execute[cnt1].order_str);
+			cnt1++;
 		}
 		cnt++;
 	}
-	return (EXECUTED);
 }
 
 int	parser(t_data *data)
 {
-	if (*data->line == '\0')
+	if (data->line == NULL || *data->line == '\0')
 		return (ERROR);
-	data->commands_to_process = 0;
-	if (parsing_error_handler(data) == ERROR)
+	re_number(data);
+	last_pipe(data);
+	main_command(data);
+	if (recombine_str(data, 0, 0, NULL) == ERROR)
 		return (ERROR);
-	if (set_up_command_struct(data, 0, 0, 0) == ERROR)
-		return (ERROR);
-	if (find_main_command(data, 0, 0, 0) == ERROR)
-		return (ERROR);
-	if (retokenize_arrows(data) == ERROR)
-		return (ERROR);
-	if (check_if_combine_is_valid(data) == ERROR)
-		return (ERROR);
-	if (crime_scene_investigation(data, 0) == ERROR)
-		return (ERROR);
-	check_echo_n(data);
-	debug_print_t_combine(data);
 	return (EXECUTED);
 }
