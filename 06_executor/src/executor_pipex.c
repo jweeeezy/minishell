@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 14:31:43 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 15:18:01 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 
 int	pipex_advance_to_next_pipe(t_data *data, int index)
 {
-	index += 1;
 	while (data->combine[index].combined_str != NULL
 		   && data->combine[index].command->order_numb != PIPE
 		   && data->combine[index].command->order_numb != LAST_PIPE)
 	{
 		index += 1;
+	}
+	if (data->combine[index].combined_str != NULL)
+	{
+		data->index_processes += 1;
 	}
 	return (index);
 }
@@ -78,7 +81,7 @@ int	executor_pipex(t_data *data)
 	{
 		return (ERROR);
 	}
-	while (index < data->commands_to_process)
+	while (index < data->commands_to_process && data->combine[index].combined_str != NULL)
 	{
 		// advance until string or pipe
 		//  if pipe and no string
@@ -93,7 +96,7 @@ int	executor_pipex(t_data *data)
 			return (ERROR);
 		}
 		index = pipex_advance_to_next_pipe(data, index);
-		data->index_processes += 1;
+		//data->index_processes += 1;
 	}
 	free_pipe_array(fd_pipes, data->counter_pipes);
 	return (EXECUTED);
