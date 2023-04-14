@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/13 14:30:22 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 13:18:30 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,6 @@
 						// ft_str_join_delimiter()
 #include <stdio.h>		// needed for printf()
 
-static int	selector_advance_index(t_data *data, int index)
-{
-	index += pipex_skip_non_commands(data, &data->combine[index], index);
-	while ((data->combine[index].combined_str != NULL
-			&& data->combine[index].command->order_numb != STRING
-			&& is_builtin(data->combine[index].command->order_numb) == 0))
-	{
-		index += 1;
-	}
-	return (index);
-}
 
 static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 				int flag_cmd)
@@ -63,11 +52,12 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 {
 	int	return_value;
 
+	
 	if (redirector_handle_redirections(data) == ERROR)
 	{
 		return (ERROR);
 	}
-	index = selector_advance_index(data, index);
+	index = pipex_skip_non_commands(data, index);
 	if (is_builtin(data->combine[index].command->order_numb) == 1)
 	{
 		return_value = BUILTIN;

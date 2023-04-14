@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/13 13:31:16 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:11:51 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ static void	executor_init(t_data *data)
 	data->index_processes = 0;
 	data->child_pids = malloc (sizeof (int) * data->counter_processes);
 }
-
-// @note prob need to prehandle here in between pipes
 
 static int	executor_crossroads(t_data *data)
 {

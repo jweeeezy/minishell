@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:51:18 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/29 16:29:36 by jwillert         ###   ########          */
+/*   Updated: 2023/04/14 13:26:07 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	debug_print_pipe_status(char *message, int **fd_pipes)
 			if (is_fd_open(fd_pipes[index][0]) == 1)
 				printf("fd_pipes[%d][0] is OPEN == 1\n", index);
 			else
-				printf("[fd_pipes%d][0] is CLOSED == 0\n", index);
+				printf("fd_pipes[%d][0] is CLOSED == 0\n", index);
 			if (is_fd_open(fd_pipes[index][1]) == 1)
 				printf("fd_pipes[%d][1] is OPEN == 1\n", index);
 			else

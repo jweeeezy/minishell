@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/13 13:31:32 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 13:21:45 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,16 @@
 #include "executor.h"	// needed for utils_is
 #include <unistd.h>				// needed for pipe()
 
-int	pipex_skip_non_commands(t_data *data, t_combine *cmd, int index)
+int	pipex_advance_to_next_pipe(t_data *data, int index)
 {
-	int	offset;
-
-	offset = 0;
-	if (index >= data->commands_to_process)
+	index += 1;
+	while (data->combine[index].combined_str != NULL
+		   && data->combine[index].command->order_numb != PIPE
+		   && data->combine[index].command->order_numb != LAST_PIPE)
 	{
-		return (offset);
+		index += 1;
 	}
-	if (executor_is_pipe(&cmd[index]) == 1
-		|| executor_is_redirection(&cmd[index]) == 1
-		|| executor_is_heredoc(&cmd[index]) == 1)
-	{
-		offset += 1;
-	}
-	return (offset);
+	return (index);
 }
 
 static int	**pipex_create_pipes(int counter_pipes)
@@ -58,6 +52,17 @@ static int	**pipex_create_pipes(int counter_pipes)
 	return (fd_pipes);
 }
 
+int	pipex_skip_non_commands(t_data *data, int index)
+{
+	while ((data->combine[index].combined_str != NULL
+			&& data->combine[index].command->order_numb != STRING
+			&& is_builtin(data->combine[index].command->order_numb) == 0))
+	{
+		index += 1;
+	}
+	return (index);
+}
+
 int	executor_pipex(t_data *data)
 {
 	int	**fd_pipes;
@@ -71,16 +76,21 @@ int	executor_pipex(t_data *data)
 	}
 	while (index < data->commands_to_process)
 	{
+		// advance until string or pipe
+		//  if pipe and no string
+		//  	--> no command found?
+		//  return index!
+		
+		// 
+		debug_print_t_combine(data);
 		if (executor_cmd_selector(data, fd_pipes, index) == ERROR)
 		{
 			free_pipe_array(fd_pipes, data->counter_pipes);
 			return (ERROR);
 		}
-		index += 1;
+		index = pipex_advance_to_next_pipe(data, index);
 		data->index_processes += 1;
 	}
 	free_pipe_array(fd_pipes, data->counter_pipes);
 	return (EXECUTED);
 }
-
-//index += pipex_skip_non_commands(data, data->combine, index);
