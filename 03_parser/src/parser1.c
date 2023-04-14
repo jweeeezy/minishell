@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 11:33:51 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 12:21:58 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/14 14:22:41 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,15 @@ int	recombine_str(t_data *data, int cnt, int cnt1, char *temp)
 				if (temp == NULL)
 					return (ERROR);
 			}
-			free(data->combine[cnt].combined_str);
-			data->combine[cnt].combined_str = ft_strdup(temp);
-			if (data->combine[cnt].combined_str == NULL)
-				return (ERROR);
+
 			cnt1++;
 		}
+		free(data->combine[cnt].combined_str);
+		data->combine[cnt].combined_str = ft_strdup(temp);
+		if (temp != NULL)
+			free(temp);
+		if (data->combine[cnt].combined_str == NULL)
+			return (ERROR);
 		cnt++;
 	}
 	return (EXECUTED);

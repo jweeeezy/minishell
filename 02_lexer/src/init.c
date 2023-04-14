@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:29:23 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/13 18:00:21 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/14 14:14:52 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	init_combine(t_data *data)
 	{
 		data->combine[cnt].count_n = cnt;
 		data->combine[cnt].combined_str = NULL;
+		data->combine[cnt].full_path = NULL;
+		data->combine[cnt].first_element = NULL;
 		cnt++;
 	}
 }

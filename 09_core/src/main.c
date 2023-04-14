@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 13:41:41 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:16:57 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ int	main(int argc, char **argv, char **envp)
 		if (parser(&data) != ERROR)
 		{
 			if (DEBUG)
+			{
 				debug_tokens(&data);
+				debug_print_t_combine(&data);
+			}
 			if (redirector_handle_redirections(&data) == ERROR)
 			{
 				printf("Redirection error\n");
@@ -86,6 +89,7 @@ int	main(int argc, char **argv, char **envp)
 			}
 		}
 		free_loop(&data);
+		system("leaks minishell");
 	}
 	return (EXECUTED);
 }

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:01:08 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/13 14:11:26 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/14 13:52:50 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"    
+#include "libft.h"
 
 char	*ft_strjoin2(char *temp, char *buffer, size_t cnt1, size_t cnt2)
 {
@@ -49,9 +49,9 @@ int	is_white_space(char c)
 	return (EXECUTED);
 }
 
-int	skip_white_spaces(t_data *data, int cnt)
-{
-	while (cnt < data->tokens && data->execute[cnt].order_numb == WHITE)
-		cnt++;
-	return (cnt);
-}
+// int	skip_white_spaces(t_data *data, int cnt)
+// {
+// 	while (cnt < data->tokens && data->execute[cnt].order_numb == WHITE)
+// 		cnt++;
+// 	return (cnt);
+// }

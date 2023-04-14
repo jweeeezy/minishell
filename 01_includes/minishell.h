@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 13:32:41 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:04:51 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_var
 typedef struct s_execute
 {
 	char	*order_str;
-	char	*full_path;
+	//char	*full_path;
 	int		order_numb;
 	int		number;
 }	t_execute;
@@ -89,7 +89,7 @@ typedef struct s_heredoc
 
 typedef struct s_data
 {
-	t_execute		*execute;
+	//t_execute		*execute;
 	t_combine		*combine;
 	t_heredoc		*heredoc;
 	char			**args;
@@ -126,7 +126,7 @@ void	free_pipe_array(int **array, int size);
 char	*ft_strjoin2(char *temp, char *buffer, size_t cnt1, size_t cnt2);
 int		is_white_space(char c);
 int		ft_strnstr2(const char *haystack, const char *needle, size_t t);
-int		skip_white_spaces(t_data *data, int cnt);
+//int		skip_white_spaces(t_data *data, int cnt);
 int		dolla_handler(t_data *data, int cnt, int cnt1);
 int		count_split(char **split);
 void	split_free(char **split);

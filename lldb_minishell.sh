@@ -4,6 +4,6 @@
 #	breakpoint before continuing the process
 
 lldb -s <(echo "process attach -name minishell --waitfor") \
--o "b executor_pipex" \
+-o "b free_loop" \
 -o "process continue"
 
