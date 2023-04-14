@@ -6,7 +6,7 @@
 #    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 12:52:07 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/08 12:35:54 by jwillert         ###   ########           #
+#    Updated: 2023/04/14 10:27:43 by jwillert         ###   ########           #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,6 +98,7 @@ fclean:									clean
 												$(MAKE) fclean -C $$dir; \
 												done
 											$(REMOVE) $(NAME)
+											$(REMOVE) $(SUBMODULE)
 re:										fclean
 											$(MAKE)
 ref:
@@ -110,6 +111,9 @@ $(SUBMODULE):
 											git submodule update --init \
 												--recursive --remote
 											touch $(SUBMODULE)
+											$(MAKE) update
 update:									$(SUBMODULE)
 											git submodule foreach git pull \
 												origin master
+											git submodule foreach git checkout \
+												master
