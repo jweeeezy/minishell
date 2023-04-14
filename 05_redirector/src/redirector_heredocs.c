@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 19:24:28 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 16:37:07 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,3 +129,6 @@ int	redirector_prehandle_heredocs(t_data *data)
 	}
 	return (EXECUTED);
 }
+
+//	@note delimiter doesnt work correctly
+//	@note heredoc doesnt work correctly

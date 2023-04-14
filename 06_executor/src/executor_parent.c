@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 14:15:14 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 16:33:47 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	executor_parent(t_data *data, int **fd_pipes, int index)
 		close(data->fd_outfile);
 		data->flag_outfile = 0;
 	}
-	(void) index;
 	if (data->flag_heredoc == 1)
 	{
 		free(data->heredoc->full_path);
@@ -62,3 +61,5 @@ void	executor_parent(t_data *data, int **fd_pipes, int index)
 	//free(data->combine[index].command->full_path);
 	//data->combine[index].command->full_path = NULL;
 }
+
+//	@note delete the tmp file?
