@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 13:35:06 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 13:42:20 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "libme.h"		// needed for ft_str_check_needle(),
 						// ft_str_join_delimiter()
 #include <stdio.h>		// needed for printf()
+#include "redirector.h"
 
 
 static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,

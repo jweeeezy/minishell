@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 13:37:05 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 13:41:41 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <unistd.h>
 #include <termios.h>
 #include <signal.h>
+#include "redirector.h"
 
 static int	history(t_data *data)
 {
@@ -75,7 +76,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (DEBUG)
 				debug_tokens(&data);
-			if (redirector_prehandle_heredocs(&data) == ERROR)
+			if (redirector_handle_redirections(&data) == ERROR)
 			{
 				printf("Redirection error\n");
 			}
