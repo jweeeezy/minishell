@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 12:20:16 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/14 12:51:54 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ static int	history(t_data *data)
 	return (EXECUTED);
 }
 
-static void	check_leaks(void)
-{
-	if (DEBUG)
-	{
-		system ("leaks minishell");
-	}
-}
+// static void	check_leaks(void)
+// {
+// 	if (DEBUG)
+// 	{
+// 		system ("leaks minishell");
+// 	}
+// }
 
 void	signals(void)
 {
@@ -61,7 +61,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	atexit(check_leaks);
+	// atexit(check_leaks);
 	using_history();
 	signals();
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
@@ -75,11 +75,11 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (DEBUG)
 				debug_tokens(&data);
-			// if (executor(&data) == ERROR)
-			// {
-			// 	if (DEBUG)
-			// 		printf("Execution error\n");
-			// }
+			if (executor(&data) == ERROR)
+			{
+				if (DEBUG)
+					printf("Execution error\n");
+			}
 		}
 		free_loop(&data);
 	}
