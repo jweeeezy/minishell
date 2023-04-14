@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 14:30:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/13 18:00:14 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/14 10:24:39 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	only_whites(char *str)
 	int	cnt;
 
 	cnt = 0;
+	if (str == NULL)
+		return (ADD);
 	while (str[cnt] != '\0')
 	{
 		if (is_white_space(str[cnt]) == 0)
@@ -81,4 +83,32 @@ int	only_whites(char *str)
 		cnt++;
 	}
 	return (ADD);
+}
+
+int	is_command_mixed(char *str, char *token)
+{
+	char	*temp;
+	int		cnt;
+
+	cnt = 0;
+	temp = NULL;
+	while (str[cnt] != '\0')
+	{
+		temp = ft_charjoin(temp, ft_tolower(str[cnt]), 0, 0);
+		if (temp == NULL)
+			return (ERROR);
+		cnt++;
+	}
+	if (ft_strlen(temp) == ft_strlen(token)
+		&& ft_strnstr(temp, token, ft_strlen(temp)) != NULL)
+		return (free(temp), ADD);
+	return (free(temp), EXECUTED);
+}
+
+int	is_command(char *str, char *token)
+{
+	if (ft_strlen(str) == ft_strlen(token)
+		&& ft_strnstr(str, token, ft_strlen(str)) != NULL)
+		return (ADD);
+	return (EXECUTED);
 }

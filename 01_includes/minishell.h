@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/13 18:22:50 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/14 12:19:46 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ int		q_state(char *str, int cnt, int quote_state);
 char	*ft_strnstr3(const char *haystack, const char *needle, size_t length);
 char	*ft_charjoin(char *temp, char c, size_t cnt1, size_t cnt2);
 int		only_whites(char *str);
+int		is_command_mixed(char *str, char *token);
+int		is_command(char *str, char *token);
 /* ************************************************************************** */
 //                                    LEXER
 /* ************************************************************************** */
@@ -137,6 +139,8 @@ int		remove_whitespaces(t_data *data, int cnt);
 /* ************************************************************************** */
 
 int		parser(t_data *data);
+void	main_command(t_data *data);
+int		recombine_str(t_data *data, int cnt, int cnt1, char *temp);
 
 /* ************************************************************************** */
 //                                    EXECUTOR

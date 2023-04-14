@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/13 19:10:49 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/14 12:19:53 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,41 @@
 #include <stdio.h>
 #include "libft.h"
 
-int	is_command_mixed(char *str, char *token)
+void	last_pipe(t_data *data)
 {
-	char	*temp;
-	int		cnt;
+	int	cnt;
 
-	cnt = 0;
-	temp = NULL;
-	while (str[cnt] != '\0')
+	cnt = data->commands_to_process - 1;
+	while (cnt > -1)
 	{
-		temp = ft_charjoin(temp, ft_tolower(str[cnt]), 0, 0);
-		if (temp == NULL)
-			return (ERROR);
-		cnt++;
+		if (data->combine[cnt].count_n > 0)
+		{
+			if (data->combine[cnt].execute[0].order_numb == PIPE)
+			{
+				data->combine[cnt].execute[0].order_numb = LAST_PIPE;
+				return ;
+			}
+		}
+		cnt--;
 	}
-	if (ft_strlen(temp) == ft_strlen(token)
-		&& ft_strnstr(temp, token, ft_strlen(temp)) != NULL)
-		return (free(temp), ADD);
-	return (free(temp), EXECUTED);
 }
 
-int	is_command(char *str, char *token)
+static int	token_numbers_helper(char *str)
 {
-	if (ft_strlen(str) == ft_strlen(token)
-		&& ft_strnstr(str, token, ft_strlen(str)) != NULL)
-		return (ADD);
-	return (EXECUTED);
+	if (ft_strlen(str) >= 2 && str[0] == '<' && str[1] == '<')
+		return (HERE_DOC);
+	else if (ft_strlen(str) >= 2 && str[0] == '>' && str[1] == '>')
+		return (SHELL_REDIRECTION);
+	else if (ft_strlen(str) >= 1 && str[0] == '<')
+		return (FILE_TO_COMMAND);
+	else if (ft_strlen(str) >= 1 && str[0] == '>')
+		return (COMMAND_TO_FILE);
+	else if (ft_strlen(str) >= 1 && str[0] == '|')
+		return (PIPE);
+	return (STRING);
 }
 
-int	token_numbers(char *str)
+static int	token_numbers(char *str)
 {
 	if (is_command(str, "exit") == ADD)
 		return (EXIT);
@@ -55,11 +61,13 @@ int	token_numbers(char *str)
 	else if (is_command_mixed(str, "echo") == ADD)
 		return (REJECTED_ECHO);
 	else if (is_command_mixed(str, "env") == ADD)
-		return (REJECTED_ECHO);
+		return (ENV);
 	else if (is_command_mixed(str, "pwd") == ADD)
-		return (REJECTED_ECHO);
+		return (PWD);
 	else if (is_command(str, "cd") == ADD)
-		return (REJECTED_ECHO);
+		return (CD);
+	else
+		return (token_numbers_helper(str));
 	return (STRING);
 }
 
@@ -88,5 +96,9 @@ int	parser(t_data *data)
 	if (data->line == NULL || *data->line == '\0')
 		return (ERROR);
 	re_number(data);
+	last_pipe(data);
+	main_command(data);
+	if (recombine_str(data, 0, 0, NULL) == ERROR)
+		return (ERROR);
 	return (EXECUTED);
 }

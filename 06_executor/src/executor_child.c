@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/13 18:31:55 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/14 11:45:01 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	child_execute_builtin(t_data *data, int index)
 	if (cmd_type == ECHO)
 		echo(data->combine[index]);
 	else if (cmd_type == REJECTED_ECHO)
-		echo_n(data, index);
+		echo(data->combine[index]);
 	else if (cmd_type == ENV)
 		env(data);
 	else if (cmd_type == CD)
