@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 19:26:35 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 16:28:54 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,13 +129,11 @@ static int	redirector_crossroads(t_data *data, int flag_redirection,
 	return (return_value);
 }
 
-int	redirector_handle_redirections(t_data *data)
+int	redirector_handle_redirections(t_data *data, int index)
 {
 	int	offset;
 	int	token_type;
-	int	index;
 
-	index = 0;
 	offset = redirector_find_end_of_command(data, index);
 	while (index < offset)
 	{

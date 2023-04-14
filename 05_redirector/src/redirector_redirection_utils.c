@@ -6,13 +6,15 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:11:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 19:09:33 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 16:29:00 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"		// needed for t_data, MACROS
 #include "libft.h"			// needed for ft_split()
 #include <stdlib.h>			// needed for free()
+
+#include <stdio.h>
 
 char	*redirector_get_filename(t_data *data, int index)
 {
@@ -30,6 +32,11 @@ char	*redirector_get_filename(t_data *data, int index)
 
 int	redirector_find_end_of_command(t_data *data, int index)
 {
+	if (data->combine[index].command->order_numb == PIPE
+		|| data->combine[index].command->order_numb == LAST_PIPE)
+	{
+		index += 1;
+	}
 	while (index < data->commands_to_process
 		&& data->combine[index].combined_str != NULL)
 	{

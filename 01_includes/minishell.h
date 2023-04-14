@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 14:27:02 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 16:27:36 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ int		recombine_str(t_data *data, int cnt, int cnt1, char *temp);
 /* ************************************************************************** */
 
 int		redirector_prehandle_heredocs(t_data *data);
-int		redirector_handle_redirections(t_data *data);
+int		redirector_handle_redirections(t_data *data, int index);
 
 /* ************************************************************************** */
 //                                    EXECUTOR

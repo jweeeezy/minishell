@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 15:18:01 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 16:20:14 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,21 @@
 
 int	pipex_advance_to_next_pipe(t_data *data, int index)
 {
-	while (data->combine[index].combined_str != NULL
-		   && data->combine[index].command->order_numb != PIPE
-		   && data->combine[index].command->order_numb != LAST_PIPE)
+	index += 1;
+	while (index < data->commands_to_process)
 	{
+		if (data->combine[index].combined_str == NULL)
+		{
+			break ;
+		}
+		else if (data->combine[index].command->order_numb == PIPE
+				|| data->combine[index].command->order_numb == LAST_PIPE)
+		{
+			data->index_processes += 1;
+			index += 1;
+			break ;
+		}
 		index += 1;
-	}
-	if (data->combine[index].combined_str != NULL)
-	{
-		data->index_processes += 1;
 	}
 	return (index);
 }
@@ -81,7 +87,7 @@ int	executor_pipex(t_data *data)
 	{
 		return (ERROR);
 	}
-	while (index < data->commands_to_process && data->combine[index].combined_str != NULL)
+	while (index < data->commands_to_process)
 	{
 		// advance until string or pipe
 		//  if pipe and no string
