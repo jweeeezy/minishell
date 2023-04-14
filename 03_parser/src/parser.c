@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 12:19:53 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/14 14:45:38 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,10 @@ int	parser(t_data *data)
 	last_pipe(data);
 	main_command(data);
 	if (recombine_str(data, 0, 0, NULL) == ERROR)
+	{
+
+		printf("parsing error!\n");
 		return (ERROR);
+	}
 	return (EXECUTED);
 }

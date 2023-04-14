@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 11:33:51 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 14:22:41 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:49:05 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	main_command(t_data *data)
 			data->combine[cnt].command = &data->combine[cnt].execute[1];
 		else if (data->combine[cnt].count_n > 0)
 			data->combine[cnt].command = &data->combine[cnt].execute[0];
+		printf("main command: %s\n", data->combine[cnt].command->order_str);
 		cnt++;
 	}
 }
@@ -52,12 +53,15 @@ int	recombine_str(t_data *data, int cnt, int cnt1, char *temp)
 
 			cnt1++;
 		}
-		free(data->combine[cnt].combined_str);
-		data->combine[cnt].combined_str = ft_strdup(temp);
-		if (temp != NULL)
-			free(temp);
-		if (data->combine[cnt].combined_str == NULL)
-			return (ERROR);
+		if (data->combine[cnt].execute[cnt1].order_numb != WHITE)
+		{
+			free(data->combine[cnt].combined_str);
+			data->combine[cnt].combined_str = ft_strdup(temp);
+			if (temp != NULL)
+				free(temp);
+			if (data->combine[cnt].combined_str == NULL)
+				return (ERROR);
+		}
 		cnt++;
 	}
 	return (EXECUTED);
