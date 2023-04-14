@@ -6,7 +6,7 @@
 #    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 12:52:07 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/14 10:27:43 by jwillert         ###   ########           #
+#    Updated: 2023/04/14 10:42:16 by jwillert         ###   ########           #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,7 +112,7 @@ $(SUBMODULE):
 												--recursive --remote
 											touch $(SUBMODULE)
 											$(MAKE) update
-update:									$(SUBMODULE)
+update:									
 											git submodule foreach git pull \
 												origin master
 											git submodule foreach git checkout \
