@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 16:27:36 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 20:02:55 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void	free_char_array(char **array_to_free);
 void	free_loop(t_data *data);
 int		argument_protection(t_data *data, int argc, char **argv, char **envp);
 void	free_pipe_array(int **array, int size);
+void	free_t_heredoc(t_data *data);
 
 /* ************************************************************************** */
 //                                    UTILS

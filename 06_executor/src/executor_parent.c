@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 19:40:42 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:59:58 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	executor_parent(t_data *data, int **fd_pipes, int index)
 		data->heredoc = NULL;
 		data->flag_heredoc = 0;
 	}
+
+	// @note not needed. need to check with karlis
 	if (data->combine[index].first_element != NULL)
 		free(data->combine[index].first_element);
 	if (data->combine[index].full_path != NULL)

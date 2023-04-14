@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 14:35:20 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 20:01:56 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,11 @@ int	main(int argc, char **argv, char **envp)
 			{
 				printf("Redirection error\n");
 			}
+			// @note free heredoc lst / fd?
 			if (executor(&data) == ERROR)
 			{
 				printf("Execution error\n");
+				free_t_heredoc(&data);
 			}
 		}
 		free_loop(&data);

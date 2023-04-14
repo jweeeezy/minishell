@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 13:35:56 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 20:01:09 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,15 @@ void	free_t_heredoc(t_data *data)
 	t_heredoc 	*current_node;
 	t_heredoc	*next_node;
 
+	if (data->flag_heredoc == 1)
+	{
+		unlink(data->heredoc->full_path);
+		free(data->heredoc->full_path);
+		free(data->heredoc);
+		data->heredoc = NULL;
+		data->flag_heredoc = 0;
+		return ;
+	}
 	current_node = data->heredoc;
 	while (current_node != NULL)
 	{
