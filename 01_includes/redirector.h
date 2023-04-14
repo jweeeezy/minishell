@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:34:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 16:28:18 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:13:44 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ t_heredoc	*heredoc_lst_get_and_add_last(t_heredoc *lst_to_expand,
 
 //		UTILS
 int			redirector_find_end_of_command(t_data *data, int index);
-char		*redirector_get_filename(t_data *data, int index);
+char		*redirector_get_filename(t_data *data, int index, int token_type);
 
 #endif // REDIRECTOR_H

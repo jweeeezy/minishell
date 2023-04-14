@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 16:28:54 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:48:01 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	redirector_assign_infile(t_data *data, char *str_filename)
 	return (EXECUTED);
 }
 
-static int	redirector_assign_heredoc(t_data *data, char *str_filename)
+static int	redirector_assign_heredoc(t_data *data)
 {
 	t_heredoc	*next_node;
 
@@ -89,16 +89,19 @@ static int	redirector_assign_heredoc(t_data *data, char *str_filename)
 	{
 		close(data->fd_infile);
 	}
+	if (data->heredoc == NULL)
+	{
+		printf("NUUUUUUUULLLLLLL!!!!\n");
+		printf("flag heredoc: %d\n", data->flag_heredoc);
+	}
 	data->fd_infile = open(data->heredoc->full_path, O_RDONLY);
 	if (data->fd_infile == -1)
 	{
 		perror("open");
-		free(str_filename);
 		return (ERROR);
 	}
 	data->flag_heredoc = 1;
 	data->flag_infile = 0;
-	free(str_filename);
 	return (EXECUTED);
 }
 
@@ -108,7 +111,7 @@ static int	redirector_crossroads(t_data *data, int flag_redirection,
 	int		return_value;
 
 	return_value = 0;
-	if (str_filename == NULL)
+	if (str_filename == NULL && flag_redirection != HERE_DOC)
 	{
 		return (ERROR);
 	}
@@ -124,7 +127,7 @@ static int	redirector_crossroads(t_data *data, int flag_redirection,
 	}
 	else if (flag_redirection == HERE_DOC)
 	{
-		return_value = redirector_assign_heredoc(data, str_filename);
+		return_value = redirector_assign_heredoc(data);
 	}
 	return (return_value);
 }
@@ -144,7 +147,7 @@ int	redirector_handle_redirections(t_data *data, int index)
 			|| token_type == HERE_DOC)
 		{
 			if (redirector_crossroads(data, token_type,
-					redirector_get_filename(data, index)) == ERROR)
+					redirector_get_filename(data, index, token_type)) == ERROR)
 			{
 				return (ERROR);
 			}

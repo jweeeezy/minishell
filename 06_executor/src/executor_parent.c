@@ -6,12 +6,12 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 16:33:47 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:40:42 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"	// needed for t_data, debug()
-#include <unistd.h>		// needed for close()
+#include <unistd.h>		// needed for close(), unlink()
 #include <stdio.h>		// needed perror()
 
 static void	executor_parent_close_pipes(t_data *data, int **fd_pipes)
@@ -50,9 +50,11 @@ void	executor_parent(t_data *data, int **fd_pipes, int index)
 	}
 	if (data->flag_heredoc == 1)
 	{
+		unlink(data->heredoc->full_path);
 		free(data->heredoc->full_path);
 		free(data->heredoc);
 		data->heredoc = NULL;
+		data->flag_heredoc = 0;
 	}
 	if (data->combine[index].first_element != NULL)
 		free(data->combine[index].first_element);

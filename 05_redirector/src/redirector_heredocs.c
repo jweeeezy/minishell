@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 16:37:07 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:48:56 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,17 @@
 static char	*heredoc_get_delimiter(t_data *data, int index)
 {
 	char	*delimiter;
+	char	*copy;
+	size_t	length;
+
 
 	delimiter = data->combine[index].combined_str + 2;
-	if (*delimiter == '\0')
-	{
-		delimiter = NULL;
-	}
-	return (delimiter);
+	length = ft_strlen(delimiter);
+	printf("length [%zu]\n", length);
+
+	copy = ft_substr(delimiter, 0, length - 1);
+	printf("ja guten tag: [%s]\n", copy);
+	return (copy);
 }
 
 static int	heredoc_loop(t_heredoc *current_node, char *heredoc_delimiter)
@@ -77,6 +81,7 @@ static int	heredoc_open_heredoc(t_data *data, int index,
 			break ;
 		}
 	}
+	free(heredoc_delimiter);
 	return (return_value);
 }
 
@@ -115,7 +120,7 @@ int	redirector_prehandle_heredocs(t_data *data)
 
 	index = 0;
 	counter_heredocs = executor_count_heredocs(data);
-	while (data->combine[index].combined_str != NULL && counter_heredocs > 0)
+	while (index < data->commands_to_process && counter_heredocs > 0)
 	{
 		if (data->combine[index].command->order_numb == HERE_DOC)
 		{
