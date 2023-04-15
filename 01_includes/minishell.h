@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 16:27:36 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/15 10:17:04 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ int		remove_whitespaces(t_data *data, int cnt);
 int		parser(t_data *data);
 void	main_command(t_data *data);
 int		recombine_str(t_data *data, int cnt, int cnt1, char *temp);
+int		token_numbers_helper(char *str);
 
 /* ************************************************************************** */
 //                                    REDIRECTOR

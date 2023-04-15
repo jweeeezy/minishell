@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 13:35:56 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/15 10:27:43 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	free_helper(t_data *data)
 		free(data->combine);
 		data->combine = NULL;
 	}
-	free(data->line);
+	if (data->line != NULL)
+		free(data->line);
 	data->line = NULL;
 }
 
