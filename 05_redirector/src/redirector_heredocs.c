@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 19:48:56 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/15 16:38:29 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,15 @@
 
 static char	*heredoc_get_delimiter(t_data *data, int index)
 {
+	char	*offset_ptr;
 	char	*delimiter;
-	char	*copy;
 	size_t	length;
 
 
-	delimiter = data->combine[index].combined_str + 2;
-	length = ft_strlen(delimiter);
-	printf("length [%zu]\n", length);
-
-	copy = ft_substr(delimiter, 0, length - 1);
-	printf("ja guten tag: [%s]\n", copy);
-	return (copy);
+	offset_ptr = data->combine[index].combined_str + 2;
+	length = ft_strlen(offset_ptr);
+	delimiter = ft_substr(offset_ptr, 0, length - 1);
+	return (delimiter);
 }
 
 static int	heredoc_loop(t_heredoc *current_node, char *heredoc_delimiter)
@@ -73,6 +70,11 @@ static int	heredoc_open_heredoc(t_data *data, int index,
 		return (ERROR);
 	}
 	heredoc_delimiter = heredoc_get_delimiter(data, index);
+	if (heredoc_delimiter == NULL)
+	{
+		heredoc_lst_clean(data);
+		return (ERROR);
+	}
 	while (1)
 	{
 		return_value = heredoc_loop(current_node, heredoc_delimiter);

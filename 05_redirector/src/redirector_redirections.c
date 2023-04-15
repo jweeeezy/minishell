@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 19:48:01 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/15 16:39:52 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,6 @@ static int	redirector_assign_heredoc(t_data *data)
 	else if (data->flag_infile == 1)
 	{
 		close(data->fd_infile);
-	}
-	if (data->heredoc == NULL)
-	{
-		printf("NUUUUUUUULLLLLLL!!!!\n");
-		printf("flag heredoc: %d\n", data->flag_heredoc);
 	}
 	data->fd_infile = open(data->heredoc->full_path, O_RDONLY);
 	if (data->fd_infile == -1)
