@@ -6,14 +6,13 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/15 16:25:17 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/15 17:05:49 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <stdlib.h>
-# include "libme.h"	// needed for t_vector_str
 
 int	g_signal;
 
@@ -73,7 +72,7 @@ typedef struct s_combine
 {
 	t_execute	*command;
 	char		*combined_str;
-	char		*first_element;
+	char		*first_element;	//@note needed?
 	char		*full_path;
 	int			count_n;
 	t_execute	*execute;
