@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 19:59:58 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/15 17:47:33 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,7 @@ void	executor_parent(t_data *data, int **fd_pipes, int index)
 		close(data->fd_infile);
 		data->flag_infile = 0;
 	}
-	if (data->flag_outfile == 1)
-	{
-		close(data->fd_outfile);
-		data->flag_outfile = 0;
-	}
-	if (data->flag_heredoc == 1)
+	else if (data->flag_heredoc == 1)
 	{
 		unlink(data->heredoc->full_path);
 		free(data->heredoc->full_path);
@@ -56,14 +51,15 @@ void	executor_parent(t_data *data, int **fd_pipes, int index)
 		data->heredoc = NULL;
 		data->flag_heredoc = 0;
 	}
-
-	// @note not needed. need to check with karlis
-	if (data->combine[index].first_element != NULL)
-		free(data->combine[index].first_element);
+	if (data->flag_outfile == 1)
+	{
+		close(data->fd_outfile);
+		data->flag_outfile = 0;
+	}
 	if (data->combine[index].full_path != NULL)
+	{
 		free(data->combine[index].full_path);
-	//free(data->combine[index].command->full_path);
-	//data->combine[index].command->full_path = NULL;
+	}
 }
 
 //	@note delete the tmp file?

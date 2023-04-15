@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 14:11:57 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/13 14:34:49 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/15 17:34:28 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,18 @@ static int	selector_try_access(t_combine *cmd, char *path, char *command)
 
 int	selector_is_cmd_path_valid(t_combine *cmd)
 {
-	char	**array;
+	char	*first_token;
 
-	array = ft_split(cmd->combined_str, ' ');
-	if (array == NULL)
+	first_token = cmd->command->order_str;
+	if (access(first_token, X_OK) == 0)
 	{
-		return (ERROR);
-	}
-	if (access(array[0], X_OK) == 0)
-	{
-		cmd->first_element = ft_strdup(array[0]);
-		ft_array_str_free(array);
+		cmd->full_path = ft_strdup(first_token);
+		if (cmd->full_path == NULL)
+		{
+			return (ERROR);
+		}
 		return (EXTERN);
 	}
-	cmd->first_element = ft_strdup(array[0]);
-	ft_array_str_free(array);
 	return (COMMAND_NOT_FOUND);
 }
 
@@ -84,7 +81,7 @@ int	selector_is_cmd_valid(t_combine *cmd, char **envp)
 	while (paths[index] != NULL)
 	{
 		return_value = selector_try_access(cmd, paths[index],
-				cmd->first_element);
+				cmd->command->order_str);
 		if (return_value != COMMAND_NOT_FOUND)
 		{
 			free_char_array(paths);

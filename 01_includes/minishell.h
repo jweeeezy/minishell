@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/15 17:05:49 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/15 17:21:12 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ typedef struct s_var
 typedef struct s_execute
 {
 	char	*order_str;
-	//char	*full_path;
 	int		order_numb;
 	int		number;
 }	t_execute;
@@ -72,7 +71,7 @@ typedef struct s_combine
 {
 	t_execute	*command;
 	char		*combined_str;
-	char		*first_element;	//@note needed?
+	//char		*first_element;	//@note needed?
 	char		*full_path;
 	int			count_n;
 	t_execute	*execute;
@@ -88,7 +87,6 @@ typedef struct s_heredoc
 
 typedef struct s_data
 {
-	//t_execute		*execute;
 	t_combine		*combine;
 	t_heredoc		*heredoc;
 	char			**args;
@@ -207,7 +205,6 @@ void	debug_print_pid(char *process_name);
 void	debug_print_char_array(char **args, char *name);
 void	debug_print_int(char *description, int int_to_print);
 void	debug_print_t_execute(t_data *data,	t_execute *execute);
-void	debug_print_t_vector_str(t_vector_str *vector_to_print);
 void	debug_print_t_combine(t_data *data);
 void	debug_print_pipe_status(char *message, int **fd_pipes);
 void	debug_fds(int max);

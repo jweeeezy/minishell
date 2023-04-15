@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 16:27:26 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/15 17:48:38 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,19 @@ static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 {
 	if (flag_cmd == ERROR)
 	{
+		// @note close pipes??
 		return (ERROR);
 	}
 	else if (flag_cmd == COMMAND_NOT_FOUND)
 	{
+		// @note close pipes??
 		printf("WIP: command not found!\n");
 		return (EXECUTED);
 	}
 	data->child_pids[data->index_processes] = fork();
 	if (data->child_pids[data->index_processes] == -1)
 	{
+		// @note close pipes??
 		return (ERROR);
 	}
 	if (data->child_pids[data->index_processes] == 0)
