@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/15 10:17:04 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/15 11:02:14 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,8 @@ typedef struct s_heredoc
 
 typedef struct s_data
 {
-	//t_execute		*execute;
 	t_combine		*combine;
 	t_heredoc		*heredoc;
-	char			**args;
 	char			**envp;
 	char			**argv;
 	char			*line;

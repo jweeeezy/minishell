@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/15 10:16:40 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/15 11:28:32 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void	re_number(t_data *data)
 		cnt1 = 0;
 		while (data->combine != NULL && cnt1 < data->combine[cnt].count_n)
 		{
-			if (cnt1 < data->combine[cnt].execute[cnt1].order_numb == 0)
+			if (cnt1 < data->combine[cnt1].count_n
+				&& data->combine[cnt].execute[cnt1].order_numb == 0)
 				data->combine[cnt].execute[cnt1].order_numb
 					= token_numbers(data->combine[cnt].execute[cnt1].order_str);
 			cnt1++;
@@ -97,8 +98,6 @@ int	parser(t_data *data)
 	last_pipe(data);
 	main_command(data);
 	if (recombine_str(data, 0, 0, NULL) == ERROR)
-	{
 		return (ERROR);
-	}
 	return (EXECUTED);
 }

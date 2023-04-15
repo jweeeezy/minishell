@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 11:33:51 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/15 10:15:27 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/15 11:14:34 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ int	recheck_the_combined_str(t_data *data, int cnt)
 		data->combine[cnt].combined_str = ft_strdup("");
 		if (data->combine[cnt].combined_str == NULL)
 			return (ERROR);
+	}
+	else if (ft_strlen(data->combine[cnt].combined_str) > 1)
+	{
+		data->combine[cnt]
+			.combined_str[ft_strlen(data->combine[cnt]
+				.combined_str) - 1] = '\0';
 	}
 	return (EXECUTED);
 }
