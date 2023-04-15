@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 20:01:09 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/15 16:25:14 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	free_helper(t_data *data)
 		free(data->combine);
 		data->combine = NULL;
 	}
-	free(data->line);
+	if (data->line != NULL)
+		free(data->line);
 	data->line = NULL;
 }
 

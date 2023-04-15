@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:41:33 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/13 17:41:13 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/15 10:19:46 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ void	init_tokens(t_data *data, int cnt)
 	{
 		data->combine[cnt].execute[cnt1].order_str = NULL;
 		data->combine[cnt].execute[cnt1].order_numb = 0;
+		if (data->combine[cnt].count_n > 0)
+			data->combine[cnt].execute[0].order_numb
+				= token_numbers_helper(data->combine[cnt].combined_str);
 		cnt1++;
 	}
 }

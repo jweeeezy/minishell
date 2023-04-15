@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 20:02:55 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/15 16:25:17 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ int		remove_whitespaces(t_data *data, int cnt);
 int		parser(t_data *data);
 void	main_command(t_data *data);
 int		recombine_str(t_data *data, int cnt, int cnt1, char *temp);
+int		token_numbers_helper(char *str);
 
 /* ************************************************************************** */
 //                                    REDIRECTOR

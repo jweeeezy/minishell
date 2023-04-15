@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 11:33:51 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 14:57:14 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/15 10:15:27 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,17 @@ void	main_command(t_data *data)
 	}
 }
 
+int	recheck_the_combined_str(t_data *data, int cnt)
+{
+	if (data->combine[cnt].combined_str == NULL)
+	{
+		data->combine[cnt].combined_str = ft_strdup("");
+		if (data->combine[cnt].combined_str == NULL)
+			return (ERROR);
+	}
+	return (EXECUTED);
+}
+
 int	recombine_str(t_data *data, int cnt, int cnt1, char *temp)
 {
 	while (cnt < data->commands_to_process)
@@ -49,19 +60,14 @@ int	recombine_str(t_data *data, int cnt, int cnt1, char *temp)
 				if (temp == NULL)
 					return (ERROR);
 			}
-
 			cnt1++;
 		}
 		free(data->combine[cnt].combined_str);
 		data->combine[cnt].combined_str = ft_strdup(temp);
 		if (temp != NULL)
-	 		free(temp);
-		if (data->combine[cnt].combined_str == NULL)
-		{
-			data->combine[cnt].combined_str = ft_strdup("");
-			if (data->combine[cnt].combined_str == NULL)
-				return (ERROR);
-		}
+			free(temp);
+		if (recheck_the_combined_str(data, cnt) == ERROR)
+			return (ERROR);
 		cnt++;
 	}
 	return (EXECUTED);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 14:51:25 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/15 10:16:40 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	last_pipe(t_data *data)
 	}
 }
 
-static int	token_numbers_helper(char *str)
+int	token_numbers_helper(char *str)
 {
 	if (ft_strlen(str) >= 2 && str[0] == '<' && str[1] == '<')
 		return (HERE_DOC);
@@ -45,7 +45,7 @@ static int	token_numbers_helper(char *str)
 		return (COMMAND_TO_FILE);
 	else if (ft_strlen(str) >= 1 && str[0] == '|')
 		return (PIPE);
-	return (STRING);
+	return (0);
 }
 
 static int	token_numbers(char *str)
@@ -66,8 +66,6 @@ static int	token_numbers(char *str)
 		return (PWD);
 	else if (is_command(str, "cd") == ADD)
 		return (CD);
-	else
-		return (token_numbers_helper(str));
 	return (STRING);
 }
 

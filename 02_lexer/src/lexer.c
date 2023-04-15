@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/13 18:44:49 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/15 10:30:02 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,18 @@ int	command_line(t_data *data)
 
 int	lexer(t_data *data)
 {
+	char	*temp;
+
+	temp = NULL;
 	data->tokens = 0;
 	data->commands_to_process = 0;
 	if (data->line == NULL)
 		return (ERROR);
+	temp = ft_strtrim(data->line, " ");
+	if (temp == NULL)
+		return (ERROR);
+	free(data->line);
+	data->line = temp;
 	if (command_line(data) == ERROR)
 		return (ERROR);
 	if (create_tokens(data) == ERROR)
