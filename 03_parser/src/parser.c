@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/15 11:28:32 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/15 13:02:57 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static int	token_numbers(char *str)
 		return (PWD);
 	else if (is_command(str, "cd") == ADD)
 		return (CD);
+	else if (is_n(str) == ADD)
+		return (N);
 	return (STRING);
 }
 
@@ -78,10 +80,9 @@ void	re_number(t_data *data)
 	while (cnt < data->commands_to_process)
 	{
 		cnt1 = 0;
-		while (data->combine != NULL && cnt1 < data->combine[cnt].count_n)
+		while (cnt1 < data->combine[cnt].count_n)
 		{
-			if (cnt1 < data->combine[cnt1].count_n
-				&& data->combine[cnt].execute[cnt1].order_numb == 0)
+			if (data->combine[cnt].execute[cnt1].order_numb == 0)
 				data->combine[cnt].execute[cnt1].order_numb
 					= token_numbers(data->combine[cnt].execute[cnt1].order_str);
 			cnt1++;

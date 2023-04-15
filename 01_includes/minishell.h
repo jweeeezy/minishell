@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/15 11:02:14 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/15 12:53:02 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ int		parser(t_data *data);
 void	main_command(t_data *data);
 int		recombine_str(t_data *data, int cnt, int cnt1, char *temp);
 int		token_numbers_helper(char *str);
+int		is_n(char *str);
 
 /* ************************************************************************** */
 //                                    REDIRECTOR
