@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/15 16:38:29 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/15 23:19:35 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static char	*heredoc_get_delimiter(t_data *data, int index)
 	char	*offset_ptr;
 	char	*delimiter;
 	size_t	length;
-
 
 	offset_ptr = data->combine[index].combined_str + 2;
 	length = ft_strlen(offset_ptr);

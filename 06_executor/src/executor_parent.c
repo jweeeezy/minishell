@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/15 17:47:33 by jwillert         ###   ########          */
+/*   Updated: 2023/04/15 23:23:04 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,3 @@ void	executor_parent(t_data *data, int **fd_pipes, int index)
 		free(data->combine[index].full_path);
 	}
 }
-
-//	@note delete the tmp file?
