@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 20:01:56 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/16 16:49:34 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,30 @@
 #include <termios.h>
 #include <signal.h>
 #include "redirector.h"
+#include "get_next_line_bonus.h"
 
-static int	history(t_data *data)
+#define INTERACTIVE 1
+#define NON_INTERACTIVE 0
+
+static int	history(t_data *data, int mode)
 {
-	data->line = readline("Terminal Troublemakers: ");
+	if (mode == INTERACTIVE)
+	{
+		data->line = readline("Terminal Troublemakers: ");
+	}
+	else
+	{
+		data->line = get_next_line(STDIN_FILENO);
+		printf("%s", data->line);
+	}
 	if (data->line == NULL)
 		return (ERROR);
 	else if (data->line)
 	{
 		if (*data->line == '\0')
 			return (EXECUTED);
-		add_history(data->line);
+		if (mode == INTERACTIVE)
+			add_history(data->line);
 		if (data->line == NULL)
 			return (EXECUTED);
 		if (lexer(data) == ERROR)
@@ -61,16 +74,28 @@ void	signals(void)
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
+	int		mode;
+
+	if (isatty(fileno(stdin)))
+	{
+		mode = INTERACTIVE;
+	}
+	else
+	{
+		mode = NON_INTERACTIVE;
+	}
 
 	// atexit(check_leaks);
-	using_history();
-	signals();
+	if (mode == INTERACTIVE)
+	{
+		using_history();
+	}
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
 		return (ERROR);
 	signals();
 	while (g_signal >= 1)
 	{
-		if (history(&data) == ERROR && g_signal != 2)
+		if (history(&data, mode) == ERROR && g_signal != 2)
 			break ;
 		if (parser(&data) != ERROR)
 		{
@@ -86,11 +111,13 @@ int	main(int argc, char **argv, char **envp)
 			// @note free heredoc lst / fd?
 			if (executor(&data) == ERROR)
 			{
-				printf("Execution error\n");
+				//printf("Execution error\n");
 				free_t_heredoc(&data);
 			}
 		}
 		free_loop(&data);
+		if (mode == NON_INTERACTIVE)
+			return (EXECUTED);
 		//system("leaks minishell");
 	}
 	return (EXECUTED);
