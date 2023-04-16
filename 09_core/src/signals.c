@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 13:20:45 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/27 18:03:02 by jwillert         ###   ########          */
+/*   Updated: 2023/04/16 14:11:13 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,7 @@ void	handle_signal(int sig)
 		rl_redisplay();
 	}
 	if (sig == SIGTERM)
+		g_signal = 0;
+	if (sig == SIGUSR1)
 		g_signal = 0;
 }

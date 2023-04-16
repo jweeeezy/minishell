@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/16 13:12:04 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/16 13:23:01 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,6 @@ static int	history(t_data *data)
 	return (EXECUTED);
 }
 
-// static void	check_leaks(void)
-// {
-// 	if (DEBUG)
-// 	{
-// 		system ("leaks minishell");
-// 	}
-// }
-
 void	signals(void)
 {
 	struct termios	term_settings;
@@ -56,6 +48,7 @@ void	signals(void)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, handle_signal);
 	signal(SIGTERM, handle_signal);
+	signal(SIGUSR1, handle_signal);
 }
 
 int	main(int argc, char **argv, char **envp)

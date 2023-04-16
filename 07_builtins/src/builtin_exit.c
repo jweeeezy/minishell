@@ -6,19 +6,20 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 10:32:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/16 13:12:35 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/16 14:19:13 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 #include <stdio.h>
+#include <signal.h>
 
 void	builtin_exit(t_data *data, int exit_code, int index)
 {
-	if (data->commands_to_process != index - 1)
+	if (data->commands_to_process - 1 != index)
 		return ;
-	if (data->combine[0].count_n > 3)
+	if (data->combine[index].count_n > 3)
 	{
 		printf("Terminal Troble: too many arguments\n");
 		return ;
@@ -40,4 +41,5 @@ void	builtin_exit(t_data *data, int exit_code, int index)
 	}
 	else
 		g_signal = 0;
+	kill(data->pid, SIGUSR1);
 }
