@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/15 13:02:57 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/16 09:08:12 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static int	token_numbers(char *str)
 		return (CD);
 	else if (is_n(str) == ADD)
 		return (N);
+	else if (is_wierd_n(str) == ADD)
+		return (WIERD_N);
 	return (STRING);
 }
 

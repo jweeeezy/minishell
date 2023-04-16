@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/15 12:53:02 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/16 10:26:29 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ enum e_outputs
 	ENV = 26,
 	EXIT = 27,
 	N = 28,
+	WIERD_N = 29,
 	LAST_PIPE = 50,
 	BUILTIN = 200,
 	EXTERN = 100
@@ -64,7 +65,6 @@ typedef struct s_var
 typedef struct s_execute
 {
 	char	*order_str;
-	//char	*full_path;
 	int		order_numb;
 	int		number;
 }	t_execute;
@@ -157,6 +157,7 @@ void	main_command(t_data *data);
 int		recombine_str(t_data *data, int cnt, int cnt1, char *temp);
 int		token_numbers_helper(char *str);
 int		is_n(char *str);
+int		is_wierd_n(char *str);
 
 /* ************************************************************************** */
 //                                    REDIRECTOR
@@ -175,8 +176,8 @@ int		executor(t_data *data);
 //                                    BUILTINS
 /* ************************************************************************** */
 
-void	echo(t_combine str);
-void	echo_n(t_data *data, int index);
+void	echo(t_combine str, int n, int cnt2, int is_echo_skiped);
+void	wierd_echo(t_combine str, int n, int cnt2, int is_echo_skiped);
 int		is_builtin(int cmd_to_check);
 char	builtin_pwd(void);
 void	env(t_data *data);

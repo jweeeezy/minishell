@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 11:33:51 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/15 12:59:31 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/16 09:09:34 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,26 @@ int	is_n(char *str)
 {
 	if (ft_strncmp(str, "-n", ft_strlen(str)) == 0)
 		return (ADD);
-	printf("\n Here: %i\n", ft_strncmp(str, "-n", ft_strlen(str)));
 	return (EXECUTED);
 }
 
-// int is_deformed_n(char *str)
-// {
-	
-// }
+int	is_wierd_n(char *str)
+{
+	int	cnt;
+
+	cnt = 0;
+	if (ft_strlen(str) > 1)
+	{
+		if (str[cnt] != '-')
+			return (EXECUTED);
+		cnt++;
+		while (str[cnt] != '\0')
+		{
+			if (str[cnt] != 'n')
+				return (EXECUTED);
+			cnt++;
+		}
+		return (ADD);
+	}
+	return (EXECUTED);
+}

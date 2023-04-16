@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_child.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 13:34:59 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/16 10:26:13 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static int	child_execute_builtin(t_data *data, int index)
 
 	cmd_type = data->combine[index].command->order_numb;
 	if (cmd_type == ECHO)
-		echo(data->combine[index]);
+		echo(data->combine[index], 0, 0, 0);
 	else if (cmd_type == REJECTED_ECHO)
-		echo(data->combine[index]);
+		wierd_echo(data->combine[index], 0, 0, 0);
 	else if (cmd_type == ENV)
 		env(data);
 	else if (cmd_type == CD)
