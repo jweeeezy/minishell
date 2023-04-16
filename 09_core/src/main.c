@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 14:35:20 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/16 10:33:51 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	// atexit(check_leaks);
 	using_history();
 	signals();
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
@@ -80,16 +79,11 @@ int	main(int argc, char **argv, char **envp)
 				debug_print_t_combine(&data);
 			}
 			if (redirector_prehandle_heredocs(&data) == ERROR)
-			{
 				printf("Redirection error\n");
-			}
 			if (executor(&data) == ERROR)
-			{
 				printf("Execution error\n");
-			}
 		}
 		free_loop(&data);
-		//system("leaks minishell");
 	}
 	return (EXECUTED);
 }
