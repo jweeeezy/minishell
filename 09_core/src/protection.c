@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protection.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:11:31 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 13:37:11 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/16 13:12:51 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	argument_protection(t_data *data, int argc, char **argv, char **envp)
 {
-	g_signal = 1;
+	g_signal = 256;
 	if (argc > 1)
 		return (ERROR);
 	data->argv = argv;

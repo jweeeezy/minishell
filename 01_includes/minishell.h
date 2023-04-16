@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/16 10:26:29 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/16 13:06:27 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_heredoc
 typedef struct s_data
 {
 	t_combine		*combine;
+	int				exit_code;
 	t_heredoc		*heredoc;
 	char			**envp;
 	char			**argv;
@@ -181,6 +182,7 @@ void	wierd_echo(t_combine str, int n, int cnt2, int is_echo_skiped);
 int		is_builtin(int cmd_to_check);
 char	builtin_pwd(void);
 void	env(t_data *data);
+void	builtin_exit(t_data *data, int exit_code, int index);
 /* ************************************************************************** */
 //                                    SIGNALS
 /* ************************************************************************** */

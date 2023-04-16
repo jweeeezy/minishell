@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/16 10:26:13 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/16 12:59:03 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	child_execute_builtin(t_data *data, int index)
 	else if (cmd_type == UNSET)
 		printf("unset executed\n");
 	else if (cmd_type == EXIT)
-		printf("exit executed\n");
+		builtin_exit(data, 0, index);
 	else
 		return (ERROR);
 	return (EXECUTED);

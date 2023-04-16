@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
+#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:18:22 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/14 13:35:41 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/16 11:14:17 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ LIBME							=	$(LIBME_DIR)libme.a
 SRC_FILES						=	builtin_pwd.c\
 									builtin_env.c\
 									builtin_echo.c\
-									builtin_utils.c
+									builtin_utils.c\
+									builtin_exit.c
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR),$(SRC_FILES))
 OBJ								=	$(addprefix $(OBJ_DIR),$(OBJ_FILES))

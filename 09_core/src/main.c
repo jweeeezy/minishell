@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/16 10:33:51 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/16 13:12:04 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,9 @@ int	main(int argc, char **argv, char **envp)
 	signals();
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
 		return (ERROR);
-	signals();
-	while (g_signal >= 1)
+	while (g_signal >= 256)
 	{
-		if (history(&data) == ERROR && g_signal != 2)
+		if (history(&data) == ERROR || g_signal < 256)
 			break ;
 		if (parser(&data) != ERROR)
 		{
