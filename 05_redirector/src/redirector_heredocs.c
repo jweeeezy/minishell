@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirector_heredocs.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/15 23:19:35 by jwillert         ###   ########          */
+/*   Updated: 2023/04/17 22:13:12 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <unistd.h>				// needed for close(), fork()
 #include <readline/readline.h>	// needed for readline()
 #include <readline/history.h>	// @note heredoc history?
+#include <sys/wait.h>
+//#include <sys/types.h>
 
 static char	*heredoc_get_delimiter(t_data *data, int index)
 {
@@ -108,7 +110,7 @@ static int	heredoc_fork_and_open(t_data *data, int index)
 	}
 	else
 	{
-		wait(NULL);
+		wait(NULL);			// @note waitpid instead? test with piping into ./minishell
 		close(current_node->fd);
 	}
 	return (EXECUTED);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/17 19:36:33 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/17 22:13:08 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "executor.h"	// needed for executor_*()
 #include <stdio.h>
 #include <unistd.h>
+//#include <sys/types.h>	// linux
+#include <sys/wait.h>	// linux
 
 static int	executor_wait_for_childs(t_data *data)
 {
