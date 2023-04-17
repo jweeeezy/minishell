@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/17 19:35:03 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/17 19:39:55 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 		executor_parent(data, fd_pipes, index);
 		return (EXECUTED);
 	}
-	printf("reached\n");
 	data->child_pids[data->index_processes] = fork();
 	if (data->child_pids[data->index_processes] == -1)
 	{
@@ -93,5 +92,3 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 	}
 	return (EXECUTED);
 }
-
-//	@note invalid command check
