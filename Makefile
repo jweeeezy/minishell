@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 12:52:07 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/17 22:13:16 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/17 23:29:32 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,11 +80,49 @@ REMOVE							=	rm -f
 .DELETE_ON_ERROR:
 
 #	General targets
-.PHONY:									all clean fclean re ref update
+.PHONY:									all clean fclean re ref update valgrind linux
 all:									$(SUBMODULE) $(NAME)
 $(NAME):								$(MODULES_ALL)
-											$(CC) $(CFLAGS) $(MODULES_ALL) \
-												-o $(NAME) $(RL_LINK)
+										$(CC) $(CFLAGS) -o $(NAME) $(RL_LINK)
+valgrind:								linux
+											valgrind --leak-check=full \
+											--show-leak-kinds=all \
+											--track-origins=yes \
+											--verbose \
+											./minishell							
+linux:									$(MODULES_ALL)
+											cp $(GET_NEXT_LINE) ./
+											cp $(LIBME) ./
+											cp $(LEXER) ./
+											cp $(PARSER) ./
+											cp $(EXPANDER) ./
+											cp $(REDIRECTOR) ./
+											cp $(EXECUTOR) ./
+											cp $(BUILTINS) ./
+											cp $(CORE) ./
+											cp $(DEBUG) ./
+											ar -x libgnl.a
+											ar -x libme.a
+											ar -x lexer.a
+											ar -x parser.a
+											ar -x expander.a
+											ar -x redirector.a
+											ar -x executor.a
+											ar -x builtins.a
+											ar -x core.a
+											ar -x debug.a
+											rm libgnl.a
+											rm libme.a
+											rm lexer.a
+											rm parser.a
+											rm expander.a
+											rm redirector.a
+											rm executor.a
+											rm builtins.a
+											rm core.a
+											rm debug.a
+											$(CC) $(CFLAGS) *.o -o $(NAME) -lreadline
+											rm *.o
 $(MODULES_ALL):
 											$(MAKE) gnl -C $(LIBALLME_DIR)
 											$(MAKE) libme -C $(LIBALLME_DIR)
