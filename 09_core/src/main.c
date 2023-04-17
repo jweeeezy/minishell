@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/16 16:49:34 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/17 19:16:42 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,18 @@
 #include "redirector.h"
 #include "get_next_line_bonus.h"
 
-#define INTERACTIVE 1
-#define NON_INTERACTIVE 0
-
-static int	history(t_data *data, int mode)
+static int	history(t_data *data)
 {
-	if (mode == INTERACTIVE)
-	{
-		data->line = readline("Terminal Troublemakers: ");
-	}
-	else
-	{
-		data->line = get_next_line(STDIN_FILENO);
-		printf("%s", data->line);
-	}
+	data->line = readline("Terminal Troublemakers: ");
 	if (data->line == NULL)
+	{
 		return (ERROR);
+	}
 	else if (data->line)
 	{
 		if (*data->line == '\0')
 			return (EXECUTED);
-		if (mode == INTERACTIVE)
-			add_history(data->line);
+		add_history(data->line);
 		if (data->line == NULL)
 			return (EXECUTED);
 		if (lexer(data) == ERROR)
@@ -51,13 +41,58 @@ static int	history(t_data *data, int mode)
 	return (EXECUTED);
 }
 
-// static void	check_leaks(void)
-// {
-// 	if (DEBUG)
-// 	{
-// 		system ("leaks minishell");
-// 	}
-// }
+static int	non_interactive_mode(t_data *data)
+{
+	data->line = get_next_line(STDIN_FILENO);
+	while (data->line != NULL)
+	{
+		if (lexer(data) == ERROR)
+		{
+			return (ERROR);
+		}
+		if (parser(data) != ERROR)
+		{
+			if (redirector_prehandle_heredocs(data) == ERROR)
+			{
+				printf("Redirection error\n");
+			}
+			if (executor(data) == ERROR)
+			{
+				printf("Execution error\n");
+				free_t_heredoc(data);
+			}
+		}
+		free_loop(data);
+		free(data->line);
+		data->line = get_next_line(STDIN_FILENO);
+	}
+	return (EXECUTED);
+}
+
+static int	interactive_mode(t_data *data)
+{
+	while (g_signal >= 1)
+	{
+		if (history(data) == ERROR && g_signal != 2)
+		{
+			break ;
+		}
+		if (parser(data) != ERROR)
+		{
+			if (redirector_prehandle_heredocs(data) == ERROR)
+			{
+				printf("Redirection error\n");
+			}
+			if (executor(data) == ERROR)
+			{
+				printf("Execution error\n");
+				free_t_heredoc(data);
+			}
+		}
+		free_loop(data);
+	}
+	return (EXECUTED);
+}
 
 void	signals(void)
 {
@@ -74,51 +109,26 @@ void	signals(void)
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
-	int		mode;
 
-	if (isatty(fileno(stdin)))
+	using_history();
+	if (argument_protection(&data, argc, argv, envp) == ERROR)
 	{
-		mode = INTERACTIVE;
+		return (ERROR);
+	}
+	signals();
+	if (isatty(STDIN_FILENO))
+	{
+		if (interactive_mode(&data) == ERROR)
+		{
+			return (ERROR);
+		}
 	}
 	else
 	{
-		mode = NON_INTERACTIVE;
-	}
-
-	// atexit(check_leaks);
-	if (mode == INTERACTIVE)
-	{
-		using_history();
-	}
-	if (argument_protection(&data, argc, argv, envp) == ERROR)
-		return (ERROR);
-	signals();
-	while (g_signal >= 1)
-	{
-		if (history(&data, mode) == ERROR && g_signal != 2)
-			break ;
-		if (parser(&data) != ERROR)
+		if (non_interactive_mode(&data) == ERROR)
 		{
-			if (DEBUG)
-			{
-				debug_tokens(&data);
-				debug_print_t_combine(&data);
-			}
-			if (redirector_prehandle_heredocs(&data) == ERROR)
-			{
-				printf("Redirection error\n");
-			}
-			// @note free heredoc lst / fd?
-			if (executor(&data) == ERROR)
-			{
-				//printf("Execution error\n");
-				free_t_heredoc(&data);
-			}
+			return (ERROR);
 		}
-		free_loop(&data);
-		if (mode == NON_INTERACTIVE)
-			return (EXECUTED);
-		//system("leaks minishell");
 	}
 	return (EXECUTED);
 }

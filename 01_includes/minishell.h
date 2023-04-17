@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/15 17:21:12 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/17 19:22:43 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ typedef struct s_combine
 {
 	t_execute	*command;
 	char		*combined_str;
-	//char		*first_element;	//@note needed?
 	char		*full_path;
 	int			count_n;
 	t_execute	*execute;
