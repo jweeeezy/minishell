@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 16:25:31 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/17 19:14:08 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,9 @@ static int	executor_crossroads(t_data *data)
 		{
 			return (ERROR);
 		}
-		if (data->counter_processes != 0)
+		if (executor_wait_for_childs(data) == ERROR)
 		{
-			if (wait(NULL) == -1)
-				return (ERROR);
+			return (ERROR);
 		}
 	}
 	return (EXECUTED);
@@ -88,8 +87,3 @@ int	executor(t_data *data)
 	data->child_pids = NULL;
 	return (EXECUTED);
 }
-
-//if (data->commands_to_process == 0)
-//{
-//	return (EXECUTED);
-//}

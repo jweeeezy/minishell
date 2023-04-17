@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 12:52:07 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/14 13:37:25 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/16 16:07:28 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,9 @@ NAME							=	minishell
 
 #	Directories
 LIBALLME_DIR					=	./00_liballme/
-LIBFT_DIR						=	$(LIBALLME_DIR)/libft/
-LIBME_DIR						=	$(LIBALLME_DIR)/libme/
+GNL_DIR							=	$(LIBALLME_DIR)get_next_line
+LIBFT_DIR						=	$(LIBALLME_DIR)libft/
+LIBME_DIR						=	$(LIBALLME_DIR)libme/
 HEADER_DIR						=	./01_includes/
 LEXER_DIR						=	./02_lexer/
 PARSER_DIR						=	./03_parser/
@@ -39,6 +40,7 @@ MODULES_DIR_ALL					=	$(LEXER_DIR)\
 SUBMODULE						=	submodule_initialised
 
 #	Libraries
+GET_NEXT_LINE					=	$(LIBALLME_DIR)libgnl.a
 LIBME							=	$(LIBME_DIR)libme.a
 LEXER							=	$(LEXER_DIR)lexer.a
 PARSER							=	$(PARSER_DIR)parser.a
@@ -49,7 +51,8 @@ BUILTINS						=	$(BUILTINS_DIR)builtins.a
 SIGNALS							=	$(SIGNALS_DIR)signals.a
 CORE							=	$(CORE_DIR)core.a
 DEBUG							=	$(DEBUG_DIR)debug.a
-MODULES_ALL						=	$(LIBME)\
+MODULES_ALL						=	$(GET_NEXT_LINE)\
+									$(LIBME)\
 									$(LEXER)\
 									$(PARSER)\
 									$(BUILTINS)\
@@ -83,6 +86,7 @@ $(NAME):								$(MODULES_ALL)
 											$(CC) $(CFLAGS) $(MODULES_ALL) \
 												-o $(NAME) $(RL_LINK)
 $(MODULES_ALL):
+											$(MAKE) gnl -C $(LIBALLME_DIR)
 											$(MAKE) libme -C $(LIBALLME_DIR)
 											for dir in $(MODULES_DIR_ALL); do\
 												$(MAKE) -C $$dir; \

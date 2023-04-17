@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 14:30:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 10:24:39 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/17 19:25:28 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	ft_strnstr2(const char *haystack, const char *needle, size_t t)
 	}
 	return (ERROR);
 }
-
 
 char	*ft_charjoin(char *temp, char c, size_t cnt1, size_t cnt2)
 {

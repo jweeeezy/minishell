@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/15 16:25:14 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/17 19:25:16 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	free_pipe_array(int **array, int size)
 
 void	free_t_heredoc(t_data *data)
 {
-	t_heredoc 	*current_node;
+	t_heredoc	*current_node;
 	t_heredoc	*next_node;
 
 	if (data->flag_heredoc == 1)
