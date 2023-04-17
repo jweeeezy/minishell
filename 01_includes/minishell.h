@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/16 16:44:35 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/17 13:04:00 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ int		is_builtin(int cmd_to_check);
 char	builtin_pwd(void);
 void	env(t_data *data);
 void	builtin_exit(t_data *data, int exit_code, int index);
+void	unset(t_data *data, int index);
 /* ************************************************************************** */
 //                                    SIGNALS
 /* ************************************************************************** */
