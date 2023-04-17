@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/16 15:25:21 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/17 14:44:10 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	main(int argc, char **argv, char **envp)
 				printf("Execution error\n");
 		}
 		free_loop(&data);
+		data.flag_builtin_only = 0;
+		//system("leaks minishell");
 	}
 	exit(g_signal);
 	return (EXECUTED);

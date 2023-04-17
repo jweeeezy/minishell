@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:36:36 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/17 14:13:31 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/17 14:45:19 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	unset_free(t_data *data, int len)
 	cnt = 0;
 	while (cnt < len)
 	{
-		printf("was is here %i\n", cnt);
 		if (data->envp[cnt] != NULL)
 			free(data->envp[cnt]);
 		cnt++;
@@ -62,7 +61,7 @@ int	recombabulate(t_data *data, int len)
 	tokens = malloc(sizeof(char *) * (cnt1 + 1));
 	if (tokens == NULL)
 		return (ERROR);
-	tokens[cnt1 + 1] = NULL;
+	tokens[cnt1] = NULL;
 	cnt = 0;
 	cnt1 = 0;
 	while (cnt < len)
@@ -75,7 +74,7 @@ int	recombabulate(t_data *data, int len)
 		}
 		cnt++;
 	}
-	unset_free(data, len);
+	// unset_free(data, len);
 	data->envp = tokens;
 	return (EXECUTED);
 }
@@ -119,5 +118,4 @@ void	unset(t_data *data, int index)
 		cnt++;
 	}
 	recombabulate(data, len);
-	env(data);
 }

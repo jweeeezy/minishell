@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_cmd_selector.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 16:27:26 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/17 14:35:31 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <stdio.h>		// needed for printf()
 #include "redirector.h"
 
+int	child_execute_builtin(t_data *data, int index);
 
 static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 				int flag_cmd)
@@ -33,6 +34,19 @@ static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 		printf("WIP: command not found!\n");
 		return (EXECUTED);
 	}
+	if (fd_pipes == NULL && flag_cmd == BUILTIN)
+	{
+		data->flag_builtin_only = 1;
+		child_handle_indirection(data);
+		child_handle_outdirection(data);
+		if (child_execute_builtin(data, index) == ERROR)
+		{
+			return(ERROR);
+		}
+		executor_parent(data, fd_pipes, index);
+		return (EXECUTED);
+	}
+	printf("reached\n");
 	data->child_pids[data->index_processes] = fork();
 	if (data->child_pids[data->index_processes] == -1)
 	{

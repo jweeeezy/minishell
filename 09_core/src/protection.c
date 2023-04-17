@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:11:31 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/16 17:15:08 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/17 14:33:26 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ int	argument_protection(t_data *data, int argc, char **argv, char **envp)
 	data->flag_heredoc = 0;
 	data->fd_infile = -1;
 	data->fd_outfile = -1;
+	data->flag_builtin_only = 0;
 	return (EXECUTED);
 }

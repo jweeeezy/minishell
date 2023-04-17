@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/17 13:04:29 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/17 14:28:19 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <unistd.h>		// needed for execve(), NULL
 #include <stdio.h>		// needed for close(), dup2()
 
-static int	child_execute_builtin(t_data *data, int index)
+int	child_execute_builtin(t_data *data, int index)
 {
 	int	cmd_type;
 

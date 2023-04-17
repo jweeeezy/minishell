@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/17 13:04:00 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/17 14:33:03 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_data
 	int				counter_processes;
 	int				index_processes;
 	int				tokens;
+	int				flag_builtin_only;
 	int				flag_heredoc;
 	int				flag_infile;
 	int				flag_outfile;

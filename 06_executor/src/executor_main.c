@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 16:25:31 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/17 14:37:01 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	executor_crossroads(t_data *data)
 		{
 			return (ERROR);
 		}
-		if (data->counter_processes != 0)
+		if (data->counter_processes != 0 && data->flag_builtin_only == 0)
 		{
 			if (wait(NULL) == -1)
 				return (ERROR);
