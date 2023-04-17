@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/16 14:12:37 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/16 16:44:35 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ typedef struct s_heredoc
 typedef struct s_data
 {
 	t_combine		*combine;
-	int				exit_code;
 	t_heredoc		*heredoc;
 	char			**envp;
 	char			**argv;
 	char			*line;
+	int				exit_status;
 	int				*child_pids;
 	int				commands_to_process;
 	int				counter_pipes;
@@ -214,5 +214,11 @@ void	debug_print_t_vector_str(t_vector_str *vector_to_print);
 void	debug_print_t_combine(t_data *data);
 void	debug_print_pipe_status(char *message, int **fd_pipes);
 void	debug_fds(int max);
+
+/* ************************************************************************** */
+//                                    SIGNALS
+/* ************************************************************************** */
+
+void	ft_printer(int sig);
 
 #endif  // MINISHELL_H

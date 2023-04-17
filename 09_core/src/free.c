@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/15 10:27:43 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/16 17:19:25 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ void	free_loop(t_data *data)
 		free_tokens(data, cnt);
 		if (data->combine[cnt].combined_str != NULL)
 		{
-			free(data->combine[cnt].combined_str);
+			if (data->combine[cnt].combined_str != NULL)
+				free(data->combine[cnt].combined_str);
 			data->combine[cnt].combined_str = NULL;
-			free(data->combine[cnt].execute);
+			if ((data->combine[cnt].execute) != NULL)
+				free(data->combine[cnt].execute);
 			data->combine[cnt].execute = NULL;
 		}
 		cnt++;

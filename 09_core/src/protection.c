@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:11:31 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/16 14:10:37 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/16 17:15:08 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	argument_protection(t_data *data, int argc, char **argv, char **envp)
 	if (argc > 1)
 		return (ERROR);
 	data->argv = argv;
+	data->exit_status = 0;
 	data->envp = envp;
 	data->heredoc = NULL;
 	data->flag_infile = 0;

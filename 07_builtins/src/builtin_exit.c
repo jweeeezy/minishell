@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 10:32:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/16 14:19:13 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/16 16:33:41 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,23 @@
 #include "libft.h"
 #include <stdio.h>
 #include <signal.h>
+#include <unistd.h>
+
+void	copy_of_minitalk(int pid, int c)
+{
+	int	base;
+
+	base = 256;
+	while (base > 1)
+	{
+		base = base / 2;
+		if (((c / base) % 2) == 1)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		usleep(50);
+	}
+}
 
 void	builtin_exit(t_data *data, int exit_code, int index)
 {
@@ -41,5 +58,5 @@ void	builtin_exit(t_data *data, int exit_code, int index)
 	}
 	else
 		g_signal = 0;
-	kill(data->pid, SIGUSR1);
+	copy_of_minitalk(data->pid, g_signal);
 }

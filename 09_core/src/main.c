@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/16 13:23:01 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/16 15:25:21 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	signals(void)
 	signal(SIGINT, handle_signal);
 	signal(SIGTERM, handle_signal);
 	signal(SIGUSR1, handle_signal);
+	signal(SIGUSR1, ft_printer);
+	signal(SIGUSR2, ft_printer);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -77,5 +79,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free_loop(&data);
 	}
+	exit(g_signal);
 	return (EXECUTED);
 }
