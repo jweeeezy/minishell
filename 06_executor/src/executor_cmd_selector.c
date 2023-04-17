@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_cmd_selector.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/17 19:39:55 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/18 00:41:51 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	child_execute_builtin(t_data *data, int index);
 static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 				int flag_cmd)
 {
+	// @note i should be forking even on an error prob
+
 	if (flag_cmd == ERROR)
 	{
 		executor_parent(data, fd_pipes, index);
@@ -36,8 +38,14 @@ static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 		printf("WIP: command not found!\n");
 		return (EXECUTED);
 	}
+
+	// @note see top
+
+
+	
 	if (fd_pipes == NULL && flag_cmd == BUILTIN)
 	{
+		data->child_pids[data->index_processes] = 0;
 		data->flag_builtin_only = 1;
 		child_handle_indirection(data);
 		child_handle_outdirection(data);

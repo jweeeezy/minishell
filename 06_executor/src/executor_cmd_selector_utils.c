@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_cmd_selector_utils.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 14:11:57 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/15 17:34:28 by jwillert         ###   ########          */
+/*   Updated: 2023/04/18 00:25:05 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "minishell.h"	// needed for t_combine
 #include "executor.h"	// needed for executor_*()
 #include <unistd.h>	// needed for access(), NULL
+
+#include <stdio.h>
 
 static char	**selector_get_path_array(char **envp)
 {

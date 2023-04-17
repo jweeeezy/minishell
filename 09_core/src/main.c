@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/17 19:34:08 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/18 00:18:53 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 #include <signal.h>
 #include "redirector.h"
 #include "get_next_line_bonus.h"
+
+static void	check_leaks(void)
+{
+	return ;
+	//system("leaks minishell");
+}
 
 static int	history(t_data *data)
 {
@@ -113,6 +119,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
+	atexit(check_leaks);
 	using_history();
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
 	{

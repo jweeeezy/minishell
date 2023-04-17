@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 12:52:07 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/17 23:29:32 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/18 00:36:27 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,11 @@ $(NAME):								$(MODULES_ALL)
 valgrind:								linux
 											valgrind --leak-check=full \
 											--show-leak-kinds=all \
+											--fullpath-after= \
 											--track-origins=yes \
+											--log-file=./valgrind_debug.log \
+											--show-reachable=yes \
+											--trace-children=yes \
 											--verbose \
 											./minishell							
 linux:									$(MODULES_ALL)

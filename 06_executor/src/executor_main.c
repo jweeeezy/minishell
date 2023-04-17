@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/17 22:13:08 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/17 23:58:39 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,21 @@ static int	executor_wait_for_childs(t_data *data)
 
 static void	executor_init(t_data *data)
 {
+	int	index;
+
+	index = 0;
 	data->counter_pipes = executor_count_pipes(data);
 	data->counter_processes = executor_count_processes(data);
 	data->index_processes = 0;
 	data->child_pids = malloc (sizeof (int) * data->counter_processes);
+	if (data->child_pids != NULL)
+	{
+		while (index < data->counter_processes)
+		{
+			data->child_pids[index] = 0;
+			index += 1;
+		}
+	}
 }
 
 static int	executor_crossroads(t_data *data)
