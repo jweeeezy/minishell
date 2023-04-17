@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 11:33:51 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/15 10:15:27 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/16 09:09:34 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ int	recheck_the_combined_str(t_data *data, int cnt)
 		if (data->combine[cnt].combined_str == NULL)
 			return (ERROR);
 	}
+	else if (ft_strlen(data->combine[cnt].combined_str) > 1)
+	{
+		data->combine[cnt]
+			.combined_str[ft_strlen(data->combine[cnt]
+				.combined_str) - 1] = '\0';
+	}
 	return (EXECUTED);
 }
 
@@ -69,6 +75,34 @@ int	recombine_str(t_data *data, int cnt, int cnt1, char *temp)
 		if (recheck_the_combined_str(data, cnt) == ERROR)
 			return (ERROR);
 		cnt++;
+	}
+	return (EXECUTED);
+}
+
+int	is_n(char *str)
+{
+	if (ft_strncmp(str, "-n", ft_strlen(str)) == 0)
+		return (ADD);
+	return (EXECUTED);
+}
+
+int	is_wierd_n(char *str)
+{
+	int	cnt;
+
+	cnt = 0;
+	if (ft_strlen(str) > 1)
+	{
+		if (str[cnt] != '-')
+			return (EXECUTED);
+		cnt++;
+		while (str[cnt] != '\0')
+		{
+			if (str[cnt] != 'n')
+				return (EXECUTED);
+			cnt++;
+		}
+		return (ADD);
 	}
 	return (EXECUTED);
 }

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/17 19:22:43 by jwillert         ###   ########          */
+/*   Updated: 2023/04/17 19:36:59 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ enum e_outputs
 	ENV = 26,
 	EXIT = 27,
 	N = 28,
+	WIERD_N = 29,
 	LAST_PIPE = 50,
 	BUILTIN = 200,
 	EXTERN = 100
@@ -88,21 +89,23 @@ typedef struct s_data
 {
 	t_combine		*combine;
 	t_heredoc		*heredoc;
-	char			**args;
 	char			**envp;
 	char			**argv;
 	char			*line;
+	int				exit_status;
 	int				*child_pids;
 	int				commands_to_process;
 	int				counter_pipes;
 	int				counter_processes;
 	int				index_processes;
 	int				tokens;
+	int				flag_builtin_only;
 	int				flag_heredoc;
 	int				flag_infile;
 	int				flag_outfile;
 	int				fd_infile;
 	int				fd_outfile;
+	pid_t			pid;
 }	t_data;
 
 /* ************************************************************************** */
@@ -155,6 +158,8 @@ int		parser(t_data *data);
 void	main_command(t_data *data);
 int		recombine_str(t_data *data, int cnt, int cnt1, char *temp);
 int		token_numbers_helper(char *str);
+int		is_n(char *str);
+int		is_wierd_n(char *str);
 
 /* ************************************************************************** */
 //                                    REDIRECTOR
@@ -173,11 +178,13 @@ int		executor(t_data *data);
 //                                    BUILTINS
 /* ************************************************************************** */
 
-void	echo(t_combine str);
-void	echo_n(t_data *data, int index);
+void	echo(t_combine str, int n, int cnt2, int is_echo_skiped);
+void	wierd_echo(t_combine str, int n, int cnt2, int is_echo_skiped);
 int		is_builtin(int cmd_to_check);
 char	builtin_pwd(void);
 void	env(t_data *data);
+void	builtin_exit(t_data *data, int exit_code, int index);
+void	unset(t_data *data, int index);
 /* ************************************************************************** */
 //                                    SIGNALS
 /* ************************************************************************** */
@@ -207,5 +214,11 @@ void	debug_print_t_execute(t_data *data,	t_execute *execute);
 void	debug_print_t_combine(t_data *data);
 void	debug_print_pipe_status(char *message, int **fd_pipes);
 void	debug_fds(int max);
+
+/* ************************************************************************** */
+//                                    SIGNALS
+/* ************************************************************************** */
+
+void	ft_printer(int sig);
 
 #endif  // MINISHELL_H

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/17 19:14:08 by jwillert         ###   ########          */
+/*   Updated: 2023/04/17 19:36:33 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ static int	executor_wait_for_childs(t_data *data)
 	int	index;
 
 	index = 0;
+	if (data->flag_builtin_only == 1)
+	{
+		return (EXECUTED);
+	}
 	while (index < data->counter_processes)
 	{
 		if (waitpid(data->child_pids[index], NULL, 0) == -1)
@@ -58,7 +62,7 @@ static int	executor_crossroads(t_data *data)
 		{
 			return (ERROR);
 		}
-		if (executor_wait_for_childs(data) == ERROR)
+			if (executor_wait_for_childs(data) == ERROR)
 		{
 			return (ERROR);
 		}

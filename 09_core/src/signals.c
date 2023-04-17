@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 13:20:45 by kvebers           #+#    #+#             */
-/*   Updated: 2023/03/27 18:03:02 by jwillert         ###   ########          */
+/*   Updated: 2023/04/16 15:27:31 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,23 @@
 #include "libft.h"
 #include <signal.h>
 #include <unistd.h>
+
+void	ft_printer(int sig)
+{
+	static int	result;
+	static int	pow;
+
+	if (pow == 0 || pow == 1)
+		pow = 256;
+	pow = pow / 2;
+	if (sig == SIGUSR1)
+		result = result + pow;
+	if (pow == 1)
+	{
+		g_signal = result;
+		result = 0;
+	}
+}
 
 void	handle_signal(int sig)
 {

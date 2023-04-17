@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/15 17:36:22 by jwillert         ###   ########          */
+/*   Updated: 2023/04/17 19:34:39 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 #include <unistd.h>		// needed for execve(), NULL
 #include <stdio.h>		// needed for close(), dup2()
 
-static int	child_execute_builtin(t_data *data, int index)
+int	child_execute_builtin(t_data *data, int index)
 {
 	int	cmd_type;
 
 	cmd_type = data->combine[index].command->order_numb;
 	if (cmd_type == ECHO)
-		echo(data->combine[index]);
+		echo(data->combine[index], 0, 0, 0);
 	else if (cmd_type == REJECTED_ECHO)
-		echo(data->combine[index]);
+		wierd_echo(data->combine[index], 0, 0, 0);
 	else if (cmd_type == ENV)
 		env(data);
 	else if (cmd_type == CD)
@@ -34,9 +34,9 @@ static int	child_execute_builtin(t_data *data, int index)
 	else if (cmd_type == EXPORT)
 		printf("export executed\n");
 	else if (cmd_type == UNSET)
-		printf("unset executed\n");
+		unset(data, index);
 	else if (cmd_type == EXIT)
-		printf("exit executed\n");
+		builtin_exit(data, 0, index);
 	else
 		return (ERROR);
 	return (EXECUTED);

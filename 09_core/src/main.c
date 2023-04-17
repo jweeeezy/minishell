@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/17 19:16:42 by jwillert         ###   ########          */
+/*   Updated: 2023/04/17 19:34:08 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,9 @@ void	signals(void)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, handle_signal);
 	signal(SIGTERM, handle_signal);
+	signal(SIGUSR1, handle_signal);
+	signal(SIGUSR1, ft_printer);
+	signal(SIGUSR2, ft_printer);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -130,5 +133,6 @@ int	main(int argc, char **argv, char **envp)
 			return (ERROR);
 		}
 	}
+	exit(g_signal);
 	return (EXECUTED);
 }

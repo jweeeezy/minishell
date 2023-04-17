@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:01:08 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 13:52:50 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/16 15:25:02 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,3 @@ int	is_white_space(char c)
 		return (ADD);
 	return (EXECUTED);
 }
-
-// int	skip_white_spaces(t_data *data, int cnt)
-// {
-// 	while (cnt < data->tokens && data->execute[cnt].order_numb == WHITE)
-// 		cnt++;
-// 	return (cnt);
-// }
