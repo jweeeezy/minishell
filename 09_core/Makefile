@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:18:22 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/14 13:35:48 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/16 16:02:36 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ OBJ_DIR							=	./obj/
 LIBALLME_DIR					=	../00_liballme/
 LIBFT_DIR						=	$(LIBALLME_DIR)libft/
 LIBME_DIR						=	$(LIBALLME_DIR)libme/
+GNL_DIR							=	$(LIBALLME_DIR)get_next_line/
 VPATH							=	$(SRC_DIR):$(OBJ_DIR)
 LIBFT							=	$(LIBFT_DIR)libft.a
 LIBME							=	$(LIBME_DIR)libme.a
@@ -51,7 +52,8 @@ RL_INCLUDE 						=	$(BREW_PATH)opt/readline/include
 DEBUG							=	$(shell echo $$DEBUG_FLAG)
 CFLAGS							=	-Wall -Wextra -Werror $(DEBUG)
 INCLUDE							=	-I $(INCLUDE_DIR) -I $(LIBFT_DIR)include \
-									-I $(LIBME_DIR)include -I $(RL_INCLUDE)
+									-I $(LIBME_DIR)include -I $(RL_INCLUDE)\
+									-I $(GNL_DIR)include
 CC_OBJ							=	$(CC) $(INCLUDE) $(CFLAGS) -c $^ -o \
 									$(OBJ_DIR)$@
 REMOVE							=	rm -f

@@ -6,12 +6,12 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 16:33:47 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/15 23:23:04 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"	// needed for t_data, debug()
-#include <unistd.h>		// needed for close()
+#include <unistd.h>		// needed for close(), unlink()
 #include <stdio.h>		// needed perror()
 
 static void	executor_parent_close_pipes(t_data *data, int **fd_pipes)
@@ -43,23 +43,21 @@ void	executor_parent(t_data *data, int **fd_pipes, int index)
 		close(data->fd_infile);
 		data->flag_infile = 0;
 	}
+	else if (data->flag_heredoc == 1)
+	{
+		unlink(data->heredoc->full_path);
+		free(data->heredoc->full_path);
+		free(data->heredoc);
+		data->heredoc = NULL;
+		data->flag_heredoc = 0;
+	}
 	if (data->flag_outfile == 1)
 	{
 		close(data->fd_outfile);
 		data->flag_outfile = 0;
 	}
-	if (data->flag_heredoc == 1)
-	{
-		free(data->heredoc->full_path);
-		free(data->heredoc);
-		data->heredoc = NULL;
-	}
-	if (data->combine[index].first_element != NULL)
-		free(data->combine[index].first_element);
 	if (data->combine[index].full_path != NULL)
+	{
 		free(data->combine[index].full_path);
-	//free(data->combine[index].command->full_path);
-	//data->combine[index].command->full_path = NULL;
+	}
 }
-
-//	@note delete the tmp file?

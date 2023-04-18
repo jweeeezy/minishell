@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 19:09:04 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/17 14:35:31 by kvebers          ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/04/18 08:04:49 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "executor.h"	// needed for executor_child(),
 						// executor_parent()
@@ -25,12 +26,16 @@ int	child_execute_builtin(t_data *data, int index);
 static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 				int flag_cmd)
 {
+	// @note i should be forking even on an error prob
+
 	if (flag_cmd == ERROR)
 	{
+		executor_parent(data, fd_pipes, index);
 		return (ERROR);
 	}
 	else if (flag_cmd == COMMAND_NOT_FOUND)
 	{
+		executor_parent(data, fd_pipes, index);
 		printf("WIP: command not found!\n");
 		return (EXECUTED);
 	}
@@ -50,6 +55,7 @@ static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 	data->child_pids[data->index_processes] = fork();
 	if (data->child_pids[data->index_processes] == -1)
 	{
+		executor_parent(data, fd_pipes, index);
 		return (ERROR);
 	}
 	if (data->child_pids[data->index_processes] == 0)
@@ -90,5 +96,3 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 	}
 	return (EXECUTED);
 }
-
-//	@note invalid command check

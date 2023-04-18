@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:11:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 16:29:00 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:13:11 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@
 
 #include <stdio.h>
 
-char	*redirector_get_filename(t_data *data, int index)
+char	*redirector_get_filename(t_data *data, int index, int token_type)
 {
 	char	**split_array;
 	char	*str_filename;
 
+	if (token_type == HERE_DOC)
+	{
+		return (NULL);
+	}
 	split_array = ft_split(data->combine[index].combined_str, ' ');
 	if (split_array == NULL)
 		return (NULL);

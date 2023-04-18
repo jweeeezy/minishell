@@ -6,14 +6,13 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/17 14:33:03 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/18 08:05:29 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <stdlib.h>
-# include "libme.h"	// needed for t_vector_str
 
 int	g_signal;
 
@@ -73,7 +72,6 @@ typedef struct s_combine
 {
 	t_execute	*command;
 	char		*combined_str;
-	char		*first_element;
 	char		*full_path;
 	int			count_n;
 	t_execute	*execute;
@@ -119,6 +117,7 @@ void	free_char_array(char **array_to_free);
 void	free_loop(t_data *data);
 int		argument_protection(t_data *data, int argc, char **argv, char **envp);
 void	free_pipe_array(int **array, int size);
+void	free_t_heredoc(t_data *data);
 
 /* ************************************************************************** */
 //                                    UTILS
@@ -212,7 +211,6 @@ void	debug_print_pid(char *process_name);
 void	debug_print_char_array(char **args, char *name);
 void	debug_print_int(char *description, int int_to_print);
 void	debug_print_t_execute(t_data *data,	t_execute *execute);
-void	debug_print_t_vector_str(t_vector_str *vector_to_print);
 void	debug_print_t_combine(t_data *data);
 void	debug_print_pipe_status(char *message, int **fd_pipes);
 void	debug_fds(int max);

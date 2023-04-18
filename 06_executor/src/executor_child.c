@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/17 14:28:19 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/18 08:05:01 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ static int	child_execute_extern(t_data *data, int index)
 	if (cmd_array == NULL)
 	{
 		exit(ERROR);
+	}
+	if (DEBUG)
+	{
+		printf("full_path in child: %s\n", data->combine[index].full_path);
+		debug_print_char_array(cmd_array, "cmd_array: ");
 	}
 	execve(data->combine[index].full_path, cmd_array, data->envp);
 	free_char_array(cmd_array);

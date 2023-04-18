@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/16 17:19:25 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/18 08:03:54 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,18 @@ void	free_pipe_array(int **array, int size)
 
 void	free_t_heredoc(t_data *data)
 {
-	t_heredoc 	*current_node;
+	t_heredoc	*current_node;
 	t_heredoc	*next_node;
 
+	if (data->flag_heredoc == 1)
+	{
+		unlink(data->heredoc->full_path);
+		free(data->heredoc->full_path);
+		free(data->heredoc);
+		data->heredoc = NULL;
+		data->flag_heredoc = 0;
+		return ;
+	}
 	current_node = data->heredoc;
 	while (current_node != NULL)
 	{

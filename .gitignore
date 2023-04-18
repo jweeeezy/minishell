@@ -3,6 +3,7 @@
 *.a
 *.dSYM
 *.out
+*.log
 .vscode
 minishell
 main_test.c

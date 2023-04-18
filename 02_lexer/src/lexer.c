@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/15 10:30:02 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/17 22:13:14 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	merge_strings(t_data *data, int *numb1)
 int	create_strings(t_data *data, int *numb1)
 {
 	int	cnt;
-	int	cnt1;
+	//int	cnt1;
 
 	cnt = 0;
-	cnt1 = 0;
+	//cnt1 = 0;
 	while (data->line[cnt] != '\0')
 		cnt++;
 	if (cnt == 0)

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 16:20:14 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/15 23:20:54 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	pipex_advance_to_next_pipe(t_data *data, int index)
 			break ;
 		}
 		else if (data->combine[index].command->order_numb == PIPE
-				|| data->combine[index].command->order_numb == LAST_PIPE)
+			|| data->combine[index].command->order_numb == LAST_PIPE)
 		{
 			data->index_processes += 1;
 			index += 1;
@@ -45,8 +45,6 @@ int	pipex_skip_non_commands(t_data *data, int index)
 	}
 	return (index);
 }
-
-
 
 static int	**pipex_create_pipes(int counter_pipes)
 {
@@ -74,8 +72,6 @@ static int	**pipex_create_pipes(int counter_pipes)
 	return (fd_pipes);
 }
 
-
-
 int	executor_pipex(t_data *data)
 {
 	int	**fd_pipes;
@@ -89,12 +85,6 @@ int	executor_pipex(t_data *data)
 	}
 	while (index < data->commands_to_process)
 	{
-		// advance until string or pipe
-		//  if pipe and no string
-		//  	--> no command found?
-		//  return index!
-
-		//
 		debug_print_t_combine(data);
 		if (executor_cmd_selector(data, fd_pipes, index) == ERROR)
 		{
@@ -102,7 +92,6 @@ int	executor_pipex(t_data *data)
 			return (ERROR);
 		}
 		index = pipex_advance_to_next_pipe(data, index);
-		//data->index_processes += 1;
 	}
 	free_pipe_array(fd_pipes, data->counter_pipes);
 	return (EXECUTED);

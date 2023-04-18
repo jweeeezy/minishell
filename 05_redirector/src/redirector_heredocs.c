@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirector_heredocs.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 16:37:07 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/17 22:13:12 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,18 @@
 #include <unistd.h>				// needed for close(), fork()
 #include <readline/readline.h>	// needed for readline()
 #include <readline/history.h>	// @note heredoc history?
+#include <sys/wait.h>
+//#include <sys/types.h>
 
 static char	*heredoc_get_delimiter(t_data *data, int index)
 {
+	char	*offset_ptr;
 	char	*delimiter;
+	size_t	length;
 
-	delimiter = data->combine[index].combined_str + 2;
-	if (*delimiter == '\0')
-	{
-		delimiter = NULL;
-	}
+	offset_ptr = data->combine[index].combined_str + 2;
+	length = ft_strlen(offset_ptr);
+	delimiter = ft_substr(offset_ptr, 0, length - 1);
 	return (delimiter);
 }
 
@@ -69,6 +71,11 @@ static int	heredoc_open_heredoc(t_data *data, int index,
 		return (ERROR);
 	}
 	heredoc_delimiter = heredoc_get_delimiter(data, index);
+	if (heredoc_delimiter == NULL)
+	{
+		heredoc_lst_clean(data);
+		return (ERROR);
+	}
 	while (1)
 	{
 		return_value = heredoc_loop(current_node, heredoc_delimiter);
@@ -77,6 +84,7 @@ static int	heredoc_open_heredoc(t_data *data, int index,
 			break ;
 		}
 	}
+	free(heredoc_delimiter);
 	return (return_value);
 }
 
@@ -102,7 +110,7 @@ static int	heredoc_fork_and_open(t_data *data, int index)
 	}
 	else
 	{
-		wait(NULL);
+		wait(NULL);			// @note waitpid instead? test with piping into ./minishell
 		close(current_node->fd);
 	}
 	return (EXECUTED);
@@ -115,7 +123,7 @@ int	redirector_prehandle_heredocs(t_data *data)
 
 	index = 0;
 	counter_heredocs = executor_count_heredocs(data);
-	while (data->combine[index].combined_str != NULL && counter_heredocs > 0)
+	while (index < data->commands_to_process && counter_heredocs > 0)
 	{
 		if (data->combine[index].command->order_numb == HERE_DOC)
 		{
