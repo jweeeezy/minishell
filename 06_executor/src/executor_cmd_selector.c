@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/04/18 08:04:49 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/18 14:39:54 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 	else if (flag_cmd == COMMAND_NOT_FOUND)
 	{
 		executor_parent(data, fd_pipes, index);
-		printf("WIP: command not found!\n");
+		printf("WIP: command not found!\n"); // @todo replace with an alternative that prints to STDERROR OUT
 		return (EXECUTED);
 	}
 	if (fd_pipes == NULL && flag_cmd == BUILTIN)
@@ -51,7 +51,6 @@ static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 		executor_parent(data, fd_pipes, index);
 		return (EXECUTED);
 	}
-	printf("reached\n");
 	data->child_pids[data->index_processes] = fork();
 	if (data->child_pids[data->index_processes] == -1)
 	{

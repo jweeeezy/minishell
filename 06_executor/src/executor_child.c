@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/18 08:05:01 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/18 14:24:53 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	child_execute_builtin(t_data *data, int index)
 	else if (cmd_type == PWD)
 		builtin_pwd();
 	else if (cmd_type == EXPORT)
-		printf("export executed\n");
+		builtin_export(data, index);
 	else if (cmd_type == UNSET)
 		unset(data, index);
 	else if (cmd_type == EXIT)

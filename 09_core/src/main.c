@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/18 08:34:40 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/18 16:03:37 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <termios.h>
 #include <signal.h>
 #include "redirector.h"
-#include "liballme.h"
+
 // #include "get_next_line_bonus.h"
 // #include "get_next_line_utils_bonus.h"
 
@@ -33,6 +33,7 @@ static int	history(t_data *data)
 {
 	char	*line;
 
+	data->flag_builtin_only = 0;
 	if (isatty(fileno(stdin)))
 		data->line = readline("Terminal Troublemakers: ");
 	else
@@ -42,9 +43,7 @@ static int	history(t_data *data)
 		free(line);
 	}
 	if (data->line == NULL)
-	{
 		return (ERROR);
-	}
 	else if (data->line)
 	{
 		if (*data->line == '\0')
@@ -70,8 +69,6 @@ void	signals(void)
 	signal(SIGINT, handle_signal);
 	signal(SIGTERM, handle_signal);
 	signal(SIGUSR1, handle_signal);
-	signal(SIGUSR1, ft_printer);
-	signal(SIGUSR2, ft_printer);
 }
 
 
@@ -97,12 +94,12 @@ int	main(int argc, char **argv, char **envp)
 			if (redirector_prehandle_heredocs(&data) == ERROR)
 				printf("Redirection error\n");
 			if (executor(&data) == ERROR)
-				printf("Execution error\n");
+			{
+			}
 		}
 		free_loop(&data);
-		data.flag_builtin_only = 0;
-		//system("leaks minishell");
 	}
+	free_env(&data);
 	exit(g_signal);
 	return (EXECUTED);
 }

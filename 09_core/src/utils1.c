@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:01:08 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/16 15:25:02 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/18 13:43:30 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,14 @@ int	is_white_space(char c)
 		|| c == '\r' || c == '\v' || c == '\f')
 		return (ADD);
 	return (EXECUTED);
+}
+
+int	count_env(t_data *data)
+{
+	int	cnt;
+
+	cnt = 0;
+	while (data->envp[cnt] != NULL)
+		cnt++;
+	return (cnt);
 }

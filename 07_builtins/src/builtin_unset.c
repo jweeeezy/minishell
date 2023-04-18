@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:36:36 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/17 14:45:19 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/18 13:43:15 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,6 @@
 #include <stdio.h>			// needed for printf()
 #include "minishell.h"		// needed for MACRO
 #include "libft.h"
-
-int	count_env(t_data *data)
-{
-	int	cnt;
-
-	cnt = 0;
-	while (data->envp[cnt] != NULL)
-		cnt++;
-	return (cnt);
-}
 
 void	unset_free(t_data *data, int len)
 {
@@ -74,7 +64,7 @@ int	recombabulate(t_data *data, int len)
 		}
 		cnt++;
 	}
-	// unset_free(data, len);
+	unset_free(data, len);
 	data->envp = tokens;
 	return (EXECUTED);
 }
@@ -94,7 +84,10 @@ void	unset_helper(t_data *data, int cnt, int len, int index)
 			continue ;
 		}
 		else if (ft_strnstr3(data->envp[cnt1], temp, ft_strlen(temp)) != NULL)
+		{
+			free(data->envp[cnt1]);
 			data->envp[cnt1] = NULL;
+		}
 		cnt1++;
 	}
 	if (temp != NULL)
