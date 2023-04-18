@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/18 18:16:43 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/18 18:57:02 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,7 @@ int	main(int argc, char **argv, char **envp)
 				debug_print_t_combine(&data);
 			}
 			if (redirector_prehandle_heredocs(&data) == ERROR)
-			{
-				printf("Redirection error\n");
-			}
+				ft_putstr_fd("Error\n", 0);
 			if (executor(&data) == ERROR)
 			{
 				printf("Execution error\n");

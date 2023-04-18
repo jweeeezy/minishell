@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_child.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/18 14:24:53 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/18 18:47:53 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,6 @@ static int	child_execute_extern(t_data *data, int index)
 	{
 		exit(ERROR);
 	}
-	if (DEBUG)
-	{
-		printf("full_path in child: %s\n", data->combine[index].full_path);
-		debug_print_char_array(cmd_array, "cmd_array: ");
-	}
 	execve(data->combine[index].full_path, cmd_array, data->envp);
 	free_char_array(cmd_array);
 	perror("execve");
@@ -88,6 +83,11 @@ void	executor_child(t_data *data, int **fd_pipes, int index,
 		{
 			exit(ERROR);
 		}
+	}
+	else if (flag_cmd == COMMAND_NOT_FOUND)
+	{
+		ft_putstr_fd("command not found\n", 2);
+		// @todo command not found!
 	}
 	exit(EXECUTED);
 }
