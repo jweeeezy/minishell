@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/18 08:12:08 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/18 08:34:40 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 #include <termios.h>
 #include <signal.h>
 #include "redirector.h"
-#include "get_next_line_bonus.h"
+#include "liballme.h"
+// #include "get_next_line_bonus.h"
+// #include "get_next_line_utils_bonus.h"
 
 // static void	check_leaks(void)
 // {
@@ -29,7 +31,16 @@
 
 static int	history(t_data *data)
 {
-	data->line = readline("Terminal Troublemakers: ");
+	char	*line;
+
+	if (isatty(fileno(stdin)))
+		data->line = readline("Terminal Troublemakers: ");
+	else
+	{
+		line = get_next_line(fileno(stdin));
+		data->line = ft_strtrim(line, "\n");
+		free(line);
+	}
 	if (data->line == NULL)
 	{
 		return (ERROR);
