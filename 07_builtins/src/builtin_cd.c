@@ -6,7 +6,15 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 10:50:57 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/16 10:50:58 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/18 16:12:16 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
+#include "libft.h"
+#include <stdio.h>
+
+// void	builtin_cd(t_data *data, int index)
+// {
+	
+// }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 12:52:07 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/18 17:54:55 by jwillert         ###   ########           #
+#    Updated: 2023/04/18 18:19:41 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ MODULES_DIR_ALL					=	$(LEXER_DIR)\
 SUBMODULE						=	submodule_initialised
 
 #	Libraries
-GET_NEXT_LINE					=	$(LIBALLME_DIR)libgnl.a
+GNL								=	$(GNL_DIR)libgnl.a
 LIBME							=	$(LIBME_DIR)libme.a
 LEXER							=	$(LEXER_DIR)lexer.a
 PARSER							=	$(PARSER_DIR)parser.a
@@ -51,8 +51,8 @@ BUILTINS						=	$(BUILTINS_DIR)builtins.a
 SIGNALS							=	$(SIGNALS_DIR)signals.a
 CORE							=	$(CORE_DIR)core.a
 DEBUG							=	$(DEBUG_DIR)debug.a
-MODULES_ALL						=	$(GET_NEXT_LINE)\
-									$(LIBME)\
+MODULES_ALL						=	$(LIBME)\
+									$(GNL) \
 									$(LEXER)\
 									$(PARSER)\
 									$(EXPANDER)\
@@ -79,17 +79,10 @@ REMOVE							=	rm -f
 .DELETE_ON_ERROR:
 
 #	General targets
-.PHONY:									all clean fclean re ref update valgrind linux
+.PHONY:									all clean fclean re ref update
 all:									$(SUBMODULE) $(NAME)
 $(NAME):								$(MODULES_ALL)
-											$(CC) $(CFLAGS) $(MODULES_ALL) \
-												-o $(NAME) $(RL_LINK)
-$(MODULES_ALL):
-											$(MAKE) gnl -C $(LIBALLME_DIR)
-											$(MAKE) libme -C $(LIBALLME_DIR)
-											for dir in $(MODULES_DIR_ALL); do\
-												$(MAKE) -C $$dir; \
-												done
+										$(CC) $(CFLAGS) -o $(NAME) $(MODULES_ALL) $(RL_LINK)
 valgrind:								linux
 											valgrind --leak-check=full \
 											--show-leak-kinds=all \
@@ -99,7 +92,7 @@ valgrind:								linux
 											--show-reachable=yes \
 											--trace-children=yes \
 											--verbose \
-											./minishell							
+											./minishell
 linux:									$(MODULES_ALL)
 											cp $(GET_NEXT_LINE) ./
 											cp $(LIBME) ./
@@ -133,6 +126,12 @@ linux:									$(MODULES_ALL)
 											rm debug.a
 											$(CC) $(CFLAGS) *.o -o $(NAME) -lreadline
 											rm *.o
+$(MODULES_ALL):
+											$(MAKE) gnl -C $(LIBALLME_DIR)
+											$(MAKE) libme -C $(LIBALLME_DIR)
+											for dir in $(MODULES_DIR_ALL); do\
+												$(MAKE) -C $$dir; \
+												done
 clean:
 											$(MAKE) clean -C $(LIBALLME_DIR)
 											for dir in $(MODULES_DIR_ALL); do\

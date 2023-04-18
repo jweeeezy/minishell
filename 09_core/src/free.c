@@ -3,16 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/17 19:33:12 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/18 12:45:29 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <unistd.h>
 #include <stdio.h>
+
+void	free_env(t_data *data)
+{
+	int	cnt;
+
+	cnt = 0;
+	if (data->envp != NULL)
+	{
+		while (data->envp[cnt] != NULL)
+		{
+			free(data->envp[cnt]);
+			data->envp[cnt] = NULL;
+			cnt++;
+		}
+		free(data->envp);
+		data->envp = NULL;
+	}
+}
 
 void	free_helper(t_data *data)
 {

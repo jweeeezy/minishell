@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   executor_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/02 09:02:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/17 23:58:39 by jwillert         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/04/18 08:04:22 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"			// needed for t_data, MACROS
 #include "executor.h"	// needed for executor_*()
@@ -75,7 +76,7 @@ static int	executor_crossroads(t_data *data)
 		{
 			return (ERROR);
 		}
-			if (executor_wait_for_childs(data) == ERROR)
+		if (data->counter_processes != 0 && data->flag_builtin_only == 0)
 		{
 			return (ERROR);
 		}

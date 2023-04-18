@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/17 19:36:59 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/18 15:03:30 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ enum e_outputs
 	EXIT = 27,
 	N = 28,
 	WIERD_N = 29,
+	BUFFER_SIZE = 42,
 	LAST_PIPE = 50,
 	BUILTIN = 200,
 	EXTERN = 100
@@ -118,6 +119,7 @@ void	free_loop(t_data *data);
 int		argument_protection(t_data *data, int argc, char **argv, char **envp);
 void	free_pipe_array(int **array, int size);
 void	free_t_heredoc(t_data *data);
+void	free_env(t_data *data);
 
 /* ************************************************************************** */
 //                                    UTILS
@@ -136,6 +138,7 @@ char	*ft_charjoin(char *temp, char c, size_t cnt1, size_t cnt2);
 int		only_whites(char *str);
 int		is_command_mixed(char *str, char *token);
 int		is_command(char *str, char *token);
+int		count_env(t_data *data);
 /* ************************************************************************** */
 //                                    LEXER
 /* ************************************************************************** */
@@ -185,6 +188,8 @@ char	builtin_pwd(void);
 void	env(t_data *data);
 void	builtin_exit(t_data *data, int exit_code, int index);
 void	unset(t_data *data, int index);
+void	builtin_export(t_data *data, int index);
+void	unset_free(t_data *data, int len);
 /* ************************************************************************** */
 //                                    SIGNALS
 /* ************************************************************************** */
@@ -219,6 +224,17 @@ void	debug_fds(int max);
 //                                    SIGNALS
 /* ************************************************************************** */
 
+
+/* ************************************************************************** */
+//                                    GET_NEXT_LINE
+/* ************************************************************************** */
+size_t	gnl_strlen(const char *string);
+size_t	gnl_strlcpy(char *string_target,
+			char *string_source, size_t size_needed);
+size_t	gnl_strlcat(char *string_target,
+			char *string_source, size_t size_needed);
+char	*gnl_strjoin(char *string_first, char *string_second);
+char	*get_next_line(int fd);
 void	ft_printer(int sig);
 
 #endif  // MINISHELL_H
