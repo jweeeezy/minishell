@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   executor_cmd_selector.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/04/18 18:24:45 by kvebers          ###   ########.fr       */
+/*   Created: 2023/04/18 18:41:25 by jwillert          #+#    #+#             */
+/*   Updated: 2023/04/18 18:41:26 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "executor.h"	// needed for executor_child(),
 						// executor_parent()
@@ -26,18 +25,10 @@ int	child_execute_builtin(t_data *data, int index);
 static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 				int flag_cmd)
 {
-	// @note i should be forking even on an error prob
-
 	if (flag_cmd == ERROR)
 	{
 		executor_parent(data, fd_pipes, index);
 		return (ERROR);
-	}
-	else if (flag_cmd == COMMAND_NOT_FOUND)
-	{
-		executor_parent(data, fd_pipes, index);
-		ft_putstr_fd("Error\n", 0);
-		return (EXECUTED);
 	}
 	if (fd_pipes == NULL && flag_cmd == BUILTIN)
 	{
