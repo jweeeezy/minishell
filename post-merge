@@ -1,3 +1,0 @@
-#!/bin/bash
-echo "Running git pull hook script\n"
-git submodule update --recursive
