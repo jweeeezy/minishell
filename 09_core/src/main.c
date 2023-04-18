@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/17 14:44:10 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/18 08:12:08 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,21 @@
 #include <termios.h>
 #include <signal.h>
 #include "redirector.h"
+#include "get_next_line_bonus.h"
+
+// static void	check_leaks(void)
+// {
+// 	return ;
+// 	//system("leaks minishell");
+// }
 
 static int	history(t_data *data)
 {
 	data->line = readline("Terminal Troublemakers: ");
 	if (data->line == NULL)
+	{
 		return (ERROR);
+	}
 	else if (data->line)
 	{
 		if (*data->line == '\0')
@@ -37,6 +46,7 @@ static int	history(t_data *data)
 	}
 	return (EXECUTED);
 }
+
 
 void	signals(void)
 {
@@ -52,6 +62,7 @@ void	signals(void)
 	signal(SIGUSR1, ft_printer);
 	signal(SIGUSR2, ft_printer);
 }
+
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -84,3 +95,4 @@ int	main(int argc, char **argv, char **envp)
 	exit(g_signal);
 	return (EXECUTED);
 }
+
