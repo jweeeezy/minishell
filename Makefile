@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
+#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 12:52:07 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/14 13:37:25 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/18 08:08:57 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
