@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid Date        by                   #+#    #+#             */
-/*   Updated: 2023/04/19 15:09:04 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/19 19:17:09 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 static int	executor_wait_for_childs(t_data *data)
 {
 	int	index;
-	int	var;
 
 	index = 0;
 	if (data->flag_builtin_only == 1)
