@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/19 13:09:18 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/19 15:22:45 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,6 @@ int	main(int argc, char **argv, char **envp)
 		free_loop(&data);
 	}
 	free_env(&data);
-	exit(g_signal);
+	exit(data.exit_status);
 	return (EXECUTED);
 }
