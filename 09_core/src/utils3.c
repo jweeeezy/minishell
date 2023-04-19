@@ -1,44 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_parsing.c                                    :+:      :+:    :+:   */
+/*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/19 11:01:45 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/19 13:58:26 by kvebers          ###   ########.fr       */
+/*   Created: 2023/04/19 14:38:29 by kvebers           #+#    #+#             */
+/*   Updated: 2023/04/19 14:38:35 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
-#include <stdio.h>
+#include "libft.h"   
 
-
-int	quoter(t_data *data, int cnt, int q)
+int	is_n(char *str)
 {
-	char	*temp;
-
-	temp = NULL;
-	while (data->line[cnt] != '\0')
-	{
-		q = q_state(data->line, cnt, q);
-		cnt++;
-	}
-	if (q > 0)
-		return (ERROR);
-	return (EXECUTED);
-}
-
-int	check_parsing(t_data *data)
-{
-	char	*temp;
-
-	temp = NULL;
-	if (quoter(data, 0, 0) == ERROR || data->line == NULL)
-	{
-		ft_putstr_fd("ERROR\n", 2);
-		return (ERROR);
-	}
+	if (ft_strncmp(str, "-n", ft_strlen(str)) == 0)
+		return (ADD);
 	return (EXECUTED);
 }

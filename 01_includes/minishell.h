@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/19 13:08:26 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/19 14:39:24 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ int		only_whites(char *str);
 int		is_command_mixed(char *str, char *token);
 int		is_command(char *str, char *token);
 int		count_env(t_data *data);
+int		is_n(char *str);
 /* ************************************************************************** */
 //                                    LEXER
 /* ************************************************************************** */
@@ -163,7 +164,6 @@ int		parser(t_data *data);
 void	main_command(t_data *data);
 int		recombine_str(t_data *data, int cnt, int cnt1, char *temp);
 int		token_numbers_helper(char *str);
-int		is_n(char *str);
 int		is_wierd_n(char *str);
 
 /* ************************************************************************** */
@@ -172,6 +172,7 @@ int		is_wierd_n(char *str);
 
 int		redirector_prehandle_heredocs(t_data *data);
 int		redirector_handle_redirections(t_data *data, int index);
+void	quote_main_command(t_data *data);
 
 /* ************************************************************************** */
 //                                    EXECUTOR

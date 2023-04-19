@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:41:33 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/15 10:19:46 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/19 14:22:06 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,8 @@ int	create_tokens(t_data *data)
 			return (ERROR);
 		if (init_ex_tokens(data, cnt, 0, 0) == ERROR)
 			return (ERROR);
-		if (remove_whitespaces(data, cnt) == ERROR)
-			return (ERROR);
-		if (remove_quotes(data, cnt, 0) == ERROR)
+		if (remove_whitespaces(data, cnt) == ERROR
+			|| remove_quotes(data, cnt, 0) == ERROR)
 			return (ERROR);
 		cnt++;
 	}

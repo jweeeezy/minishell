@@ -6,13 +6,27 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 11:33:51 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/16 09:09:34 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/19 14:38:00 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
 #include "libft.h"
+
+void	quote_main_command(t_data *data)
+{
+	int	cnt;
+
+	cnt = 0;
+	while (cnt < data->commands_to_process)
+	{
+		if (data->combine[cnt].command->order_numb == QUOTATION_MARK
+			|| data->combine[cnt].command->order_numb == APOSTROPHE)
+			data->combine[cnt].command->order_numb = STRING;
+		cnt++;
+	}
+}
 
 void	main_command(t_data *data)
 {
@@ -76,13 +90,6 @@ int	recombine_str(t_data *data, int cnt, int cnt1, char *temp)
 			return (ERROR);
 		cnt++;
 	}
-	return (EXECUTED);
-}
-
-int	is_n(char *str)
-{
-	if (ft_strncmp(str, "-n", ft_strlen(str)) == 0)
-		return (ADD);
 	return (EXECUTED);
 }
 

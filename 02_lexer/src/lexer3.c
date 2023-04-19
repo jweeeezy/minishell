@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 18:31:45 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/15 11:26:15 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/19 13:57:50 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	remove_quotes(t_data *data, int cnt, int cnt1)
 		{
 			if (data->combine[cnt].execute[cnt1].order_numb != WHITE)
 				data->combine[cnt].execute[cnt1].order_numb = QUOTATION_MARK;
-			temp = ft_strdup("");
+				temp = ft_strdup("");
 			if (temp == NULL)
 				return (ERROR);
 		}
