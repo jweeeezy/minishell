@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/17 22:13:14 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/19 13:20:49 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@ int	merge_strings(t_data *data, int *numb1)
 int	create_strings(t_data *data, int *numb1)
 {
 	int	cnt;
-	//int	cnt1;
 
 	cnt = 0;
-	//cnt1 = 0;
 	while (data->line[cnt] != '\0')
 		cnt++;
 	if (cnt == 0)
@@ -84,6 +82,7 @@ int	lexer(t_data *data)
 
 	temp = NULL;
 	data->tokens = 0;
+	data->not_executed = 0;
 	data->commands_to_process = 0;
 	if (data->line == NULL)
 		return (ERROR);
@@ -92,9 +91,11 @@ int	lexer(t_data *data)
 		return (ERROR);
 	free(data->line);
 	data->line = temp;
-	if (command_line(data) == ERROR)
-		return (ERROR);
-	if (create_tokens(data) == ERROR)
-		return (ERROR);
+	if (check_parsing(data) == ERROR || command_line(data) == ERROR
+		|| create_tokens(data) == ERROR)
+	{
+		data->not_executed = 1;
+		return (EXECUTED);
+	}
 	return (EXECUTED);
 }

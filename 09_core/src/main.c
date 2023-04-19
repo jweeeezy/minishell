@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/18 18:57:02 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/19 13:09:18 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (history(&data) == ERROR || g_signal < 256)
 			break ;
-		if (parser(&data) != ERROR)
+		if (parser(&data) != ERROR && data.not_executed == 0)
 		{
 			if (DEBUG)
 			{

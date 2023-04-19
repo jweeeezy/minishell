@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/18 15:03:30 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/19 13:08:26 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct s_data
 	int				flag_outfile;
 	int				fd_infile;
 	int				fd_outfile;
+	int				not_executed;
 	pid_t			pid;
 }	t_data;
 
@@ -153,6 +154,7 @@ void	debug_print_combined(t_data *data);
 int		remove_quotes(t_data *data, int cnt, int cnt1);
 int		remove_null(t_data *data, int cnt);
 int		remove_whitespaces(t_data *data, int cnt);
+int		check_parsing(t_data *data);
 /* ************************************************************************** */
 //                                    PARSER
 /* ************************************************************************** */
