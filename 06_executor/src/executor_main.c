@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   executor_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid Date        by                   #+#    #+#             */
-/*   Updated: 2023/04/18 18:54:28 by jwillert         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/04/19 20:19:48 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"			// needed for t_data, MACROS
 #include "executor.h"	// needed for executor_*()
@@ -20,21 +19,27 @@
 
 static int	executor_wait_for_childs(t_data *data)
 {
-	int	index;
+	int		index;
+	int		exit_code;
+	int		status;
+	pid_t	pid;
 
 	index = 0;
+	exit_code = 0;
 	if (data->flag_builtin_only == 1)
-	{
 		return (EXECUTED);
-	}
 	while (index < data->counter_processes)
 	{
-		if (waitpid(data->child_pids[index], NULL, 0) == -1)
-		{
+		pid = waitpid(data->child_pids[index], NULL, 0);
+		if (pid == -1)
 			return (ERROR);
-		}
+		else if (pid == 0)
+			continue ;
+		else if (WIFEXITED(status))
+			exit_code = WEXITSTATUS(status);
 		index += 1;
 	}
+	data->exit_status = exit_code;
 	return (EXECUTED);
 }
 

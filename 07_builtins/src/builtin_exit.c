@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 10:32:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/19 16:19:28 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/19 21:16:34 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	builtin_exit(t_data *data, int exit_code, int index)
 	else if (exit_code == 0)
 	{
 		ft_putstr_fd("Terminal Trouble: Not a valid exit\n", 2);
-		g_signal = 0;
+		g_signal = 255;
 	}
 	else
 		g_signal = exit_code % 256;
