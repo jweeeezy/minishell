@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 10:32:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/18 13:18:07 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/19 16:10:12 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,5 @@ void	builtin_exit(t_data *data, int exit_code, int index)
 	}
 	else
 		g_signal = 0;
+	data->exit_status = g_signal;
 }
