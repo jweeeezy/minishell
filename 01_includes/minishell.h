@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/19 14:39:24 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/19 15:37:23 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ void	free_env(t_data *data);
 char	*ft_strjoin2(char *temp, char *buffer, size_t cnt1, size_t cnt2);
 int		is_white_space(char c);
 int		ft_strnstr2(const char *haystack, const char *needle, size_t t);
-//int		skip_white_spaces(t_data *data, int cnt);
 int		dolla_handler(t_data *data, int cnt, int cnt1);
 int		count_split(char **split);
 void	split_free(char **split);

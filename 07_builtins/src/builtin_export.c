@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 13:25:33 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/18 15:34:38 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/19 15:46:39 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,11 @@ static int	export_helper(t_data *data, int index, int len, int cnt)
 		tokens = ft_split(data->combine[index].execute[cnt].order_str, '=');
 		if (tokens == NULL)
 			return (ERROR);
-		if (export_helper1(data, len,
+		if (tokens[0] == NULL || export_helper1(data, len,
 				data->combine[index].execute[cnt].order_str, tokens) == ERROR)
 		{
+			ft_putstr_fd("ERROR\n", 2);
+			data->exit_status = 1;
 			split_free(tokens);
 			return (ERROR);
 		}
