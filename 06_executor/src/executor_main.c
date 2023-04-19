@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid Date        by                   #+#    #+#             */
-/*   Updated: 2023/04/18 18:54:28 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/19 15:09:04 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 static int	executor_wait_for_childs(t_data *data)
 {
 	int	index;
+	int	var;
 
 	index = 0;
 	if (data->flag_builtin_only == 1)
@@ -29,6 +30,7 @@ static int	executor_wait_for_childs(t_data *data)
 	}
 	while (index < data->counter_processes)
 	{
+
 		if (waitpid(data->child_pids[index], NULL, 0) == -1)
 		{
 			return (ERROR);

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 14:11:57 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/18 00:25:05 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/18 21:04:56 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static char	**selector_get_path_array(char **envp)
 	}
 	return (path_array);
 }
+//	@todo edge case with another variable that contains "PATH="
 
 static int	selector_try_access(t_combine *cmd, char *path, char *command)
 {

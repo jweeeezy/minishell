@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 16:10:01 by jwillert          #+#    #+#             */
-/*   Updated: 2023/03/28 20:37:33 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/18 19:07:16 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 #include <stdio.h>			// needed for printf()
 #include "minishell.h"		// needed for MACRO
 
-char	builtin_pwd(void)
+int	builtin_pwd(void)
 {
 	char	*current_working_dir;
 
 	current_working_dir = getcwd(NULL, 0);
 	if (current_working_dir == NULL)
+	{
 		return (ERROR);
+	}
 	printf("%s\n", current_working_dir);
 	free(current_working_dir);
 	return (0);

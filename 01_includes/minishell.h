@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/18 15:03:30 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/18 20:21:46 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,12 +184,14 @@ int		executor(t_data *data);
 void	echo(t_combine str, int n, int cnt2, int is_echo_skiped);
 void	wierd_echo(t_combine str, int n, int cnt2, int is_echo_skiped);
 int		is_builtin(int cmd_to_check);
-char	builtin_pwd(void);
+int		builtin_pwd(void);
 void	env(t_data *data);
 void	builtin_exit(t_data *data, int exit_code, int index);
 void	unset(t_data *data, int index);
 void	builtin_export(t_data *data, int index);
 void	unset_free(t_data *data, int len);
+void	builtin_cd(t_data *data, int index);
+
 /* ************************************************************************** */
 //                                    SIGNALS
 /* ************************************************************************** */
