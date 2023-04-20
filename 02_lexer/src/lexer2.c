@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:41:33 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/19 14:22:06 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/20 15:14:55 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	create_tokens(t_data *data)
 	{
 		if (expand_line(data, cnt, 0) == ERROR)
 			return (ERROR);
+		data->exit_status = 0;
 		data->combine[cnt].count_n = estimate_tokens(data, cnt, 0, 0);
 		data->combine[cnt].execute = malloc(sizeof(t_execute)
 				* data->combine[cnt].count_n);

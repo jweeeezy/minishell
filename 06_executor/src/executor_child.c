@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_child.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/18 18:47:53 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/20 14:34:32 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	child_execute_extern(t_data *data, int index)
 }
 
 void	executor_child(t_data *data, int **fd_pipes, int index,
-			int flag_cmd)
+		int flag_cmd)
 {
 	if (fd_pipes != NULL && data->counter_pipes != 0)
 	{
@@ -73,21 +73,17 @@ void	executor_child(t_data *data, int **fd_pipes, int index,
 	if (flag_cmd == BUILTIN)
 	{
 		if (child_execute_builtin(data, index) == ERROR)
-		{
 			exit(ERROR);
-		}
 	}
 	else if (flag_cmd == EXTERN)
 	{
 		if (child_execute_extern(data, index) == ERROR)
-		{
 			exit(ERROR);
-		}
 	}
 	else if (flag_cmd == COMMAND_NOT_FOUND)
 	{
 		ft_putstr_fd("command not found\n", 2);
-		// @todo command not found!
+		data->exit_status = 127;
 	}
-	exit(EXECUTED);
+	exit(data->exit_status);
 }

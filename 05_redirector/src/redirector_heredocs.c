@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirector_heredocs.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/17 22:13:12 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/20 16:03:42 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

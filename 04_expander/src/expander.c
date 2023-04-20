@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:38:42 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/19 16:44:55 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/20 15:11:00 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"      //  needed for ft_data->combine[cnt1].combined_strdup()
 #include <stdio.h>
 
-char	*expand_quest(char *temp, t_data *data)
+static char	*expand_quest(char *temp, t_data *data)
 {
 	char	*itoa;
 
@@ -46,14 +46,14 @@ char	*search_needle(t_data *data, char *needle)
 	return (free(temp_needle), NULL);
 }
 
-int	expand_helper(char **tokens, int cnt1, int q)
+static int	expand_helper(char **tokens, int cnt1, int q)
 {	
 	if (*(tokens[cnt1]) == '$' && tokens[cnt1 + 1] != NULL && q != 39)
 	{
 		if ((*(tokens[cnt1 + 1]) == 34
 				|| *(tokens[cnt1 + 1]) == 39)
 			&& ft_strlen(tokens[cnt1 + 1]) == 1)
-			return (EXECUTED);
+			return (ADD);
 		else if (*(tokens[cnt1 + 1]) == '?' && ft_strlen(tokens[cnt1 + 1]) == 1)
 			return (2);
 		else
@@ -62,11 +62,21 @@ int	expand_helper(char **tokens, int cnt1, int q)
 	return (EXECUTED);
 }
 
+static char	*i_am_back(char *temp, t_data *data, char **tokens, int cnt1)
+{
+	char	*needle;
+
+	needle = search_needle(data, tokens[cnt1]);
+	if (needle != NULL)
+		temp = ft_strjoin2(temp, needle
+				+ ft_strlen(tokens[cnt1]) + 1, 0, 0);
+	return (temp);
+}
+
 char	*expand_tokens_helper(t_data *data, char *temp, int q, char **tokens)
 {
 	int		cnt1;
 	int		action;
-	char	*needle;
 
 	cnt1 = 0;
 	while (tokens[cnt1] != NULL)
@@ -78,10 +88,7 @@ char	*expand_tokens_helper(t_data *data, char *temp, int q, char **tokens)
 		else if (action == ADD && q != 39)
 		{
 			cnt1++;
-			needle = search_needle(data, tokens[cnt1]);
-			if (needle != NULL)
-				temp = ft_strjoin2(temp, needle
-						+ ft_strlen(tokens[cnt1]) + 1, 0, 0);
+			temp = i_am_back(temp, data, tokens, cnt1);
 		}	
 		else if (action == 2 && q != 39)
 		{

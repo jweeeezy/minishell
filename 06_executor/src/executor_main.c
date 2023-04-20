@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/04/19 20:19:48 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/20 13:44:15 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@ static int	executor_wait_for_childs(t_data *data)
 		return (EXECUTED);
 	while (index < data->counter_processes)
 	{
-		pid = waitpid(data->child_pids[index], NULL, 0);
+		pid = waitpid(data->child_pids[index], &status, 0);
 		if (pid == -1)
 			return (ERROR);
 		else if (pid == 0)
 			continue ;
 		else if (WIFEXITED(status))
+		{
 			exit_code = WEXITSTATUS(status);
+		}
 		index += 1;
 	}
 	data->exit_status = exit_code;
