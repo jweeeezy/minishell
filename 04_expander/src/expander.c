@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:38:42 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/20 15:11:00 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/20 16:27:50 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*expand_quest(char *temp, t_data *data)
 	if (itoa == NULL)
 		return (NULL);
 	temp = ft_strjoin2(temp, itoa, 0, 0);
-	return (temp);
+	return (free(itoa), temp);
 }
 
 char	*search_needle(t_data *data, char *needle)
