@@ -190,7 +190,7 @@ void	builtin_exit(t_data *data, int exit_code, int index);
 void	unset(t_data *data, int index);
 void	builtin_export(t_data *data, int index);
 void	unset_free(t_data *data, int len);
-void	builtin_cd(t_data *data, int index);
+int	    builtin_cd(t_data *data, int index);
 
 /* ************************************************************************** */
 //                                    SIGNALS
