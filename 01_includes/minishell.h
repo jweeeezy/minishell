@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/19 15:37:23 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/21 13:44:04 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ void	main_command(t_data *data);
 int		recombine_str(t_data *data, int cnt, int cnt1, char *temp);
 int		token_numbers_helper(char *str);
 int		is_wierd_n(char *str);
-
+void	fix_env_flags(t_data *data);
 /* ************************************************************************** */
 //                                    REDIRECTOR
 /* ************************************************************************** */
@@ -192,6 +192,8 @@ void	builtin_exit(t_data *data, int exit_code, int index);
 void	unset(t_data *data, int index);
 void	builtin_export(t_data *data, int index);
 void	unset_free(t_data *data, int len);
+int		error_managment_env(t_data *data, char *str, int numb);
+int		export_flag_managment(t_data *data, char *str, int numb);
 /* ************************************************************************** */
 //                                    SIGNALS
 /* ************************************************************************** */

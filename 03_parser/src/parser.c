@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/19 14:32:43 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/21 11:35:06 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	parser(t_data *data)
 	re_number(data);
 	last_pipe(data);
 	main_command(data);
+	fix_env_flags(data);
 	if (recombine_str(data, 0, 0, NULL) == ERROR)
 		return (ERROR);
 	quote_main_command(data);

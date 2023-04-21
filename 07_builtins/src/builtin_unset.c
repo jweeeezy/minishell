@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:36:36 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/18 13:43:15 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/21 12:32:35 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,10 @@ void	unset(t_data *data, int index)
 {
 	int		cnt;
 	int		len;
+	int		error_msg;
 
 	cnt = 0;
+	error_msg = 0;
 	len = count_env(data);
 	if (ft_strncmp(data->combine[index].execute[cnt].order_str,
 			"unset",
@@ -107,7 +109,12 @@ void	unset(t_data *data, int index)
 		cnt++;
 	while (cnt < data->combine[index].count_n)
 	{
-		unset_helper(data, cnt, len, index);
+		if (error_msg < 1)
+			error_msg = error_managment_env(data, data->combine[index]
+					.command[cnt].order_str, data->combine[index]
+					.command[cnt].order_numb);
+		if (error_msg == 0)
+			unset_helper(data, cnt, len, index);
 		cnt++;
 	}
 	recombabulate(data, len);

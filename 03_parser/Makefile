@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
+#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 14:39:11 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/14 13:34:23 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/21 11:29:43 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ LIBME							=	$(LIBME_DIR)libme.a
 
 #	Files
 SRC_FILES						=	parser.c \
-									parser1.c
+									parser1.c \
+									parser2.c
 
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR), $(SRC_FILES))

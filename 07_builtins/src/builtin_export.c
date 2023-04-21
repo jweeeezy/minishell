@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 13:25:33 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/19 15:46:39 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/21 13:40:17 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,10 @@ void	builtin_export(t_data *data, int index)
 {
 	int		cnt;
 	int		len;
+	int		error_msg;
 
 	cnt = 0;
+	error_msg = 0;
 	if (ft_strncmp(data->combine[index].execute[cnt].order_str,
 			"export",
 			ft_strlen(data->combine[index].execute[cnt].order_str)) != 0)
@@ -105,6 +107,11 @@ void	builtin_export(t_data *data, int index)
 	while (cnt < data->combine[index].count_n)
 	{
 		len = count_env(data);
+		error_msg = export_flag_managment(data,
+				data->combine[index].execute[cnt].order_str,
+				data->combine[index].execute[cnt].order_numb);
+		if (error_msg > 0)
+			break ;
 		export_helper(data, index, len, cnt);
 		cnt++;
 	}

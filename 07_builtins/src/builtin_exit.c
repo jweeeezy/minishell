@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 10:32:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/20 16:13:03 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/21 11:12:19 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ int	rejected_exit(t_data *data, int index)
 		g_signal = 0;
 		data->exit_status = 0;
 		return (ERROR);
+	}
+	else if (ft_isdigit(data->combine[index].execute[2].order_str[0]) == 0)
+	{
+		g_signal = 0;
+		data->exit_status = 255;
+		ft_putstr_fd("Numberic argument required\n", 2);
 	}
 	else if (data->combine[index].count_n > 4)
 	{
