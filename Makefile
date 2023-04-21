@@ -93,8 +93,12 @@ valgrind:								linux
 											--trace-children=yes \
 											--verbose \
 											./minishell
-linux:									$(MODULES_ALL)
-											cp $(GET_NEXT_LINE) ./
+clean_linux:
+											for dir in $(MODULES_DIR_ALL); do\
+												$(MAKE) fclean -C $$dir; \
+												done
+linux:									clean_linux $(MODULES_ALL)
+											cp $(GNL) ./
 											cp $(LIBME) ./
 											cp $(LEXER) ./
 											cp $(PARSER) ./

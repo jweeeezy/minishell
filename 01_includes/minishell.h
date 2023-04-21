@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/21 13:44:04 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/21 16:54:30 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ int		executor(t_data *data);
 void	echo(t_combine str, int n, int cnt2, int is_echo_skiped);
 void	wierd_echo(t_combine str, int n, int cnt2, int is_echo_skiped);
 int		is_builtin(int cmd_to_check);
-char	builtin_pwd(void);
+int		builtin_pwd(void);
 void	env(t_data *data);
 void	builtin_exit(t_data *data, int exit_code, int index);
 void	unset(t_data *data, int index);
@@ -194,6 +194,8 @@ void	builtin_export(t_data *data, int index);
 void	unset_free(t_data *data, int len);
 int		error_managment_env(t_data *data, char *str, int numb);
 int		export_flag_managment(t_data *data, char *str, int numb);
+int	    builtin_cd(t_data *data, int index);
+
 /* ************************************************************************** */
 //                                    SIGNALS
 /* ************************************************************************** */
