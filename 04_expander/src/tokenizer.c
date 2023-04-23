@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:39:45 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/12 15:08:52 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/23 08:22:38 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static int	count_chars(int char_counter, char *line)
 		&& line[char_counter] != 39
 		&& line[char_counter] != 34
 		&& line[char_counter] != '$'
+		&& line[char_counter] != '?'
 		&& line[char_counter] != 32
 		&& line[char_counter] != '\t'
 		&& line[char_counter] != '\v'
@@ -97,7 +98,7 @@ char	**tokenizer(char *str, int cnt, int char_counter, int temp_char)
 	char	**tokens;
 	int		cnt1;
 
-	cnt1 = count_tokens(str, "$");
+	cnt1 = count_tokens(str, "$?");
 	tokens = malloc(sizeof(char *) * (cnt1 + 1));
 	if (tokens == NULL)
 		return (NULL);
