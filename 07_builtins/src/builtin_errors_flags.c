@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 12:11:46 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/21 14:45:48 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/21 17:25:21 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ int	error_managment_env1(char *str)
 	if (ft_strlen(str) > 0 && str[0] == '-')
 		flag = 2;
 	else if (ft_strchr(str, '%') || ft_strchr(str, '@') || ft_strchr(str, '#')
-		|| ft_strchr(str, ';') || ft_strchr(str, '!') || ft_strchr(str, '=')
+		|| ft_strchr(str, '!') || ft_strchr(str, '=')
 		|| ft_strchr(str, '.') || ft_strchr(str, '?') || ft_strchr(str, ' ')
 		|| ft_strchr(str, '^') || ft_strchr(str, '~') || ft_strchr(str, '\\')
 		|| ft_strchr(str, '-') || ft_strchr(str, '*') || ft_strchr(str, '{')
 		|| ft_strchr(str, '}') || ft_strchr(str, '&') || ft_strchr(str, '+'))
 		flag = 1;
+	else if (ft_strchr(str, ';'))
+		flag = 127;
 	return (flag);
 }
 
@@ -61,8 +63,8 @@ int	export_flag_managment(t_data *data, char *str, int numb)
 		return (EXECUTED);
 	tokens = ft_split(str, '=');
 	if (tokens == NULL)
-		return (ERROR);
-	if (tokens == NULL)
+		flag = 1;
+	else if (ft_strlen(str) > 0 && str[0] == '=')
 		flag = 1;
 	else
 		flag = error_managment_env1(tokens[0]);

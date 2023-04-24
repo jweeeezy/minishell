@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/19 15:22:45 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/24 10:17:05 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,10 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		if (parser(&data) != ERROR && data.not_executed == 0)
 		{
-			if (DEBUG)
-			{
-				debug_tokens(&data);
-				debug_print_t_combine(&data);
-			}
 			if (redirector_prehandle_heredocs(&data) == ERROR)
 				ft_putstr_fd("Error\n", 0);
 			if (executor(&data) == ERROR)
-			{
-				printf("Execution error\n");
-			}
+				ft_putstr_fd("EXECUTION ERROR\n", 2);
 		}
 		free_loop(&data);
 	}

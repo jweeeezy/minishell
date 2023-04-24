@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/21 16:54:30 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/24 12:32:46 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,8 @@ int		recombine_str(t_data *data, int cnt, int cnt1, char *temp);
 int		token_numbers_helper(char *str);
 int		is_wierd_n(char *str);
 void	fix_env_flags(t_data *data);
+int		check_wierd(t_data *data, char *str);
+int		recheck_command(t_data *data);
 /* ************************************************************************** */
 //                                    REDIRECTOR
 /* ************************************************************************** */
