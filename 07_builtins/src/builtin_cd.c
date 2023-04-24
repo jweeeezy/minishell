@@ -99,6 +99,8 @@ int	builtin_cd(t_data *data, int index)
 	}
 
 	char *temp;
+    char    *another_temp;
+    char    *combination;
 	
 	temp = NULL;
 	if (input[1] == NULL)
@@ -114,7 +116,33 @@ int	builtin_cd(t_data *data, int index)
 			ft_putstr_fd("cd: OLDPWD not set\n", 2);
 		}
 	}
-    // handle ~
+    else if (ft_strncmp("~", input[1], 1) == 0)
+    {
+        if (ft_strlen(input[1]) > 1)
+        {
+            another_temp = ft_substr(input[1], 1, ft_strlen(input[1]) - 1);
+            if (another_temp == NULL)
+            {
+                return (ERROR);
+            }
+	    	printf("%s\n", another_temp);
+            temp = get_var_content(data->envp, "HOME=");
+	    	printf("%s\n", temp);
+            combination = ft_strjoin(temp, another_temp);
+            free(another_temp);
+            temp = combination;
+            combination = NULL;
+        }
+        else
+        {
+            temp = get_var_content(data->envp, "HOME=");
+            if (temp == NULL)
+            {
+                ft_putstr_fd("cd: HOME not set\n", 2);
+                // double check if bash does the same
+            }
+        }
+    }
 	else
 	{
 		temp = input[1];
@@ -122,12 +150,13 @@ int	builtin_cd(t_data *data, int index)
 	// test for existence?
 	if (temp != NULL)
 	{
-		if (access(temp, F_OK) == -1)
+		printf("%s\n", temp);
+        if (access(temp, F_OK) == -1)
 		{
 			perror("access");
 			// no such file or directory
 		}
-		if (chdir(temp) == 1)
+		if (chdir(temp) == -1)
 		{
 			perror("chdir");
 		}
