@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:58:09 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/24 11:05:50 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/24 12:19:39 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,27 @@ int	check_wierd(t_data *data, char *str)
 		}
 		cnt++;
 	}
-    return (EXECUTED);
+	return (EXECUTED);
+}
+
+int	recheck_command(t_data *data)
+{
+	if (data->commands_to_process > 0 && data->combine[0].combined_str != NULL)
+	{
+		if ((is_white_space(data->combine[0].execute[0].order_str[0]) == ADD
+				|| data->combine[0].execute[0].order_str[0] == '>'
+				|| data->combine[0].execute[0].order_str[0] == '<'
+				|| data->combine[0].execute[0].order_str[0] == '|')
+			&& (data->combine[0].execute[0].order_numb != PIPE
+				|| data->combine[0].execute[0].order_numb != SHELL_REDIRECTION
+				|| data->combine[0].execute[0].order_numb != HERE_DOC
+				|| data->combine[0].execute[0].order_numb != FILE_TO_COMMAND
+				|| data->combine[0].execute[0].order_numb != COMMAND_TO_FILE))
+		{
+			ft_putstr_fd("ERROR Wierd Pies and stuff", 2);
+			data->exit_status = 127;
+			return (ERROR);
+		}
+	}
+	return (EXECUTED);
 }
