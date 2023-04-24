@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 11:01:45 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/24 08:46:19 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/24 11:02:20 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	check_parsing(t_data *data)
 		ft_putstr_fd("ERROR Incorect PIPES\n", 2);
 		return (ERROR);
 	}
-	if (big_if(data) == ERROR)
+	if (big_if(data) == ERROR || check_wierd(data, data->line) == ERROR)
 		return (ERROR);
 	return (EXECUTED);
 }
