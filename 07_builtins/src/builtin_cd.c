@@ -72,7 +72,6 @@ static int	update_envp(t_data *data)
 
     index_oldpwd = find_var_index(data->envp, "OLDPWD=");
     index_pwd = find_var_index(data->envp, "PWD=");
-    printf("oldpwd [%d], pwd [%d]\n", index_oldpwd, index_pwd);
     free(data->envp[index_oldpwd]);
     data->envp[index_oldpwd] = ft_strjoin("OLD", 
         data->envp[index_pwd]);
@@ -104,7 +103,6 @@ int	builtin_cd(t_data *data, int index)
 	temp = NULL;
 	if (input[1] == NULL)
 	{
-		//printf("youre drunk, go home!\n");
 		temp = get_var_content(data->envp, "HOME=");
 	}
 	else if (ft_strncmp("-", input[1], 1) == 0)
