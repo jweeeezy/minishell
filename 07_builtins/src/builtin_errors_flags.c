@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 12:11:46 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/21 17:25:21 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/24 13:38:54 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,15 @@ int	error_managment_env1(char *str)
 		|| ft_strchr(str, '.') || ft_strchr(str, '?') || ft_strchr(str, ' ')
 		|| ft_strchr(str, '^') || ft_strchr(str, '~') || ft_strchr(str, '\\')
 		|| ft_strchr(str, '-') || ft_strchr(str, '*') || ft_strchr(str, '{')
-		|| ft_strchr(str, '}') || ft_strchr(str, '&') || ft_strchr(str, '+'))
+		|| ft_strchr(str, '}') || ft_strchr(str, '&'))
 		flag = 1;
 	else if (ft_strchr(str, ';'))
 		flag = 127;
+	else if (ft_strlen(str) > 0 && ft_strchr(str, '+') != NULL
+		&& ft_strchr(str, '+') == (str + ft_strlen(str) - 1))
+		flag = 0;
+	else if (ft_strchr(str, '+'))
+		flag = 1;
 	return (flag);
 }
 
@@ -73,5 +78,6 @@ int	export_flag_managment(t_data *data, char *str, int numb)
 		data->exit_status = flag;
 		ft_putstr_fd("EXPORT ERROR\n", 2);
 	}
-	return (free(tokens), flag);
+	split_free(tokens);
+	return (flag);
 }
