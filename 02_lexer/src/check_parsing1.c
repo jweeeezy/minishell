@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:58:09 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/24 12:19:39 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/24 12:38:42 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ int	recheck_command(t_data *data)
 		if ((is_white_space(data->combine[0].execute[0].order_str[0]) == ADD
 				|| data->combine[0].execute[0].order_str[0] == '>'
 				|| data->combine[0].execute[0].order_str[0] == '<'
-				|| data->combine[0].execute[0].order_str[0] == '|')
+				|| data->combine[0].execute[0].order_str[0] == '|'
+				|| data->combine[0].execute[0].order_str[0] == '\0'
+				|| data->combine[0].execute[0].order_str == NULL)
 			&& (data->combine[0].execute[0].order_numb != PIPE
 				|| data->combine[0].execute[0].order_numb != SHELL_REDIRECTION
 				|| data->combine[0].execute[0].order_numb != HERE_DOC
