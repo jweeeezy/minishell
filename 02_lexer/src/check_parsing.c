@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 11:01:45 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/19 15:23:23 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/24 08:46:19 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,44 @@ int	piper(t_data *data)
 	return (EXECUTED);
 }
 
+int	check_the_sames(char *str, char c)
+{
+	int	cnt;
+
+	cnt = 0;
+	while (str[cnt] != '\0')
+	{
+		if (is_white_space(str[cnt]) == 1
+			|| str[cnt] == c)
+			cnt++;
+		else
+			return (EXECUTED);
+	}
+	return (ERROR);
+}
+
+int	big_if(t_data *data)
+{
+	if (check_the_sames(data->line, '-') == ERROR
+		|| (check_the_sames(data->line, '.') == ERROR)
+		|| (check_the_sames(data->line, '\"') == ERROR)
+		|| (check_the_sames(data->line, '\'') == ERROR)
+		|| (check_the_sames(data->line, 92) == ERROR))
+	{
+		data->exit_status = 127;
+		ft_putstr_fd("ERROR Symbols\n", 2);
+		return (ERROR);
+	}
+	else if (check_the_sames(data->line, '/') == ERROR
+		|| (check_the_sames(data->line, '~') == ERROR))
+	{
+		data->exit_status = 126;
+		ft_putstr_fd("ERROR Symbols\n", 2);
+		return (ERROR);
+	}
+	return (EXECUTED);
+}
+
 int	check_parsing(t_data *data)
 {
 	char	*temp;
@@ -75,5 +113,7 @@ int	check_parsing(t_data *data)
 		ft_putstr_fd("ERROR Incorect PIPES\n", 2);
 		return (ERROR);
 	}
+	if (big_if(data) == ERROR)
+		return (ERROR);
 	return (EXECUTED);
 }
