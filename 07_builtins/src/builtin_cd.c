@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 10:50:57 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/19 21:21:14 by jwillert         ###   ########          */
+/*   Updated: 2023/04/24 15:14:11 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	update_envp(t_data *data)
 
     index_oldpwd = find_var_index(data->envp, "OLDPWD=");
     index_pwd = find_var_index(data->envp, "PWD=");
-    printf("oldpwd [%d], pwd [%d]\n", index_oldpwd, index_pwd);
+    // printf("oldpwd [%d], pwd [%d]\n", index_oldpwd, index_pwd);
     free(data->envp[index_oldpwd]);
     data->envp[index_oldpwd] = ft_strjoin("OLD", 
         data->envp[index_pwd]);
