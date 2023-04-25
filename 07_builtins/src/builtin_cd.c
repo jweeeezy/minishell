@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 10:50:57 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/19 21:21:14 by jwillert         ###   ########          */
+/*   Updated: 2023/04/25 09:39:36 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ static int	find_var_index(char **envp, char *var_name)
 static int	update_envp(t_data *data)
 {
     int index_oldpwd;
-    int index_pwd;	
+    int index_pwd;
 
     index_oldpwd = find_var_index(data->envp, "OLDPWD=");
     index_pwd = find_var_index(data->envp, "PWD=");
     free(data->envp[index_oldpwd]);
-    data->envp[index_oldpwd] = ft_strjoin("OLD", 
+    data->envp[index_oldpwd] = ft_strjoin("OLD",
         data->envp[index_pwd]);
     if (data->envp[index_oldpwd] == NULL)
     {
@@ -91,7 +91,7 @@ static int	update_envp(t_data *data)
 int	builtin_cd(t_data *data, int index)
 {
 	char	**input;
-	
+
 	input = ft_split(data->combine[index].combined_str, ' ');
 	if (input == NULL)
 	{
@@ -101,7 +101,7 @@ int	builtin_cd(t_data *data, int index)
 	char *temp;
     char    *another_temp;
     char    *combination;
-	
+
 	temp = NULL;
 	if (input[1] == NULL)
 	{
@@ -125,9 +125,9 @@ int	builtin_cd(t_data *data, int index)
             {
                 return (ERROR);
             }
-	    	printf("%s\n", another_temp);
+	    	//printf("%s\n", another_temp);
             temp = get_var_content(data->envp, "HOME=");
-	    	printf("%s\n", temp);
+	    	//printf("%s\n", temp);
             combination = ft_strjoin(temp, another_temp);
             free(another_temp);
             temp = combination;
@@ -150,7 +150,7 @@ int	builtin_cd(t_data *data, int index)
 	// test for existence?
 	if (temp != NULL)
 	{
-		printf("%s\n", temp);
+		//printf("%s\n", temp);
         if (access(temp, F_OK) == -1)
 		{
 			perror("access");
