@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/25 10:17:24 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/25 10:46:59 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,61 @@ int	child_execute_builtin(t_data *data, int index)
 	return (EXECUTED);
 }
 
+static int	child_count_non_white_tokens(t_data *data, int index)
+{
+	int	index_tokens;
+	int	counter_non_white;
+
+	index_tokens = 0;
+	counter_non_white = 0;
+	while (index_tokens < data->combine[index].count_n)
+	{
+		if (data->combine[index].execute[index_tokens].order_numb != WHITE)
+		{
+			counter_non_white += 1;
+		}
+		index_tokens += 1;
+	}
+	return (counter_non_white);
+}
+
+static char	**child_copy_tokens(t_data *data, int index)
+{
+	int		array_index;
+	int		execute_index;
+	int		counter_non_white;
+	char	**cmd_array;
+
+	execute_index = 0;
+	counter_non_white = child_count_non_white_tokens(data, index);
+	cmd_array = malloc(sizeof (char *) * counter_non_white + 1);
+	array_index = 0;
+	while (execute_index < data->combine[index].count_n && counter_non_white != 0)
+	{
+		if (data->combine[index].execute[execute_index].order_numb != WHITE)
+		{
+			cmd_array[array_index] = data->combine[index].execute[execute_index].order_str;
+			array_index += 1;
+		}
+		execute_index += 1;
+	}
+	cmd_array[array_index] = NULL;
+	return (cmd_array);
+}
+
+
 static int	child_execute_extern(t_data *data, int index)
 {
 	char	**cmd_array;
 
 	debug_tokens(data);
-	cmd_array = ft_split(data->combine[index].combined_str, ' ');
+	printf("tokens: %d\n", data->combine[index].count_n);
+	cmd_array = child_copy_tokens(data, index);
 	if (cmd_array == NULL)
 	{
 		exit(ERROR);
 	}
+	debug_print_char_array(cmd_array, "CMD_ARRAY :");
 	execve(data->combine[index].full_path, cmd_array, data->envp);
 	free_char_array(cmd_array);
 	perror("execve");
