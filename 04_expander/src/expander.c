@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:38:42 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/23 12:30:10 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/25 18:35:20 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,12 @@ int	expand_line(t_data *data, int cnt, int q)
 	char	*temp;
 
 	temp = NULL;
+	if (data->combine[cnt].combined_str == NULL)
+	{
+		data->combine[cnt].combined_str = ft_strdup("");
+		if (data->combine[cnt].combined_str == NULL)
+			return (ERROR);
+	}
 	tokens = tokenizer(data->combine[cnt].combined_str, 0, 0, 0);
 	if (tokens == NULL)
 		return (ERROR);

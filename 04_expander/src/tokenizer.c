@@ -6,12 +6,13 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:39:45 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/23 12:20:37 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/25 18:34:05 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"  //  needed for t_data, functions()
 #include "libft.h"      //  needed for ft_strchr()
+#include <stdio.h>
 
 static char	**free_tokens(char **tokens)
 {
