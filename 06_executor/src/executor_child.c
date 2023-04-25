@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_child.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/21 16:53:37 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/25 10:17:24 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static int	child_execute_extern(t_data *data, int index)
 {
 	char	**cmd_array;
 
+	debug_tokens(data);
 	cmd_array = ft_split(data->combine[index].combined_str, ' ');
 	if (cmd_array == NULL)
 	{
