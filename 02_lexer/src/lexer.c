@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/24 11:29:14 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/25 16:44:47 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	lexer(t_data *data)
 	free(data->line);
 	data->line = temp;
 	if (check_parsing(data) == ERROR || command_line(data) == ERROR
-		|| create_tokens(data) == ERROR || recheck_command(data) == ERROR)
+		|| create_tokens(data) == ERROR)
 	{
 		data->not_executed = 1;
 		return (EXECUTED);

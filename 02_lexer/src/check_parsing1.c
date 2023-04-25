@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:58:09 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/24 12:50:31 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/25 16:43:28 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	check_wierd1(t_data *data, char *str)
 			{
 				if (str[cnt] != str[cnt + 1])
 				{
-					ft_putstr_fd("ERROR Wierd Pies and stuff", 2);
+					ft_putstr_fd("ERROR Wierd Pies and stuff\n", 2);
 					data->exit_status = 127;
 					return (ERROR);
 				}
@@ -59,29 +59,5 @@ int	check_wierd(t_data *data)
 			return (free(str), ERROR);
 	if (str != NULL)
 		free(str);
-	return (EXECUTED);
-}
-
-int	recheck_command(t_data *data)
-{
-	if (data->commands_to_process > 0 && data->combine[0].combined_str != NULL)
-	{
-		if ((is_white_space(data->combine[0].execute[0].order_str[0]) == ADD
-				|| data->combine[0].execute[0].order_str[0] == '>'
-				|| data->combine[0].execute[0].order_str[0] == '<'
-				|| data->combine[0].execute[0].order_str[0] == '|'
-				|| data->combine[0].execute[0].order_str[0] == '\0'
-				|| data->combine[0].execute[0].order_str == NULL)
-			&& (data->combine[0].execute[0].order_numb != PIPE
-				|| data->combine[0].execute[0].order_numb != SHELL_REDIRECTION
-				|| data->combine[0].execute[0].order_numb != HERE_DOC
-				|| data->combine[0].execute[0].order_numb != FILE_TO_COMMAND
-				|| data->combine[0].execute[0].order_numb != COMMAND_TO_FILE))
-		{
-			ft_putstr_fd("ERROR Wierd Pies and stuff", 2);
-			data->exit_status = 127;
-			return (ERROR);
-		}
-	}
 	return (EXECUTED);
 }
