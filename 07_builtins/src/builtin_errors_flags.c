@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 12:11:46 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/24 13:57:41 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/25 07:46:50 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,13 @@ int	export_flag_managment(t_data *data, char *str, int numb)
 	flag = 0;
 	if (numb == WHITE)
 		return (EXECUTED);
-	if (ft_strchr(str, '=') == NULL)
+	if (ft_strlen(str) > 0 && ft_strchr(str, '=') == NULL
+		&& ft_isdigit(str[0]))
+		flag = 1;
+	else if (ft_strchr(str, '=') == NULL)
 		return (EXECUTED);
 	tokens = ft_split(str, '=');
-	if (tokens == NULL)
-		flag = 1;
-	else if (ft_strlen(str) > 0 && (str[0] == '=' || str[0] == '$'))
+	if (tokens == NULL || (ft_strlen(str) > 0 && (str[0] == '=')))
 		flag = 1;
 	else
 		flag = error_managment_env1(tokens[0]);

@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 10:50:57 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/24 15:14:11 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/25 07:34:28 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,37 +28,37 @@
 // ~			| home directory    // @todo @error no such access right now
 // /			| root directory i think
 
-static char *get_var_content(char **envp, char *var_name)
+static char	*get_var_content(char **envp, char *var_name)
 {
-    int var_name_length;
+	int	var_name_length;
 
-    var_name_length = ft_strlen(var_name);
-    while (envp != NULL && *envp != NULL)
-    {
-        if (ft_strncmp(var_name, *envp, var_name_length) == 0)
-        {
-            if (*(*envp + var_name_length) != '\0')
-            {
-                return (*envp + var_name_length);
-            }
-        }
-    envp += 1;
-    }
-    return (NULL);
+	var_name_length = ft_strlen(var_name);
+	while (envp != NULL && *envp != NULL)
+	{
+		if (ft_strncmp(var_name, *envp, var_name_length) == 0)
+		{
+			if (*(*envp + var_name_length) != '\0')
+			{
+				return (*envp + var_name_length);
+			}
+		}
+	envp += 1;
+	}
+	return (NULL);
 }
 
 static int	find_var_index(char **envp, char *var_name)
 {
 	int	index;
-    int var_name_length;
+	int	var_name_length;
 
-    var_name_length = ft_strlen(var_name);
+	var_name_length = ft_strlen(var_name);
 	index = 0;
 	while (envp != NULL && envp[index] != NULL)
 	{
 		if (ft_strncmp(var_name, envp[index], var_name_length) == 0)
 		{
-				return (index);
+			return (index);
 		}
 		index += 1;
 	}
@@ -67,44 +67,40 @@ static int	find_var_index(char **envp, char *var_name)
 
 static int	update_envp(t_data *data)
 {
-    int index_oldpwd;
-    int index_pwd;	
+	int	index_oldpwd;
+	int	index_pwd;
 
-    index_oldpwd = find_var_index(data->envp, "OLDPWD=");
-    index_pwd = find_var_index(data->envp, "PWD=");
-    // printf("oldpwd [%d], pwd [%d]\n", index_oldpwd, index_pwd);
-    free(data->envp[index_oldpwd]);
-    data->envp[index_oldpwd] = ft_strjoin("OLD", 
-        data->envp[index_pwd]);
-    if (data->envp[index_oldpwd] == NULL)
-    {
-        return (ERROR);
-    }
-    free(data->envp[index_pwd]);
-    data->envp[index_pwd] = ft_strjoin("PWD=", getcwd(NULL, 0));
-    if (data->envp[index_pwd] == NULL)
-    {
-        return (ERROR);
-    }
+	index_oldpwd = find_var_index(data->envp, "OLDPWD=");
+	index_pwd = find_var_index(data->envp, "PWD=");
+	free(data->envp[index_oldpwd]);
+	data->envp[index_oldpwd] = ft_strjoin("OLD", data->envp[index_pwd]);
+	if (data->envp[index_oldpwd] == NULL)
+	{
+		return (ERROR);
+	}
+	free(data->envp[index_pwd]);
+	data->envp[index_pwd] = ft_strjoin("PWD=", getcwd(NULL, 0));
+	if (data->envp[index_pwd] == NULL)
+	{
+		return (ERROR);
+	}
 	return (EXECUTED);
 }
 
 int	builtin_cd(t_data *data, int index)
 {
 	char	**input;
+	char	*temp;
 	
 	input = ft_split(data->combine[index].combined_str, ' ');
 	if (input == NULL)
 	{
-		return (ERROR); // @note error handling?
+		data->exit_status = 1;
+		return (ERROR);
 	}
-
-	char *temp;
-	
 	temp = NULL;
 	if (input[1] == NULL)
 	{
-		//printf("youre drunk, go home!\n");
 		temp = get_var_content(data->envp, "HOME=");
 	}
 	else if (ft_strncmp("-", input[1], 1) == 0)
@@ -112,34 +108,24 @@ int	builtin_cd(t_data *data, int index)
 		temp = get_var_content(data->envp, "OLDPWD=");
 		if (temp == NULL)
 		{
-			// error when oldpwd is not set
+			data->exit_status = 1;
 			ft_putstr_fd("cd: OLDPWD not set\n", 2);
 		}
 	}
-    // handle ~
 	else
-	{
 		temp = input[1];
-	}
-	// test for existence?
 	if (temp != NULL)
 	{
 		if (access(temp, F_OK) == -1)
-		{
 			perror("access");
-			// no such file or directory
-		}
 		if (chdir(temp) == 1)
-		{
 			perror("chdir");
-		}
 	}
 	if (update_envp(data) == ERROR)
-    {
-        return (ERROR);
-    }
+	{
+		data->exit_status = 1;
+		return (ERROR);
+	}
 	free_char_array(input);
-    return (EXECUTED);
+	return (EXECUTED);
 }
-
-//printf("received string: [%s]\n", data->combine[index].combined_str);

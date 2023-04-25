@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 13:25:33 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/24 15:06:47 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/25 07:21:34 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdio.h>
 #include "minishell.h"
 #include "libft.h"
-
 
 void	print_export_stuff(t_data *data)
 {
@@ -128,7 +127,6 @@ void	builtin_export(t_data *data, int index)
 		export_helper(data, index, len, cnt);
 		cnt++;
 	}
-	if (data->combine[index].count_n == 1
-	)
+	if (data->combine[index].count_n == 1)
 		print_export_stuff(data);
 }

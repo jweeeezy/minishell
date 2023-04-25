@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/24 13:07:24 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/25 07:33:43 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,8 +196,7 @@ void	builtin_export(t_data *data, int index);
 void	unset_free(t_data *data, int len);
 int		error_managment_env(t_data *data, char *str, int numb);
 int		export_flag_managment(t_data *data, char *str, int numb);
-int	    builtin_cd(t_data *data, int index);
-
+int		builtin_cd(t_data *data, int index);
 /* ************************************************************************** */
 //                                    SIGNALS
 /* ************************************************************************** */
@@ -231,7 +230,6 @@ void	debug_fds(int max);
 /* ************************************************************************** */
 //                                    SIGNALS
 /* ************************************************************************** */
-
 
 /* ************************************************************************** */
 //                                    GET_NEXT_LINE
