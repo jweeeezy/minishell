@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirector_redirection_utils.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:11:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 19:13:11 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/25 19:36:12 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,20 @@
 
 char	*redirector_get_filename(t_data *data, int index, int token_type)
 {
-	char	**split_array;
 	char	*str_filename;
 
 	if (token_type == HERE_DOC)
 	{
 		return (NULL);
 	}
-	split_array = ft_split(data->combine[index].combined_str, ' ');
-	if (split_array == NULL)
-		return (NULL);
-	str_filename = split_array[1];
-	free(split_array[0]);
-	free(split_array);
+	if (token_type == COMMAND_TO_FILE || token_type == FILE_TO_COMMAND)
+	{
+		str_filename = ft_strdup(data->combine[index].combined_str + 1);
+	}
+	else
+	{
+		str_filename = ft_strdup(data->combine[index].combined_str + 2);
+	}
 	return (str_filename);
 }
 

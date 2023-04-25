@@ -6,7 +6,7 @@
 #    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 14:11:35 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/24 10:11:59 by kvebers          ###   ########.fr        #
+#    Updated: 2023/04/25 18:50:07 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC_FILES						=	lexer.c\
 									lexer1.c\
 									lexer2.c\
 									lexer3.c\
+									lexer4.c\
 									debug_tokens.c\
 									init.c\
 									check_parsing.c\

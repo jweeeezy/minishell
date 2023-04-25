@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/20 16:03:42 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/25 18:45:32 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*heredoc_get_delimiter(t_data *data, int index)
 
 	offset_ptr = data->combine[index].combined_str + 2;
 	length = ft_strlen(offset_ptr);
-	delimiter = ft_substr(offset_ptr, 0, length - 1);
+	delimiter = ft_substr(offset_ptr, 0, length);
 	return (delimiter);
 }
 
@@ -39,6 +39,7 @@ static int	heredoc_loop(t_heredoc *current_node, char *heredoc_delimiter)
 	char	*heredoc_line;
 
 	heredoc_line = readline(">");
+	//printf("delimiter: [%s]\n", heredoc_delimiter);
 	if (heredoc_line == NULL)
 	{
 		return (ERROR);
