@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 10:50:57 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/25 09:57:00 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/25 11:11:52 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ int	builtin_cd(t_data *data, int index)
 			data->exit_status = 1;
 			ft_putstr_fd("cd: OLDPWD not set\n", 2);
 		}
+		printf("%s\n", temp);
+		// @todo print directory like bash
 	}
     else if (ft_strncmp("~", input[1], 1) == 0)
     {
@@ -160,11 +162,19 @@ int	builtin_cd(t_data *data, int index)
         if (access(temp, F_OK) == -1)
 		{
 			perror("access");
+			// @todo error message
+			free_char_array(input);
+			data->exit_status = 1;
+			return (ERROR);
 			// no such file or directory
 		}
 		if (chdir(temp) == -1)
 		{
 			perror("chdir");
+			// @todo error message
+			free_char_array(input);
+			data->exit_status = 1;
+			return (ERROR);
 		}
 	}
 	if (update_envp(data) == ERROR)

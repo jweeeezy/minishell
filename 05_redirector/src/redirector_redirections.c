@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/15 16:39:52 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/25 11:01:37 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ static int	redirector_assign_outfile(t_data *data, int flag_redirection,
 	{
 		perror("open");
 		free(str_filename);
-		return (ERROR);
+		return (EXECUTED);
 	}
 	data->flag_outfile = 1;
 	free(str_filename);
 	return (EXECUTED);
 }
+//	@todo differentiate between ERROR and FILE NOT FOUND
 
 static int	redirector_assign_infile(t_data *data, char *str_filename)
 {
@@ -65,7 +66,7 @@ static int	redirector_assign_infile(t_data *data, char *str_filename)
 	{
 		perror("open");
 		free(str_filename);
-		return (ERROR);
+		return (EXECUTED);
 	}
 	data->flag_heredoc = 0;
 	data->flag_infile = 1;

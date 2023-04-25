@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/25 10:46:59 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/25 10:51:17 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,11 @@ static int	child_execute_extern(t_data *data, int index)
 {
 	char	**cmd_array;
 
-	debug_tokens(data);
-	printf("tokens: %d\n", data->combine[index].count_n);
 	cmd_array = child_copy_tokens(data, index);
 	if (cmd_array == NULL)
 	{
 		exit(ERROR);
 	}
-	debug_print_char_array(cmd_array, "CMD_ARRAY :");
 	execve(data->combine[index].full_path, cmd_array, data->envp);
 	free_char_array(cmd_array);
 	perror("execve");
