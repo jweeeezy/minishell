@@ -6,13 +6,16 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/25 10:55:04 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:05:42 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"			// needed for t_data, MACROS
 #include "executor.h"	// needed for utils_is
 #include <unistd.h>				// needed for pipe()
+
+
+#include <stdio.h>
 
 int	pipex_advance_to_next_pipe(t_data *data, int index)
 {
@@ -37,12 +40,16 @@ int	pipex_advance_to_next_pipe(t_data *data, int index)
 
 int	pipex_skip_non_commands(t_data *data, int index)
 {
-	while ((data->combine[index].combined_str != NULL
+	//printf("%d\n", index);
+	//printf("%s\n", data->combine[index].combined_str);
+	while ((index < data->commands_to_process
+			&& data->combine[index].combined_str != NULL
 			&& data->combine[index].command->order_numb != STRING
 			&& is_builtin(data->combine[index].command->order_numb) == 0))
 	{
 		index += 1;
 	}
+	//printf("%d\n", index);
 	return (index);
 }
 

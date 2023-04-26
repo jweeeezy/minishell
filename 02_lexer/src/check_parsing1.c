@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_parsing1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:58:09 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/26 13:22:46 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/26 17:55:23 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	check_pies2(char *str)
 		|| ft_strnstr(str, PIE_4, ft_strlen(str)) != NULL
 		|| ft_strnstr(str, PIE_5, ft_strlen(str)) != NULL
 		|| ft_strnstr(str, PIE_6, ft_strlen(str)) != NULL
-		|| ft_strnstr(str, PIE_7, ft_strlen(str)) != NULL
 		|| ft_strnstr(str, PIE_8, ft_strlen(str)) != NULL
 		|| ft_strnstr(str, PIE_9, ft_strlen(str)) != NULL
 		|| ft_strnstr(str, PIE_10, ft_strlen(str)) != NULL
@@ -36,28 +35,28 @@ int	check_pies2(char *str)
 	return (EXECUTED);
 }
 
-int	check_pies1(char *str)
-{
-	int	cnt;
+// int	check_pies1(char *str)
+// {
+// 	int	cnt;
 
-	cnt = 0;
-	while (str[cnt])
-	{
-		if (str[cnt + 1] == '\0')
-			return (EXECUTED);
-		if (str[cnt] == '<' || str[cnt] == '>' || str[cnt] == '|')
-		{
-			if (str[cnt + 1] == '<' || str[cnt + 1] == '>'
-				|| str[cnt + 1] == '|')
-			{
-				if (str[cnt] != str[cnt + 1])
-					return (ERROR);
-			}
-		}
-		cnt++;
-	}
-	return (EXECUTED);
-}
+// 	cnt = 0;
+// 	while (str[cnt])
+// 	{
+// 		if (str[cnt + 1] == '\0')
+// 			return (EXECUTED);
+// 		if (str[cnt] == '<' || str[cnt] == '>' || str[cnt] == '|')
+// 		{
+// 			if (str[cnt + 1] == '<' || str[cnt + 1] == '>'
+// 				|| str[cnt + 1] == '|')
+// 			{
+// 				if (str[cnt] != str[cnt + 1])
+// 					return (ERROR);
+// 			}
+// 		}
+// 		cnt++;
+// 	}
+// 	return (EXECUTED);
+// }
 
 int	check_pies(t_data *data, int q)
 {
@@ -75,7 +74,7 @@ int	check_pies(t_data *data, int q)
 	}
 	if (str != NULL)
 	{
-		if (check_pies1(str) == ERROR || check_pies2(str))
+		if (check_pies2(str))
 		{
 			ft_putstr_fd("ERROR Wierd Pies and stuff\n", 2);
 			data->exit_status = 2;
