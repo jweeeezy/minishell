@@ -6,7 +6,7 @@
 #    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:18:22 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/21 16:56:03 by kvebers          ###   ########.fr        #
+#    Updated: 2023/04/26 13:00:24 by jwillert         ###   ########           #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ SRC_FILES						=	builtin_pwd.c\
 									builtin_unset.c\
 									builtin_export.c\
 									builtin_errors_flags.c\
-									builtin_cd.c
+									builtin_cd.c\
+									builtin_cd_utils.c
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR),$(SRC_FILES))
 OBJ								=	$(addprefix $(OBJ_DIR),$(OBJ_FILES))
