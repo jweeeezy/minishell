@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/25 19:05:50 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/26 08:48:26 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ int		remove_null(t_data *data, int cnt);
 int		remove_whitespaces(t_data *data, int cnt);
 int		remove_edge_case1(t_data *data, int cnt, int cnt1);
 int		check_parsing(t_data *data);
+int		check_pies(t_data *data, int q);
 
 /* ************************************************************************** */
 //                                    PARSER
@@ -168,7 +169,6 @@ int		recombine_str(t_data *data, int cnt, int cnt1, char *temp);
 int		token_numbers_helper(char *str);
 int		is_wierd_n(char *str);
 void	fix_env_flags(t_data *data);
-int		check_wierd(t_data *data);
 int		recheck_command(t_data *data);
 
 /* ************************************************************************** */

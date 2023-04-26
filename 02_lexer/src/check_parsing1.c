@@ -6,15 +6,38 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:58:09 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/25 16:43:28 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/26 10:00:21 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 #include <stdio.h>
+#include "pies.h"
 
-int	check_wierd1(t_data *data, char *str)
+int	check_pies2(char *str)
+{
+	if (ft_strnstr(str, PIE_1, ft_strlen(str)) != NULL
+		|| ft_strnstr(str, PIE_2, ft_strlen(str)) != NULL
+		|| ft_strnstr(str, PIE_3, ft_strlen(str)) != NULL
+		|| ft_strnstr(str, PIE_4, ft_strlen(str)) != NULL
+		|| ft_strnstr(str, PIE_5, ft_strlen(str)) != NULL
+		|| ft_strnstr(str, PIE_6, ft_strlen(str)) != NULL
+		|| ft_strnstr(str, PIE_7, ft_strlen(str)) != NULL
+		|| ft_strnstr(str, PIE_8, ft_strlen(str)) != NULL
+		|| ft_strnstr(str, PIE_9, ft_strlen(str)) != NULL
+		|| ft_strnstr(str, PIE_10, ft_strlen(str)) != NULL
+		|| ft_strnstr(str, PIE_11, ft_strlen(str)) != NULL
+		|| ft_strnstr(str, PIE_12, ft_strlen(str)) != NULL
+		|| ft_strnstr(str, PIE_13, ft_strlen(str)) != NULL
+		|| ft_strnstr(str, PIE_14, ft_strlen(str)) != NULL
+		|| ft_strnstr(str, PIE_15, ft_strlen(str)) != NULL
+		|| ft_strnstr(str, PIE_16, ft_strlen(str)) != NULL)
+		return (ERROR);
+	return (EXECUTED);
+}
+
+int	check_pies1(char *str)
 {
 	int	cnt;
 
@@ -29,11 +52,7 @@ int	check_wierd1(t_data *data, char *str)
 				|| str[cnt + 1] == '|')
 			{
 				if (str[cnt] != str[cnt + 1])
-				{
-					ft_putstr_fd("ERROR Wierd Pies and stuff\n", 2);
-					data->exit_status = 127;
 					return (ERROR);
-				}
 			}
 		}
 		cnt++;
@@ -41,7 +60,7 @@ int	check_wierd1(t_data *data, char *str)
 	return (EXECUTED);
 }
 
-int	check_wierd(t_data *data)
+int	check_pies(t_data *data, int q)
 {
 	char	*str;
 	int		cnt;
@@ -50,14 +69,20 @@ int	check_wierd(t_data *data)
 	str = NULL;
 	while (data->line[cnt] != '\0')
 	{
-		if (is_white_space(data->line[cnt]) == 0)
+		q = q_state(data->line, cnt, q);
+		if (is_white_space(data->line[cnt]) == 0 && q == 0)
 			str = ft_charjoin(str, data->line[cnt], 0, 0);
 		cnt++;
 	}
 	if (str != NULL)
-		if (check_wierd1(data, str) == ERROR)
+	{
+		if (check_pies1(str) == ERROR || check_pies2(str))
+		{
+			ft_putstr_fd("ERROR Wierd Pies and stuff\n", 2);
+			data->exit_status = 127;
 			return (free(str), ERROR);
-	if (str != NULL)
+		}
 		free(str);
+	}
 	return (EXECUTED);
 }
