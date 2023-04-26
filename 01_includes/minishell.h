@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/26 08:48:26 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/26 16:44:00 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ typedef struct s_data
 	int				flag_outfile;
 	int				fd_infile;
 	int				fd_outfile;
+	int				fd_stdin;
+	int				fd_stdout;
 	int				not_executed;
 	pid_t			pid;
 }	t_data;

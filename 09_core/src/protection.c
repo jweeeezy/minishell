@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   protection.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:11:31 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/18 16:53:47 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/26 16:44:50 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,7 @@ int	argument_protection(t_data *data, int argc, char **argv, char **envp)
 	data->fd_infile = -1;
 	data->fd_outfile = -1;
 	data->flag_builtin_only = 0;
+	data->fd_stdin = dup(STDIN_FILENO);
+	data->fd_stdout = dup(STDOUT_FILENO);
 	return (EXECUTED);
 }

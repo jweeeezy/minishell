@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirector_heredocs.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/25 18:45:32 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/26 17:34:54 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	heredoc_loop(t_heredoc *current_node, char *heredoc_delimiter)
 {
 	char	*heredoc_line;
 
-	heredoc_line = readline(">");
+	heredoc_line = readline("> ");
 	//printf("delimiter: [%s]\n", heredoc_delimiter);
 	if (heredoc_line == NULL)
 	{

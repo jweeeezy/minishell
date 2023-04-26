@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/26 16:38:46 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/26 17:21:39 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	executor_parent(t_data *data, int **fd_pipes, int index)
 	{
 		close(data->fd_infile);
 		data->flag_infile = 0;
+		dup2(data->fd_stdin, STDOUT_FILENO);
 	}
 	else if (data->flag_heredoc == 1)
 	{
@@ -66,6 +67,7 @@ void	executor_parent(t_data *data, int **fd_pipes, int index)
 	{
 		close(data->fd_outfile);
 		data->flag_outfile = 0;
+		dup2(data->fd_stdout, STDOUT_FILENO);
 	}
 	if (data->combine[index].full_path != NULL)
 	{
