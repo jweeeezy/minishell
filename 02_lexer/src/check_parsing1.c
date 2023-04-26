@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:58:09 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/26 12:00:42 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/26 13:22:46 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	check_pies(t_data *data, int q)
 		if (check_pies1(str) == ERROR || check_pies2(str))
 		{
 			ft_putstr_fd("ERROR Wierd Pies and stuff\n", 2);
-			data->exit_status = 127;
+			data->exit_status = 2;
 			return (free(str), ERROR);
 		}
 		free(str);
