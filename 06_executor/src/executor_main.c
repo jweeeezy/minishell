@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/04/21 16:52:54 by kvebers          ###   ########.fr       */
+/*   Created: Invalid Date        by                   #+#    #+#             */
+/*   Updated: 2023/04/26 16:06:58 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,11 @@ int	executor(t_data *data)
 	executor_init(data);
 	if (data->counter_processes < 1)
 	{
+		if (redirector_handle_redirections(data, 0) == ERROR)
+		{
+			return (ERROR);
+		}
+		data->exit_status = 1;
 		return (EXECUTED);
 	}
 	if (data->child_pids == NULL)
