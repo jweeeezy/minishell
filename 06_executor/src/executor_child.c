@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/26 21:35:13 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/26 21:40:02 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,14 @@ static int	child_execute_extern(t_data *data, int index)
 		exit(ERROR);
 	}
 	//printf("%s\n", data->combine[index].full_path);
-	execve(data->combine[index].full_path, cmd_array, data->envp);
-	free_char_array(cmd_array);
 	if (data->exit_status == 0)
+	{
+		execve(data->combine[index].full_path, cmd_array, data->envp);
 		perror("execve");
-	return (ERROR);
+		return (ERROR);
+	}
+	free_char_array(cmd_array);
+	return (EXECUTED);
 }
 
 void	executor_child(t_data *data, int **fd_pipes, int index,
