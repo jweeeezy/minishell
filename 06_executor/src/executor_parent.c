@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/15 23:23:04 by jwillert         ###   ########          */
+/*   Updated: 2023/04/26 15:36:54 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static void	executor_parent_close_pipes(t_data *data, int **fd_pipes)
 
 void	executor_parent(t_data *data, int **fd_pipes, int index)
 {
+	t_heredoc	*temp;
+
 	if (fd_pipes != NULL && data->counter_pipes != 0)
 	{
 		executor_parent_close_pipes(data, fd_pipes);
@@ -47,8 +49,17 @@ void	executor_parent(t_data *data, int **fd_pipes, int index)
 	{
 		unlink(data->heredoc->full_path);
 		free(data->heredoc->full_path);
-		free(data->heredoc);
-		data->heredoc = NULL;
+		if (data->heredoc->next == NULL)
+		{
+			free(data->heredoc);
+			data->heredoc = NULL;
+		}
+		else
+		{
+			temp = data->heredoc;
+			data->heredoc = data->heredoc->next;
+			free(temp);
+		}
 		data->flag_heredoc = 0;
 	}
 	if (data->flag_outfile == 1)
