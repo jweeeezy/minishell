@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:58:09 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/26 10:00:21 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/26 12:00:42 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ int	check_pies2(char *str)
 		|| ft_strnstr(str, PIE_12, ft_strlen(str)) != NULL
 		|| ft_strnstr(str, PIE_13, ft_strlen(str)) != NULL
 		|| ft_strnstr(str, PIE_14, ft_strlen(str)) != NULL
-		|| ft_strnstr(str, PIE_15, ft_strlen(str)) != NULL
-		|| ft_strnstr(str, PIE_16, ft_strlen(str)) != NULL)
+		|| ft_strnstr(str, PIE_15, ft_strlen(str)) != NULL)
 		return (ERROR);
 	return (EXECUTED);
 }
