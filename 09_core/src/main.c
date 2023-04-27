@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/26 21:31:45 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:18:18 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	main(int argc, char **argv, char **envp)
 			data.exit_status = 0;
 			if (redirector_prehandle_heredocs(&data) == ERROR)
 				ft_putstr_fd("Error\n", 0);
-			if (executor(&data) == ERROR)
+			if (executor(&data) == ERROR && data.fd_infile != -100)
 				ft_putstr_fd("EXECUTION ERROR\n", 2);
 		}
 		free_loop(&data);

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/26 22:33:52 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:22:15 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ enum e_outputs
 	BUFFER_SIZE = 42,
 	LAST_PIPE = 50,
 	BUILTIN = 200,
-	EXTERN = 100
+	EXTERN = 100,
+	NO_EXECUTION = -100
 };
 
 typedef struct s_var

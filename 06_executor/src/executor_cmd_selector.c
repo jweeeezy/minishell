@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:41:25 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/27 10:02:12 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:25:11 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,11 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 	{
 		return (EXECUTED);
 	}
-	//printf("%d\n", index);
-	//printf("%d\n", data->commands_to_process);
-	if (is_builtin(data->combine[index].command->order_numb) == 1)
+	else if (data->fd_infile == -100)
+	{
+		return_value = NO_EXECUTION;
+	}
+	else if (is_builtin(data->combine[index].command->order_numb) == 1)
 	{
 		return_value = BUILTIN;
 	}

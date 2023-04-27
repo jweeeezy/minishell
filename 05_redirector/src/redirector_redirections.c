@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/26 21:23:56 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:18:04 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	redirector_assign_infile(t_data *data, char *str_filename)
 	if (data->fd_infile == -1)
 	{
 		perror("open");
-		data->exit_status = 1;
+		data->fd_infile = -100;
 		free(str_filename);
 		return (EXECUTED);
 	}
