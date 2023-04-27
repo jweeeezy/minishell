@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/27 13:49:46 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 20:28:57 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ static void	main_loop(t_data *data)
 			}
 		}
 		free_loop(data);
+//		system("leaks minishell");
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/27 13:06:31 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 20:43:19 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,14 @@ static char	**child_copy_tokens(t_data *data, int index)
 	char	**cmd_array;
 
 	execute_index = 0;
-	counter_non_white = child_count_non_white_tokens(data, index);
-	cmd_array = malloc(sizeof (char *) * counter_non_white + 1);
 	array_index = 0;
-	while (execute_index < data->combine[index].count_n
-		&& counter_non_white != 0)
+	counter_non_white = child_count_non_white_tokens(data, index);
+	cmd_array = malloc(sizeof (char *) * (counter_non_white + 1));
+	if (cmd_array == NULL)
+	{
+		return (NULL);
+	}
+	while (execute_index < data->combine[index].count_n)
 	{
 		if (data->combine[index].execute[execute_index].order_numb != WHITE)
 		{
