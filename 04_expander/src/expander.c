@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:38:42 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/25 18:35:20 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/27 12:44:44 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	action_calculation(t_data *data, int q, char **tokens, int cnt1)
 	needle = search_needle(data, tokens[cnt1 + 1]);
 	if ((is_white_space(*(tokens[cnt1 + 1])) == 1
 			|| *(tokens[cnt1 + 1]) == 34 || *(tokens[cnt1 + 1]) == 39)
-			&& q == 34)
+		&& q == 34)
 		return (EXECUTED);
 	if ((*(tokens[cnt1 + 1]) == 34 || *(tokens[cnt1 + 1]) == 39) && q == 0)
 		return (3);

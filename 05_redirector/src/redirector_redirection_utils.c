@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirector_redirection_utils.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:11:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/25 19:36:12 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/27 12:53:12 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,26 @@ int	redirector_find_end_of_command(t_data *data, int index)
 		index += 1;
 	}
 	return (index);
+}
+
+void	handle_open_error(t_data *data, char *str_filename,
+		int flag_indirection)
+{
+	if (data->flag_printed == 0)
+	{
+		perror("open");
+		data->flag_printed = 1;
+	}
+	if (flag_indirection == 0)
+	{
+		data->exit_status = 1;
+	}
+	else
+	{
+		data->fd_infile = -100;
+	}
+	if (str_filename != NULL)
+	{
+		free(str_filename);
+	}
 }

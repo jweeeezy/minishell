@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/26 21:10:44 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 12:45:19 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static int	heredoc_loop(t_heredoc *current_node, char *heredoc_delimiter)
 	char	*heredoc_line;
 
 	heredoc_line = readline("> ");
-	//printf("delimiter: [%s]\n", heredoc_delimiter);
 	if (heredoc_line == NULL)
 	{
 		return (ERROR);
@@ -111,7 +110,7 @@ static int	heredoc_fork_and_open(t_data *data, int index)
 	}
 	else
 	{
-		wait(NULL);			// @note waitpid instead? test with piping into ./minishell
+		wait(NULL);
 		close(current_node->fd);
 	}
 	return (EXECUTED);
