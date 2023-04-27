@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/27 11:27:53 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 13:49:46 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,37 @@ void	signals(void)
 	signal(SIGUSR1, handle_signal);
 }
 
+static void	extraordinary_error(t_data *data, char *message)
+{
+	if (data->flag_printed == 0)
+	{
+		ft_putstr_fd(message, 2);
+		data->flag_printed = 1;
+	}
+}
+
+static void	main_loop(t_data *data)
+{
+	while (g_signal >= 256)
+	{
+		if (history(data) == ERROR || g_signal < 256)
+			break ;
+		if (parser(data) != ERROR && data->not_executed == 0)
+		{
+			data->exit_status = 0;
+			if (redirector_prehandle_heredocs(data) == ERROR)
+			{
+				extraordinary_error(data, "HEREDOC ERROR\n");
+			}
+			if (executor(data) == ERROR)
+			{
+				extraordinary_error(data, "EXECUTION ERROR\n");
+			}
+		}
+		free_loop(data);
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
@@ -77,32 +108,7 @@ int	main(int argc, char **argv, char **envp)
 	signals();
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
 		return (ERROR);
-	while (g_signal >= 256)
-	{
-		if (history(&data) == ERROR || g_signal < 256)
-			break ;
-		if (parser(&data) != ERROR && data.not_executed == 0)
-		{
-			data.exit_status = 0;
-			if (redirector_prehandle_heredocs(&data) == ERROR)
-			{
-				if (data.flag_printed == 0)
-				{
-					ft_putstr_fd("HEREDOC ERROR\n", 0);
-					data.flag_printed = 1;
-				}
-			}
-			if (executor(&data) == ERROR)
-			{
-				if (data.flag_printed == 0)
-				{
-					ft_putstr_fd("EXECUTION ERROR\n", 2);
-					data.flag_printed = 1;
-				}
-			}
-		}
-		free_loop(&data);
-	}
+	main_loop(&data);
 	free_env(&data);
 	exit(data.exit_status);
 	return (EXECUTED);
