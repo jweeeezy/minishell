@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:04:35 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/14 13:34:33 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/27 13:41:05 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ LIBME							=	$(LIBME_DIR)libme.a
 
 #	Files
 SRC_FILES						=	expander.c \
+									expander2000.c\
 									tokenizer.c
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR), $(SRC_FILES))

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:18:22 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/19 14:38:50 by kvebers          ###   ########.fr        #
+#    Updated: 2023/04/27 13:40:18 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ LIBME							=	$(LIBME_DIR)libme.a
 #	Files
 SRC_FILES						=	main.c\
 									free.c\
+									free2.c\
 									protection.c\
 									utils.c\
 									utils1.c \

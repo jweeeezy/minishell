@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/18 12:45:29 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/27 13:40:02 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,42 +99,4 @@ void	free_char_array(char **array_to_free)
 		index += 1;
 	}
 	free (array_to_free);
-}
-
-void	free_pipe_array(int **array, int size)
-{
-	int	index;
-
-	index = 0;
-	while (index < size && array[index] != NULL)
-	{
-		free(array[index]);
-		index += 1;
-	}
-	free(array);
-}
-
-void	free_t_heredoc(t_data *data)
-{
-	t_heredoc	*current_node;
-	t_heredoc	*next_node;
-
-	if (data->flag_heredoc == 1)
-	{
-		unlink(data->heredoc->full_path);
-		free(data->heredoc->full_path);
-		free(data->heredoc);
-		data->heredoc = NULL;
-		data->flag_heredoc = 0;
-		return ;
-	}
-	current_node = data->heredoc;
-	while (current_node != NULL)
-	{
-		next_node = current_node->next;
-		free(current_node->full_path);
-		free(current_node);
-		current_node = next_node;
-	}
-	data->heredoc = NULL;
 }

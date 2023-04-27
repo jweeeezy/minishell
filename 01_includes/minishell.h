@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/27 11:19:04 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 13:44:08 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,8 @@ void	handle_signal(int sig);
 int		expand_line(t_data *data, int cnt, int q);
 char	**tokenizer(char *str, int cnt, int char_counter, int temp_char);
 char	*search_needle(t_data *data, char *needle);
+char	*expand_tokens_helper(t_data *data, char *temp, int q, char **tokens);
+int		action_calculation(t_data *data, int q, char **tokens, int cnt1);
 
 /* ************************************************************************** */
 //                                    DEBUG
