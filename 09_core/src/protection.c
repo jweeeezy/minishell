@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:11:31 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/26 16:44:50 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:40:31 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ static int	set_defaults(t_data *data)
 
 static int	init_envp(t_data *data, char **envp, int cnt, int cnt1)
 {
+	int	offset;
+
+	offset = 0;
 	while (envp[cnt] != NULL)
 		cnt++;
 	if (cnt > 0)
@@ -60,10 +63,14 @@ static int	init_envp(t_data *data, char **envp, int cnt, int cnt1)
 		set_defaults(data);
 		return (EXECUTED);
 	}
-	while (cnt1 < cnt)
+	while (cnt1 + offset < cnt)
 	{
 		data->envp[cnt1] = NULL;
-		data->envp[cnt1] = ft_strdup(envp[cnt1]);
+		if (ft_strncmp(envp[cnt1 + offset], "OLDPWD=", 7) == 0)
+		{
+			offset += 1;
+		}
+		data->envp[cnt1] = ft_strdup(envp[cnt1 + offset]);
 		if (data->envp[cnt1] == NULL)
 		{
 			free_envp_error(data, cnt1);

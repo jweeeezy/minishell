@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/27 10:23:01 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 11:26:50 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,11 @@ static int	child_execute_extern(t_data *data, int index)
 	if (data->exit_status == 0)
 	{
 		execve(data->combine[index].full_path, cmd_array, data->envp);
-		perror("execve");
+		if (data->flag_printed == 0)
+		{
+			perror("execve");
+			data->flag_printed = 1;
+		}
 		return (ERROR);
 	}
 	free_char_array(cmd_array);
@@ -120,6 +124,7 @@ void	executor_child(t_data *data, int **fd_pipes, int index,
 	}
 	if (flag_cmd == NO_EXECUTION)
 	{
+		data->exit_status = 1;
 		exit(EXECUTED);
 	}
 	else if (flag_cmd == BUILTIN)
@@ -134,7 +139,11 @@ void	executor_child(t_data *data, int **fd_pipes, int index,
 	}
 	else if (flag_cmd == COMMAND_NOT_FOUND && data->exit_status == 0)
 	{
-		ft_putstr_fd("command not found\n", 2);
+		if (data->flag_printed == 0)
+		{
+			ft_putstr_fd("command not found\n", 2);
+			data->flag_printed = 1;
+		}
 		data->exit_status = 127;
 	}
 	exit(data->exit_status);

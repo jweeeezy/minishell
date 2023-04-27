@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/27 10:22:15 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 11:19:04 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_data
 	int				counter_commands;
 	int				index_processes;
 	int				tokens;
+	int				flag_printed;
 	int				flag_builtin_only;
 	int				flag_heredoc;
 	int				flag_infile;

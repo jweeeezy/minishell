@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/27 10:18:18 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 11:27:53 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static int	history(t_data *data)
 	char	*line;
 
 	data->flag_builtin_only = 0;
+	data->flag_printed = 0;
 	if (isatty(fileno(stdin)))
 		data->line = readline("Terminal Troublemakers: ");
 	else
@@ -84,9 +85,21 @@ int	main(int argc, char **argv, char **envp)
 		{
 			data.exit_status = 0;
 			if (redirector_prehandle_heredocs(&data) == ERROR)
-				ft_putstr_fd("Error\n", 0);
-			if (executor(&data) == ERROR && data.fd_infile != -100)
-				ft_putstr_fd("EXECUTION ERROR\n", 2);
+			{
+				if (data.flag_printed == 0)
+				{
+					ft_putstr_fd("HEREDOC ERROR\n", 0);
+					data.flag_printed = 1;
+				}
+			}
+			if (executor(&data) == ERROR)
+			{
+				if (data.flag_printed == 0)
+				{
+					ft_putstr_fd("EXECUTION ERROR\n", 2);
+					data.flag_printed = 1;
+				}
+			}
 		}
 		free_loop(&data);
 	}

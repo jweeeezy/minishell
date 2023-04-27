@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/26 17:21:39 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 11:27:10 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	executor_parent(t_data *data, int **fd_pipes, int index)
 	if (fd_pipes != NULL && data->counter_pipes != 0)
 	{
 		executor_parent_close_pipes(data, fd_pipes);
-		debug_print_pipe_status("Parent", fd_pipes);
 	}
 	if (data->flag_infile == 1)
 	{
