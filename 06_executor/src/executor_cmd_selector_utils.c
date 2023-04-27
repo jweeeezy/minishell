@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_cmd_selector_utils.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 14:11:57 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/18 21:04:56 by jwillert         ###   ########          */
+/*   Updated: 2023/04/27 13:07:20 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,16 @@ int	selector_is_cmd_path_valid(t_combine *cmd)
 	return (COMMAND_NOT_FOUND);
 }
 
-int	selector_is_cmd_valid(t_combine *cmd, char **envp)
+static void	print_command_not_found(t_data *data)
+{
+	if (data->flag_printed == 0)
+	{
+		ft_putstr_fd("command not found\n", 2);
+		data->flag_printed = 1;
+	}
+}
+
+int	selector_is_cmd_valid(t_data *data, t_combine *cmd, char **envp)
 {
 	int		return_value;
 	char	**paths;
@@ -93,5 +102,6 @@ int	selector_is_cmd_valid(t_combine *cmd, char **envp)
 		index += 1;
 	}
 	free_char_array(paths);
+	print_command_not_found(data);
 	return (COMMAND_NOT_FOUND);
 }

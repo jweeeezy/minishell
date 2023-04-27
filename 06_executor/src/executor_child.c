@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/27 12:34:46 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 13:06:31 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,13 @@ static char	**child_copy_tokens(t_data *data, int index)
 	counter_non_white = child_count_non_white_tokens(data, index);
 	cmd_array = malloc(sizeof (char *) * counter_non_white + 1);
 	array_index = 0;
-	while (execute_index < data->combine[index].count_n && counter_non_white != 0)
+	while (execute_index < data->combine[index].count_n
+		&& counter_non_white != 0)
 	{
 		if (data->combine[index].execute[execute_index].order_numb != WHITE)
 		{
-			cmd_array[array_index] = data->combine[index].execute[execute_index].order_str;
+			cmd_array[array_index]
+				= data->combine[index].execute[execute_index].order_str;
 			array_index += 1;
 		}
 		execute_index += 1;
@@ -83,7 +85,6 @@ static char	**child_copy_tokens(t_data *data, int index)
 	cmd_array[array_index] = NULL;
 	return (cmd_array);
 }
-
 
 static int	child_execute_extern(t_data *data, int index)
 {
@@ -94,7 +95,6 @@ static int	child_execute_extern(t_data *data, int index)
 	{
 		exit(ERROR);
 	}
-	//printf("%s\n", data->combine[index].full_path);
 	if (data->exit_status == 0)
 	{
 		execve(data->combine[index].full_path, cmd_array, data->envp);
@@ -123,9 +123,7 @@ void	executor_child(t_data *data, int **fd_pipes, int index,
 		child_handle_outdirection(data);
 	}
 	if (flag_cmd == NO_EXECUTION)
-	{
 		exit(1);
-	}
 	else if (flag_cmd == BUILTIN)
 	{
 		if (child_execute_builtin(data, index) == ERROR)
@@ -137,13 +135,6 @@ void	executor_child(t_data *data, int **fd_pipes, int index,
 			exit(ERROR);
 	}
 	else if (flag_cmd == COMMAND_NOT_FOUND && data->exit_status == 0)
-	{
-		if (data->flag_printed == 0)
-		{
-			ft_putstr_fd("command not found\n", 2);
-			data->flag_printed = 1;
-		}
-		data->exit_status = 127;
-	}
+		exit(127);
 	exit(data->exit_status);
 }

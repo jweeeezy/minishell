@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:22:50 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 13:19:18 by jwillert         ###   ########          */
+/*   Updated: 2023/04/27 13:07:28 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			executor_count_heredocs(t_data *data);
 
 //			CMD SELECTOR UTILS
 int			selector_is_cmd_path_valid(t_combine *cmd);
-int			selector_is_cmd_valid(t_combine *cmd, char **envp);
+int			selector_is_cmd_valid(t_data *data, t_combine *cmd, char **envp);
 
 //			UTILS_is
 int			executor_is_pipe(t_combine *cmd);

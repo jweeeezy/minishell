@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:41:25 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/27 11:12:51 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 13:07:13 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 	}
 	else
 	{
-		return_value = selector_is_cmd_valid(&data->combine[index], data->envp);
+		return_value = selector_is_cmd_valid(data, &data->combine[index], data->envp);
 	}
 	if (selector_fork_and_execute(data, fd_pipes, index, return_value) == ERROR)
 	{
