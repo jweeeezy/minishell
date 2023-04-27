@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/27 11:26:50 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 12:34:46 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,7 @@ void	executor_child(t_data *data, int **fd_pipes, int index,
 	}
 	if (flag_cmd == NO_EXECUTION)
 	{
-		data->exit_status = 1;
-		exit(EXECUTED);
+		exit(1);
 	}
 	else if (flag_cmd == BUILTIN)
 	{
