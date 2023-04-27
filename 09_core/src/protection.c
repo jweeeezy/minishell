@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:11:31 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/27 10:40:31 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 13:37:55 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,11 @@ static int	set_defaults(t_data *data)
 	return (free(path), EXECUTED);
 }
 
-static int	init_envp(t_data *data, char **envp, int cnt, int cnt1)
+static int	copy_envp_values(t_data *data, char **envp, int cnt, int cnt1)
 {
 	int	offset;
 
 	offset = 0;
-	while (envp[cnt] != NULL)
-		cnt++;
-	if (cnt > 0)
-		data->envp = malloc(sizeof(char *) * (cnt + 1));
-	else
-	{
-		set_defaults(data);
-		return (EXECUTED);
-	}
 	while (cnt1 + offset < cnt)
 	{
 		data->envp[cnt1] = NULL;
@@ -79,6 +70,27 @@ static int	init_envp(t_data *data, char **envp, int cnt, int cnt1)
 		cnt1++;
 	}
 	data->envp[cnt1] = NULL;
+	return (EXECUTED);
+}
+
+static int	init_envp(t_data *data, char **envp, int cnt, int cnt1)
+{
+	int	offset;
+
+	offset = 0;
+	while (envp[cnt] != NULL)
+		cnt++;
+	if (cnt > 0)
+		data->envp = malloc(sizeof(char *) * (cnt + 1));
+	else
+	{
+		set_defaults(data);
+		return (EXECUTED);
+	}
+	if (copy_envp_values(data, envp, cnt, cnt1) == ERROR)
+	{
+		return (ERROR);
+	}
 	return (EXECUTED);
 }
 
