@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/26 21:46:45 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 09:59:22 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ int	pipex_skip_non_commands(t_data *data, int index)
 	while ((index < data->commands_to_process
 			&& data->combine[index].combined_str != NULL
 			&& data->combine[index].command->order_numb != STRING
-			&& is_builtin(data->combine[index].command->order_numb) == 0))
+			&& is_builtin(data->combine[index].command->order_numb) == 0
+			&& data->combine[index].command->order_numb != PIPE
+			&& data->combine[index].command->order_numb != LAST_PIPE))
 	{
 		index += 1;
 	}
@@ -92,13 +94,20 @@ int	executor_pipex(t_data *data)
 	}
 	while (index < data->commands_to_process)
 	{
+		//debug_tokens(data);
 		data->exit_status = 0;
 		if (executor_cmd_selector(data, fd_pipes, index) == ERROR)
 		{
+			//printf("reached\n");
 			free_pipe_array(fd_pipes, data->counter_pipes);
 			return (ERROR);
 		}
 		index = pipex_advance_to_next_pipe(data, index);
+		//printf("index after advancing: %d\n", index);
+		data->fd_infile = -1;
+		data->fd_outfile = -1;
+		data->flag_infile = 0;
+		data->flag_outfile = 0;
 	}
 	free_pipe_array(fd_pipes, data->counter_pipes);
 	return (EXECUTED);

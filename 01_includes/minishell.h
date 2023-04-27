@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/26 16:44:00 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/26 22:33:52 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_data
 	int				commands_to_process;
 	int				counter_pipes;
 	int				counter_processes;
+	int				counter_commands;
 	int				index_processes;
 	int				tokens;
 	int				flag_builtin_only;
