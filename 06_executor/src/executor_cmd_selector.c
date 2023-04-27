@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:41:25 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/27 13:09:00 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 13:31:40 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@
 
 int	child_execute_builtin(t_data *data, int index);
 
+static int	selector_handle_single_builtin(t_data *data, int **fd_pipes,
+		int index)
+{
+	data->flag_builtin_only = 1;
+	child_handle_indirection(data);
+	child_handle_outdirection(data);
+	if (child_execute_builtin(data, index) == ERROR)
+	{
+		return (ERROR);
+	}
+	executor_parent(data, fd_pipes, index);
+	return (EXECUTED);
+}
+
 static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 				int flag_cmd)
 {
@@ -32,15 +46,7 @@ static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 	}
 	if (fd_pipes == NULL && flag_cmd == BUILTIN)
 	{
-		data->flag_builtin_only = 1;
-		child_handle_indirection(data);
-		child_handle_outdirection(data);
-		if (child_execute_builtin(data, index) == ERROR)
-		{
-			return (ERROR);
-		}
-		executor_parent(data, fd_pipes, index);
-		return (EXECUTED);
+		return (selector_handle_single_builtin(data, fd_pipes, index));
 	}
 	data->child_pids[data->index_processes] = fork();
 	if (data->child_pids[data->index_processes] == -1)
@@ -59,22 +65,12 @@ static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 	return (EXECUTED);
 }
 
-int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
+static int	find_cmd_type(t_data *data, int index)
 {
 	int	return_value;
 
-	if (redirector_handle_redirections(data, index) == ERROR)
-	{
-		return (ERROR);
-	}
-	index = pipex_skip_non_commands(data, index);
-	if (index >= data->commands_to_process
-		|| data->combine[index].command->order_numb == PIPE
-		|| data->combine[index].command->order_numb == LAST_PIPE)
-	{
-		return (EXECUTED);
-	}
-	else if (data->fd_infile == -100)
+	return_value = NO_EXECUTION;
+	if (data->fd_infile == -100)
 	{
 		data->fd_infile = -1;
 		return_value = NO_EXECUTION;
@@ -92,6 +88,25 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 		return_value = selector_is_cmd_valid(data, &data->combine[index],
 				data->envp);
 	}
+	return (return_value);
+}
+
+int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
+{
+	int	return_value;
+
+	if (redirector_handle_redirections(data, index) == ERROR)
+	{
+		return (ERROR);
+	}
+	index = pipex_skip_non_commands(data, index);
+	if (index >= data->commands_to_process
+		|| data->combine[index].command->order_numb == PIPE
+		|| data->combine[index].command->order_numb == LAST_PIPE)
+	{
+		return (EXECUTED);
+	}
+	return_value = find_cmd_type(data, index);
 	if (selector_fork_and_execute(data, fd_pipes, index, return_value) == ERROR)
 	{
 		return (ERROR);

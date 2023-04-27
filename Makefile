@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 12:52:07 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/27 13:14:58 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/27 13:17:59 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -149,7 +149,7 @@ fclean:									clean
 											$(REMOVE) $(NAME)
 											$(REMOVE) $(SUBMODULE)
 											$(REMOVE) " lol"
-											$(REMOVE) test
+											rm -rf test
 re:										fclean
 											$(MAKE)
 ref:
