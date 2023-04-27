@@ -16,9 +16,6 @@
 
 int	quoter(t_data *data, int cnt, int q)
 {
-	char	*temp;
-
-	temp = NULL;
 	while (data->line[cnt] != '\0')
 	{
 		q = q_state(data->line, cnt, q);
@@ -98,9 +95,6 @@ int	big_if(t_data *data)
 
 int	check_parsing(t_data *data)
 {
-	char	*temp;
-
-	temp = NULL;
 	if (quoter(data, 0, 0) == ERROR)
 	{
 		data->exit_status = 2;

@@ -55,7 +55,7 @@ int	remove_quotes(t_data *data, int cnt, int cnt1)
 		{
 			if (data->combine[cnt].execute[cnt1].order_numb != WHITE)
 				data->combine[cnt].execute[cnt1].order_numb = QUOTATION_MARK;
-				temp = ft_strdup("");
+			temp = ft_strdup("");
 			if (temp == NULL)
 				return (ERROR);
 		}

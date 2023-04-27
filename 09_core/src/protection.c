@@ -75,9 +75,6 @@ static int	copy_envp_values(t_data *data, char **envp, int cnt, int cnt1)
 
 static int	init_envp(t_data *data, char **envp, int cnt, int cnt1)
 {
-	int	offset;
-
-	offset = 0;
 	while (envp[cnt] != NULL)
 		cnt++;
 	if (cnt > 0)

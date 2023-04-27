@@ -45,7 +45,7 @@ char	*expand_tokens_helper(t_data *data, char *temp, int q, char **tokens)
 	while (tokens[cnt1] != NULL)
 	{
 		q = q_state(tokens[cnt1], 0, q);
-		action = action_calculation(data, q, tokens, cnt1);
+		action = action_calculation(q, tokens, cnt1);
 		if (action == EXECUTED)
 			temp = ft_strjoin2(temp, tokens[cnt1], 0, 0);
 		else if (action == ADD)

@@ -214,14 +214,14 @@ int		builtin_cd(t_data *data, int index);
 void	handle_signal(int sig);
 
 /* ************************************************************************** */
-//                                    EXPAND
+//                                    EXPANDER
 /* ************************************************************************** */
 
 int		expand_line(t_data *data, int cnt, int q);
 char	**tokenizer(char *str, int cnt, int char_counter, int temp_char);
 char	*search_needle(t_data *data, char *needle);
 char	*expand_tokens_helper(t_data *data, char *temp, int q, char **tokens);
-int		action_calculation(t_data *data, int q, char **tokens, int cnt1);
+int		action_calculation(int q, char **tokens, int cnt1);
 
 /* ************************************************************************** */
 //                                    DEBUG
