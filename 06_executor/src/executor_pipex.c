@@ -6,16 +6,13 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/27 09:59:22 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/27 13:09:47 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"			// needed for t_data, MACROS
+#include "minishell.h"	// needed for t_data, MACROS
 #include "executor.h"	// needed for utils_is
-#include <unistd.h>				// needed for pipe()
-
-
-#include <stdio.h>
+#include <unistd.h>		// needed for pipe()
 
 int	pipex_advance_to_next_pipe(t_data *data, int index)
 {
@@ -40,8 +37,6 @@ int	pipex_advance_to_next_pipe(t_data *data, int index)
 
 int	pipex_skip_non_commands(t_data *data, int index)
 {
-	//printf("%d\n", index);
-	//printf("%s\n", data->combine[index].combined_str);
 	while ((index < data->commands_to_process
 			&& data->combine[index].combined_str != NULL
 			&& data->combine[index].command->order_numb != STRING
@@ -51,7 +46,6 @@ int	pipex_skip_non_commands(t_data *data, int index)
 	{
 		index += 1;
 	}
-	//printf("%d\n", index);
 	return (index);
 }
 
@@ -94,16 +88,13 @@ int	executor_pipex(t_data *data)
 	}
 	while (index < data->commands_to_process)
 	{
-		//debug_tokens(data);
 		data->exit_status = 0;
 		if (executor_cmd_selector(data, fd_pipes, index) == ERROR)
 		{
-			//printf("reached\n");
 			free_pipe_array(fd_pipes, data->counter_pipes);
 			return (ERROR);
 		}
 		index = pipex_advance_to_next_pipe(data, index);
-		//printf("index after advancing: %d\n", index);
 		data->fd_infile = -1;
 		data->fd_outfile = -1;
 		data->flag_infile = 0;
