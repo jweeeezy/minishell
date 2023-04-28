@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:16:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 13:41:56 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:01:01 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,21 @@ void	debug_print_redirections(t_data *data)
 {
 	if (DEBUG)
 	{
-		printf("redirections: \n");
-		printf("redirections: flag_heredoc: [%d] ", data->flag_heredoc);
-		printf("flag_infile: [%d] ", data->flag_infile);
-		printf("flag_outfile: [%d]\n", data->flag_outfile);
-		printf("redirections: fd_infile: [%d] ", data->fd_infile);
-		printf("                    fd_outfile: [%d]\n",
-			data->fd_outfile);
+		if (data->flag_heredoc == 1 || data->flag_infile == 1 || data->flag_outfile == 1)
+		{
+			printf("redirections: \n");
+			printf("redirections: flag_heredoc: [%d] ", data->flag_heredoc);
+			printf("flag_infile: [%d] ", data->flag_infile);
+			printf("flag_outfile: [%d]\n", data->flag_outfile);
+			printf("redirections: fd_infile: [%d] ", data->fd_infile);
+			printf("                    fd_outfile: [%d]\n",
+				data->fd_outfile);
+		}
+		else
+		{
+			//printf("///no redirections///\n");
+			return ;
+		}
 		printf("\n");
 	}
 }
@@ -91,14 +99,8 @@ void	debug_print_stage(char *stage, int level)
 		{
 			delimiter = "~~~\n";
 		}
-		else if (level == 3)
+		else
 		{
-			//printf("\nOutput__\n\n");
-			return ;
-		}
-		else if (level == 4)
-		{
-			//printf("\n__end\n\n");
 			return ;
 		}
 		printf("\n");

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:51:18 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/28 13:45:55 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:55:32 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ void	debug_print_pipe_status(char *message, int **fd_pipes)
 	{
 		if (fd_pipes == NULL)
 		{
-			printf("///no pipes///");
+			printf("///no pipes///\n\n");
+			return ;
 		}
 		printf("fd_pipes: <%s> %p\n", message, fd_pipes);
 		while (fd_pipes[index] != NULL)

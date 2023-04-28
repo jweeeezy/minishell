@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 11:27:13 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:05:06 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	executor_parent_close_pipes(t_data *data, int **fd_pipes)
 		close(fd_pipes[data->index_processes - 1][0]);
 		close(fd_pipes[data->index_processes - 1][1]);
 	}
+	debug_print_pipe_status("parent closing", fd_pipes);
 }
 
 static void	handle_outdirection(t_data *data)

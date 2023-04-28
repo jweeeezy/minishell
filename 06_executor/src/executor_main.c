@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:42:44 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 13:32:56 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:49:31 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,8 @@ static void	executor_init(t_data *data)
 
 static int	executor_crossroads(t_data *data)
 {
-	debug_print_stage("executor", 0);
 	if (data->counter_pipes != 0)
 	{
-		debug_print_stage("pipex", 1);
 		if (executor_pipex(data) == ERROR)
 		{
 			return (ERROR);
@@ -92,7 +90,6 @@ static int	executor_crossroads(t_data *data)
 			return (ERROR);
 		}
 	}
-	debug_print_stage(NULL, 4);
 	return (EXECUTED);
 }
 
@@ -113,6 +110,7 @@ int	executor(t_data *data)
 	{
 		return (ERROR);
 	}
+	debug_print_stage("executor", 0);
 	if (executor_crossroads(data) == ERROR)
 	{
 		free(data->child_pids);
