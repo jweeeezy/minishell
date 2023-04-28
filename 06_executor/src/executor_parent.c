@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 10:55:57 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:27:13 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static void	handle_heredoc(t_data *data)
 		free(temp);
 	}
 	data->flag_heredoc = 0;
+	data->fd_infile = -1;
 }
 
 void	executor_parent(t_data *data, int **fd_pipes, int index)

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:51:18 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/28 11:17:55 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:26:28 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	debug_print_t_heredoc(t_data *data)
 	t_heredoc	*index;
 
 	index = data->heredoc;
-	if (DEBUG)
+	if (DEBUG && index != NULL)
 	{
 		printf("t_heredoc:\n");
 		while (index != NULL)

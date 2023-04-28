@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 10:48:17 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 12:39:11 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static int	redirector_assign_infile(t_data *data, char *str_filename)
 	if (data->flag_heredoc == 1)
 	{
 		next_node = data->heredoc->next;
+		unlink(data->heredoc->full_path);
 		free(data->heredoc->full_path);
 		free(data->heredoc);
 		close(data->fd_infile);
@@ -78,6 +79,7 @@ static int	redirector_assign_heredoc(t_data *data)
 	if (data->flag_heredoc == 1)
 	{
 		next_node = data->heredoc->next;
+		unlink(data->heredoc->full_path);
 		free(data->heredoc->full_path);
 		free(data->heredoc);
 		close(data->fd_infile);
