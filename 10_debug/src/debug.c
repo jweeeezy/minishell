@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:16:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 11:19:23 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:41:56 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,43 @@ void	debug_print_redirections(t_data *data)
 		printf("redirections: fd_infile: [%d] ", data->fd_infile);
 		printf("                    fd_outfile: [%d]\n",
 			data->fd_outfile);
+		printf("\n");
+	}
+}
+
+void	debug_print_stage(char *stage, int level)
+{
+	char	*delimiter;
+
+	delimiter = NULL;
+	if (DEBUG)
+	{
+		if (level == 0)
+		{
+			delimiter = "********************\n";
+		}
+		else if (level == 1)
+		{
+			delimiter = "------------\n";
+		}
+		else if (level == 2)
+		{
+			delimiter = "~~~\n";
+		}
+		else if (level == 3)
+		{
+			//printf("\nOutput__\n\n");
+			return ;
+		}
+		else if (level == 4)
+		{
+			//printf("\n__end\n\n");
+			return ;
+		}
+		printf("\n");
+		printf("%s", delimiter);
+		printf("| %s \n", stage);
+		printf("%s", delimiter);
 		printf("\n");
 	}
 }

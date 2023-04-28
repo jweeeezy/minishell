@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 12:39:11 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:18:59 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ int	redirector_handle_redirections(t_data *data, int index)
 	int	offset;
 	int	token_type;
 
+	debug_print_stage("redirector", 2);
 	offset = redirector_find_end_of_command(data, index);
 	while (index < offset)
 	{

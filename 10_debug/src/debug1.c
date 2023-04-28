@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:51:18 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/28 11:26:28 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:45:55 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,27 @@ void	debug_print_t_heredoc(t_data *data)
 	t_heredoc	*index;
 
 	index = data->heredoc;
-	if (DEBUG && index != NULL)
+	if (DEBUG)
 	{
-		printf("t_heredoc:\n");
-		while (index != NULL)
+		if (index != NULL)
 		{
-			printf("t_heredoc: node: %p ", index);
-			printf("next: %p\n", index->next);
-			printf("t_heredoc: full_path: [%s] ", index->full_path);
-			printf("hash: [%lu] ", index->hash);
-			printf("fd: [%d]\n", index->fd);
+			printf("\nt_heredoc:\n");
+			while (index != NULL)
+			{
+				printf("t_heredoc: node: %p ", index);
+				printf("next: %p\n", index->next);
+				printf("t_heredoc: full_path: [%s] ", index->full_path);
+				printf("hash: [%lu] ", index->hash);
+				printf("fd: [%d]\n", index->fd);
+				printf("\n");
+				index = index->next;
+			}
 			printf("\n");
-			index = index->next;
 		}
-		printf("\n");
+		else
+		{
+			printf("///no heredocs///\n");
+		}
 	}
 }
 
@@ -84,6 +91,10 @@ void	debug_print_pipe_status(char *message, int **fd_pipes)
 	index = 0;
 	if (DEBUG)
 	{
+		if (fd_pipes == NULL)
+		{
+			printf("///no pipes///");
+		}
 		printf("fd_pipes: <%s> %p\n", message, fd_pipes);
 		while (fd_pipes[index] != NULL)
 		{

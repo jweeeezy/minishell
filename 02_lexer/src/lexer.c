@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 16:57:06 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/25 16:44:47 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/28 13:15:10 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	lexer(t_data *data)
 	char	*temp;
 
 	temp = NULL;
+	debug_print_stage("lexer", 0);
 	data->tokens = 0;
 	data->not_executed = 0;
 	data->commands_to_process = 0;

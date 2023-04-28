@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 11:10:41 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:15:45 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ int	redirector_prehandle_heredocs(t_data *data)
 	int	counter_heredocs;
 
 	index = 0;
+	debug_print_stage("prehandler heredoc", 0);
 	counter_heredocs = executor_count_heredocs(data);
 	while (index < data->commands_to_process && counter_heredocs > 0)
 	{

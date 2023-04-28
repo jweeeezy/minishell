@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:19:52 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 13:34:48 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:37:30 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	child_handle_indirection(t_data *data)
 
 void	child_handle_outdirection(t_data *data)
 {
+	debug_print_stage(NULL, 3);
 	if (data->flag_outfile == 1)
 	{
 		dup2(data->fd_outfile, STDOUT_FILENO);

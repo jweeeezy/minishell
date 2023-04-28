@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/27 20:28:57 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:16:39 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int	main(int argc, char **argv, char **envp)
 
 	using_history();
 	signals();
+	debug_print_stage("Core", 0);
 	if (argument_protection(&data, argc, argv, envp) == ERROR)
 		return (ERROR);
 	main_loop(&data);
