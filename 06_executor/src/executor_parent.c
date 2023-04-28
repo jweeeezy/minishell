@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/27 13:13:38 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:55:57 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@ static void	handle_outdirection(t_data *data)
 	close(data->fd_outfile);
 	data->flag_outfile = 0;
 	dup2(data->fd_stdout, STDOUT_FILENO);
+	data->fd_outfile = -1;
 }
 
 static void	handle_indirection(t_data *data)
 {
 	close(data->fd_infile);
 	data->flag_infile = 0;
-	dup2(data->fd_stdin, STDOUT_FILENO);
+	dup2(data->fd_stdin, STDIN_FILENO);
+	data->fd_infile = -1;
 }
 
 static void	handle_heredoc(t_data *data)

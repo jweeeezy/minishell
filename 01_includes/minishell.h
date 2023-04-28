@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/27 13:44:08 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:57:15 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,22 +238,10 @@ void	debug_print_t_execute(t_data *data,	t_execute *execute);
 void	debug_print_t_combine(t_data *data);
 void	debug_print_pipe_status(char *message, int **fd_pipes);
 void	debug_fds(int max);
+void	debug_print_redirections(t_data *data);
 
 /* ************************************************************************** */
 //                                    SIGNALS
 /* ************************************************************************** */
-
-/* ************************************************************************** */
-//                                    GET_NEXT_LINE
-/* ************************************************************************** */
-
-size_t	gnl_strlen(const char *string);
-size_t	gnl_strlcpy(char *string_target,
-			char *string_source, size_t size_needed);
-size_t	gnl_strlcat(char *string_target,
-			char *string_source, size_t size_needed);
-char	*gnl_strjoin(char *string_first, char *string_second);
-char	*get_next_line(int fd);
-void	ft_printer(int sig);
 
 #endif  // MINISHELL_H
