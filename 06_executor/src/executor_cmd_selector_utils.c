@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 14:11:57 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/27 13:07:20 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:21:26 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	**selector_get_path_array(char **envp)
 	path_array = NULL;
 	while (envp != NULL && *envp != NULL)
 	{
-		if (ft_str_check_needle(*envp, "PATH=", ft_strlen(*envp)) == 1)
+		if (ft_strncmp(*envp, "PATH=", 5) == 0)
 		{
 			path_array = ft_split(*envp + 5, ':');
 			break ;
@@ -34,7 +34,6 @@ static char	**selector_get_path_array(char **envp)
 	}
 	return (path_array);
 }
-//	@todo edge case with another variable that contains "PATH="
 
 static int	selector_try_access(t_combine *cmd, char *path, char *command)
 {

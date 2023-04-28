@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/27 12:45:19 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:19:55 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <fcntl.h>				// needed for open()
 #include <unistd.h>				// needed for close(), fork()
 #include <readline/readline.h>	// needed for readline()
-#include <readline/history.h>	// @note heredoc history?
+#include <readline/history.h>
 #include <sys/wait.h>
 //#include <sys/types.h>
 
@@ -137,6 +137,3 @@ int	redirector_prehandle_heredocs(t_data *data)
 	}
 	return (EXECUTED);
 }
-
-//	@note delimiter doesnt work correctly
-//	@note heredoc doesnt work correctly
