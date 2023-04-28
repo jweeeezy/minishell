@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/28 15:50:30 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/28 17:03:47 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	main_loop(t_data *data)
 			{
 				extraordinary_error(data, "HEREDOC ERROR\n");
 			}
-			if (executor(data) == ERROR && data->not_executed == 0)
+			if (executor(data) == ERROR)
 			{
 				extraordinary_error(data, "EXECUTION ERROR\n");
 			}

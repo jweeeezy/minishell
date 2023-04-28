@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 16:01:02 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/28 17:03:03 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ static int	heredoc_fork_and_open(t_data *data, int index)
 	}
 	if (status == 512)
 	{
-		data->not_executed = 1;
 		return (-2);
 	}
 	return (EXECUTED);
