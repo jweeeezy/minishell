@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 14:34:33 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/17 19:25:46 by jwillert         ###   ########          */
+/*   Updated: 2023/04/28 11:00:49 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-void	debug_fds(int max)
+void	debug_print_fds(int max)
 {
 	int	fd;
 	int	flags;

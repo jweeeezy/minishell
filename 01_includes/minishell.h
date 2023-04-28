@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/28 10:57:15 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:11:03 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,8 +237,9 @@ void	debug_print_int(char *description, int int_to_print);
 void	debug_print_t_execute(t_data *data,	t_execute *execute);
 void	debug_print_t_combine(t_data *data);
 void	debug_print_pipe_status(char *message, int **fd_pipes);
-void	debug_fds(int max);
+void	debug_print_fds(int max);
 void	debug_print_redirections(t_data *data);
+void	debug_print_t_heredoc(t_data *data);
 
 /* ************************************************************************** */
 //                                    SIGNALS

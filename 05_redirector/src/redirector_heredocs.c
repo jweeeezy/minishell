@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 10:19:55 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:10:41 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,6 @@ int	redirector_prehandle_heredocs(t_data *data)
 		}
 		index += 1;
 	}
+	debug_print_t_heredoc(data);
 	return (EXECUTED);
 }

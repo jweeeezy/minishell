@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:16:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 10:56:48 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:19:23 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ void	debug_print_redirections(t_data *data)
 {
 	if (DEBUG)
 	{
-		printf("Redirections: \n");
-		printf("flag_heredoc: [%d] ", data->flag_heredoc);
+		printf("redirections: \n");
+		printf("redirections: flag_heredoc: [%d] ", data->flag_heredoc);
 		printf("flag_infile: [%d] ", data->flag_infile);
 		printf("flag_outfile: [%d]\n", data->flag_outfile);
-		printf("   fd_infile: [%d] ", data->fd_infile);
-		printf("                  fd_outfile: [%d]\n",
+		printf("redirections: fd_infile: [%d] ", data->fd_infile);
+		printf("                    fd_outfile: [%d]\n",
 			data->fd_outfile);
 		printf("\n");
 	}

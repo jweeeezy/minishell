@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:51:18 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/14 13:26:07 by jwillert         ###   ########          */
+/*   Updated: 2023/04/28 11:17:55 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,28 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+void	debug_print_t_heredoc(t_data *data)
+{
+	t_heredoc	*index;
+
+	index = data->heredoc;
+	if (DEBUG)
+	{
+		printf("t_heredoc:\n");
+		while (index != NULL)
+		{
+			printf("t_heredoc: node: %p ", index);
+			printf("next: %p\n", index->next);
+			printf("t_heredoc: full_path: [%s] ", index->full_path);
+			printf("hash: [%lu] ", index->hash);
+			printf("fd: [%d]\n", index->fd);
+			printf("\n");
+			index = index->next;
+		}
+		printf("\n");
+	}
+}
 
 void	debug_print_pid(char *process_name)
 {
