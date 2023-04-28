@@ -109,6 +109,7 @@ linux:									clean_linux $(MODULES_ALL)
 											cp $(BUILTINS) ./
 											cp $(CORE) ./
 											cp $(DEBUG) ./
+											cp $(SIGNALS) ./
 											ar -x libgnl.a
 											ar -x libme.a
 											ar -x lexer.a
@@ -119,6 +120,7 @@ linux:									clean_linux $(MODULES_ALL)
 											ar -x builtins.a
 											ar -x core.a
 											ar -x debug.a
+											ar -x signals.a
 											rm libgnl.a
 											rm libme.a
 											rm lexer.a
@@ -129,6 +131,7 @@ linux:									clean_linux $(MODULES_ALL)
 											rm builtins.a
 											rm core.a
 											rm debug.a
+											rm signals.a
 											$(CC) $(CFLAGS) *.o -o $(NAME) -lreadline
 											rm *.o
 $(MODULES_ALL):

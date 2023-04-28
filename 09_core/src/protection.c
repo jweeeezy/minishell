@@ -57,7 +57,7 @@ static int	copy_envp_values(t_data *data, char **envp, int cnt, int cnt1)
 	while (cnt1 + offset < cnt)
 	{
 		data->envp[cnt1] = NULL;
-		if (ft_strncmp(envp[cnt1 + offset], "OLDPWD=", 7) == 0)
+		if (ft_strncmp(envp[cnt1 + offset + 1], "OLDPWD=", 7) == 0)
 		{
 			offset += 1;
 		}
