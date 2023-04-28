@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_cmd_selector.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:41:25 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/27 13:31:40 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:46:39 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 						// ft_str_join_delimiter()
 #include <stdio.h>		// needed for printf()
 #include "redirector.h"
+#include "signal.h"
 
 int	child_execute_builtin(t_data *data, int index);
 
@@ -54,6 +55,7 @@ static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 		executor_parent(data, fd_pipes, index);
 		return (ERROR);
 	}
+	child_signals();
 	if (data->child_pids[data->index_processes] == 0)
 	{
 		executor_child(data, fd_pipes, index, flag_cmd);
