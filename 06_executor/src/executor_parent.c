@@ -14,7 +14,9 @@
 #include <unistd.h>		// needed for close(), unlink()
 #include <stdio.h>		// needed perror()
 
-static void	executor_parent_close_pipes(t_data *data, int **fd_pipes)
+#include "libme.h"
+
+void	executor_parent_close_pipes(t_data *data, int **fd_pipes)
 {
 	if (data->index_processes == 0)
 	{
@@ -68,10 +70,11 @@ static void	handle_heredoc(t_data *data)
 
 void	executor_parent(t_data *data, int **fd_pipes, int index)
 {
-	if (fd_pipes != NULL && data->counter_pipes != 0)
-	{
-		executor_parent_close_pipes(data, fd_pipes);
-	}
+//	if (fd_pipes != NULL && data->counter_pipes != 0)
+//	{
+//		executor_parent_close_pipes(data, fd_pipes);
+//	}
+	ft_dummy((void *) fd_pipes);
 	if (data->flag_infile == 1)
 	{
 		handle_indirection(data);
