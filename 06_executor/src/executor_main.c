@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:42:44 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/29 12:00:18 by jwillert         ###   ########          */
+/*   Updated: 2023/04/29 13:03:52 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static int	executor_wait_for_childs(t_data *data)
 	exit_code = 0;
 	if (data->flag_builtin_only == 1)
 		return (EXECUTED);
-	//printf("%d\n", data->counter_processes);
 	while (index < data->counter_processes)
 	{
 		pid = waitpid(data->child_pids[index], &status, 0);

@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/29 10:48:00 by jwillert         ###   ########          */
+/*   Updated: 2023/04/29 14:29:57 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ enum e_outputs
 	LAST_PIPE = 50,
 	BUILTIN = 200,
 	EXTERN = 100,
-	NO_EXECUTION = -100
+	NO_EXECUTION = -100,
+	QUOTED_HEREDOC = 19
 };
 
 typedef struct s_var
@@ -163,6 +164,7 @@ int		remove_whitespaces(t_data *data, int cnt);
 int		remove_edge_case1(t_data *data, int cnt, int cnt1);
 int		check_parsing(t_data *data);
 int		check_pies(t_data *data, int q);
+int		quoted_heredoc(char *str);
 
 /* ************************************************************************** */
 //                                    PARSER

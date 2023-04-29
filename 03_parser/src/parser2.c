@@ -6,13 +6,30 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 11:29:32 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/21 12:07:51 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/29 14:35:19 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
 #include "libft.h"
+
+int	quoted_heredoc(char *str)
+{
+	int	cnt;
+
+	cnt = 2;
+	while (str[cnt] != '\0')
+	{
+		if (is_white_space(str[cnt]) == ADD)
+			cnt++;
+		else if (str[cnt] == 34)
+			return (ADD);
+		else
+			return (EXECUTED);
+	}
+	return (EXECUTED);
+}
 
 void	fix_env_flags(t_data *data)
 {

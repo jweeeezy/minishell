@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/28 13:15:37 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/29 14:08:47 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void	last_pipe(t_data *data)
 
 int	token_numbers_helper(char *str)
 {
-	if (ft_strlen(str) >= 2 && str[0] == '<' && str[1] == '<')
+	if (ft_strlen(str) >= 2 && str[0] == '<' && str[1] == '<'
+		&& quoted_heredoc(str) == ADD)
+		return (QUOTED_HEREDOC);
+	else if (ft_strlen(str) >= 2 && str[0] == '<' && str[1] == '<')
 		return (HERE_DOC);
 	else if (ft_strlen(str) >= 2 && str[0] == '>' && str[1] == '>')
 		return (SHELL_REDIRECTION);
