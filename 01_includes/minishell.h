@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/28 13:15:22 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/29 10:39:13 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,11 @@ int		builtin_cd(t_data *data, int index);
 /* ************************************************************************** */
 
 void	handle_signal(int sig);
+void	signals(void);
+void	child_handler(int sig);
+void	child_signals(void);
+void	here_signals(int sig);
+void	heredoc_signals(void);
 
 /* ************************************************************************** */
 //                                    EXPANDER
@@ -241,9 +246,5 @@ void	debug_print_fds(int max);
 void	debug_print_redirections(t_data *data);
 void	debug_print_t_heredoc(t_data *data);
 void	debug_print_stage(char *stage, int level);
-
-/* ************************************************************************** */
-//                                    SIGNALS
-/* ************************************************************************** */
 
 #endif  // MINISHELL_H

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/28 13:16:39 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/29 10:40:50 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include "libft.h"
 #include <unistd.h>
 #include <termios.h>
-#include <signal.h>
 #include "redirector.h"
 #include "get_next_line_bonus.h"
 
@@ -56,19 +55,6 @@ static int	history(t_data *data)
 	return (EXECUTED);
 }
 
-void	signals(void)
-{
-	struct termios	term_settings;
-
-	tcgetattr(1, &term_settings);
-	term_settings.c_lflag &= ~ECHOCTL;
-	tcsetattr(1, TCSAFLUSH, &term_settings);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, handle_signal);
-	signal(SIGTERM, handle_signal);
-	signal(SIGUSR1, handle_signal);
-}
-
 static void	extraordinary_error(t_data *data, char *message)
 {
 	if (data->flag_printed == 0)
@@ -82,6 +68,7 @@ static void	main_loop(t_data *data)
 {
 	while (g_signal >= 256)
 	{
+		signals();
 		if (history(data) == ERROR || g_signal < 256)
 			break ;
 		if (parser(data) != ERROR && data->not_executed == 0)
@@ -97,7 +84,6 @@ static void	main_loop(t_data *data)
 			}
 		}
 		free_loop(data);
-//		system("leaks minishell");
 	}
 }
 

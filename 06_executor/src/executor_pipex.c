@@ -14,6 +14,8 @@
 #include "executor.h"	// needed for utils_is
 #include <unistd.h>		// needed for pipe()
 
+void	executor_parent_close_pipes(t_data *data, int **fd_pipes);
+
 int	pipex_advance_to_next_pipe(t_data *data, int index)
 {
 	index += 1;
@@ -101,6 +103,10 @@ int	executor_pipex(t_data *data)
 		data->fd_outfile = -1;
 		data->flag_infile = 0;
 		data->flag_outfile = 0;
+	}
+	if (fd_pipes != NULL && data->counter_pipes != 0)
+	{
+		executor_parent_close_pipes(data, fd_pipes);
 	}
 	free_pipe_array(fd_pipes, data->counter_pipes);
 	return (EXECUTED);

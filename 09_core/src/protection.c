@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:11:31 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/27 13:37:55 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/29 10:35:41 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ static int	copy_envp_values(t_data *data, char **envp, int cnt, int cnt1)
 	int	offset;
 
 	offset = 0;
-	while (cnt1 + offset < cnt)
+	while (cnt1 + offset < cnt && envp[cnt1 + offset + 1] != NULL)
 	{
 		data->envp[cnt1] = NULL;
-		if (ft_strncmp(envp[cnt1 + offset], "OLDPWD=", 7) == 0)
+		if (ft_strncmp(envp[cnt1 + offset + 1], "OLDPWD=", 7) == 0)
 		{
 			offset += 1;
 		}

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
+#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:18:22 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/09 14:27:48 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/28 13:51:21 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,17 +27,27 @@ LIBFT							=	$(LIBFT_DIR)libft.a
 LIBME							=	$(LIBME_DIR)libme.a
 
 #	Files
-SRC_FILES						=	.c
+SRC_FILES						=	signals.c\
+									signals1.c
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR),$(SRC_FILES))
 OBJ								=	$(addprefix $(OBJ_DIR),$(OBJ_FILES))
+BREW_PATH_IF  					=	if test -d /Users/$(USER)/.brew; \
+									then echo /Users/$(USER)/.brew/; \
+									elif test -d /Users/$(USER)/goinfre/.brew; \
+									then echo /Users/$(USER)/goinfre/.brew/; \
+									else echo ""; fi
+BREW_PATH 						:= 	$(shell $(BREW_PATH_IF))
 
 #	General rules
 CC								=	cc
+RL_LINK  						=	-L $(BREW_PATH)opt/readline/lib -lreadline
+RL_INCLUDE 						=	$(BREW_PATH)opt/readline/include
 DEBUG							=	$(shell echo $$DEBUG_FLAG)
 CFLAGS							=	-Wall -Wextra -Werror $(DEBUG)
 INCLUDE							=	-I $(INCLUDE_DIR) -I $(LIBFT_DIR)include \
-									-I $(LIBME_DIR)include
+									-I $(LIBME_DIR)include -I $(RL_INCLUDE)\
+									-I $(GNL_DIR)include
 CC_OBJ							=	$(CC) $(INCLUDE) $(CFLAGS) -c $^ -o \
 									$(OBJ_DIR)$@
 REMOVE							=	rm -f

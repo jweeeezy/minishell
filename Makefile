@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
+#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 12:52:07 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/27 13:17:59 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/28 10:26:11 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ MODULES_DIR_ALL					=	$(LEXER_DIR)\
 									$(DEBUG_DIR)\
 									$(EXECUTOR_DIR)\
 									$(REDIRECTOR_DIR)\
-									#$(SIGNALS_DIR)#
+									$(SIGNALS_DIR)
 SUBMODULE						=	submodule_initialised
 
 #	Libraries
@@ -60,7 +60,8 @@ MODULES_ALL						=	$(LIBME)\
 									$(EXECUTOR)\
 									$(BUILTINS)\
 									$(CORE)\
-									$(DEBUG)
+									$(DEBUG)\
+									$(SIGNALS)
 
 #	General Rules
 CC								=	cc
@@ -108,6 +109,7 @@ linux:									clean_linux $(MODULES_ALL)
 											cp $(BUILTINS) ./
 											cp $(CORE) ./
 											cp $(DEBUG) ./
+											cp $(SIGNALS) ./
 											ar -x libgnl.a
 											ar -x libme.a
 											ar -x lexer.a
@@ -118,6 +120,7 @@ linux:									clean_linux $(MODULES_ALL)
 											ar -x builtins.a
 											ar -x core.a
 											ar -x debug.a
+											ar -x signals.a
 											rm libgnl.a
 											rm libme.a
 											rm lexer.a
@@ -128,6 +131,7 @@ linux:									clean_linux $(MODULES_ALL)
 											rm builtins.a
 											rm core.a
 											rm debug.a
+											rm signals.a
 											$(CC) $(CFLAGS) *.o -o $(NAME) -lreadline
 											rm *.o
 $(MODULES_ALL):

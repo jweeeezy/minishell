@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirector_heredocs.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 13:15:45 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/29 10:39:31 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <readline/readline.h>	// needed for readline()
 #include <readline/history.h>
 #include <sys/wait.h>
+#include <signal.h>
 //#include <sys/types.h>
 
 static char	*heredoc_get_delimiter(t_data *data, int index)
@@ -92,26 +93,30 @@ static int	heredoc_fork_and_open(t_data *data, int index)
 {
 	t_heredoc	*current_node;
 	int			id;
+	int			status;
 
 	current_node = heredoc_lst_update(data);
 	if (current_node == NULL)
-	{
 		return (ERROR);
-	}
+	signal(SIGINT, SIG_IGN);
 	id = fork();
 	if (id == 0)
 	{
-		if (heredoc_open_heredoc(data, index, current_node) == ERROR)
-		{
+		heredoc_signals();
+		status = heredoc_open_heredoc(data, index, current_node);
+		if (status == ERROR)
 			exit(ERROR);
-		}
 		close(current_node->fd);
 		exit(EXECUTED);
 	}
 	else
 	{
-		wait(NULL);
+		wait(&status);
 		close(current_node->fd);
+	}
+	if (status == 512)
+	{
+		return (-2);
 	}
 	return (EXECUTED);
 }
@@ -120,6 +125,7 @@ int	redirector_prehandle_heredocs(t_data *data)
 {
 	int	index;
 	int	counter_heredocs;
+	int	status;
 
 	index = 0;
 	debug_print_stage("prehandler heredoc", 0);
@@ -128,10 +134,11 @@ int	redirector_prehandle_heredocs(t_data *data)
 	{
 		if (data->combine[index].command->order_numb == HERE_DOC)
 		{
-			if (heredoc_fork_and_open(data, index) == ERROR)
-			{
+			status = heredoc_fork_and_open(data, index);
+			if (status == ERROR)
 				return (ERROR);
-			}
+			else if (status == -2)
+				return (EXECUTED);
 			counter_heredocs -= 1;
 		}
 		index += 1;
