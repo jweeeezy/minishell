@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:51:18 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/28 13:55:32 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/29 10:49:34 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,17 @@ static int	is_fd_open(int fd)
 	return (!(flags & FD_CLOEXEC));
 }
 
-void	debug_print_pipe_status(char *message, int **fd_pipes)
+void	debug_print_pipe_status(t_data *data, char *message, int **fd_pipes)
 {
 	int	index;
 
 	index = 0;
 	if (DEBUG)
 	{
+		if (dup2(data->fd_stdout, STDOUT_FILENO) == ERROR)
+		{
+			perror("dup2");
+		}
 		if (fd_pipes == NULL)
 		{
 			printf("///no pipes///\n\n");

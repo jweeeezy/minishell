@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:16:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 14:01:01 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/29 10:59:54 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	debug_print_redirections(t_data *data)
 		}
 		else
 		{
-			//printf("///no redirections///\n");
+			printf("///no redirections///\n\n");
 			return ;
 		}
 		printf("\n");

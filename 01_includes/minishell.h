@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/29 10:39:13 by jwillert         ###   ########          */
+/*   Updated: 2023/04/29 10:48:00 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,7 @@ void	debug_print_char_array(char **args, char *name);
 void	debug_print_int(char *description, int int_to_print);
 void	debug_print_t_execute(t_data *data,	t_execute *execute);
 void	debug_print_t_combine(t_data *data);
-void	debug_print_pipe_status(char *message, int **fd_pipes);
+void	debug_print_pipe_status(t_data *data, char *message, int **fd_pipes);
 void	debug_print_fds(int max);
 void	debug_print_redirections(t_data *data);
 void	debug_print_t_heredoc(t_data *data);

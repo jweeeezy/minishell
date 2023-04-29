@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:19:52 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 13:57:10 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/29 11:15:30 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ void	child_handle_indirection(t_data *data)
 {
 	if (data->flag_infile == 1 || data->flag_heredoc == 1)
 	{
-		printf("%d\n", data->fd_infile);
-		printf("indir %d\n", dup2(data->fd_infile, STDIN_FILENO));
-		perror("dup2");
+		if (dup2(data->fd_infile, STDIN_FILENO) == ERROR)
+		{
+			perror("dup2");
+		}
 	}
 }
 
@@ -29,8 +30,10 @@ void	child_handle_outdirection(t_data *data)
 {
 	if (data->flag_outfile == 1)
 	{
-		dup2(data->fd_outfile, STDOUT_FILENO);
-		//perror("dup2");
+		if (dup2(data->fd_outfile, STDOUT_FILENO) == ERROR)
+		{
+			perror("dup2");
+		}
 	}
 }
 
@@ -71,28 +74,44 @@ void	child_prepare_pipes(t_data *data, int **fd_pipes, int index,
 		child_handle_indirection(data);
 		close(fd_pipes[0][0]);
 		child_close_pipes_after(fd_pipes, index + 1);
-		printf("first process %d\n",dup2(fd_pipes[0][1], STDOUT_FILENO)); 
-		perror("dup2");
+		if (dup2(fd_pipes[0][1], STDOUT_FILENO) == ERROR)
+		{
+			perror("dup2");
+		}
+		close(fd_pipes[0][1]);
+		debug_print_pipe_status(data, "child first process", fd_pipes);
 		child_handle_outdirection(data);
 	}
 	else if (index == counter_pipes)
 	{
-		child_handle_outdirection(data);
+		child_close_pipes_before(fd_pipes, index);
 		close(fd_pipes[index - 1][1]);
-		printf("last process %d\n", dup2(fd_pipes[index - 1][0], STDIN_FILENO));
-		perror("dup2");
+		if (dup2(fd_pipes[index - 1][0], STDIN_FILENO) == ERROR)
+		{
+			perror("dup2");
+		}
+		close(fd_pipes[index - 1][0]);
+		debug_print_pipe_status(data, "child last process", fd_pipes);
 		child_handle_indirection(data);
+		child_handle_outdirection(data);
 	}
 	else
 	{
-		close(fd_pipes[index][0]);
 		child_close_pipes_before(fd_pipes, index);
 		child_close_pipes_after(fd_pipes, index + 1);
-		dup2(fd_pipes[index][1], STDOUT_FILENO);
-		//perror("dup2");
-		child_handle_outdirection(data);
-		dup2(fd_pipes[index - 1][0], STDIN_FILENO);
-		//perror("dup2");
+		close(fd_pipes[index][0]);
+		if (dup2(fd_pipes[index - 1][0], STDIN_FILENO) == ERROR)
+		{
+			perror("dup2");
+		}
 		child_handle_indirection(data);
+		close(fd_pipes[index - 1][0]);
+		if (dup2(fd_pipes[index][1], STDOUT_FILENO) == ERROR)
+		{
+			perror("dup2");
+		}
+		close(fd_pipes[index][1]);
+		debug_print_pipe_status(data, "child middle process", fd_pipes);
+		child_handle_outdirection(data);
 	}
 }

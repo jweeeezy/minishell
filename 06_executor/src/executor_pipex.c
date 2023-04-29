@@ -6,13 +6,15 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 14:05:16 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/29 11:19:31 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"	// needed for t_data, MACROS
 #include "executor.h"	// needed for utils_is
 #include <unistd.h>		// needed for pipe()
+
+#include <stdio.h>
 
 void	executor_parent_close_pipes(t_data *data, int **fd_pipes);
 
@@ -91,7 +93,9 @@ int	executor_pipex(t_data *data)
 	}
 	while (index < data->commands_to_process)
 	{
-		debug_print_pipe_status("parent before execution", fd_pipes);
+		if (DEBUG)
+			printf("index: [%d] ", index);
+		debug_print_pipe_status(data, "parent before execution", fd_pipes);
 		data->exit_status = 0;
 		if (executor_cmd_selector(data, fd_pipes, index) == ERROR)
 		{

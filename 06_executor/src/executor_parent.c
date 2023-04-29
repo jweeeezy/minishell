@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 14:05:06 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/29 11:20:10 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,33 @@
 
 void	executor_parent_close_pipes(t_data *data, int **fd_pipes)
 {
-	if (data->index_processes == 0)
+	int	index;
+
+	index = 0;
+	if (DEBUG)
+		sleep (5);
+	while (index < data->index_processes)
 	{
-		close(fd_pipes[data->index_processes][1]);
+		close(fd_pipes[index][0]);
+		close(fd_pipes[index][1]);
+		index += 1;
 	}
-	else if (data->index_processes == data->counter_pipes + 1)
-	{
-		close(fd_pipes[data->index_processes - 1][0]);
-	}
-	else
-	{
-		close(fd_pipes[data->index_processes - 1][0]);
-		close(fd_pipes[data->index_processes - 1][1]);
-	}
-	debug_print_pipe_status("parent closing", fd_pipes);
+	//	if (data->index_processes == 0)
+//	{
+//		close(fd_pipes[data->index_processes][1]);
+//	}
+//	else if (data->index_processes == data->counter_pipes + 1)
+//	{
+//		close(fd_pipes[data->index_processes - 1][0]);
+//	}
+//	else
+//	{
+//		close(fd_pipes[data->index_processes - 1][0]);
+//		close(fd_pipes[data->index_processes - 1][1]);
+//	}
+	if (DEBUG)
+		printf("\nindex [%d] ", data->index_processes);
+	debug_print_pipe_status(data, "parent closing", fd_pipes);
 }
 
 static void	handle_outdirection(t_data *data)
