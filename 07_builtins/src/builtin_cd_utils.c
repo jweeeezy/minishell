@@ -6,7 +6,7 @@
 /*   By: jwillert@student.42heilbronn.de            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 12:25:39 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/26 13:04:26 by jwillert         ###   ########          */
+/*   Updated: 2023/04/29 14:54:10 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	find_var_index(char **envp, char *var_name)
 	return (0);
 }
 
-static char	*handle_tilde_with_arguments(char **input, char *temp)
+static char	*handle_tilde_with_arguments(char **input, char *temp, 
+		int *flag_allocation)
 {
 	char	*another_temp;
 
@@ -62,11 +63,13 @@ static char	*handle_tilde_with_arguments(char **input, char *temp)
 		return (NULL);
 	}
 	temp = ft_strjoin(temp, another_temp);
+	*flag_allocation = 1;
 	free(another_temp);
 	return (temp);
 }
 
-char	*get_destination(t_data *data, char **input, char *temp)
+char	*get_destination(t_data *data, char **input, char *temp,
+			int *flag_allocation)
 {
 	if (input[1] == NULL || ft_strncmp("~", input[1], 1) == 0)
 	{
@@ -77,7 +80,7 @@ char	*get_destination(t_data *data, char **input, char *temp)
 		}
 		if (temp != NULL && ft_strlen(input[1]) > 1)
 		{
-			temp = handle_tilde_with_arguments(input, temp);
+			temp = handle_tilde_with_arguments(input, temp, flag_allocation);
 		}
 	}
 	else if (ft_strncmp("-", input[1], 1) == 0)
@@ -89,8 +92,6 @@ char	*get_destination(t_data *data, char **input, char *temp)
 		}
 	}
 	else
-	{
 		temp = input[1];
-	}
 	return (temp);
 }
