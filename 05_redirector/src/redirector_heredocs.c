@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/29 10:39:31 by jwillert         ###   ########          */
+/*   Updated: 2023/04/29 15:48:34 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,8 @@ int	redirector_prehandle_heredocs(t_data *data)
 	counter_heredocs = executor_count_heredocs(data);
 	while (index < data->commands_to_process && counter_heredocs > 0)
 	{
-		if (data->combine[index].command->order_numb == HERE_DOC)
+		if (data->combine[index].command->order_numb == HERE_DOC
+			|| data->combine[index].command->order_numb == QUOTED_HEREDOC)
 		{
 			status = heredoc_fork_and_open(data, index);
 			if (status == ERROR)

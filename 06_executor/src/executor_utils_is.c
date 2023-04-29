@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils_is.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:20:28 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 13:35:34 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/29 15:49:42 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 
 int	executor_is_heredoc(t_combine *cmd)
 {
-	if (cmd->command->order_numb == HERE_DOC)
+	if (cmd->command->order_numb == HERE_DOC
+		|| cmd->command->order_numb == QUOTED_HEREDOC)
 	{
 		return (1);
 	}

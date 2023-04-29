@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirector_redirection_utils.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:11:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/27 12:53:12 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/29 15:47:46 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*redirector_get_filename(t_data *data, int index, int token_type)
 {
 	char	*str_filename;
 
-	if (token_type == HERE_DOC)
+	if (token_type == HERE_DOC | token_type == QUOTED_HEREDOC)
 	{
 		return (NULL);
 	}

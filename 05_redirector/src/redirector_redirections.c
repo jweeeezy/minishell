@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirector_redirections.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 13:18:59 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/29 15:49:06 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ static int	redirector_crossroads(t_data *data, int flag_redirection,
 	int		return_value;
 
 	return_value = 0;
-	if (str_filename == NULL && flag_redirection != HERE_DOC)
+	if (str_filename == NULL && flag_redirection != HERE_DOC
+		&& flag_redirection != QUOTED_HEREDOC)
 	{
 		return (ERROR);
 	}
@@ -120,7 +121,7 @@ static int	redirector_crossroads(t_data *data, int flag_redirection,
 	{
 		return_value = redirector_assign_infile(data, str_filename);
 	}
-	else if (flag_redirection == HERE_DOC)
+	else if (flag_redirection == HERE_DOC || flag_redirection == QUOTED_HEREDOC)
 	{
 		return_value = redirector_assign_heredoc(data);
 	}

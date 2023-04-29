@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils_count.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:07:10 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/29 11:48:16 by jwillert         ###   ########          */
+/*   Updated: 2023/04/29 15:47:24 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	executor_count_heredocs(t_data *data)
 	counter_heredocs = 0;
 	while (index < data->commands_to_process)
 	{
-		if (data->combine[index].command->order_numb == HERE_DOC)
+		if (data->combine[index].command->order_numb == HERE_DOC
+			|| data->combine[index].command->order_numb == QUOTED_HEREDOC)
 		{
 			counter_heredocs += 1;
 		}
@@ -60,7 +61,8 @@ int	executor_count_redirections(t_data *data)
 	{
 		if (data->combine[index].command->order_numb == COMMAND_TO_FILE
 			|| data->combine[index].command->order_numb == FILE_TO_COMMAND
-			|| data->combine[index].command->order_numb == HERE_DOC)
+			|| data->combine[index].command->order_numb == HERE_DOC
+			|| data->combine[index].command->order_numb == QUOTED_HEREDOC)
 		{
 			counter_redirections += 1;
 		}
