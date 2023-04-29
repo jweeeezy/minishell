@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:07:10 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/14 13:35:30 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/29 11:48:16 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,21 @@ int	executor_count_redirections(t_data *data)
 	return (counter_redirections);
 }
 
-int	executor_count_processes(t_data *data)
+int	executor_count_commands(t_data *data)
 {
 	int	index;
-	int	counter_processes;
+	int	counter_commands;
 
 	index = 0;
-	counter_processes = 0;
+	counter_commands = 0;
 	while (index < data->commands_to_process)
 	{
 		if (data->combine[index].command->order_numb == STRING
 			|| is_builtin(data->combine[index].command->order_numb) == 1)
 		{
-			counter_processes += 1;
+			counter_commands += 1;
 		}
 		index += 1;
 	}
-	return (counter_processes);
+	return (counter_commands);
 }

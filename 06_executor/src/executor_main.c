@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:42:44 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/28 13:49:31 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/29 12:00:18 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,15 @@ static int	executor_wait_for_childs(t_data *data)
 	exit_code = 0;
 	if (data->flag_builtin_only == 1)
 		return (EXECUTED);
+	//printf("%d\n", data->counter_processes);
 	while (index < data->counter_processes)
 	{
 		pid = waitpid(data->child_pids[index], &status, 0);
 		if (pid == -1)
-			return (ERROR);
+		{
+			//perror("waitpid");
+			return (EXECUTED);
+		}
 		else if (pid == 0)
 			continue ;
 		else if (WIFEXITED(status))
@@ -51,7 +55,8 @@ static void	executor_init(t_data *data)
 
 	index = 0;
 	data->counter_pipes = executor_count_pipes(data);
-	data->counter_processes = executor_count_processes(data);
+	data->counter_processes = data->counter_pipes + 1;
+	data->counter_commands = executor_count_commands(data);
 	data->index_processes = 0;
 	data->child_pids = malloc (sizeof (int) * data->counter_processes);
 	if (data->child_pids != NULL)

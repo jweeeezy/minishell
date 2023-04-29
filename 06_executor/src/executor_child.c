@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/29 10:39:57 by jwillert         ###   ########          */
+/*   Updated: 2023/04/29 11:59:47 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ static int	child_execute_extern(t_data *data, int index)
 			perror("execve");
 			data->flag_printed = 1;
 		}
-		return (ERROR);
+		return (EXECUTED);
 	}
 	free_char_array(cmd_array);
 	return (EXECUTED);
@@ -126,7 +126,11 @@ void	executor_child(t_data *data, int **fd_pipes, int index,
 		child_handle_indirection(data);
 	}
 	if (flag_cmd == NO_EXECUTION)
+	{
+		if (data->flag_infile == 1 || data->flag_outfile == 1 || data->flag_heredoc == 1)
+			exit(0);
 		exit(1);
+	}
 	else if (flag_cmd == BUILTIN)
 	{
 		if (child_execute_builtin(data, index) == ERROR)
