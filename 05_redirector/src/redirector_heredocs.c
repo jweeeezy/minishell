@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/29 15:48:34 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/29 16:14:12 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,16 @@ static char	*heredoc_get_delimiter(t_data *data, int index)
 	return (delimiter);
 }
 
-static int	heredoc_loop(t_heredoc *current_node, char *heredoc_delimiter)
+static int	heredoc_loop(t_data *data, t_heredoc *current_node,
+	char *heredoc_delimiter, int mode)
 {
 	char	*heredoc_line;
 
 	heredoc_line = readline("> ");
 	if (heredoc_line == NULL)
-	{
 		return (ERROR);
-	}
+	if (mode == QUOTED_HEREDOC)
+		heredoc_line = expand_heredocs(data, heredoc_line);
 	if (heredoc_delimiter != NULL)
 	{
 		if (ft_strncmp(heredoc_line, heredoc_delimiter,
@@ -79,7 +80,8 @@ static int	heredoc_open_heredoc(t_data *data, int index,
 	}
 	while (1)
 	{
-		return_value = heredoc_loop(current_node, heredoc_delimiter);
+		return_value = heredoc_loop(data, current_node, heredoc_delimiter,
+				data->combine[index].command->order_numb);
 		if (return_value != EXECUTED)
 		{
 			break ;

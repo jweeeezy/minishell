@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
+#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:04:35 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/27 13:41:05 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/29 16:05:37 by kvebers          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ LIBME							=	$(LIBME_DIR)libme.a
 #	Files
 SRC_FILES						=	expander.c \
 									expander2000.c\
-									tokenizer.c
+									tokenizer.c \
+									expand_heredocs.c
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ								=	$(addprefix $(OBJ_DIR), $(OBJ_FILES))

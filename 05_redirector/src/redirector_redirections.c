@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/29 15:49:06 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/29 17:02:33 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ int	redirector_handle_redirections(t_data *data, int index)
 		if (token_type == COMMAND_TO_FILE
 			|| token_type == FILE_TO_COMMAND
 			|| token_type == SHELL_REDIRECTION
+			|| token_type == QUOTED_HEREDOC
 			|| token_type == HERE_DOC)
 		{
 			if (redirector_crossroads(data, token_type,

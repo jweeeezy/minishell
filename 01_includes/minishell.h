@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/29 14:29:57 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/29 16:05:03 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,7 @@ char	**tokenizer(char *str, int cnt, int char_counter, int temp_char);
 char	*search_needle(t_data *data, char *needle);
 char	*expand_tokens_helper(t_data *data, char *temp, int q, char **tokens);
 int		action_calculation(int q, char **tokens, int cnt1);
+char	*expand_heredocs(t_data *data, char *str);
 
 /* ************************************************************************** */
 //                                    DEBUG
