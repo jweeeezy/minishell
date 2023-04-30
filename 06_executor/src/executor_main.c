@@ -6,16 +6,12 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:42:44 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 19:45:10 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 21:10:55 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"			// needed for t_data, MACROS
-#include "executor.h"	// needed for executor_*()
-#include <stdio.h>
-#include <unistd.h>
-//#include <sys/types.h>	// linux
-#include <sys/wait.h>	// linux
+#include "minishell.h"	// needed for t_data, MACROS
+#include "executor.h"	// executor_*()
 
 static int	executor_wait_for_childs(t_data *data)
 {

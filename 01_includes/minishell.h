@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/30 19:40:22 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 20:51:49 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,13 +197,13 @@ int		executor(t_data *data);
 //                                    BUILTINS
 /* ************************************************************************** */
 
-void	echo(t_combine str, int n, int cnt2, int is_echo_skiped);
-void	wierd_echo(t_combine str, int n, int cnt2, int is_echo_skiped);
+void	builtin_echo(t_combine str, int n, int cnt2, int is_echo_skiped);
+void	builtin_wierd_echo(t_combine str, int n, int cnt2, int is_echo_skiped);
 int		is_builtin(int cmd_to_check);
 int		builtin_pwd(void);
-void	env(t_data *data);
+void	builtin_env(t_data *data);
 void	builtin_exit(t_data *data, int exit_code, int index);
-void	unset(t_data *data, int index);
+void	builtin_unset(t_data *data, int index);
 void	builtin_export(t_data *data, int index);
 void	unset_free(t_data *data, int len);
 int		error_managment_env(t_data *data, char *str, int numb);

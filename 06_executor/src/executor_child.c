@@ -6,18 +6,14 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 19:39:55 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 20:54:47 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"	// needed for child_prepare_pipes()
-#include "libft.h"		// needed for ft_split()
-#include "minishell.h"	// needed for t_data, debug()
-#include <unistd.h>		// needed for execve(), NULL
-#include <stdio.h>		// needed for close(), dup2()
-#include "libme.h"
-
-void	handle_heredoc(t_data *data);
+#include <unistd.h>		// needed for execve()
+#include <stdio.h>		// needed for perror()
+#include "executor.h"	// needed for child_*()
+#include "minishell.h"	// needed for t_data, builtin_*(), MACROS
 
 int	child_execute_builtin(t_data *data, int index)
 {
@@ -25,11 +21,11 @@ int	child_execute_builtin(t_data *data, int index)
 
 	cmd_type = data->combine[index].command->order_numb;
 	if (cmd_type == ECHO)
-		echo(data->combine[index], 0, 0, 0);
+		builtin_echo(data->combine[index], 0, 0, 0);
 	else if (cmd_type == REJECTED_ECHO)
-		wierd_echo(data->combine[index], 0, 0, 0);
+		builtin_wierd_echo(data->combine[index], 0, 0, 0);
 	else if (cmd_type == ENV)
-		env(data);
+		builtin_env(data);
 	else if (cmd_type == CD)
 		builtin_cd(data, index);
 	else if (cmd_type == PWD)
@@ -37,7 +33,7 @@ int	child_execute_builtin(t_data *data, int index)
 	else if (cmd_type == EXPORT)
 		builtin_export(data, index);
 	else if (cmd_type == UNSET)
-		unset(data, index);
+		builtin_unset(data, index);
 	else if (cmd_type == EXIT)
 		builtin_exit(data, 0, index);
 	else
@@ -111,20 +107,6 @@ static int	child_execute_extern(t_data *data, int index)
 	}
 	free_char_array(cmd_array);
 	return (EXECUTED);
-}
-
-static void	child_handle_pipes_and_redirections(t_data *data, int **fd_pipes)
-{
-	if (fd_pipes != NULL && data->counter_pipes != 0)
-	{
-		child_prepare_pipes(data, fd_pipes, data->index_processes,
-			data->counter_pipes);
-	}
-	else
-	{
-		child_handle_outdirection(data);
-		child_handle_indirection(data);
-	}
 }
 
 void	executor_child(t_data *data, int **fd_pipes, int index,

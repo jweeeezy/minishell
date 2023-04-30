@@ -6,23 +6,18 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 19:45:24 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 21:11:46 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"	// needed for t_data, debug()
-#include <unistd.h>		// needed for close(), unlink()
-#include <stdio.h>		// needed perror()
-
-#include "libme.h"
+#include <unistd.h>		// needed for close(), dup2(), unlink()
 
 void	executor_parent_close_pipes(t_data *data, int **fd_pipes)
 {
 	int	index;
 
 	index = 0;
-	if (DEBUG)
-		sleep (5);
 	while (index < data->index_processes)
 	{
 		close(fd_pipes[index][0]);

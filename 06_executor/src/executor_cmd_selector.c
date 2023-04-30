@@ -6,24 +6,13 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:41:25 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 19:44:55 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 21:05:19 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"	// needed for executor_child(),
-						// executor_parent()
-#include "minishell.h"	// needed for t_data
-#include <unistd.h>		// needed for NULL, access()
-#include "libft.h"		// needed for ft_split(), ft_strlen()
-#include "libme.h"		// needed for ft_str_check_needle(),
-						// ft_str_join_delimiter()
-#include <stdio.h>		// needed for printf()
-#include "redirector.h"
-#include "signal.h"
-
-int		child_execute_builtin(t_data *data, int index);
-int		executor_add_trailing_command(t_data *data, int index);
-void	print_command_not_found(t_data *data);
+#include <unistd.h>		// needed for fork()
+#include "minishell.h"	// needed for t_data, MACROS
+#include "executor.h"	// needed for child_*()
 
 static int	selector_handle_single_builtin(t_data *data, int index)
 {
@@ -97,6 +86,34 @@ static int	find_cmd_type(t_data *data, int index)
 	return (return_value);
 }
 
+static int	executor_add_trailing_command(t_data *data, int index)
+{
+	int	offset;
+
+	offset = index + 1;
+	while (executor_is_t_combine_advanceable(data, offset) == 1)
+	{
+		if (data->combine[offset].command->order_numb == STRING
+			|| is_builtin(data->combine[offset].command->order_numb) == 1
+			|| data->combine[offset].command->order_numb == N
+			|| data->combine[offset].command->order_numb == WIERD_N)
+		{
+			data->combine[offset].command->order_numb = WHITE;
+			data->combine[index].combined_str
+				= ft_charjoin(data->combine[index].combined_str, ' ', 0, 0);
+			if (data->combine[index].combined_str == NULL)
+				return (ERROR);
+			data->combine[index].combined_str
+				= ft_strjoin2(data->combine[index].combined_str,
+					data->combine[offset].combined_str, 0, 0);
+			if (data->combine[index].combined_str == NULL)
+				return (ERROR);
+		}
+		offset += 1;
+	}
+	return (EXECUTED);
+}
+
 int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 {
 	int	return_value;
@@ -112,7 +129,7 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 		return (EXECUTED);
 	return_value = find_cmd_type(data, index);
 	if (return_value == COMMAND_NOT_FOUND)
-		print_command_not_found(data);
+		selector_print_command_not_found(data);
 	if (selector_fork_and_execute(data, fd_pipes, index, return_value) == ERROR)
 		return (ERROR);
 	return (EXECUTED);

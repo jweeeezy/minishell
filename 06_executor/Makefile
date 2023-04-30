@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/12 20:31:50 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/13 15:07:15 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/30 21:12:54 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,14 @@ LIBFT							=	$(LIBFT_DIR)libft.a
 LIBME							=	$(LIBME_DIR)libme.a
 
 #	Files
-SRC_FILES						=	executor_cmd_selector.c\
-									executor_cmd_selector_utils.c\
-									executor_child.c\
+SRC_FILES						=	executor_child_pipes.c\
 									executor_child_utils.c\
-									executor_parent.c\
+									executor_child.c\
+									executor_cmd_selector_utils.c\
+									executor_cmd_selector.c\
 									executor_main.c\
+									executor_parent.c\
+									executor_pipex_utils.c\
 									executor_pipex.c\
 									executor_utils_count.c\
 									executor_utils_is.c

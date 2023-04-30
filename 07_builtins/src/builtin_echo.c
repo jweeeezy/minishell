@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 12:57:12 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/16 10:28:42 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 21:17:40 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_echo(int n, int cnt1, t_combine str)
 		printf("%s", str.combined_str + cnt1);
 }
 
-void	echo(t_combine str, int n, int cnt2, int is_echo_skiped)
+void	builtin_echo(t_combine str, int n, int cnt2, int is_echo_skiped)
 {
 	int	cnt1;
 
@@ -50,7 +50,7 @@ void	echo(t_combine str, int n, int cnt2, int is_echo_skiped)
 	print_echo(n, cnt1, str);
 }
 
-void	wierd_echo(t_combine str, int n, int cnt2, int is_echo_skiped)
+void	builtin_wierd_echo(t_combine str, int n, int cnt2, int is_echo_skiped)
 {
 	int	cnt1;
 

@@ -6,17 +6,14 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 14:11:57 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 18:47:02 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 21:01:51 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"	// needed for ft_strlen(), ft_split(), ft_strdup()
-#include "libme.h"	// needed for ft_str_check_needle(), ft_str_join_delimiter()
-#include "minishell.h"	// needed for t_combine
-#include "executor.h"	// needed for executor_*()
-#include <unistd.h>	// needed for access(), NULL
-
-#include <stdio.h>
+#include <unistd.h>		// needed for access()
+#include "minishell.h"	// needed for t_data, MACROS
+#include "libft.h"		// needed for ft_split(), ft_strncmp()
+#include "libme.h"		// needed for ft_str_join_delimiter()
 
 static char	**selector_get_path_array(char **envp)
 {
@@ -68,7 +65,7 @@ int	selector_is_cmd_path_valid(t_combine *cmd)
 	return (COMMAND_NOT_FOUND);
 }
 
-void	print_command_not_found(t_data *data)
+void	selector_print_command_not_found(t_data *data)
 {
 	if (data->flag_printed == 0)
 	{

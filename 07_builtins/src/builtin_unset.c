@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:36:36 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/30 13:55:22 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 21:18:00 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	unset_helper(t_data *data, int cnt, int len, int index)
 		free(temp);
 }
 
-void	unset(t_data *data, int index)
+void	builtin_unset(t_data *data, int index)
 {
 	int		cnt;
 	int		len;

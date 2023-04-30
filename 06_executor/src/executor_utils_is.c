@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils_is.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:20:28 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/29 15:49:42 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 21:15:48 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"	// needed for t_combine, MAROS
 #include <unistd.h>		// needed for access()
 #include "libft.h"		// needed for ft_strdup()
-#include "libme.h"
 
 int	executor_is_heredoc(t_combine *cmd)
 {
@@ -50,4 +49,16 @@ int	executor_is_pipe(t_combine *cmd)
 	{
 		return (0);
 	}
+}
+
+int	executor_is_t_combine_advanceable(t_data *data, int offset)
+{
+	if (offset < data->commands_to_process
+		&& data->combine[offset].combined_str != NULL
+		&& data->combine[offset].command->order_numb != PIPE
+		&& data->combine[offset].command->order_numb != LAST_PIPE)
+	{
+		return (1);
+	}
+	return (0);
 }
