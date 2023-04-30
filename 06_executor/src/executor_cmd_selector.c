@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:41:25 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/29 10:40:24 by jwillert         ###   ########          */
+/*   Updated: 2023/04/30 11:44:53 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "signal.h"
 
 int	child_execute_builtin(t_data *data, int index);
+int	executor_add_trailing_command(t_data *data, int index);
 
 static int	selector_handle_single_builtin(t_data *data, int **fd_pipes,
 		int index)
@@ -103,6 +104,8 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 		return (ERROR);
 	}
 	index = pipex_skip_non_commands(data, index);
+	if (executor_add_trailing_command(data, index) == ERROR)
+		return (ERROR);
 	if (index >= data->commands_to_process
 		|| data->combine[index].command->order_numb == PIPE
 		|| data->combine[index].command->order_numb == LAST_PIPE)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_pipex.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/29 11:19:31 by jwillert         ###   ########          */
+/*   Updated: 2023/04/30 11:43:40 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,39 @@ int	pipex_advance_to_next_pipe(t_data *data, int index)
 		index += 1;
 	}
 	return (index);
+}
+
+int	executor_add_trailing_command(t_data *data, int index)
+{
+	int	offset;
+
+	offset = index + 1;
+	while (offset < data->commands_to_process
+		&& data->combine[offset].combined_str != NULL
+		&& data->combine[offset].command->order_numb != PIPE
+		&& data->combine[offset].command->order_numb != LAST_PIPE)
+	{
+		if (data->combine[offset].command->order_numb == STRING
+			|| is_builtin(data->combine[offset].command->order_numb) == 1)
+		{
+			data->combine[offset].command->order_numb = WHITE;
+			data->combine[index].combined_str
+				= ft_charjoin(data->combine[index].combined_str, ' ', 0, 0);
+			if (data->combine[index].combined_str == NULL)
+			{
+				return (ERROR);
+			}
+			data->combine[index].combined_str
+				= ft_strjoin2(data->combine[index].combined_str,
+					data->combine[offset].combined_str, 0, 0);
+			if (data->combine[index].combined_str == NULL)
+			{
+				return (ERROR);
+			}
+		}
+		offset += 1;
+	}
+	return (EXECUTED);
 }
 
 int	pipex_skip_non_commands(t_data *data, int index)
