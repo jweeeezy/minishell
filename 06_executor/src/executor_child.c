@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 18:23:36 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 19:11:33 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "minishell.h"	// needed for t_data, debug()
 #include <unistd.h>		// needed for execve(), NULL
 #include <stdio.h>		// needed for close(), dup2()
+#include "libme.h"
 
 void	handle_heredoc(t_data *data);
 

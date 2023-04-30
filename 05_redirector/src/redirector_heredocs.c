@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 18:23:16 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 19:19:47 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,28 @@ static int	heredoc_open_heredoc(t_data *data, int index, t_heredoc *c_node)
 	return (return_value);
 }
 
+static void	heredoc_free_child(t_data *data, t_heredoc *current_node)
+{
+	close(current_node->fd);
+	free_env(data);
+	free_t_heredoc(data);
+	free_loop(data);
+}
+
+static void	heredoc_child_routine(t_data *data, int index,
+		t_heredoc *current_node, int status)
+{
+	heredoc_signals();
+	status = heredoc_open_heredoc(data, index, current_node);
+	if (status == ERROR)
+	{
+		heredoc_free_child(data, current_node);
+		exit(ERROR);
+	}
+	heredoc_free_child(data, current_node);
+	exit(EXECUTED);
+}
+
 static int	heredoc_fork_and_open(t_data *data, int index, int id, int status)
 {
 	t_heredoc	*current_node;
@@ -100,21 +122,7 @@ static int	heredoc_fork_and_open(t_data *data, int index, int id, int status)
 	id = fork();
 	if (id == 0)
 	{
-		heredoc_signals();
-		status = heredoc_open_heredoc(data, index, current_node);
-		if (status == ERROR)
-		{
-			free_env(data);
-			free_t_heredoc(data);
-			free_loop(data);
-			exit(ERROR);
-		}
-		close(current_node->fd);
-		free_env(data);
-		debug_print_t_heredoc(data);
-		free_t_heredoc(data);
-		free_loop(data);
-		exit(EXECUTED);
+		heredoc_child_routine(data, index, current_node, status);
 	}
 	else
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_pipex.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 18:11:31 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 19:23:27 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,24 @@ int	pipex_advance_to_next_pipe(t_data *data, int index)
 	return (index);
 }
 
+static int	executor_is_t_combine_advanceable(t_data *data, int offset)
+{
+	if (offset < data->commands_to_process
+		&& data->combine[offset].combined_str != NULL
+		&& data->combine[offset].command->order_numb != PIPE
+		&& data->combine[offset].command->order_numb != LAST_PIPE)
+	{
+		return (1);
+	}
+	return (0);
+}
+
 int	executor_add_trailing_command(t_data *data, int index)
 {
 	int	offset;
 
 	offset = index + 1;
-	while (offset < data->commands_to_process
-		&& data->combine[offset].combined_str != NULL
-		&& data->combine[offset].command->order_numb != PIPE
-		&& data->combine[offset].command->order_numb != LAST_PIPE)
+	while (executor_is_t_combine_advanceable(data, offset) == 1)
 	{
 		if (data->combine[offset].command->order_numb == STRING
 			|| is_builtin(data->combine[offset].command->order_numb) == 1
