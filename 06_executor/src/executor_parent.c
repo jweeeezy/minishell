@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 15:25:01 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 17:14:56 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	handle_heredoc(t_data *data)
 	temp = NULL;
 	unlink(data->heredoc->full_path);
 	free(data->heredoc->full_path);
+	data->heredoc->full_path = NULL;
 	if (data->heredoc->next == NULL)
 	{
 		free(data->heredoc);

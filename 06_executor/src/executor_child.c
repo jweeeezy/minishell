@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 15:54:18 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 15:57:44 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,9 +157,9 @@ void	executor_child(t_data *data, int **fd_pipes, int index,
 		data->exit_status = 127;
 	}
 	free_pipe_array(fd_pipes, data->counter_pipes);
-	if (data->flag_heredoc == 1)
+	if (data->heredoc != NULL)
 	{
-		handle_heredoc(data);
+		free_t_heredoc(data);
 	}
 	if (data->combine[index].full_path != NULL)
 	{

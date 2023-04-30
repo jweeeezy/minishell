@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirector_heredocs.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 11:11:33 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 17:34:57 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static int	heredoc_loop(t_data *data, t_heredoc *current_node,
 	}
 	ft_putstr_fd(heredoc_line, current_node->fd);
 	ft_putstr_fd("\n", current_node->fd);
+	free(heredoc_line);
 	return (EXECUTED);
 }
 
@@ -107,8 +108,17 @@ static int	heredoc_fork_and_open(t_data *data, int index)
 		heredoc_signals();
 		status = heredoc_open_heredoc(data, index, current_node);
 		if (status == ERROR)
+		{
+			free_env(data);
+			free_t_heredoc(data);
+			free_loop(data);
 			exit(ERROR);
+		}
 		close(current_node->fd);
+		free_env(data);
+		debug_print_t_heredoc(data);
+		free_t_heredoc(data);
+		free_loop(data);
 		exit(EXECUTED);
 	}
 	else

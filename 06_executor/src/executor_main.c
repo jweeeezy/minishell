@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:42:44 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 15:43:07 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 17:43:31 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,6 @@ int	executor(t_data *data)
 	}
 	free(data->child_pids);
 	data->child_pids = NULL;
+	free_t_heredoc(data);
 	return (EXECUTED);
 }
