@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:42:44 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 14:27:42 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 15:43:07 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	executor(t_data *data)
 		{
 			return (ERROR);
 		}
-		executor_parent(data, NULL, 0);
+		executor_parent(data, 0);
 		data->exit_status = 1;
 		return (EXECUTED);
 	}

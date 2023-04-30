@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 14:24:31 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 15:54:18 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "minishell.h"	// needed for t_data, debug()
 #include <unistd.h>		// needed for execve(), NULL
 #include <stdio.h>		// needed for close(), dup2()
+
+void	handle_heredoc(t_data *data);
 
 int	child_execute_builtin(t_data *data, int index)
 {
@@ -131,7 +133,10 @@ void	executor_child(t_data *data, int **fd_pipes, int index,
 		{
 			data->exit_status = 0;
 		}
-		data->exit_status = 1;
+		else
+		{
+			data->exit_status = 1;
+		}
 	}
 	else if (flag_cmd == BUILTIN)
 	{
@@ -152,6 +157,14 @@ void	executor_child(t_data *data, int **fd_pipes, int index,
 		data->exit_status = 127;
 	}
 	free_pipe_array(fd_pipes, data->counter_pipes);
+	if (data->flag_heredoc == 1)
+	{
+		handle_heredoc(data);
+	}
+	if (data->combine[index].full_path != NULL)
+	{
+		free(data->combine[index].full_path);
+	}
 	free(data->child_pids);
 	free_env(data);
 	free_loop(data);

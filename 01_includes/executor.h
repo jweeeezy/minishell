@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:22:50 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/29 11:47:41 by jwillert         ###   ########          */
+/*   Updated: 2023/04/30 14:44:05 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		child_handle_indirection(t_data *data);
 void		child_handle_outdirection(t_data *data);
 
 //			PARENT
-int			executor_parent(t_data *data, int **fd_pipes, int index);
+int			executor_parent(t_data *data, int index);
 
 //			UTILS_count
 int			executor_count_pipes(t_data *data);

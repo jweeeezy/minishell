@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_cmd_selector.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:41:25 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 11:51:35 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 15:42:48 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@
 int	child_execute_builtin(t_data *data, int index);
 int	executor_add_trailing_command(t_data *data, int index);
 
-static int	selector_handle_single_builtin(t_data *data, int **fd_pipes,
-		int index)
+static int	selector_handle_single_builtin(t_data *data, int index)
 {
 	debug_print_stage("single builtin only", 2);
 	data->flag_builtin_only = 1;
@@ -35,7 +34,7 @@ static int	selector_handle_single_builtin(t_data *data, int **fd_pipes,
 	{
 		return (ERROR);
 	}
-	executor_parent(data, fd_pipes, index);
+	executor_parent(data, index);
 	return (EXECUTED);
 }
 
@@ -44,17 +43,17 @@ static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 {
 	if (flag_cmd == ERROR)
 	{
-		executor_parent(data, fd_pipes, index);
+		executor_parent(data, index);
 		return (ERROR);
 	}
 	if (fd_pipes == NULL && flag_cmd == BUILTIN)
 	{
-		return (selector_handle_single_builtin(data, fd_pipes, index));
+		return (selector_handle_single_builtin(data, index));
 	}
 	data->child_pids[data->index_processes] = fork();
 	if (data->child_pids[data->index_processes] == -1)
 	{
-		executor_parent(data, fd_pipes, index);
+		executor_parent(data, index);
 		return (ERROR);
 	}
 	child_signals();
@@ -64,7 +63,7 @@ static int	selector_fork_and_execute(t_data *data, int **fd_pipes, int index,
 	}
 	else
 	{
-		executor_parent(data, fd_pipes, index);
+		executor_parent(data, index);
 	}
 	return (EXECUTED);
 }
@@ -74,10 +73,13 @@ static int	find_cmd_type(t_data *data, int index)
 	int	return_value;
 
 	return_value = NO_EXECUTION;
-	if (data->fd_infile == -100)
+	if (data->fd_infile == -100 || data->fd_outfile == -100)
 	{
-		data->fd_infile = -1;
 		return_value = NO_EXECUTION;
+		if (data->fd_infile == -100)
+			data->fd_infile = -1;
+		if (data->fd_outfile == -100)
+			data->fd_outfile = -1;
 	}
 	else if (is_builtin(data->combine[index].command->order_numb) == 1)
 	{
@@ -106,7 +108,6 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 	index = pipex_skip_non_commands(data, index);
 	if (executor_add_trailing_command(data, index) == ERROR)
 		return (ERROR);
-	debug_tokens(data);
 	if (index >= data->commands_to_process
 		|| data->combine[index].command->order_numb == PIPE
 		|| data->combine[index].command->order_numb == LAST_PIPE)

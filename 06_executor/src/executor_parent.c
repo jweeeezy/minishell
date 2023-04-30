@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:25:06 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/29 11:20:10 by jwillert         ###   ########          */
+/*   Updated: 2023/04/30 15:25:01 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,10 @@ void	executor_parent_close_pipes(t_data *data, int **fd_pipes)
 		close(fd_pipes[index][1]);
 		index += 1;
 	}
-	//	if (data->index_processes == 0)
-//	{
-//		close(fd_pipes[data->index_processes][1]);
-//	}
-//	else if (data->index_processes == data->counter_pipes + 1)
-//	{
-//		close(fd_pipes[data->index_processes - 1][0]);
-//	}
-//	else
-//	{
-//		close(fd_pipes[data->index_processes - 1][0]);
-//		close(fd_pipes[data->index_processes - 1][1]);
-//	}
 	if (DEBUG)
+	{
 		printf("\nindex [%d] ", data->index_processes);
+	}
 	debug_print_pipe_status(data, "parent closing", fd_pipes);
 }
 
@@ -63,7 +52,7 @@ static void	handle_indirection(t_data *data)
 	data->fd_infile = -1;
 }
 
-static void	handle_heredoc(t_data *data)
+void	handle_heredoc(t_data *data)
 {
 	t_heredoc	*temp;
 
@@ -85,13 +74,8 @@ static void	handle_heredoc(t_data *data)
 	data->fd_infile = -1;
 }
 
-void	executor_parent(t_data *data, int **fd_pipes, int index)
+void	executor_parent(t_data *data, int index)
 {
-//	if (fd_pipes != NULL && data->counter_pipes != 0)
-//	{
-//		executor_parent_close_pipes(data, fd_pipes);
-//	}
-	ft_dummy((void *) fd_pipes);
 	if (data->flag_infile == 1)
 	{
 		handle_indirection(data);

@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/30 14:20:00 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 14:49:08 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,5 +250,6 @@ void	debug_print_fds(int max);
 void	debug_print_redirections(t_data *data);
 void	debug_print_t_heredoc(t_data *data);
 void	debug_print_stage(char *stage, int level);
+void	debug_stepper(char *message);
 
 #endif  // MINISHELL_H
