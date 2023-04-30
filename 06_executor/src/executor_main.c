@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:42:44 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 18:26:32 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 19:25:49 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,11 @@ static int	executor_wait_for_childs(t_data *data)
 	{
 		pid = waitpid(data->child_pids[index], &status, 0);
 		if (pid == -1)
-		{
 			return (EXECUTED);
-		}
 		else if (pid == 0)
 			continue ;
 		else if (WIFEXITED(status))
-		{
 			exit_code = WEXITSTATUS(status);
-		}
 		index += 1;
 	}
 	data->exit_status = exit_code;
@@ -72,26 +68,18 @@ static int	executor_crossroads(t_data *data)
 	if (data->counter_pipes != 0)
 	{
 		if (executor_pipex(data) == ERROR)
-		{
 			return (ERROR);
-		}
 		if (executor_wait_for_childs(data) == ERROR)
-		{
 			return (ERROR);
-		}
 		return (EXECUTED);
 	}
 	debug_print_stage("simple execution", 1);
 	if (executor_cmd_selector(data, NULL, 0) == ERROR)
-	{
 		return (ERROR);
-	}
 	if (data->counter_processes != 0 && data->flag_builtin_only == 0)
 	{
 		if (executor_wait_for_childs(data) == ERROR)
-		{
 			return (ERROR);
-		}
 	}
 	return (EXECUTED);
 }
@@ -102,18 +90,13 @@ int	executor(t_data *data)
 	if (data->counter_processes < 1)
 	{
 		if (redirector_handle_redirections(data, 0) == ERROR)
-		{
 			return (ERROR);
-		}
 		executor_parent(data, 0);
 		data->exit_status = 1;
 		return (EXECUTED);
 	}
 	if (data->child_pids == NULL)
-	{
 		return (ERROR);
-	}
-	debug_print_stage("executor", 0);
 	if (executor_crossroads(data) == ERROR)
 	{
 		free(data->child_pids);
