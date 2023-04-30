@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 14:11:35 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/25 18:50:07 by kvebers          ###   ########.fr        #
+#    Updated: 2023/04/30 21:26:35 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ SRC_FILES						=	lexer.c\
 									lexer2.c\
 									lexer3.c\
 									lexer4.c\
-									debug_tokens.c\
 									init.c\
 									check_parsing.c\
 									check_parsing1.c

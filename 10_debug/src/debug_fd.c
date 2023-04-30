@@ -3,18 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   debug_fd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 14:34:33 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 17:28:19 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 21:30:19 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "debug.h"
 #include <stdio.h>
-#include <unistd.h>
 #include <fcntl.h>
-#include "libft.h"
+#include <unistd.h>
+
+static int	is_fd_open(int fd)
+{
+	int	flags;
+
+	flags = fcntl(fd, F_GETFD);
+	return (!(flags & FD_CLOEXEC));
+}
 
 void	debug_print_fds(int max)
 {
@@ -38,20 +45,62 @@ void	debug_print_fds(int max)
 	}
 }
 
-void	debug_stepper(char *message)
+static void	debug_pipes_helper(int index, int **fd_pipes)
 {
-	ft_putstr_fd(message, 2);
-	sleep(2);
+	if (is_fd_open(fd_pipes[index][0]) == 1)
+		printf("fd_pipes[%d][0] is OPEN == 1\n", index);
+	else
+		printf("fd_pipes[%d][0] is CLOSED == 0\n", index);
+	if (is_fd_open(fd_pipes[index][1]) == 1)
+		printf("fd_pipes[%d][1] is OPEN == 1\n", index);
+	else
+		printf("fd_pipes[%d][1] is CLOSED == 0\n", index);
 }
 
-void	debug_print_pid(char *process_name)
+void	debug_print_pipe_status(t_data *data, char *message, int **fd_pipes)
 {
-	int	pid;
+	int	index;
 
-	pid = getpid();
+	index = 0;
 	if (DEBUG)
 	{
-		printf("%s: pid[%d]\n", process_name, pid);
+		if (dup2(data->fd_stdout, STDOUT_FILENO) == ERROR)
+			perror("dup2");
+		if (fd_pipes == NULL)
+		{
+			printf("///no pipes///\n\n");
+			return ;
+		}
+		printf("fd_pipes: <%s> %p\n", message, fd_pipes);
+		while (fd_pipes[index] != NULL)
+		{
+			debug_pipes_helper(index, fd_pipes);
+			index++;
+		}
+		printf("\n");
+	}
+}
+
+void	debug_print_redirections(t_data *data)
+{
+	if (DEBUG)
+	{
+		if (data->flag_heredoc == 1 || data->flag_infile == 1
+			|| data->flag_outfile == 1)
+		{
+			printf("redirections: \n");
+			printf("redirections: flag_heredoc: [%d] ", data->flag_heredoc);
+			printf("flag_infile: [%d] ", data->flag_infile);
+			printf("flag_outfile: [%d]\n", data->flag_outfile);
+			printf("redirections: fd_infile: [%d] ", data->fd_infile);
+			printf("                    fd_outfile: [%d]\n",
+				data->fd_outfile);
+		}
+		else
+		{
+			printf("///no redirections///\n\n");
+			return ;
+		}
 		printf("\n");
 	}
 }

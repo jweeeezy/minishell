@@ -6,7 +6,7 @@
 #    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 15:18:22 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/11 14:34:49 by jwillert         ###   ########.fr        #
+#    Updated: 2023/04/30 21:29:04 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ LIBME							=	$(LIBME_DIR)libme.a
 
 #	Files
 SRC_FILES						=	debug.c \
-									debug1.c\
+									debug_structs.c\
 									debug_fd.c
 OBJ_FILES						=	$(SRC_FILES:.c=.o)
 SRC								=	$(addprefix $(SRC_DIR),$(SRC_FILES))

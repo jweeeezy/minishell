@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug1.c                                           :+:      :+:    :+:   */
+/*   debug_structs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:51:18 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/30 17:29:03 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 21:31:06 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "minishell.h"
+#include "debug.h"
 #include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include <stdio.h>
 
 void	debug_print_t_heredoc(t_data *data)
 {
@@ -45,6 +43,26 @@ void	debug_print_t_heredoc(t_data *data)
 	}
 }
 
+void	debug_print_t_execute(t_data *data,	t_execute *execute)
+{
+	int	counter;
+
+	counter = 0;
+	if (DEBUG)
+	{
+		printf("t_execute: %p\n", execute);
+		while (counter < data->tokens + 1 && execute[counter].order_str != NULL)
+		{
+			printf("t_execute: ");
+			printf("order_str: [%s] ", execute[counter].order_str);
+			printf("order_numb: [%d]", execute[counter].order_numb);
+			printf("\n");
+			counter += 1;
+		}
+		printf("\n");
+	}
+}
+
 void	debug_print_t_combine(t_data *data)
 {
 	int	cnt;
@@ -64,46 +82,41 @@ void	debug_print_t_combine(t_data *data)
 	}
 }
 
-static int	is_fd_open(int fd)
+void	debug_tokens(t_data *data)
 {
-	int	flags;
+	int	cnt;
+	int	cnt1;
 
-	flags = fcntl(fd, F_GETFD);
-	return (!(flags & FD_CLOEXEC));
-}
-
-void	debug_pipes_helper(int index, int **fd_pipes)
-{
-	if (is_fd_open(fd_pipes[index][0]) == 1)
-		printf("fd_pipes[%d][0] is OPEN == 1\n", index);
-	else
-		printf("fd_pipes[%d][0] is CLOSED == 0\n", index);
-	if (is_fd_open(fd_pipes[index][1]) == 1)
-		printf("fd_pipes[%d][1] is OPEN == 1\n", index);
-	else
-		printf("fd_pipes[%d][1] is CLOSED == 0\n", index);
-}
-
-void	debug_print_pipe_status(t_data *data, char *message, int **fd_pipes)
-{
-	int	index;
-
-	index = 0;
+	cnt = 0;
 	if (DEBUG)
 	{
-		if (dup2(data->fd_stdout, STDOUT_FILENO) == ERROR)
-			perror("dup2");
-		if (fd_pipes == NULL)
-		{
-			printf("///no pipes///\n\n");
-			return ;
-		}
-		printf("fd_pipes: <%s> %p\n", message, fd_pipes);
-		while (fd_pipes[index] != NULL)
-		{
-			debug_pipes_helper(index, fd_pipes);
-			index++;
-		}
 		printf("\n");
+		while (cnt < data->commands_to_process)
+		{
+			printf("========================\n");
+			printf("Combined str: %s\n", data->combine[cnt].combined_str);
+			printf("========================\n");
+			cnt1 = 0;
+			while (cnt1 < data->combine[cnt].count_n)
+			{
+				printf("Tokens: %s Numb: %i\n",
+					data->combine[cnt].execute[cnt1].order_str,
+					data->combine[cnt].execute[cnt1].order_numb);
+				cnt1++;
+			}
+			cnt++;
+		}
+	}
+}
+
+void	debug_print_combined(t_data *data)
+{
+	int	cnt;
+
+	cnt = 0;
+	while (cnt < data->commands_to_process)
+	{
+		printf("%s\n", data->combine[cnt].combined_str);
+		cnt++;
 	}
 }

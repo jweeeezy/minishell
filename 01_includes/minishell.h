@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/30 20:51:49 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 21:22:09 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,6 @@ int		recombine_str(t_data *data, int cnt, int cnt1, char *temp);
 int		token_numbers_helper(char *str);
 int		is_wierd_n(char *str);
 void	fix_env_flags(t_data *data);
-int		recheck_command(t_data *data);
 
 /* ************************************************************************** */
 //                                    REDIRECTOR
@@ -199,16 +198,16 @@ int		executor(t_data *data);
 
 void	builtin_echo(t_combine str, int n, int cnt2, int is_echo_skiped);
 void	builtin_wierd_echo(t_combine str, int n, int cnt2, int is_echo_skiped);
-int		is_builtin(int cmd_to_check);
 int		builtin_pwd(void);
 void	builtin_env(t_data *data);
 void	builtin_exit(t_data *data, int exit_code, int index);
 void	builtin_unset(t_data *data, int index);
 void	builtin_export(t_data *data, int index);
+int		builtin_cd(t_data *data, int index);
+int		is_builtin(int cmd_to_check);
 void	unset_free(t_data *data, int len);
 int		error_managment_env(t_data *data, char *str, int numb);
 int		export_flag_managment(t_data *data, char *str, int numb);
-int		builtin_cd(t_data *data, int index);
 
 /* ************************************************************************** */
 //                                    SIGNALS
@@ -231,25 +230,5 @@ char	*search_needle(t_data *data, char *needle);
 char	*expand_tokens_helper(t_data *data, char *temp, int q, char **tokens);
 int		action_calculation(int q, char **tokens, int cnt1);
 char	*expand_heredocs(t_data *data, char *str);
-
-/* ************************************************************************** */
-//                                    DEBUG
-/* ************************************************************************** */
-
-# ifndef DEBUG
-#  define DEBUG 0
-# endif  // DEBUG
-
-void	debug_print_pid(char *process_name);
-void	debug_print_char_array(char **args, char *name);
-void	debug_print_int(char *description, int int_to_print);
-void	debug_print_t_execute(t_data *data,	t_execute *execute);
-void	debug_print_t_combine(t_data *data);
-void	debug_print_pipe_status(t_data *data, char *message, int **fd_pipes);
-void	debug_print_fds(int max);
-void	debug_print_redirections(t_data *data);
-void	debug_print_t_heredoc(t_data *data);
-void	debug_print_stage(char *stage, int level);
-void	debug_stepper(char *message);
 
 #endif  // MINISHELL_H
