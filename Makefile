@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+         #
+#    By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/03 12:52:07 by jwillert          #+#    #+#              #
-#    Updated: 2023/04/28 10:26:11 by kvebers          ###   ########.fr        #
+#    Updated: 2023/04/30 14:33:12 by jwillert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,51 @@ REMOVE							=	rm -f
 .PHONY:									all clean fclean re ref update
 all:									$(SUBMODULE) $(NAME)
 $(NAME):								$(MODULES_ALL)
-										$(CC) $(CFLAGS) -o $(NAME) $(MODULES_ALL) $(RL_LINK)
+											$(CC) $(CFLAGS) -o $(NAME) \
+												$(MODULES_ALL) $(RL_LINK)
+leaks:									fclean $(MODULES_ALL)
+											cp $(GNL) ./
+											cp $(LIBME) ./
+											cp $(LEXER) ./
+											cp $(PARSER) ./
+											cp $(EXPANDER) ./
+											cp $(REDIRECTOR) ./
+											cp $(EXECUTOR) ./
+											cp $(BUILTINS) ./
+											cp $(CORE) ./
+											cp $(DEBUG) ./
+											cp $(SIGNALS) ./
+											ar -x libgnl.a
+											ar -x libme.a
+											ar -x lexer.a
+											ar -x parser.a
+											ar -x expander.a
+											ar -x redirector.a
+											ar -x executor.a
+											ar -x builtins.a
+											ar -x core.a
+											ar -x debug.a
+											ar -x signals.a
+											rm libgnl.a
+											rm libme.a
+											rm lexer.a
+											rm parser.a
+											rm expander.a
+											rm redirector.a
+											rm executor.a
+											rm builtins.a
+											rm core.a
+											rm debug.a
+											rm signals.a
+											rm "__.SYMDEF SORTED"
+											$(CC) $(CFLAGS) \
+												-Wno-gnu-include-next \
+												-I ./LeakSanitizer/include \
+												-o $(NAME) \
+												*.o $(RL_LINK) \
+												-L ./LeakSanitizer \
+												-llsan -lc++
+											rm *.o
 valgrind:								linux
 											valgrind --leak-check=full \
 											--show-leak-kinds=all \
