@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 20:00:50 by jwillert         ###   ########          */
+/*   Updated: 2023/04/30 21:39:27 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ int	redirector_prehandle_heredocs(t_data *data)
 			if (status == ERROR)
 				return (ERROR);
 			else if (status == -2)
+			{
+				free_t_heredoc(data);
 				return (-2);
+			}
 			counter_heredocs -= 1;
 		}
 		index += 1;

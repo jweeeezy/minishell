@@ -9,3 +9,4 @@ minishell
 main_test.c
 lldb_minishell.sh
 submodule_initialised
+LeakSanitizer

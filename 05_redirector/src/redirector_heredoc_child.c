@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 19:48:48 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 19:58:12 by jwillert         ###   ########          */
+/*   Updated: 2023/04/30 21:45:11 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ static void	heredoc_free_child(t_data *data, t_heredoc *current_node)
 void	heredoc_child_routine(t_data *data, int index,
 		t_heredoc *current_node, int status)
 {
+	free_env(data);
 	heredoc_signals();
 	status = heredoc_open_heredoc(data, index, current_node);
 	if (status == ERROR)
