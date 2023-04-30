@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/29 10:40:50 by jwillert         ###   ########          */
+/*   Updated: 2023/04/30 11:12:05 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static void	extraordinary_error(t_data *data, char *message)
 
 static void	main_loop(t_data *data)
 {
+	int	return_val;
+
 	while (g_signal >= 256)
 	{
 		signals();
@@ -74,13 +76,15 @@ static void	main_loop(t_data *data)
 		if (parser(data) != ERROR && data->not_executed == 0)
 		{
 			data->exit_status = 0;
-			if (redirector_prehandle_heredocs(data) == ERROR)
+			return_val = redirector_prehandle_heredocs(data);
+			if (return_val == ERROR)
 			{
 				extraordinary_error(data, "HEREDOC ERROR\n");
 			}
-			if (executor(data) == ERROR)
+			else if (return_val != -2)
 			{
-				extraordinary_error(data, "EXECUTION ERROR\n");
+				if (executor(data) == ERROR)
+					extraordinary_error(data, "EXECUTION ERROR\n");
 			}
 		}
 		free_loop(data);

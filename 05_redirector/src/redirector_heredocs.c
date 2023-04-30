@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/29 16:14:12 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 11:11:33 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int	redirector_prehandle_heredocs(t_data *data)
 			if (status == ERROR)
 				return (ERROR);
 			else if (status == -2)
-				return (EXECUTED);
+				return (-2);
 			counter_heredocs -= 1;
 		}
 		index += 1;

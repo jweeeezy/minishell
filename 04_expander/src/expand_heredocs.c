@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:56:37 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/29 16:34:27 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 10:55:39 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ char	*expand_heredocs(t_data *data, char *str)
 	if (tokens == NULL)
 		return (str);
 	temp = expand_tokens_helper(data, temp, q, tokens);
+	if (temp == NULL)
+		temp = ft_strdup("");
 	split_free(tokens);
 	return (free(str), temp);
 }
