@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 11:43:40 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 11:52:49 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ int	executor_add_trailing_command(t_data *data, int index)
 		&& data->combine[offset].command->order_numb != LAST_PIPE)
 	{
 		if (data->combine[offset].command->order_numb == STRING
-			|| is_builtin(data->combine[offset].command->order_numb) == 1)
+			|| is_builtin(data->combine[offset].command->order_numb) == 1
+			|| data->combine[offset].command->order_numb == N
+			|| data->combine[offset].command->order_numb == WIERD_N)
 		{
 			data->combine[offset].command->order_numb = WHITE;
 			data->combine[index].combined_str

@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:41:25 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 11:44:53 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 11:51:35 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 	index = pipex_skip_non_commands(data, index);
 	if (executor_add_trailing_command(data, index) == ERROR)
 		return (ERROR);
+	debug_tokens(data);
 	if (index >= data->commands_to_process
 		|| data->combine[index].command->order_numb == PIPE
 		|| data->combine[index].command->order_numb == LAST_PIPE)

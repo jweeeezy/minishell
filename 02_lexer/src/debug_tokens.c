@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 22:02:34 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/17 19:23:27 by jwillert         ###   ########          */
+/*   Updated: 2023/04/30 11:55:12 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,24 @@ void	debug_tokens(t_data *data)
 	int	cnt1;
 
 	cnt = 0;
-	printf("\n");
-	while (cnt < data->commands_to_process)
+	if (DEBUG)
 	{
-		printf("========================\n");
-		printf("Combined str: %s\n", data->combine[cnt].combined_str);
-		printf("========================\n");
-		cnt1 = 0;
-		while (cnt1 < data->combine[cnt].count_n)
+		printf("\n");
+		while (cnt < data->commands_to_process)
 		{
-			printf("Tokens: %s Numb: %i\n",
-				data->combine[cnt].execute[cnt1].order_str,
-				data->combine[cnt].execute[cnt1].order_numb);
-			cnt1++;
+			printf("========================\n");
+			printf("Combined str: %s\n", data->combine[cnt].combined_str);
+			printf("========================\n");
+			cnt1 = 0;
+			while (cnt1 < data->combine[cnt].count_n)
+			{
+				printf("Tokens: %s Numb: %i\n",
+					data->combine[cnt].execute[cnt1].order_str,
+					data->combine[cnt].execute[cnt1].order_numb);
+				cnt1++;
+			}
+			cnt++;
 		}
-		cnt++;
 	}
 }
 
