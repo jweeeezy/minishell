@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_cmd_selector.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:41:25 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 15:42:48 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 18:12:59 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@
 #include "redirector.h"
 #include "signal.h"
 
-int	child_execute_builtin(t_data *data, int index);
-int	executor_add_trailing_command(t_data *data, int index);
+int		child_execute_builtin(t_data *data, int index);
+int		executor_add_trailing_command(t_data *data, int index);
+void	print_command_not_found(t_data *data);
 
 static int	selector_handle_single_builtin(t_data *data, int index)
 {
@@ -91,7 +92,7 @@ static int	find_cmd_type(t_data *data, int index)
 	}
 	else
 	{
-		return_value = selector_is_cmd_valid(data, &data->combine[index],
+		return_value = selector_is_cmd_valid(&data->combine[index],
 				data->envp);
 	}
 	return (return_value);
@@ -102,22 +103,18 @@ int	executor_cmd_selector(t_data *data, int **fd_pipes, int index)
 	int	return_value;
 
 	if (redirector_handle_redirections(data, index) == ERROR)
-	{
 		return (ERROR);
-	}
 	index = pipex_skip_non_commands(data, index);
 	if (executor_add_trailing_command(data, index) == ERROR)
 		return (ERROR);
 	if (index >= data->commands_to_process
 		|| data->combine[index].command->order_numb == PIPE
 		|| data->combine[index].command->order_numb == LAST_PIPE)
-	{
 		return (EXECUTED);
-	}
 	return_value = find_cmd_type(data, index);
+	if (return_value == COMMAND_NOT_FOUND)
+		print_command_not_found(data);
 	if (selector_fork_and_execute(data, fd_pipes, index, return_value) == ERROR)
-	{
 		return (ERROR);
-	}
 	return (EXECUTED);
 }

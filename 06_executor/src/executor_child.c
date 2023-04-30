@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 20:00:29 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 15:57:44 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 18:23:36 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,7 @@ static int	child_execute_extern(t_data *data, int index)
 
 	cmd_array = child_copy_tokens(data, index);
 	if (cmd_array == NULL)
-	{
-		return(ERROR);
-	}
+		return (ERROR);
 	if (data->exit_status == 0)
 	{
 		execve(data->combine[index].full_path, cmd_array, data->envp);
@@ -129,44 +127,31 @@ void	executor_child(t_data *data, int **fd_pipes, int index,
 	}
 	if (flag_cmd == NO_EXECUTION)
 	{
-		if (data->flag_infile == 1 || data->flag_outfile == 1 || data->flag_heredoc == 1)
-		{
+		if (data->flag_infile == 1 || data->flag_outfile == 1
+			|| data->flag_heredoc == 1)
 			data->exit_status = 0;
-		}
 		else
-		{
 			data->exit_status = 1;
-		}
 	}
 	else if (flag_cmd == BUILTIN)
 	{
 		if (child_execute_builtin(data, index) == ERROR)
-		{
 			data->exit_status = ERROR;
-		}
 	}
 	else if (flag_cmd == EXTERN)
 	{
 		if (child_execute_extern(data, index) == ERROR)
-		{
 			data->exit_status = ERROR;
-		}
 	}
 	else if (flag_cmd == COMMAND_NOT_FOUND && data->exit_status == 0)
-	{
 		data->exit_status = 127;
-	}
 	free_pipe_array(fd_pipes, data->counter_pipes);
 	if (data->heredoc != NULL)
 	{
 		free_t_heredoc(data);
 	}
 	if (data->combine[index].full_path != NULL)
-	{
 		free(data->combine[index].full_path);
-	}
-	free(data->child_pids);
-	free_env(data);
-	free_loop(data);
+	free_child(data);
 	exit(data->exit_status);
 }

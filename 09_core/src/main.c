@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/30 17:45:07 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 18:24:26 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@
 #include <termios.h>
 #include "redirector.h"
 #include "get_next_line_bonus.h"
-
-static void	check_leaks(void)
-{
-	//system("leaks minishell");
-	return ;
-}
 
 static int	history(t_data *data)
 {
@@ -88,7 +82,6 @@ static void	main_loop(t_data *data)
 			}
 		}
 		free_loop(data);
-		//system("leaks minishell");
 	}
 }
 
@@ -96,7 +89,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	atexit(check_leaks);
 	using_history();
 	signals();
 	debug_print_stage("Core", 0);

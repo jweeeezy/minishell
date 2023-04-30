@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:16:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/29 10:59:54 by jwillert         ###   ########          */
+/*   Updated: 2023/04/30 17:29:15 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	debug_print_redirections(t_data *data)
 {
 	if (DEBUG)
 	{
-		if (data->flag_heredoc == 1 || data->flag_infile == 1 || data->flag_outfile == 1)
+		if (data->flag_heredoc == 1 || data->flag_infile == 1
+			|| data->flag_outfile == 1)
 		{
 			printf("redirections: \n");
 			printf("redirections: flag_heredoc: [%d] ", data->flag_heredoc);
@@ -103,10 +104,6 @@ void	debug_print_stage(char *stage, int level)
 		{
 			return ;
 		}
-		printf("\n");
-		printf("%s", delimiter);
-		printf("| %s \n", stage);
-		printf("%s", delimiter);
-		printf("\n");
+		printf("\n %s | %s \n, %s \n", delimiter, stage, delimiter);
 	}
 }

@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert@student.42heilbronn.de            +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 12:25:39 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/29 14:54:10 by jwillert         ###   ########          */
+/*   Updated: 2023/04/30 17:18:29 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"		// needed for ft_strlen(), ft_strncmp(), ft_substr(),
-						// ft_strjoin(), ft_putstr_fd()
-#include "minishell.h"	// needed for t_data, MACROS
-#include <unistd.h>		// needed for NULL, free()
+#include "libft.h"
+#include "minishell.h"
+#include <unistd.h>
 
 char	*get_var_content(char **envp, char *var_name)
 {
@@ -52,7 +51,7 @@ int	find_var_index(char **envp, char *var_name)
 	return (0);
 }
 
-static char	*handle_tilde_with_arguments(char **input, char *temp, 
+static char	*handle_tilde_with_arguments(char **input, char *temp,
 		int *flag_allocation)
 {
 	char	*another_temp;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_pipex.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 15:43:37 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 18:11:31 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,12 @@ int	executor_add_trailing_command(t_data *data, int index)
 			data->combine[index].combined_str
 				= ft_charjoin(data->combine[index].combined_str, ' ', 0, 0);
 			if (data->combine[index].combined_str == NULL)
-			{
 				return (ERROR);
-			}
 			data->combine[index].combined_str
 				= ft_strjoin2(data->combine[index].combined_str,
 					data->combine[offset].combined_str, 0, 0);
 			if (data->combine[index].combined_str == NULL)
-			{
 				return (ERROR);
-			}
 		}
 		offset += 1;
 	}
@@ -115,6 +111,14 @@ static int	**pipex_create_pipes(int counter_pipes)
 	return (fd_pipes);
 }
 
+static void	re_init_fd(t_data *data)
+{
+	data->fd_infile = -1;
+	data->fd_outfile = -1;
+	data->flag_infile = 0;
+	data->flag_outfile = 0;
+}
+
 int	executor_pipex(t_data *data)
 {
 	int	**fd_pipes;
@@ -123,9 +127,7 @@ int	executor_pipex(t_data *data)
 	index = 0;
 	fd_pipes = pipex_create_pipes(data->counter_pipes);
 	if (fd_pipes == NULL)
-	{
 		return (ERROR);
-	}
 	while (index < data->commands_to_process)
 	{
 		debug_print_pipe_status(data, "parent before execution", fd_pipes);
@@ -136,15 +138,10 @@ int	executor_pipex(t_data *data)
 			return (ERROR);
 		}
 		index = pipex_advance_to_next_pipe(data, index);
-		data->fd_infile = -1;
-		data->fd_outfile = -1;
-		data->flag_infile = 0;
-		data->flag_outfile = 0;
+		re_init_fd(data);
 	}
 	if (fd_pipes != NULL && data->counter_pipes != 0)
-	{
 		executor_parent_close_pipes(data, fd_pipes);
-	}
 	free_pipe_array(fd_pipes, data->counter_pipes);
 	return (EXECUTED);
 }

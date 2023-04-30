@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:42:44 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 17:43:31 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 18:23:53 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static int	executor_wait_for_childs(t_data *data)
 		pid = waitpid(data->child_pids[index], &status, 0);
 		if (pid == -1)
 		{
-			//perror("waitpid");
+			if (data->flag_printed == 0)
+				perror("waitpid");
 			return (EXECUTED);
 		}
 		else if (pid == 0)
