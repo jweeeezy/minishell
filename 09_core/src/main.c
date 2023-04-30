@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:13:47 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/30 11:12:05 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 12:26:12 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,5 @@ int	main(int argc, char **argv, char **envp)
 		return (ERROR);
 	main_loop(&data);
 	free_env(&data);
-	exit(data.exit_status);
-	return (EXECUTED);
+	return (data.exit_status);
 }
