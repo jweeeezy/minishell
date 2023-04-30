@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:41:48 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/30 17:54:41 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 19:39:43 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,13 @@ void	free_loop(t_data *data)
 	free_helper(data);
 }
 
-void	free_child(t_data *data)
+void	free_child(t_data *data, int **fd_pipes, int index)
 {
+	free_pipe_array(fd_pipes, data->counter_pipes);
+	if (data->heredoc != NULL)
+		free_t_heredoc(data);
+	if (data->combine[index].full_path != NULL)
+		free(data->combine[index].full_path);
 	free(data->child_pids);
 	free_env(data);
 	free_loop(data);
