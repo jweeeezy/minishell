@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:22:50 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 14:44:05 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 18:12:48 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			executor_count_heredocs(t_data *data);
 
 //			CMD SELECTOR UTILS
 int			selector_is_cmd_path_valid(t_combine *cmd);
-int			selector_is_cmd_valid(t_data *data, t_combine *cmd, char **envp);
+int			selector_is_cmd_valid(t_combine *cmd, char **envp);
 
 //			UTILS_is
 int			executor_is_pipe(t_combine *cmd);

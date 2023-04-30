@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:21:14 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 11:11:33 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 17:45:44 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,13 @@ static int	heredoc_loop(t_data *data, t_heredoc *current_node,
 	return (EXECUTED);
 }
 
-static int	heredoc_open_heredoc(t_data *data, int index,
-			t_heredoc *current_node)
+static int	heredoc_open_heredoc(t_data *data, int index, t_heredoc *c_node)
 {
 	int		return_value;
 	char	*heredoc_delimiter;
 
 	return_value = 0;
-	if (current_node == NULL)
+	if (c_node == NULL)
 	{
 		heredoc_lst_clean(data);
 		return (ERROR);
@@ -80,22 +79,18 @@ static int	heredoc_open_heredoc(t_data *data, int index,
 	}
 	while (1)
 	{
-		return_value = heredoc_loop(data, current_node, heredoc_delimiter,
+		return_value = heredoc_loop(data, c_node, heredoc_delimiter,
 				data->combine[index].command->order_numb);
 		if (return_value != EXECUTED)
-		{
 			break ;
-		}
 	}
 	free(heredoc_delimiter);
 	return (return_value);
 }
 
-static int	heredoc_fork_and_open(t_data *data, int index)
+static int	heredoc_fork_and_open(t_data *data, int index, int id, int status)
 {
 	t_heredoc	*current_node;
-	int			id;
-	int			status;
 
 	current_node = heredoc_lst_update(data);
 	if (current_node == NULL)
@@ -117,9 +112,7 @@ static int	heredoc_fork_and_open(t_data *data, int index)
 		close(current_node->fd);
 	}
 	if (status == 512)
-	{
 		return (-2);
-	}
 	return (EXECUTED);
 }
 
@@ -137,7 +130,7 @@ int	redirector_prehandle_heredocs(t_data *data)
 		if (data->combine[index].command->order_numb == HERE_DOC
 			|| data->combine[index].command->order_numb == QUOTED_HEREDOC)
 		{
-			status = heredoc_fork_and_open(data, index);
+			status = heredoc_fork_and_open(data, index, 0, 0);
 			if (status == ERROR)
 				return (ERROR);
 			else if (status == -2)

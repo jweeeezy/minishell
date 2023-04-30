@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:51:18 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/29 10:49:34 by jwillert         ###   ########          */
+/*   Updated: 2023/04/30 17:29:03 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,6 @@ void	debug_print_t_heredoc(t_data *data)
 	}
 }
 
-void	debug_print_pid(char *process_name)
-{
-	int	pid;
-
-	pid = getpid();
-	if (DEBUG)
-	{
-		printf("%s: pid[%d]\n", process_name, pid);
-		printf("\n");
-	}
-}
-
 void	debug_print_t_combine(t_data *data)
 {
 	int	cnt;
@@ -84,6 +72,18 @@ static int	is_fd_open(int fd)
 	return (!(flags & FD_CLOEXEC));
 }
 
+void	debug_pipes_helper(int index, int **fd_pipes)
+{
+	if (is_fd_open(fd_pipes[index][0]) == 1)
+		printf("fd_pipes[%d][0] is OPEN == 1\n", index);
+	else
+		printf("fd_pipes[%d][0] is CLOSED == 0\n", index);
+	if (is_fd_open(fd_pipes[index][1]) == 1)
+		printf("fd_pipes[%d][1] is OPEN == 1\n", index);
+	else
+		printf("fd_pipes[%d][1] is CLOSED == 0\n", index);
+}
+
 void	debug_print_pipe_status(t_data *data, char *message, int **fd_pipes)
 {
 	int	index;
@@ -92,9 +92,7 @@ void	debug_print_pipe_status(t_data *data, char *message, int **fd_pipes)
 	if (DEBUG)
 	{
 		if (dup2(data->fd_stdout, STDOUT_FILENO) == ERROR)
-		{
 			perror("dup2");
-		}
 		if (fd_pipes == NULL)
 		{
 			printf("///no pipes///\n\n");
@@ -103,14 +101,7 @@ void	debug_print_pipe_status(t_data *data, char *message, int **fd_pipes)
 		printf("fd_pipes: <%s> %p\n", message, fd_pipes);
 		while (fd_pipes[index] != NULL)
 		{
-			if (is_fd_open(fd_pipes[index][0]) == 1)
-				printf("fd_pipes[%d][0] is OPEN == 1\n", index);
-			else
-				printf("fd_pipes[%d][0] is CLOSED == 0\n", index);
-			if (is_fd_open(fd_pipes[index][1]) == 1)
-				printf("fd_pipes[%d][1] is OPEN == 1\n", index);
-			else
-				printf("fd_pipes[%d][1] is CLOSED == 0\n", index);
+			debug_pipes_helper(index, fd_pipes);
 			index++;
 		}
 		printf("\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:16:43 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/30 14:49:08 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 17:55:53 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void	free_pipe_array(int **array, int size);
 void	free_t_heredoc(t_data *data);
 void	free_env(t_data *data);
 void	free_child_pids(t_data *data);
+void	free_child(t_data *data);
 
 /* ************************************************************************** */
 //                                    UTILS

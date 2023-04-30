@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_cmd_selector_utils.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 14:11:57 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/29 12:33:44 by jwillert         ###   ########          */
+/*   Updated: 2023/04/30 18:12:11 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	selector_is_cmd_path_valid(t_combine *cmd)
 	return (COMMAND_NOT_FOUND);
 }
 
-static void	print_command_not_found(t_data *data)
+void	print_command_not_found(t_data *data)
 {
 	if (data->flag_printed == 0)
 	{
@@ -77,7 +77,7 @@ static void	print_command_not_found(t_data *data)
 	}
 }
 
-int	selector_is_cmd_valid(t_data *data, t_combine *cmd, char **envp)
+int	selector_is_cmd_valid(t_combine *cmd, char **envp)
 {
 	int		return_value;
 	char	**paths;
@@ -85,14 +85,10 @@ int	selector_is_cmd_valid(t_data *data, t_combine *cmd, char **envp)
 
 	index = 0;
 	if (ft_strncmp(cmd->combined_str, ".", 1) == 0)
-	{
 		return (COMMAND_NOT_FOUND);
-	}
 	paths = selector_get_path_array(envp);
 	if (paths == NULL)
-	{
 		return (ERROR);
-	}
 	while (paths[index] != NULL)
 	{
 		return_value = selector_try_access(cmd, paths[index],
@@ -105,6 +101,5 @@ int	selector_is_cmd_valid(t_data *data, t_combine *cmd, char **envp)
 		index += 1;
 	}
 	free_char_array(paths);
-	print_command_not_found(data);
 	return (COMMAND_NOT_FOUND);
 }
