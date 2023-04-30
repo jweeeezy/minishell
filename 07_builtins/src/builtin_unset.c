@@ -6,7 +6,7 @@
 /*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:36:36 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/21 12:32:35 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 13:55:22 by kvebers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	unset(t_data *data, int index)
 		cnt++;
 	while (cnt < data->combine[index].count_n)
 	{
+		len = count_env(data);
 		if (error_msg < 1)
 			error_msg = error_managment_env(data, data->combine[index]
 					.command[cnt].order_str, data->combine[index]
