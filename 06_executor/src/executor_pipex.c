@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:47:19 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 19:23:27 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 19:46:21 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ static int	**pipex_create_pipes(int counter_pipes)
 	int	index;
 
 	index = 0;
-	debug_print_stage("pipex", 1);
 	fd_pipes = malloc (sizeof (int *) * (counter_pipes + 1));
 	if (fd_pipes == NULL)
 	{
@@ -139,7 +138,6 @@ int	executor_pipex(t_data *data)
 		return (ERROR);
 	while (index < data->commands_to_process)
 	{
-		debug_print_pipe_status(data, "parent before execution", fd_pipes);
 		data->exit_status = 0;
 		if (executor_cmd_selector(data, fd_pipes, index) == ERROR)
 		{

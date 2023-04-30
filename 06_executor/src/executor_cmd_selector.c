@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 18:41:25 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 19:07:14 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 19:44:55 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	print_command_not_found(t_data *data);
 
 static int	selector_handle_single_builtin(t_data *data, int index)
 {
-	debug_print_stage("single builtin only", 2);
 	data->flag_builtin_only = 1;
 	child_handle_indirection(data);
 	child_handle_outdirection(data);

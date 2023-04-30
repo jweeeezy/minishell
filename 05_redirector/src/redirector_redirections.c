@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   redirector_redirections.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:24:34 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/29 17:02:33 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 20:02:25 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"	// needed for t_data, MACROS
 #include <fcntl.h>		// needed for open()
 #include <unistd.h>		// needed for close(), free(), NULL
 #include <stdio.h>		// needed for perror()
+#include "minishell.h"	// needed for t_data, MACROS
 #include "redirector.h"	// needed for redirector_*()
 
 static int	redirector_assign_outfile(t_data *data, int flag_redirection,
@@ -133,7 +133,6 @@ int	redirector_handle_redirections(t_data *data, int index)
 	int	offset;
 	int	token_type;
 
-	debug_print_stage("redirector", 2);
 	offset = redirector_find_end_of_command(data, index);
 	while (index < offset)
 	{
@@ -153,6 +152,5 @@ int	redirector_handle_redirections(t_data *data, int index)
 		}
 		index += 1;
 	}
-	debug_print_redirections(data);
 	return (EXECUTED);
 }

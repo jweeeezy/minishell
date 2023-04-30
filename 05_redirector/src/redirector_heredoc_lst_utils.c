@@ -6,13 +6,13 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:49:43 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/12 18:45:14 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/04/30 20:02:17 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>			// needed for malloc(), NULL, free()
 #include "minishell.h"		// needed for t_data
 #include "redirector.h"		// needed for heredoc_*()
-#include <unistd.h>			// needed for malloc(), NULL, free()
 
 t_heredoc	*heredoc_lst_get_new_node(void)
 {

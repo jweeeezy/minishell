@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   redirector_heredoc_lst_update.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:05:37 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/15 10:22:00 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 20:02:13 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>			// needed for malloc(), free(), NULL
-#include "minishell.h"		// needed for t_heredoc
 #include <fcntl.h>			// needed for open()
 #include <unistd.h>			// needed for close()
+#include "minishell.h"		// needed for t_heredoc
 #include "libft.h"			// needed for ft_atoi(), ft_strjoin()
 #include "libme.h"			// needed for ft_itoa_unsigned_long
 #include "redirector.h"		// needed for heredoc_lst_*

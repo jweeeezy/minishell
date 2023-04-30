@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvebers <kvebers@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 13:21:26 by kvebers           #+#    #+#             */
-/*   Updated: 2023/04/29 14:08:47 by kvebers          ###   ########.fr       */
+/*   Updated: 2023/04/30 19:44:40 by jwillert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int	parser(t_data *data)
 {
 	if (data->line == NULL || *data->line == '\0')
 		return (ERROR);
-	debug_print_stage("parser", 0);
 	re_number(data);
 	last_pipe(data);
 	main_command(data);
