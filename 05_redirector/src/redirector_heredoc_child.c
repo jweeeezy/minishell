@@ -6,7 +6,7 @@
 /*   By: jwillert <jwillert@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 19:48:48 by jwillert          #+#    #+#             */
-/*   Updated: 2023/04/30 21:45:11 by jwillert         ###   ########.fr       */
+/*   Updated: 2023/05/01 12:26:00 by jwillert         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static int	heredoc_loop(t_data *data, t_heredoc *current_node,
 	if (heredoc_delimiter != NULL)
 	{
 		if (ft_strncmp(heredoc_line, heredoc_delimiter,
-				ft_strlen(heredoc_delimiter)) == 0)
+				ft_strlen(heredoc_delimiter)) == 0
+			&& ft_strlen(heredoc_delimiter) == ft_strlen(heredoc_line))
 		{
 			ft_putstr_fd("\0", current_node->fd);
 			free(heredoc_line);
