@@ -12,6 +12,8 @@
 
 #include "minishell.h"	// needed for t_data, MACROS
 #include "executor.h"	// executor_*()
+#include <sys/types.h>	// LINUX: waitpid()
+#include <sys/wait.h>	// LINUX: waitpid()
 
 static int	executor_wait_for_childs(t_data *data)
 {

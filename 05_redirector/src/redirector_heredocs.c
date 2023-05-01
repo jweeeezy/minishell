@@ -10,10 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>				// needed for close(), fork()
-#include "redirector.h"			// needed for heredoc_lst_update(),
-								// heredoc_child_routine()
-#include "minishell.h"			// needed for t_data, MACROS
+#include <sys/types.h>	// LINUX: waitpid()
+#include <sys/wait.h>	// LINUX: waitpid()
+#include <signal.h>		// LINUX: signal()
+#include <unistd.h>		// needed for close(), fork()
+#include "redirector.h"	// needed for heredoc_lst_update(),
+						// heredoc_child_routine()
+#include "minishell.h"	// needed for t_data, MACROS
 
 static int	count_heredocs(t_data *data)
 {
